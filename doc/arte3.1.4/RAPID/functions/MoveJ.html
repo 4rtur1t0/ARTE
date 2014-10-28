@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of MoveJ</title>
+  <meta name="keywords" content="MoveJ">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">RAPID</a> &gt; <a href="index.html">functions</a> &gt; MoveJ.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/RAPID/functions&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>MoveJ
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   MoveJ:
+   Example: MoveJ(pos_b_rec, 'v1000', 'z100', gripper, wobj0);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="compute_joint_trajectory_indep.html" class="code" title="function [qt, qdt, qddt] = compute_joint_trajectory_indep(robot, q_ini, q_final, qd_ini, qd_final, time_vector)">compute_joint_trajectory_indep</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="find_first_in_zone_data.html" class="code" title="function index = find_first_in_zone_data(robot, q, T, radius)">find_first_in_zone_data</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="get_conf_data.html" class="code" title="function conf=get_conf_data(robtarget)">get_conf_data</a>	Obtain joint configuration values from robtarget data type</li><li><a href="obtain_joint_speed.html" class="code" title="function vel=obtain_joint_speed(robot, speeddata)">obtain_joint_speed</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="obtain_zone_data.html" class="code" title="function radius = obtain_zone_data(zonedata)">obtain_zone_data</a>	given a tag specifying the zone data. Return a radius in meters</li><li><a href="select_configuration.html" class="code" title="function q=select_configuration(robot, qinv, conf)">select_configuration</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="synchronize.html" class="code" title="function [actual_speed, maxtime]=synchronize(qini, qfinal, speed, accel)">synchronize</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="test_joint_limits.html" class="code" title="function [joint, time] = test_joint_limits(robot)">test_joint_limits</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>	DIRECTKINEMATIC		Direct Kinematic for serial robots.</li><li><a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>	ANIMATE(ROBOT, Q)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/RAPID/programs/p_disp.html" class="code" title="function main()">p_disp</a>	</li><li><a href="../../../arte3.1.4/RAPID/programs/program_robot.html" class="code" title="">program_robot</a>	Para la simulación de un programa</li><li><a href="../../../arte3.1.4/RAPID/programs/test_initial.html" class="code" title="">test_initial</a>	BEGINMODULE</li><li><a href="../../../arte3.1.4/RAPID/programs/test_rapid.html" class="code" title="">test_rapid</a>	BEGINMODULE</li><li><a href="../../../arte3.1.4/RAPID/programs/test_simulation.html" class="code" title="">test_simulation</a>	se declaran las variables necesarias</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   MoveJ:</span>
+0003 <span class="comment">%   Example: MoveJ(pos_b_rec, 'v1000', 'z100', gripper, wobj0);</span>
+0004 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0005 
+0006 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0011 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0012 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0013 <span class="comment">% (at your option) any later version.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0016 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0017 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0018 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0021 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0022 <a name="_sub0" href="#_subfunctions" class="code">function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)</a>
+0023 
+0024 <span class="keyword">global</span> configuration
+0025 
+0026 fprintf(<span class="string">'\nCall to MoveJ'</span>, robot.name);
+0027 
+0028 <span class="comment">%obtain current joint coordinates</span>
+0029 q_current= robot.q;
+0030 
+0031 <span class="comment">%Ttool, transformation from the robot's end to the TCP</span>
+0032 Ttool = <a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>(gripper(2:end));
+0033 
+0034 <span class="comment">%compute target joint coordinates, from the inverse kinematics</span>
+0035 <span class="comment">%select desired joint values by using conf data from robtarget</span>
+0036 <span class="comment">%select configuration</span>
+0037 conf = <a href="get_conf_data.html" class="code" title="function conf=get_conf_data(robtarget)">get_conf_data</a>(robtarget);
+0038 Ttotal = <a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>(robtarget);
+0039 
+0040 T = Ttotal*inv(Ttool);
+0041 
+0042 <span class="comment">%Obtain end effectors T from desired gripper T</span>
+0043 <span class="comment">%T=gripper_to_end_effector(gripper, T);</span>
+0044 q_final= <a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>(robot, T);
+0045 
+0046 <span class="comment">%select one of the solutions of the inverse kinematic problem</span>
+0047 <span class="comment">% solution according to configuration and language</span>
+0048 q_final=<a href="select_configuration.html" class="code" title="function q=select_configuration(robot, qinv, conf)">select_configuration</a>(robot, q_final, conf);
+0049 
+0050 speed = <a href="obtain_joint_speed.html" class="code" title="function vel=obtain_joint_speed(robot, speeddata)">obtain_joint_speed</a>(robot, speeddata);
+0051 <span class="comment">%when fine is specified, the radius is zero, otherwise,</span>
+0052 <span class="comment">%the radius represents a sphere around the target where the</span>
+0053 <span class="comment">%movement is changed to the next target</span>
+0054 radius = <a href="obtain_zone_data.html" class="code" title="function radius = obtain_zone_data(zonedata)">obtain_zone_data</a>(zonedata);
+0055 
+0056 <span class="comment">%find time to perform movement</span>
+0057 <span class="comment">%[actual_speed, tmax]=synchronize(q_current, q_final, speed);</span>
+0058 [actual_speed, tmax]=<a href="synchronize.html" class="code" title="function [actual_speed, maxtime]=synchronize(qini, qfinal, speed, accel)">synchronize</a>(q_current, q_final, speed, robot.accelmax);
+0059 
+0060 <span class="keyword">if</span> tmax &lt;= configuration.delta_time
+0061     disp(<span class="string">'/RAPID/MOVEJ: No movement is performed. Making a null movement of 1 second'</span>);
+0062     tmax = 2*configuration.delta_time; <span class="comment">%avoid errors</span>
+0063 <span class="keyword">end</span>
+0064 <span class="comment">%local time for the planning</span>
+0065 t = [0:configuration.delta_time:tmax]';
+0066 
+0067 <span class="keyword">if</span> radius==0
+0068     <span class="comment">%compute a smooth trajectory in q and qd</span>
+0069     <span class="comment">%in this case, the final speed is zero</span>
+0070     [q, qd, qdd] = <a href="compute_joint_trajectory_indep.html" class="code" title="function [qt, qdt, qddt] = compute_joint_trajectory_indep(robot, q_ini, q_final, qd_ini, qd_final, time_vector)">compute_joint_trajectory_indep</a>(robot, q_current, q_final, robot.qd, zeros(1,robot.DOF), t);
+0071 <span class="keyword">else</span>
+0072     <span class="comment">%in this case, the final speed is selected as the speed selected by the</span>
+0073     <span class="comment">%variable speeddata</span>
+0074     [q, qd, qdd] = <a href="compute_joint_trajectory_indep.html" class="code" title="function [qt, qdt, qddt] = compute_joint_trajectory_indep(robot, q_ini, q_final, qd_ini, qd_final, time_vector)">compute_joint_trajectory_indep</a>(robot, q_current, q_final, robot.qd, actual_speed, t);
+0075 <span class="keyword">end</span>
+0076 <span class="comment">%finds the first joint coordinates that are inside a radius r of the target</span>
+0077 <span class="comment">%point</span>
+0078 index = <a href="find_first_in_zone_data.html" class="code" title="function index = find_first_in_zone_data(robot, q, T, radius)">find_first_in_zone_data</a>(robot, q, T, radius);
+0079 
+0080 <span class="comment">%the robot performs the movement until the index found. The coordinates, joint speed and acceleratin</span>
+0081 <span class="comment">%are stored and used in the planning of the next point</span>
+0082 robot.q=q(:,index);
+0083 robot.qd=qd(:,index);
+0084 robot.qdd=qdd(:,index);
+0085 
+0086 <span class="comment">%store all the trajectory for plotting</span>
+0087 <span class="comment">%the joint trajectories, speeds and acceleration of susequent movements are</span>
+0088 <span class="comment">%store here</span>
+0089 <span class="comment">%robot.q_vector=[robot.q_vector q(:, 1:index)];</span>
+0090 <span class="comment">%robot.qd_vector=[robot.qd_vector qd(:, 1:index)];</span>
+0091 <span class="comment">%robot.qdd_vector=[robot.qdd_vector qdd(:, 1:index)];</span>
+0092 
+0093 <span class="comment">%a global time for the planning is computed.</span>
+0094 <span class="comment">%in this way, the total trajectory of different movements can be plotted</span>
+0095 <span class="keyword">if</span> length(robot.time)==0
+0096     tend = 0;
+0097 <span class="keyword">else</span>
+0098     tend = robot.time(end);
+0099 <span class="keyword">end</span>
+0100 t = t + tend;
+0101 <span class="comment">%store total time</span>
+0102 robot.time=[robot.time t(1:index)'];
+0103 
+0104 <span class="comment">%Test whether there are joints outside mechanical limits</span>
+0105 <a href="test_joint_limits.html" class="code" title="function [joint, time] = test_joint_limits(robot)">test_joint_limits</a>(robot);
+0106 
+0107 <span class="comment">%Plot position, velocity and acceleration</span>
+0108 <span class="comment">%plot_joint_data(robot);</span>
+0109 <span class="comment">%Now, animate the robot in 3D</span>
+0110 <a href="../../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>(robot, q);
+0111 
+0112 <span class="comment">%Plot the trajectory</span>
+0113 pp = [];
+0114 <span class="keyword">for</span> i=1:size(q,2),
+0115     T=<a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>(robot, q(:,i));
+0116     pp=[pp T(1:3,4)];
+0117 <span class="keyword">end</span>
+0118 plot3(pp(1,:),pp(2,:),pp(3,:), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2)
+0119 
+0120 
+0121 
+0122 
+0123 
+0124 
+0125 
+0126 
+0127</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

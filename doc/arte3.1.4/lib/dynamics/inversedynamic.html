@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of inversedynamic</title>
+  <meta name="keywords" content="inversedynamic">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">lib</a> &gt; <a href="index.html">dynamics</a> &gt; inversedynamic.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib/dynamics&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>inversedynamic
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function tau = inversedynamic(robot, q, qd, qdd, grav, fext) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  TAU= INVERSEDYNAMIC: Compute inverse dynamics via recursive Newton-Euler
+  formulation. TAU = INVERSEDYNAMIC(Q, QD, QDD, GRAV, FEXT) computes the
+  required torques (N�m) and forces (N) required to instantaneally bring
+  the arm to the specified state given by positions Q, speed QD,
+  acceleration QDD. The gravity is expressed in the base coordinate
+  system, typically defined as GRAV = [0 0 9.81]'. In addition, FEXT
+  is a 6-vector [Fx Fy Fz Mx My Mz] defining the forces and moments
+  externally applied to the end-effector (in coordinates of the end effector's n-th DH
+  system).
+
+   Example of use:
+   q=[0 0 0 0 0 0]
+   qd=[0 0 0 0 0 0]
+   qdd = [0 0 0 0 0 0]
+   g=[0 0 9.81]';
+   fext = [0 0 0 0 0 0]';
+   puma560=load_robot('puma', '560');
+    tau = inversedynamic(puma560, q, qd, qdd, g, fext)
+   where: q is the position of the arm, qd the joint velocities and qdd
+   the accelerations. The vector g defines the gravity in the base reference 
+   system, whereas the vector fext = [fx fy fz Mx My Mz] defines the
+   forces and moments acting on the end effector's reference system.
+
+   Author: Arturo Gil Aparicio, arturo.gil@umh.es
+   
+   Bibliography: The algorithm has been implemented as is &quot;ROBOT ANALYSIS. The mechanics of Serial and Parallel
+        manipulators&quot;. Lung Weng Tsai. John Wiley and Sons, inc. ISBN:
+        0-471-32593-7. pages: 386--391.
+            
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="friction.html" class="code" title="function  torque = friction(robot, qd, j)">friction</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>	DENAVIT Compute an homogeneous transform matrix DH in terms of</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/demos/inversedynamics_2DOFplanar.html" class="code" title="">inversedynamics_2DOFplanar</a>	SCRIPT TEST FOR THE 2DOF arm</li><li><a href="../../../arte3.1.4/demos/inversedynamics_3DOFplanar.html" class="code" title="">inversedynamics_3DOFplanar</a>	SCRIPT TEST FOR THE 3 DOF planar manipulator</li><li><a href="../../../arte3.1.4/demos/inversedynamics_puma560.html" class="code" title="">inversedynamics_puma560</a>	SCRIPT TO TEST THE DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../../arte3.1.4/demos/motor_selection.html" class="code" title="function motor_selection">motor_selection</a>	SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF</li><li><a href="accel.html" class="code" title="function qdd = accel(robot, q, qd, torque)">accel</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%  TAU= INVERSEDYNAMIC: Compute inverse dynamics via recursive Newton-Euler</span>
+0003 <span class="comment">%  formulation. TAU = INVERSEDYNAMIC(Q, QD, QDD, GRAV, FEXT) computes the</span>
+0004 <span class="comment">%  required torques (N�m) and forces (N) required to instantaneally bring</span>
+0005 <span class="comment">%  the arm to the specified state given by positions Q, speed QD,</span>
+0006 <span class="comment">%  acceleration QDD. The gravity is expressed in the base coordinate</span>
+0007 <span class="comment">%  system, typically defined as GRAV = [0 0 9.81]'. In addition, FEXT</span>
+0008 <span class="comment">%  is a 6-vector [Fx Fy Fz Mx My Mz] defining the forces and moments</span>
+0009 <span class="comment">%  externally applied to the end-effector (in coordinates of the end effector's n-th DH</span>
+0010 <span class="comment">%  system).</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   Example of use:</span>
+0013 <span class="comment">%   q=[0 0 0 0 0 0]</span>
+0014 <span class="comment">%   qd=[0 0 0 0 0 0]</span>
+0015 <span class="comment">%   qdd = [0 0 0 0 0 0]</span>
+0016 <span class="comment">%   g=[0 0 9.81]';</span>
+0017 <span class="comment">%   fext = [0 0 0 0 0 0]';</span>
+0018 <span class="comment">%   puma560=load_robot('puma', '560');</span>
+0019 <span class="comment">%    tau = inversedynamic(puma560, q, qd, qdd, g, fext)</span>
+0020 <span class="comment">%   where: q is the position of the arm, qd the joint velocities and qdd</span>
+0021 <span class="comment">%   the accelerations. The vector g defines the gravity in the base reference</span>
+0022 <span class="comment">%   system, whereas the vector fext = [fx fy fz Mx My Mz] defines the</span>
+0023 <span class="comment">%   forces and moments acting on the end effector's reference system.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%   Author: Arturo Gil Aparicio, arturo.gil@umh.es</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%   Bibliography: The algorithm has been implemented as is &quot;ROBOT ANALYSIS. The mechanics of Serial and Parallel</span>
+0028 <span class="comment">%        manipulators&quot;. Lung Weng Tsai. John Wiley and Sons, inc. ISBN:</span>
+0029 <span class="comment">%        0-471-32593-7. pages: 386--391.</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0032 
+0033 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0038 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0039 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0040 <span class="comment">% (at your option) any later version.</span>
+0041 <span class="comment">%</span>
+0042 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0043 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0044 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0045 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0046 <span class="comment">%</span>
+0047 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0048 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0049 <a name="_sub0" href="#_subfunctions" class="code">function tau = inversedynamic(robot, q, qd, qdd, grav, fext)</a>
+0050 tau = zeros(1,robot.DOF);
+0051 
+0052 <span class="keyword">if</span> robot.debug
+0053     fprintf(<span class="string">'\nComputing inverse dinamics for the %s robot'</span>, robot.name);
+0054 <span class="keyword">end</span>
+0055 
+0056 <span class="comment">%if the robot has not dynamic parameters, exit</span>
+0057 <span class="keyword">if</span> ~robot.has_dynamics
+0058     fprintf(<span class="string">'\nRobot %s has not dynamic parameters set. Exiting'</span>, robot.name);
+0059 <span class="keyword">end</span>
+0060 
+0061 z0 = [0;0;1];
+0062 
+0063 <span class="comment">%evaluate robot parameter DH table for current variable q</span>
+0064 theta = eval(robot.DH.theta);
+0065 d = eval(robot.DH.d);
+0066 a = eval(robot.DH.a);
+0067 alfa = eval(robot.DH.alpha);
+0068 n=length(theta);
+0069 
+0070 m = robot.dynamics.masses; <span class="comment">% column vector with the mass of every link</span>
+0071 r_com = robot.dynamics.r_com; <span class="comment">% position of the COM of each link, one row per link</span>
+0072 
+0073 vdi = grav;    <span class="comment">%linear acceleration, initially, consider only the gravity</span>
+0074 wi = zeros(3,1); <span class="comment">%angluar speed</span>
+0075 wdi = zeros(3,1); <span class="comment">%angular acceleration</span>
+0076 <span class="comment">%vi = zeros(3,1); %linear velocity</span>
+0077 
+0078 <span class="comment">%Store forces and moments at the COM of each link</span>
+0079 F_com = [];
+0080 N_com = [];
+0081 
+0082 <span class="comment">%First compute motion forward from robot base</span>
+0083 <span class="comment">% to the last link</span>
+0084 <span class="keyword">for</span> j=1:n,
+0085     A=<a href="../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(theta(j), d(j), a(j), alfa(j));
+0086     
+0087     R = A(1:3,1:3)'; <span class="comment">%Note: compute the inverse by transpose</span>
+0088     <span class="comment">%position vector of the origin of the ith link frame with respect to</span>
+0089     <span class="comment">%the (i-i)th link frame</span>
+0090     ri = [a(j); d(j)*sin(alfa(j)); d(j)*cos(alfa(j))];
+0091     
+0092     <span class="keyword">if</span> robot.kind(j) == <span class="string">'R'</span>, <span class="comment">%rotational axis</span>
+0093         wdi = R*(wdi + z0*qdd(j) + cross(wi,z0*qd(j)));
+0094         wi = R*(wi + z0*qd(j));
+0095         vdi = R*vdi + cross(wdi,ri) + cross(wi, cross(wi,ri));
+0096     <span class="keyword">else</span><span class="comment">% prismatic axis</span>
+0097         wi = R*wi;
+0098         wdi = R*wdi;
+0099         vdi = R*(vdi + z0*qdd(j)) + cross(wdi,ri) + cross(wi, cross(wi,ri)) + 2*cross(wi,R*z0*qd(j));
+0100     <span class="keyword">end</span>
+0101     
+0102     <span class="comment">%Inertia matrix</span>
+0103     J = [robot.dynamics.Inertia(j,1) robot.dynamics.Inertia(j,4) robot.dynamics.Inertia(j,6);
+0104         robot.dynamics.Inertia(j,4) robot.dynamics.Inertia(j,2) robot.dynamics.Inertia(j,5);
+0105         robot.dynamics.Inertia(j,6) robot.dynamics.Inertia(j,5) robot.dynamics.Inertia(j,3)    ];
+0106     <span class="comment">%acceleration of the center of mass of link i</span>
+0107     v_comi = vdi + cross(wdi,r_com(j,:)') + cross(wi,cross(wi,r_com(j,:)'));
+0108     <span class="comment">% Force as Newton's law F=m*a of COM</span>
+0109     F = m(j)*v_comi;
+0110     N = J*wdi + cross(wi,J*wi);
+0111     F_com = [F_com F];
+0112     N_com = [N_com N];
+0113 <span class="keyword">end</span>
+0114 
+0115 <span class="comment">%  backward computations</span>
+0116 fi = fext(1:3);        <span class="comment">% forces expressed in the last reference system</span>
+0117 ni = fext(4:6);     <span class="comment">%moments at the last reference system.</span>
+0118 
+0119 <span class="keyword">for</span> j=n:-1:1,
+0120     ri = [a(j); d(j)*sin(alfa(j)); d(j)*cos(alfa(j))];
+0121     
+0122     <span class="keyword">if</span> j == n
+0123         R=eye(3,3);
+0124     <span class="keyword">else</span>
+0125         A=<a href="../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(theta(j+1), d(j+1), a(j+1), alfa(j+1));
+0126         R=A(1:3,1:3);
+0127     <span class="keyword">end</span>
+0128     ni = R*(ni + cross(R'*ri,fi)) + cross(ri+r_com(j,:)',F_com(:,j)) + N_com(:,j);
+0129     fi = R*fi + F_com(:,j);
+0130     
+0131     A=<a href="../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(theta(j), d(j), a(j), alfa(j));
+0132     R = A(1:3,1:3);
+0133     
+0134     <span class="keyword">if</span> robot.kind(j) == <span class="string">'R'</span>, <span class="comment">%rotational joint</span>
+0135         tau(1,j) = ni'*(R'*z0) + robot.motors.G(j)^2*robot.motors.Inertia(j)*qdd(j);
+0136     <span class="keyword">else</span> <span class="comment">% prismatic joint</span>
+0137         tau(1,j) = fi'*(R'*z0) + robot.motors.G(j)^2*robot.motors.Inertia(j)*qdd(j);
+0138     <span class="keyword">end</span>
+0139     <span class="comment">%add viscous friction in this case</span>
+0140     <span class="keyword">if</span> robot.dynamics.friction
+0141         <span class="comment">%NOte: we account for two types of friction: viscous and coulomb</span>
+0142         tau(1,j) = tau(1,j) + <a href="friction.html" class="code" title="function  torque = friction(robot, qd, j)">friction</a>(robot, qd, j);
+0143     <span class="keyword">end</span>
+0144 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

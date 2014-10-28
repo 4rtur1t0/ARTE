@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of stlwrite</title>
+  <meta name="keywords" content="stlwrite">
+  <meta name="description" content="STLWRITE   Write STL file from patch or surface data.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">tools</a> &gt; <a href="index.html">stlwrite</a> &gt; stlwrite.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/tools/stlwrite&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>stlwrite
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>STLWRITE   Write STL file from patch or surface data.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function stlwrite(filename, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">STLWRITE   Write STL file from patch or surface data.
+
+   STLWRITE(FILE,fv) writes a stereolithography (STL) file to FILE for a triangulated
+   patch defined by FV (a structure with fields 'vertices' and 'faces').
+
+   STLWRITE(FILE,FACES,VERTICES) takes faces and vertices separately, rather than in an FV struct
+
+   STLWRITE(FILE,X,Y,Z) creates an STL file from surface data in X, Y, and Z. STLWRITE triangulates
+   this gridded data into a triangulated surface using triangulations options specified below. X, Y
+   and Z can be two-dimensional arrays with the same size. If X and Y are vectors with length equal
+   to SIZE(Z,2) and SIZE(Z,1), respectively, they are passed through MESHGRID to create gridded
+   data. If X or Y are scalar values, they are used to specify the X and Y spacing between grid
+   points.
+
+   STLWRITE(...,'PropertyName',VALUE,'PropertyName',VALUE,...) writes an STL file using the
+   following property values:
+
+   MODE          - File is written using 'binary' (default) or 'ascii'.
+
+   TITLE         - Header text (max 80 characters) written to the STL file.
+
+   TRIANGULATION - When used with gridded data, TRIANGULATION is either:
+                       'delaunay'  - (default) Delaunay triangulation of X, Y
+                       'f'         - Forward slash division of grid quadrilaterals
+                       'b'         - Back slash division of quadrilaterals
+                       'x'         - Cross division of quadrilaterals
+                   Note that 'f', 'b', or 't' triangulations require FEX entry 28327, &quot;mesh2tri&quot;.
+
+   FACECOLOR     - (not currently implemented) When used with face/vertex input, specifies the
+                   colour of each triangle face. If users request this feature, I will attempt to
+                   implement it.
+
+   Example 1:
+       % Write binary STL from face/vertex data
+       tmpvol = zeros(20,20,20);       % Empty voxel volume
+       tmpvol(8:12,8:12,5:15) = 1;     % Turn some voxels on
+       fv = isosurface(tmpvol, 0.99);  % Create the patch object
+       stlwrite('test.stl',fv)         % Save to binary .stl
+
+   Example 2:
+       % Write ascii STL from gridded data
+       [X,Y] = deal(1:40);             % Create grid reference
+       Z = peaks(40);                  % Create grid height
+       stlwrite('test.stl',X,Y,Z,'mode','ascii')</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/lib/transform_to_own.html" class="code" title="function transform_to_own(manufacturer,model, mm2m)">transform_to_own</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [faces, vertices, options] = parseInputs(varargin)</a></li><li><a href="#_sub2" class="code">function options = parseOptions(varargin)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function stlwrite(filename, varargin)</a>
+0002 <span class="comment">%STLWRITE   Write STL file from patch or surface data.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   STLWRITE(FILE,fv) writes a stereolithography (STL) file to FILE for a triangulated</span>
+0005 <span class="comment">%   patch defined by FV (a structure with fields 'vertices' and 'faces').</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%   STLWRITE(FILE,FACES,VERTICES) takes faces and vertices separately, rather than in an FV struct</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   STLWRITE(FILE,X,Y,Z) creates an STL file from surface data in X, Y, and Z. STLWRITE triangulates</span>
+0010 <span class="comment">%   this gridded data into a triangulated surface using triangulations options specified below. X, Y</span>
+0011 <span class="comment">%   and Z can be two-dimensional arrays with the same size. If X and Y are vectors with length equal</span>
+0012 <span class="comment">%   to SIZE(Z,2) and SIZE(Z,1), respectively, they are passed through MESHGRID to create gridded</span>
+0013 <span class="comment">%   data. If X or Y are scalar values, they are used to specify the X and Y spacing between grid</span>
+0014 <span class="comment">%   points.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%   STLWRITE(...,'PropertyName',VALUE,'PropertyName',VALUE,...) writes an STL file using the</span>
+0017 <span class="comment">%   following property values:</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%   MODE          - File is written using 'binary' (default) or 'ascii'.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%   TITLE         - Header text (max 80 characters) written to the STL file.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%   TRIANGULATION - When used with gridded data, TRIANGULATION is either:</span>
+0024 <span class="comment">%                       'delaunay'  - (default) Delaunay triangulation of X, Y</span>
+0025 <span class="comment">%                       'f'         - Forward slash division of grid quadrilaterals</span>
+0026 <span class="comment">%                       'b'         - Back slash division of quadrilaterals</span>
+0027 <span class="comment">%                       'x'         - Cross division of quadrilaterals</span>
+0028 <span class="comment">%                   Note that 'f', 'b', or 't' triangulations require FEX entry 28327, &quot;mesh2tri&quot;.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">%   FACECOLOR     - (not currently implemented) When used with face/vertex input, specifies the</span>
+0031 <span class="comment">%                   colour of each triangle face. If users request this feature, I will attempt to</span>
+0032 <span class="comment">%                   implement it.</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">%   Example 1:</span>
+0035 <span class="comment">%       % Write binary STL from face/vertex data</span>
+0036 <span class="comment">%       tmpvol = zeros(20,20,20);       % Empty voxel volume</span>
+0037 <span class="comment">%       tmpvol(8:12,8:12,5:15) = 1;     % Turn some voxels on</span>
+0038 <span class="comment">%       fv = isosurface(tmpvol, 0.99);  % Create the patch object</span>
+0039 <span class="comment">%       stlwrite('test.stl',fv)         % Save to binary .stl</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">%   Example 2:</span>
+0042 <span class="comment">%       % Write ascii STL from gridded data</span>
+0043 <span class="comment">%       [X,Y] = deal(1:40);             % Create grid reference</span>
+0044 <span class="comment">%       Z = peaks(40);                  % Create grid height</span>
+0045 <span class="comment">%       stlwrite('test.stl',X,Y,Z,'mode','ascii')</span>
+0046 
+0047 <span class="comment">%   Original idea adapted from surf2stl by Bill McDonald. Huge speed</span>
+0048 <span class="comment">%   improvements implemented by Oliver Woodford. Non-Delaunay triangulation</span>
+0049 <span class="comment">%   of quadrilateral surface input requires mesh2tri by Kevin Moerman.</span>
+0050 <span class="comment">%</span>
+0051 <span class="comment">%   Author: Sven Holcombe, 11-24-11</span>
+0052 
+0053 
+0054 <span class="comment">% % Check valid filename path</span>
+0055 <span class="comment">% narginchk(2, inf)</span>
+0056 <span class="comment">% path = fileparts(filename);</span>
+0057 <span class="comment">% if ~isempty(path) &amp;&amp; ~exist(path,'dir')</span>
+0058 <span class="comment">%     error('Directory &quot;%s&quot; does not exist.',path);</span>
+0059 <span class="comment">% end</span>
+0060 
+0061 <span class="comment">% Get faces, vertices, and user-defined options for writing</span>
+0062 [faces, vertices, options] = <a href="#_sub1" class="code" title="subfunction [faces, vertices, options] = parseInputs(varargin)">parseInputs</a>(varargin{:});
+0063 asciiMode = strcmp( options.mode ,<span class="string">'ascii'</span>);
+0064 
+0065 <span class="comment">% Create the facets</span>
+0066 facets = single(vertices');
+0067 facets = reshape(facets(:,faces'), 3, 3, []);
+0068 
+0069 <span class="comment">% Compute their normals</span>
+0070 V1 = squeeze(facets(:,2,:) - facets(:,1,:));
+0071 V2 = squeeze(facets(:,3,:) - facets(:,1,:));
+0072 normals = V1([2 3 1],:) .* V2([3 1 2],:) - V2([2 3 1],:) .* V1([3 1 2],:);
+0073 clear V1 V2
+0074 normals = bsxfun(@times, normals, 1 ./ sqrt(sum(normals .* normals, 1)));
+0075 facets = cat(2, reshape(normals, 3, 1, []), facets);
+0076 clear normals
+0077 
+0078 <span class="comment">% Open the file for writing</span>
+0079 permissions = {<span class="string">'w'</span>,<span class="string">'wb+'</span>};
+0080 fid = fopen(filename, permissions{asciiMode+1});
+0081 <span class="keyword">if</span> (fid == -1)
+0082     error(<span class="string">'stlwrite:cannotWriteFile'</span>, <span class="string">'Unable to write to %s'</span>, filename);
+0083 <span class="keyword">end</span>
+0084 
+0085 <span class="comment">% Write the file contents</span>
+0086 <span class="keyword">if</span> asciiMode
+0087     <span class="comment">% Write HEADER</span>
+0088     fprintf(fid,<span class="string">'solid %s\r\n'</span>,options.title);
+0089     <span class="comment">% Write DATA</span>
+0090     fprintf(fid,[<span class="keyword">...</span>
+0091         <span class="string">'facet normal %.7E %.7E %.7E\r\n'</span> <span class="keyword">...</span>
+0092         <span class="string">'outer loop\r\n'</span> <span class="keyword">...</span>
+0093         <span class="string">'vertex %.7E %.7E %.7E\r\n'</span> <span class="keyword">...</span>
+0094         <span class="string">'vertex %.7E %.7E %.7E\r\n'</span> <span class="keyword">...</span>
+0095         <span class="string">'vertex %.7E %.7E %.7E\r\n'</span> <span class="keyword">...</span>
+0096         <span class="string">'endloop\r\n'</span> <span class="keyword">...</span>
+0097         <span class="string">'endfacet\r\n'</span>], facets);
+0098     <span class="comment">% Write FOOTER</span>
+0099     fprintf(fid,<span class="string">'endsolid %s\r\n'</span>,options.title);
+0100     
+0101 <span class="keyword">else</span> <span class="comment">% BINARY</span>
+0102     <span class="comment">% Write HEADER</span>
+0103     fprintf(fid, <span class="string">'%-80s'</span>, options.title);             <span class="comment">% Title</span>
+0104     fwrite(fid, size(facets, 3), <span class="string">'uint32'</span>);           <span class="comment">% Number of facets</span>
+0105     <span class="comment">% Write DATA</span>
+0106     <span class="comment">% Add one uint16(0) to the end of each facet using a typecasting trick</span>
+0107     facets = reshape(typecast(facets(:), <span class="string">'uint16'</span>), 12*2, []);
+0108     facets(end+1,:) = 0;
+0109     fwrite(fid, facets, <span class="string">'uint16'</span>);
+0110 <span class="keyword">end</span>
+0111 
+0112 <span class="comment">% Close the file</span>
+0113 fclose(fid);
+0114 fprintf(<span class="string">'Wrote %d facets\n'</span>,size(facets, 3));
+0115 
+0116 
+0117 <span class="comment">%% Input handling subfunctions</span>
+0118 <a name="_sub1" href="#_subfunctions" class="code">function [faces, vertices, options] = parseInputs(varargin)</a>
+0119 <span class="comment">% Determine input type</span>
+0120 <span class="keyword">if</span> isstruct(varargin{1}) <span class="comment">% stlwrite('file', FVstruct, ...)</span>
+0121     <span class="keyword">if</span> ~all(isfield(varargin{1},{<span class="string">'vertices'</span>,<span class="string">'faces'</span>}))
+0122         error( <span class="string">'Variable p must be a faces/vertices structure'</span> );
+0123     <span class="keyword">end</span>
+0124     faces = varargin{1}.faces;
+0125     vertices = varargin{1}.vertices;
+0126     options = <a href="#_sub2" class="code" title="subfunction options = parseOptions(varargin)">parseOptions</a>(varargin{2:end});
+0127     
+0128 <span class="keyword">elseif</span> isnumeric(varargin{1})
+0129     firstNumInput = cellfun(@isnumeric,varargin);
+0130     firstNumInput(find(~firstNumInput,1):end) = 0; <span class="comment">% Only consider numerical input PRIOR to the first non-numeric</span>
+0131     numericInputCnt = nnz(firstNumInput);
+0132     
+0133     options = <a href="#_sub2" class="code" title="subfunction options = parseOptions(varargin)">parseOptions</a>(varargin{numericInputCnt+1:end});
+0134     <span class="keyword">switch</span> numericInputCnt
+0135         <span class="keyword">case</span> 3 <span class="comment">% stlwrite('file', X, Y, Z, ...)</span>
+0136             <span class="comment">% Extract the matrix Z</span>
+0137             Z = varargin{3};
+0138             
+0139             <span class="comment">% Convert scalar XY to vectors</span>
+0140             ZsizeXY = fliplr(size(Z));
+0141             <span class="keyword">for</span> i = 1:2
+0142                 <span class="keyword">if</span> isscalar(varargin{i})
+0143                     varargin{i} = (0:ZsizeXY(i)-1) * varargin{i};
+0144                 <span class="keyword">end</span>                    
+0145             <span class="keyword">end</span>
+0146             
+0147             <span class="comment">% Extract X and Y</span>
+0148             <span class="keyword">if</span> isequal(size(Z), size(varargin{1}), size(varargin{2}))
+0149                 <span class="comment">% X,Y,Z were all provided as matrices</span>
+0150                 [X,Y] = varargin{1:2};
+0151             <span class="keyword">elseif</span> numel(varargin{1})==ZsizeXY(1) &amp;&amp; numel(varargin{2})==ZsizeXY(2)
+0152                 <span class="comment">% Convert vector XY to meshgrid</span>
+0153                 [X,Y] = meshgrid(varargin{1}, varargin{2});
+0154             <span class="keyword">else</span>
+0155                 error(<span class="string">'stlwrite:badinput'</span>, <span class="string">'Unable to resolve X and Y variables'</span>);
+0156             <span class="keyword">end</span>
+0157             
+0158             <span class="comment">% Convert to faces/vertices</span>
+0159             <span class="keyword">if</span> strcmp(options.triangulation,<span class="string">'delaunay'</span>)
+0160                 faces = delaunay(X,Y);
+0161                 vertices = [X(:) Y(:) Z(:)];
+0162             <span class="keyword">else</span>
+0163                 <span class="keyword">if</span> ~exist(<span class="string">'mesh2tri'</span>,<span class="string">'file'</span>)
+0164                     error(<span class="string">'stlwrite:missing'</span>, <span class="string">'&quot;mesh2tri&quot; is required to convert X,Y,Z matrices to STL. It can be downloaded from:\n%s\n'</span>,<span class="keyword">...</span>
+0165                         <span class="string">'http://www.mathworks.com/matlabcentral/fileexchange/28327'</span>)
+0166                 <span class="keyword">end</span>
+0167                 [faces, vertices] = mesh2tri(X, Y, Z, options.triangulation);
+0168             <span class="keyword">end</span>
+0169             
+0170         <span class="keyword">case</span> 2 <span class="comment">% stlwrite('file', FACES, VERTICES, ...)</span>
+0171             faces = varargin{1};
+0172             vertices = varargin{2};
+0173             
+0174         <span class="keyword">otherwise</span>
+0175             error(<span class="string">'stlwrite:badinput'</span>, <span class="string">'Unable to resolve input types.'</span>);
+0176     <span class="keyword">end</span>
+0177     
+0178 <span class="keyword">end</span>
+0179 
+0180 <a name="_sub2" href="#_subfunctions" class="code">function options = parseOptions(varargin)</a>
+0181 IP = inputParser;
+0182 IP.addParamValue(<span class="string">'mode'</span>, <span class="string">'binary'</span>, @ischar)
+0183 IP.addParamValue(<span class="string">'title'</span>, sprintf(<span class="string">'Created by stlwrite.m %s'</span>,datestr(now)), @ischar);
+0184 IP.addParamValue(<span class="string">'triangulation'</span>, <span class="string">'delaunay'</span>, @ischar);
+0185 IP.addParamValue(<span class="string">'facecolor'</span>,[], @isnumeric)
+0186 IP.parse(varargin{:});
+0187 options = IP.Results;</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of surf2stl</title>
+  <meta name="keywords" content="surf2stl">
+  <meta name="description" content="SURF2STL   Write STL file from surface data.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">tools</a> &gt; <a href="index.html">surf2stl</a> &gt; surf2stl.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/tools/surf2stl&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>surf2stl
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>SURF2STL   Write STL file from surface data.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function surf2stl(filename,x,y,z,mode,writemode) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">SURF2STL   Write STL file from surface data.
+   SURF2STL('filename',X,Y,Z) writes a stereolithography (STL) file
+   for a surface with geometry defined by three matrix arguments, X, Y
+   and Z.  X, Y and Z must be two-dimensional arrays with the same size.
+
+   SURF2STL('filename',x,y,Z), uses two vector arguments replacing
+   the first two matrix arguments, which must have length(x) = n and
+   length(y) = m where [m,n] = size(Z).  Note that x corresponds to
+   the columns of Z and y corresponds to the rows.
+
+   SURF2STL('filename',dx,dy,Z) uses scalar values of dx and dy to
+   specify the x and y spacing between grid points.
+
+   SURF2STL(...,'mode') may be used to specify the output format.
+
+     'binary' - writes in STL binary format (default)
+     'ascii'  - writes in STL ASCII format
+
+   Example:
+
+     surf2stl('test.stl',1,1,peaks);
+
+   See also SURF.
+
+   Author: Bill McDonald, 02-20-04</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/robots/MITSUBISHI/PA-10/create_links_stl.html" class="code" title="">create_links_stl</a>	%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/equipment/cylinders/create_cylinder.html" class="code" title="">create_cylinder</a>	%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/example/2dofplanar/create_links_stl.html" class="code" title="">create_links_stl</a>	%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/example/3dofplanar/create_links_stl.html" class="code" title="">create_links_stl</a>	%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/tools/draw_demos/create_cylinder_demo.html" class="code" title="">create_cylinder_demo</a>	sample file to create a solid cylinder with two disks on both sides</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function num = local_write_facet(fid,p1,p2,p3,mode)</a></li><li><a href="#_sub2" class="code">function n = local_find_normal(p1,p2,p3)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function surf2stl(filename,x,y,z,mode,writemode)</a>
+0002 <span class="comment">%SURF2STL   Write STL file from surface data.</span>
+0003 <span class="comment">%   SURF2STL('filename',X,Y,Z) writes a stereolithography (STL) file</span>
+0004 <span class="comment">%   for a surface with geometry defined by three matrix arguments, X, Y</span>
+0005 <span class="comment">%   and Z.  X, Y and Z must be two-dimensional arrays with the same size.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%   SURF2STL('filename',x,y,Z), uses two vector arguments replacing</span>
+0008 <span class="comment">%   the first two matrix arguments, which must have length(x) = n and</span>
+0009 <span class="comment">%   length(y) = m where [m,n] = size(Z).  Note that x corresponds to</span>
+0010 <span class="comment">%   the columns of Z and y corresponds to the rows.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   SURF2STL('filename',dx,dy,Z) uses scalar values of dx and dy to</span>
+0013 <span class="comment">%   specify the x and y spacing between grid points.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%   SURF2STL(...,'mode') may be used to specify the output format.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%     'binary' - writes in STL binary format (default)</span>
+0018 <span class="comment">%     'ascii'  - writes in STL ASCII format</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%   Example:</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%     surf2stl('test.stl',1,1,peaks);</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%   See also SURF.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%   Author: Bill McDonald, 02-20-04</span>
+0027 
+0028 error(nargchk(4,6,nargin));
+0029 
+0030 <span class="keyword">if</span> (ischar(filename)==0)
+0031     error( <span class="string">'Invalid filename'</span>);
+0032 <span class="keyword">end</span>
+0033 
+0034 <span class="keyword">if</span> (nargin &lt; 5)
+0035     mode = <span class="string">'binary'</span>;
+0036 <span class="keyword">elseif</span> (strcmp(mode,<span class="string">'ascii'</span>)==0)
+0037     mode = <span class="string">'binary'</span>;
+0038 <span class="keyword">end</span>
+0039 
+0040 <span class="keyword">if</span> (ndims(z) ~= 2)
+0041     error( <span class="string">'Variable z must be a 2-dimensional array'</span> );
+0042 <span class="keyword">end</span>
+0043 
+0044 <span class="keyword">if</span> any( (size(x)~=size(z)) | (size(y)~=size(z)) )
+0045     
+0046     <span class="comment">% size of x or y does not match size of z</span>
+0047     
+0048     <span class="keyword">if</span> ( (length(x)==1) &amp; (length(y)==1) )
+0049         <span class="comment">% Must be specifying dx and dy, so make vectors</span>
+0050         dx = x;
+0051         dy = y;
+0052         x = ((1:size(z,2))-1)*dx;
+0053         y = ((1:size(z,1))-1)*dy;
+0054     <span class="keyword">end</span>
+0055         
+0056     <span class="keyword">if</span> ( (length(x)==size(z,2)) &amp; (length(y)==size(z,1)) )
+0057         <span class="comment">% Must be specifying vectors</span>
+0058         xvec=x;
+0059         yvec=y;
+0060         [x,y]=meshgrid(xvec,yvec);
+0061     <span class="keyword">else</span>
+0062         error(<span class="string">'Unable to resolve x and y variables'</span>);
+0063     <span class="keyword">end</span>
+0064         
+0065 <span class="keyword">end</span>
+0066 
+0067 <span class="keyword">if</span> strcmp(mode,<span class="string">'ascii'</span>)
+0068     <span class="comment">% Open for writing in ascii mode</span>
+0069    <span class="comment">% fid = fopen(filename,'w');</span>
+0070    fid = fopen(filename,writemode);
+0071 <span class="keyword">else</span>
+0072     <span class="comment">% Open for writing in binary mode</span>
+0073     fid = fopen(filename,<span class="string">'wb+'</span>);
+0074 <span class="keyword">end</span>
+0075 
+0076 <span class="keyword">if</span> (fid == -1)
+0077     error( sprintf(<span class="string">'Unable to write to %s'</span>,filename) );
+0078 <span class="keyword">end</span>
+0079 
+0080 title_str = sprintf(<span class="string">'Created by surf2stl.m %s'</span>,datestr(now));
+0081 
+0082 <span class="keyword">if</span> strcmp(mode,<span class="string">'ascii'</span>)
+0083     fprintf(fid,<span class="string">'solid %s\r\n'</span>,title_str);
+0084 <span class="keyword">else</span>
+0085     str = sprintf(<span class="string">'%-80s'</span>,title_str);    
+0086     fwrite(fid,str,<span class="string">'uchar'</span>);         <span class="comment">% Title</span>
+0087     fwrite(fid,0,<span class="string">'int32'</span>);           <span class="comment">% Number of facets, zero for now</span>
+0088 <span class="keyword">end</span>
+0089 
+0090 nfacets = 0;
+0091 
+0092 <span class="keyword">for</span> i=1:(size(z,1)-1)
+0093     <span class="keyword">for</span> j=1:(size(z,2)-1)
+0094         
+0095         p1 = [x(i,j)     y(i,j)     z(i,j)];
+0096         p2 = [x(i,j+1)   y(i,j+1)   z(i,j+1)];
+0097         p3 = [x(i+1,j+1) y(i+1,j+1) z(i+1,j+1)];
+0098         val = <a href="#_sub1" class="code" title="subfunction num = local_write_facet(fid,p1,p2,p3,mode)">local_write_facet</a>(fid,p1,p2,p3,mode);
+0099         nfacets = nfacets + val;
+0100         
+0101         p1 = [x(i+1,j+1) y(i+1,j+1) z(i+1,j+1)];
+0102         p2 = [x(i+1,j)   y(i+1,j)   z(i+1,j)];
+0103         p3 = [x(i,j)     y(i,j)     z(i,j)];        
+0104         val = <a href="#_sub1" class="code" title="subfunction num = local_write_facet(fid,p1,p2,p3,mode)">local_write_facet</a>(fid,p1,p2,p3,mode);
+0105         nfacets = nfacets + val;
+0106         
+0107     <span class="keyword">end</span>
+0108 <span class="keyword">end</span>
+0109 
+0110 <span class="keyword">if</span> strcmp(mode,<span class="string">'ascii'</span>)
+0111     fprintf(fid,<span class="string">'endsolid %s\r\n'</span>,title_str);
+0112 <span class="keyword">else</span>
+0113     fseek(fid,0,<span class="string">'bof'</span>);
+0114     fseek(fid,80,<span class="string">'bof'</span>);
+0115     fwrite(fid,nfacets,<span class="string">'int32'</span>);
+0116 <span class="keyword">end</span>
+0117 
+0118 fclose(fid);
+0119 
+0120 disp( sprintf(<span class="string">'Wrote %d facets'</span>,nfacets) );
+0121 
+0122 
+0123 
+0124 <span class="comment">% Local subfunctions</span>
+0125 
+0126 <a name="_sub1" href="#_subfunctions" class="code">function num = local_write_facet(fid,p1,p2,p3,mode)</a>
+0127 
+0128 <span class="keyword">if</span> any( isnan(p1) | isnan(p2) | isnan(p3) )
+0129     num = 0;
+0130     <span class="keyword">return</span>;
+0131 <span class="keyword">else</span>
+0132     num = 1;
+0133     n = <a href="#_sub2" class="code" title="subfunction n = local_find_normal(p1,p2,p3)">local_find_normal</a>(p1,p2,p3);
+0134     
+0135     <span class="keyword">if</span> strcmp(mode,<span class="string">'ascii'</span>)
+0136         
+0137         fprintf(fid,<span class="string">'facet normal %.7E %.7E %.7E\r\n'</span>, n(1),n(2),n(3) );
+0138         fprintf(fid,<span class="string">'outer loop\r\n'</span>);        
+0139         fprintf(fid,<span class="string">'vertex %.7E %.7E %.7E\r\n'</span>, p1);
+0140         fprintf(fid,<span class="string">'vertex %.7E %.7E %.7E\r\n'</span>, p2);
+0141         fprintf(fid,<span class="string">'vertex %.7E %.7E %.7E\r\n'</span>, p3);
+0142         fprintf(fid,<span class="string">'endloop\r\n'</span>);
+0143         fprintf(fid,<span class="string">'endfacet\r\n'</span>);
+0144         
+0145     <span class="keyword">else</span>
+0146         
+0147         fwrite(fid,n,<span class="string">'float32'</span>);
+0148         fwrite(fid,p1,<span class="string">'float32'</span>);
+0149         fwrite(fid,p2,<span class="string">'float32'</span>);
+0150         fwrite(fid,p3,<span class="string">'float32'</span>);
+0151         fwrite(fid,0,<span class="string">'int16'</span>);  <span class="comment">% unused</span>
+0152         
+0153     <span class="keyword">end</span>
+0154     
+0155 <span class="keyword">end</span>
+0156 
+0157 
+0158 <a name="_sub2" href="#_subfunctions" class="code">function n = local_find_normal(p1,p2,p3)</a>
+0159 
+0160 v1 = p2-p1;
+0161 v2 = p3-p1;
+0162 v3 = cross(v1,v2);
+0163 n = v3 ./ sqrt(sum(v3.*v3));</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

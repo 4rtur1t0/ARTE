@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of load_robot</title>
+  <meta name="keywords" content="load_robot">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">lib</a> &gt; load_robot.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>load_robot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function robot = load_robot(varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   LOAD_ROBOT Loads a data structure corresponding to the specified robot.
+
+
+     robot = LOAD_ROBOT(MANUFACTURER, VERSION) returns a robot data
+     structure of the specified robot.  Each robot parameters' are stored in
+     the directory named robots/manufacturer/version. For example:  
+
+   Example: 
+   robot =  load_robot('ABB', 'IRB140')
+
+   gets the available data for the ABB IRB140 robotic arm whose
+   parameters are stored in the directory robots/ABB/IRB140
+   
+   robot = LOAD_ROBOT(PATH) specifies a relative path to the robots
+   directory. For example:
+   robot =  load_robot('ABB/IRB140')
+
+   robot = LOAD_ROBOT() with no arguments opens a dialog box to select a
+   robot's parameters file.
+
+
+   Execute
+   SUPPORTED_ROBOTS to see a list of all supported robots.
+
+   The robot data structure consists of the following fields:
+
+    See also SUPPORTED_ROBOTS.
+
+   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. email:
+   arturo.gil@umh.es date:   02/01/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/RAPID/programs/program_robot.html" class="code" title="">program_robot</a>	Para la simulación de un programa</li><li><a href="../../arte3.1.4/demos/demos.html" class="code" title="">demos</a>	Copyright (C) 2012, by Arturo Gil Aparicio</li><li><a href="../../arte3.1.4/demos/direct_jacobian_demo.html" class="code" title="">direct_jacobian_demo</a>	DIRECT JACOBIAN DEMO</li><li><a href="../../arte3.1.4/demos/follow_line_pa10.html" class="code" title="">follow_line_pa10</a>	Copyright (C) 2012, by Arturo Gil Aparicio</li><li><a href="../../arte3.1.4/demos/forwarddynamics_demo.html" class="code" title="">forwarddynamics_demo</a>	SCRIPT TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../arte3.1.4/demos/forwarddynamics_demo_3dof.html" class="code" title="">forwarddynamics_demo_3dof</a>	SCRIPT TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../arte3.1.4/demos/inversedynamics_2DOFplanar.html" class="code" title="">inversedynamics_2DOFplanar</a>	SCRIPT TEST FOR THE 2DOF arm</li><li><a href="../../arte3.1.4/demos/inversedynamics_3DOFplanar.html" class="code" title="">inversedynamics_3DOFplanar</a>	SCRIPT TEST FOR THE 3 DOF planar manipulator</li><li><a href="../../arte3.1.4/demos/inversedynamics_puma560.html" class="code" title="">inversedynamics_puma560</a>	SCRIPT TO TEST THE DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../arte3.1.4/demos/manufacturing_demo.html" class="code" title="">manufacturing_demo</a>	SCRIPT TO TEST THE GRAPHIC CAPABILITIES OF THE TOOLBOX: ROBOT IN A MANUFACTURING CELL</li><li><a href="../../arte3.1.4/demos/more_demos/draw_errors_scara.html" class="code" title="">draw_errors_scara</a>	PROPAGATE A GAUSSIAN ERROR DISTRIBUTION OF EACH JOINT TO AN ERROR IN</li><li><a href="../../arte3.1.4/demos/more_demos/draw_errors_scara_monte_carlo.html" class="code" title="">draw_errors_scara_monte_carlo</a>	THE DEMO PRESENTS AN ERROR PROPAGATION USING A MONTE-CARLO METHOD</li><li><a href="../../arte3.1.4/demos/more_demos/follow_line_scara.html" class="code" title="">follow_line_scara</a>	FOLLOW A LINE IN SPACE WITH A SCARA ROBOT</li><li><a href="../../arte3.1.4/demos/motor_selection.html" class="code" title="function motor_selection">motor_selection</a>	SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF</li><li><a href="../../arte3.1.4/demos/plot_every_robot_demo.html" class="code" title="">plot_every_robot_demo</a>	SCRIPT TEST TO LOAD ALL ROBOTS</li><li><a href="../../arte3.1.4/demos/spot_welding_demo.html" class="code" title="">spot_welding_demo</a>	SCRIPT TO TEST THE GRAPHIC CAPABILITIES OF THE TOOLBOX: ROBOT IN A MANUFACTURING CELL</li><li><a href="transform_to_own.html" class="code" title="function transform_to_own(manufacturer,model, mm2m)">transform_to_own</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   LOAD_ROBOT Loads a data structure corresponding to the specified robot.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%     robot = LOAD_ROBOT(MANUFACTURER, VERSION) returns a robot data</span>
+0006 <span class="comment">%     structure of the specified robot.  Each robot parameters' are stored in</span>
+0007 <span class="comment">%     the directory named robots/manufacturer/version. For example:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   Example:</span>
+0010 <span class="comment">%   robot =  load_robot('ABB', 'IRB140')</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   gets the available data for the ABB IRB140 robotic arm whose</span>
+0013 <span class="comment">%   parameters are stored in the directory robots/ABB/IRB140</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%   robot = LOAD_ROBOT(PATH) specifies a relative path to the robots</span>
+0016 <span class="comment">%   directory. For example:</span>
+0017 <span class="comment">%   robot =  load_robot('ABB/IRB140')</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%   robot = LOAD_ROBOT() with no arguments opens a dialog box to select a</span>
+0020 <span class="comment">%   robot's parameters file.</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%   Execute</span>
+0024 <span class="comment">%   SUPPORTED_ROBOTS to see a list of all supported robots.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%   The robot data structure consists of the following fields:</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%    See also SUPPORTED_ROBOTS.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. email:</span>
+0031 <span class="comment">%   arturo.gil@umh.es date:   02/01/2012</span>
+0032 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0033 
+0034 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0039 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0040 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0041 <span class="comment">% (at your option) any later version.</span>
+0042 <span class="comment">%</span>
+0043 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0044 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0045 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0046 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0049 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0050 <span class="comment">%function robot = load_robot(manufacturer, version)</span>
+0051 
+0052 <a name="_sub0" href="#_subfunctions" class="code">function robot = load_robot(varargin)</a>
+0053 
+0054 <span class="keyword">global</span> configuration
+0055 
+0056 <span class="comment">%process variable number of arguments</span>
+0057 <span class="comment">%if the function is called with no arguments then a dialog</span>
+0058 <span class="comment">%box is used to retrieve the absolute path of the parameters.m file.</span>
+0059 <span class="keyword">if</span> nargin==0
+0060    [FileName,PathName,FilterIndex] = uigetfile({<span class="string">'*.m'</span>,<span class="string">'Parameter-files (*.m)'</span>},<span class="string">'Pick a robot parameters.m file'</span>, <span class="string">'MultiSelect'</span>, <span class="string">'off'</span>);
+0061    full_name=[PathName <span class="string">'/'</span> FileName];
+0062    cd(PathName);
+0063 <span class="keyword">elseif</span> nargin==1 <span class="comment">% the relative path is expressed in a single argument%load base libpath</span>
+0064     cd(configuration.libpath);
+0065     <span class="comment">% go to the directory where the robot is stored</span>
+0066     temp_path = [ configuration.libpath <span class="string">'/robots/'</span> varargin{1}];
+0067     cd(temp_path);
+0068 
+0069     <span class="comment">%make a command to evaluate the parameter.m file at this directory</span>
+0070     full_name = [temp_path <span class="string">'/parameters.m'</span>];
+0071     
+0072 <span class="keyword">elseif</span> nargin==2 <span class="comment">% the relative path is expressed in the 'manufacturer', 'version' style</span>
+0073     manufacturer = varargin{1};
+0074     version = varargin{2};
+0075     <span class="comment">%load base libpath</span>
+0076     cd(configuration.libpath);
+0077     <span class="comment">% go to the directory where the robot is stored</span>
+0078     temp_path = [ configuration.libpath <span class="string">'/robots/'</span> manufacturer <span class="string">'/'</span> version];
+0079     cd(temp_path);
+0080 
+0081     <span class="comment">%make a command to evaluate the parameter.m file at this directory</span>
+0082     full_name = [temp_path <span class="string">'/parameters.m'</span>];
+0083 <span class="keyword">end</span>
+0084 
+0085 <span class="comment">%initialize robot data structure</span>
+0086 robot=[];
+0087 
+0088 
+0089 
+0090 <span class="comment">%Eval parameters file for the selected robot</span>
+0091 <span class="comment">%eval(command);</span>
+0092 <span class="comment">%check whether the parameters.m file exists at the required location</span>
+0093 <span class="keyword">if</span> exist(full_name,<span class="string">'file'</span>)==2
+0094     robot=eval(<span class="string">'parameters'</span>);
+0095     
+0096     <span class="comment">%now draw robot</span>
+0097     <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot,zeros(1,robot.DOF));
+0098     <span class="comment">%default view</span>
+0099     axis(robot.axis);
+0100 <span class="keyword">else</span> <span class="comment">%if there's no parameters.m file</span>
+0101     fprintf(<span class="string">'ERROR: No valid parameters.m file found. Please check the following directory'</span>)
+0102     full_name
+0103 <span class="keyword">end</span>
+0104 
+0105 
+0106 
+0107 
+0108</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

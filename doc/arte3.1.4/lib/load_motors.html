@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of load_motors</title>
+  <meta name="keywords" content="load_motors">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">lib</a> &gt; load_motors.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>load_motors
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function motors = load_motors(indexes) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   LOAD_MOTORS Loads a matrix containing the mechanical and electrical data
+               of a set of motors from Maxon Motors.
+
+   For example:
+     robot.motors = LOAD_MOTORS() returns a matrix where each row defines the
+   data of a particular model. The motor catalog can be found under
+   practicals/session3_inverse_dynamics/motor_catalog
+      
+
+   Example: 
+   robot =  load_robot('abb', 'IRB140')
+
+   robot.motors =  load_motors()
+   robot.motors(1,:)
+
+   
+    See also <a href="load_robot.html" class="code" title="function robot = load_robot(varargin)">LOAD_ROBOT</a>.
+
+   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. email:
+   arturo.gil@umh.es date:   02/01/2013
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/robots/ABB/IRB140/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB1600ID/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB1600_X145_M2004/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB2400/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB6620LX/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB7600_400_255_m2000/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ADEPT/Viper_s1700D/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR90_R3100_EXTRA/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/STAUBLI/RX160L/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/UNIMATE/puma560/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/example/stanford/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   LOAD_MOTORS Loads a matrix containing the mechanical and electrical data</span>
+0003 <span class="comment">%               of a set of motors from Maxon Motors.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   For example:</span>
+0006 <span class="comment">%     robot.motors = LOAD_MOTORS() returns a matrix where each row defines the</span>
+0007 <span class="comment">%   data of a particular model. The motor catalog can be found under</span>
+0008 <span class="comment">%   practicals/session3_inverse_dynamics/motor_catalog</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%   Example:</span>
+0012 <span class="comment">%   robot =  load_robot('abb', 'IRB140')</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   robot.motors =  load_motors()</span>
+0015 <span class="comment">%   robot.motors(1,:)</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%    See also LOAD_ROBOT.</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. email:</span>
+0021 <span class="comment">%   arturo.gil@umh.es date:   02/01/2013</span>
+0022 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0023 
+0024 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0029 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0030 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0031 <span class="comment">% (at your option) any later version.</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0034 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0035 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0036 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0039 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0040 <a name="_sub0" href="#_subfunctions" class="code">function motors = load_motors(indexes)</a>
+0041 
+0042 <span class="comment">%these correspond to Maxon, 167132;</span>
+0043 
+0044 <span class="keyword">global</span> configuration
+0045 
+0046 
+0047 
+0048 <span class="comment">% R (Ohm): Coil resistance</span>
+0049 <span class="comment">% L (H)  : Coil inductance.</span>
+0050 <span class="comment">% Kv (V/rad/s): speed constant</span>
+0051 <span class="comment">% Kp (N·m/A): torque constant</span>
+0052 <span class="comment">% Max_current (A): Max allowable current in the coil.</span>
+0053 <span class="comment">% Max_speed (rad/s): Max allowable speed of the motor</span>
+0054 
+0055 <span class="comment">% please note the constans to translate the units to</span>
+0056 
+0057 motors= [];
+0058 
+0059 
+0060 Inertia=[];
+0061 constants = [];
+0062 Viscous = [];
+0063 Coulomb= [];
+0064 <span class="keyword">for</span> i=1:length(indexes),
+0065     <span class="keyword">switch</span> indexes(i)
+0066         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0067         <span class="comment">%   INDEX 1</span>
+0068         <span class="comment">% MOD: 264443, EC22</span>
+0069         <span class="comment">% 50W,  Brushless</span>
+0070         <span class="comment">% Vin=32 Volt</span>
+0071         <span class="comment">% Peak torque: 411 mN·m</span>
+0072         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0073         <span class="keyword">case</span> 1
+0074             Inertia= [Inertia 4.63/1e7]; <span class="comment">%4.09 g·cm2= 4.09/10^7 Kg·m^2</span>
+0075          
+0076             constants = [constants;  
+0077       <span class="comment">% R(Ohm)  L(H)             Kv            Kp       Max_current  Nominal_speed</span>
+0078         0.997   0.147e-3  1/(746*(pi/30))   12.8/1000   32.1         21400]; 
+0079     
+0080             Viscous = [Viscous 0];
+0081                               <span class="comment">%C+ C-</span>
+0082             Coulomb = [Coulomb; 0 0];
+0083         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0084         <span class="comment">%   INDEX 2</span>
+0085         <span class="comment">% MOD: 118895, EC40</span>
+0086         <span class="comment">% 120W,  Brushless</span>
+0087         <span class="comment">% Vin=30 Volt</span>
+0088         <span class="comment">% Peak torque: 1340 mN·m</span>
+0089         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0090         <span class="keyword">case</span> 2
+0091             Inertia= [Inertia 85/1e7]; <span class="comment">%85 g·cm2= 4.09/10^7 Kg·m^2</span>
+0092          
+0093             constants = [constants;  
+0094       <span class="comment">% R(Ohm)  L(H)             Kv            Kp       Max_current  Nominal_speed</span>
+0095         0.518   0.32e-3  1/(389*(pi/30))   24.6/1000   57.9         10500]; 
+0096     
+0097             Viscous = [Viscous 0];
+0098                               <span class="comment">%C+ C-</span>
+0099             Coulomb = [Coulomb; 0 0];
+0100             
+0101        
+0102         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0103         <span class="comment">%   INDEX 3</span>
+0104         <span class="comment">% MOD: 266052, EC-4pole 45</span>
+0105         <span class="comment">% 200W,  Brushless</span>
+0106         <span class="comment">% Vin=48 Volt</span>
+0107         <span class="comment">% Peak torque: 4420 mN·m</span>
+0108         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0109         <span class="keyword">case</span> 3
+0110             Inertia= [Inertia 200/1e7]; <span class="comment">%85 g·cm2= 4.09/10^7 Kg·m^2</span>
+0111          
+0112             constants = [constants;  
+0113       <span class="comment">% R(Ohm)  L(H)             Kv            Kp       Max_current  Nominal_speed</span>
+0114         0.566   0.172e-3  1/(183*(pi/30))   52.2/1000   84.8         8110]; 
+0115     
+0116             Viscous = [Viscous 0];
+0117                               <span class="comment">%C+ C-</span>
+0118             Coulomb = [Coulomb; 0 0];
+0119        
+0120         
+0121         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0122         <span class="comment">%   INDEX 4</span>
+0123         <span class="comment">% MOD: 283150, EC-4pole 45</span>
+0124         <span class="comment">% 300W,  Brushless</span>
+0125         <span class="comment">% Vin=48 Volt</span>
+0126         <span class="comment">% Peak torque: 7690 mN·m</span>
+0127         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0128         <span class="keyword">case</span> 4
+0129            Inertia= [Inertia 368/1e7]; <span class="comment">%85 g·cm2= 4.09/10^7 Kg·m^2</span>
+0130          
+0131             constants = [constants;  
+0132       <span class="comment">% R(Ohm)  L(H)             Kv            Kp       Max_current  Nominal_speed</span>
+0133         0.710   0.677e-3  1/(84*(pi/30))   114/1000   67.6         3570]; 
+0134     
+0135             Viscous = [Viscous 0];
+0136                               <span class="comment">%C+ C-</span>
+0137             Coulomb = [Coulomb; 0 0];
+0138             
+0139         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0140         <span class="comment">%   INDEX 5</span>
+0141         <span class="comment">% MOD: 167132, EC60</span>
+0142         <span class="comment">% 400W,  Brushless</span>
+0143         <span class="comment">% Vin=48 Volt</span>
+0144         <span class="comment">% Peak torque: 11800 mN·m</span>
+0145         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0146         <span class="keyword">case</span> 5
+0147            Inertia= [Inertia 831/1e7]; <span class="comment">%85 g·cm2= 4.09/10^7 Kg·m^2</span>
+0148          
+0149             constants = [constants;  
+0150       <span class="comment">% R(Ohm)  L(H)             Kv            Kp       Max_current  Nominal_speed</span>
+0151         0.345   0.273e-3  1/(113*(pi/30))   84.9/1000   139         4960]; 
+0152     
+0153             Viscous = [Viscous 0];
+0154                               <span class="comment">%C+ C-</span>
+0155             Coulomb = [Coulomb; 0 0];
+0156             
+0157             
+0158             
+0159         <span class="keyword">otherwise</span>
+0160             disp(<span class="string">'PLEASE SELECT A VALID MOTOR!!'</span>)
+0161     <span class="keyword">end</span>
+0162 <span class="keyword">end</span>
+0163          
+0164  motors.Inertia = Inertia;
+0165  motors.constants = constants;
+0166  motors.Viscous=Viscous;
+0167  motors.Coulomb = Coulomb;
+0168         
+0169 <span class="comment">% %Actuator rotor inertia</span>
+0170 <span class="comment">% motors.Inertia=[200e-6 200e-6 200e-6 33e-6 33e-6 33e-6];</span>
+0171 <span class="comment">%</span>
+0172 <span class="comment">% %Speed reductor at each joint</span>
+0173 <span class="comment">% %motors.G=[300 300 300 300 300 300];</span>
+0174 <span class="comment">% %Obtained from motor catalog under practicals/inverse_dynamics</span>
+0175 <span class="comment">% %                        R(Ohm)  L(H)      Kv (V/rad/s):speed constant     Kp (Nm/A):torque constant        Max_current (A)</span>
+0176 <span class="comment">% motors.constants=[0.345  0.273e-3       2.3474e-05               84.9e-3                 139; %these correspond to Maxon, 167132;</span>
+0177 <span class="comment">%     ];</span>
+0178 <span class="comment">%</span>
+0179 <span class="comment">% %Viscous friction referred to the</span>
+0180 <span class="comment">% motors.Viscous = [0 0 0 0 0 0];</span>
+0181 <span class="comment">%</span>
+0182 <span class="comment">% %Coulomb friction factors, motor referred</span>
+0183 <span class="comment">% %Tc+, Tc-</span>
+0184 <span class="comment">% motors.Coulomb = [0    0;</span>
+0185 <span class="comment">%             0    0;</span>
+0186 <span class="comment">%             0    0;</span>
+0187 <span class="comment">%             0   0;</span>
+0188 <span class="comment">%             0   0;</span>
+0189 <span class="comment">%             0   0];</span>
+0190 <span class="comment">%</span>
+0191 <span class="comment">%</span>
+0192 <span class="comment">%     end</span>
+0193</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

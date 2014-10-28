@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of inversedynamics_puma560</title>
+  <meta name="keywords" content="inversedynamics_puma560">
+  <meta name="description" content="SCRIPT TO TEST THE DYNAMICS OF THE PUMA 560 ROBOT">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">demos</a> &gt; inversedynamics_puma560.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>inversedynamics_puma560
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>SCRIPT TO TEST THE DYNAMICS OF THE PUMA 560 ROBOT</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">
+ SCRIPT TO TEST THE DYNAMICS OF THE PUMA 560 ROBOT
+
+ Copyright (C) 2012, by Arturo Gil Aparicio
+
+ This file is part of ARTE (A Robotics Toolbox for Education).
+ 
+ ARTE is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ ARTE is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Leser General Public License
+ along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/tools/adjust_view.html" class="code" title="function adjust_view(robot)">adjust_view</a>	ADJUST_VIEW(ROBOT)</li><li><a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="demos.html" class="code" title="">demos</a>	Copyright (C) 2012, by Arturo Gil Aparicio</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%</span>
+0002 <span class="comment">% SCRIPT TO TEST THE DYNAMICS OF THE PUMA 560 ROBOT</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0009 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0010 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0011 <span class="comment">% (at your option) any later version.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0014 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0015 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0016 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0019 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0020 
+0021 close all
+0022 <span class="comment">%general call to inverse dynamic function</span>
+0023 <span class="comment">%TAU = inversedynamic(robot, Q, QD, QDD, GRAV, FEXT)</span>
+0024 
+0025 <span class="comment">% uncomment the following lines to simulate the stanford arm</span>
+0026 <span class="comment">% other arms can be simulated similarly</span>
+0027 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0028 <span class="comment">% three different poses, please find which one is the worst</span>
+0029 <span class="comment">% pose for the first joint, the second joint etc.</span>
+0030 <span class="comment">% q1 = [0 0 0 0 0 0];</span>
+0031 <span class="comment">% q2 = [0 pi/2 0.5 0 0 0];</span>
+0032 <span class="comment">% q3 = [0 0 -0.5 0 0 0];</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">% %load robot parameters</span>
+0035 <span class="comment">% robot=load_robot('stanford', '');</span>
+0036 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0037 
+0038 
+0039 <span class="comment">% three different poses, please find which one is the worst</span>
+0040 <span class="comment">% pose for the first joint, the second joint etc.</span>
+0041 q1 = [0 0 0 0 0 0];    
+0042 q2 = [0 pi/2 -pi/2 0 0 0];    
+0043 q3 = [0 0 -pi/2 0 0 0];
+0044 
+0045 
+0046 <span class="comment">%load robot parameters</span>
+0047 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'unimate'</span>, <span class="string">'puma560'</span>);
+0048 
+0049 <a href="../../arte3.1.4/tools/adjust_view.html" class="code" title="function adjust_view(robot)">adjust_view</a>(robot)
+0050 robot.dynamics.friction=1;
+0051 
+0052 <span class="comment">%Now compute torques at each pose</span>
+0053 fprintf(<span class="string">'\nTorques at each joint given position q1, zero speed and acceleration, standard gravity acting on Z0'</span>)
+0054 fprintf(<span class="string">'\nComputing static torques at position q1 due to gravity [0 0 9.81]'</span>)
+0055 tau = <a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q1, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 0 0 0 0 0]')
+0056 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot,q1)
+0057 disp(<span class="string">'press any key to continue'</span>)
+0058 pause
+0059 
+0060 
+0061 fprintf(<span class="string">'\nTorques at each joint given position q2, zero speed and acceleration, standard gravity acting on Z0'</span>)
+0062 fprintf(<span class="string">'\nComputing static torques at position q2 due to gravity [0 0 9.81]'</span>);
+0063 fprintf(<span class="string">'\nPLEASE note the differences with respect to torque tau_2 at q1'</span>);
+0064 tau = <a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q2, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 0 0 0 0 0]')
+0065 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot,q2)
+0066 disp(<span class="string">'press any key to continue'</span>)
+0067 pause
+0068 
+0069 
+0070 fprintf(<span class="string">'\nTorques at each joint given position q3, zero speed and acceleration, standard gravity acting on Z0'</span>)
+0071 fprintf(<span class="string">'\nComputing static torques at position q3 due to gravity [0 0 9.81]'</span>);
+0072 fprintf(<span class="string">'\nPLEASE note the differences with respect to torque tau_2 at q1'</span>);
+0073 tau = <a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 0 0 0 0 0]')
+0074 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot,q3)
+0075 disp(<span class="string">'press any key to continue'</span>)
+0076 pause
+0077 
+0078 
+0079 fprintf(<span class="string">'\nTorques at each joint given position q3, zero speed and acceleration, standard gravity acting on Z0'</span>)
+0080 fprintf(<span class="string">'\nComputing static torques at position q3 due to a 5 Kg load at end effector'</span>);
+0081 fprintf(<span class="string">'\nPLEASE note the differences with respect to torque tau_2 at q1'</span>);
+0082 M = 5 <span class="comment">%Kg</span>
+0083 tau = <a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 M*9.81]', [0 0 0 0 0 0]')
+0084 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot,q3)
+0085 disp(<span class="string">'press any key to continue'</span>)
+0086 pause
+0087 
+0088 
+0089 <span class="comment">%NOW TEST THE DYNAMICS WITH A FORCE APPLIED AT THE END EFFECTOR</span>
+0090 fprintf(<span class="string">'\nTorques at each joint given position q3, zero speed and acceleration, standard gravity acting on Z0'</span>)
+0091 fprintf(<span class="string">'\nComputing static torques at position q3 due to gravity and 1 Newton applied at Y6'</span>);
+0092 fprintf(<span class="string">'\nPLEASE compare the result with the previous case'</span>);
+0093 tau = <a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 1 0 0 0 0]')
+0094 disp(<span class="string">'press any key to continue'</span>)
+0095 pause
+0096 
+0097 
+0098 <span class="comment">%NOW TEST THE DYNAMICS WITH A GENERAL CASE</span>
+0099 fprintf(<span class="string">'\nTorques at each joint given position q3, general movement'</span>)
+0100 fprintf(<span class="string">'\nPLEASE compare the result with the previous cases'</span>);
+0101 tau = <a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q3, [1 1 1 1 1 1], [1 1 1 1 1 1], [0 0 9.81]', [1 1 1 1 1 1]')
+0102 disp(<span class="string">'press any key to continue'</span>)
+0103 pause
+0104 
+0105 
+0106 <span class="comment">%FINALLY, CONSIDER THE CASE IN WHICH THE MANIPULATOR IS HANGING FROM THE CEILING</span>
+0107 fprintf(<span class="string">'\nTorques at each joint given position q3, general movement'</span>)
+0108 fprintf(<span class="string">'\nPLEASE compare the result with the previous cases'</span>);
+0109 tau = <a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 -9.81]', [0 0 0 0 0 0]')
+0110 
+0111 <span class="comment">%the robot is now hanging, Z0 pointing downwards</span>
+0112 robot.T0=[-1 0 0 0;
+0113           0 1 0 0;
+0114           0 0 -1 1;
+0115           0 0 0 1];
+0116 
+0117 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot,q3)
+0118 disp(<span class="string">'press any key to continue'</span>)
+0119 pause</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

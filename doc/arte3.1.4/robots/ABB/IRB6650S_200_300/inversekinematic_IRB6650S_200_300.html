@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of inversekinematic_IRB6650S_200_300</title>
+  <meta name="keywords" content="inversekinematic_IRB6650S_200_300">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../../index.html">Home</a> &gt;  <a href="../../../index.html">arte3.1.4</a> &gt; <a href="#">robots</a> &gt; <a href="#">ABB</a> &gt; <a href="index.html">IRB6650S_200_300</a> &gt; inversekinematic_IRB6650S_200_300.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../../index.html"><img alt="<" border="0" src="../../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/robots/ABB/IRB6650S_200_300&nbsp;<img alt=">" border="0" src="../../../../right.png"></a></td></tr></table>-->
+
+<h1>inversekinematic_IRB6650S_200_300
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function q = inversekinematic_IRB6650S_200_300(robot, T) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   Q = INVERSEKINEMATIC_IRB6620(robot, T)    
+   Solves the inverse kinematic problem for the ABB IRB 140 robot
+   where:
+   robot stores the robot parameters.
+   T is an homogeneous transform that specifies the position/orientation
+   of the end effector.
+
+   A call to Q=INVERSEKINEMATIC_IRB6620 returns 8 possible solutions, thus,
+   Q is a 6x8 matrix where each column stores 6 feasible joint values.
+
+   
+   Example code:
+
+   abb=load_robot('abb', 'IRB6620');
+   q = [0 0 0 0 0 0];    
+   T = directkinematic(abb, q);
+   %Call the inversekinematic for this robot
+   qinv = inversekinematic(abb, T);
+   check that all of them are feasible solutions!
+   and every Ti equals T
+   for i=1:8,
+        Ti = directkinematic(abb, qinv(:,i))
+   end
+    See also DIRECTKINEMATIC.
+
+   Author: Arturo Gil Aparicio
+           Universitas Miguel Hern�ndez, SPAIN.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>	DENAVIT Compute an homogeneous transform matrix DH in terms of</li><li><a href="../../../../arte3.1.4/lib/kinematics/solve_spherical_wrist.html" class="code" title="function q = solve_spherical_wrist(robot, q, T, wrist, method)">solve_spherical_wrist</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/lib/normalize.html" class="code" title="function q = normalize(q)">normalize</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function q2 = solve_for_theta2(robot, q, Pm)</a></li><li><a href="#_sub2" class="code">function q3 = solve_for_theta3(robot, q, Pm)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   Q = INVERSEKINEMATIC_IRB6620(robot, T)</span>
+0003 <span class="comment">%   Solves the inverse kinematic problem for the ABB IRB 140 robot</span>
+0004 <span class="comment">%   where:</span>
+0005 <span class="comment">%   robot stores the robot parameters.</span>
+0006 <span class="comment">%   T is an homogeneous transform that specifies the position/orientation</span>
+0007 <span class="comment">%   of the end effector.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   A call to Q=INVERSEKINEMATIC_IRB6620 returns 8 possible solutions, thus,</span>
+0010 <span class="comment">%   Q is a 6x8 matrix where each column stores 6 feasible joint values.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%   Example code:</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%   abb=load_robot('abb', 'IRB6620');</span>
+0016 <span class="comment">%   q = [0 0 0 0 0 0];</span>
+0017 <span class="comment">%   T = directkinematic(abb, q);</span>
+0018 <span class="comment">%   %Call the inversekinematic for this robot</span>
+0019 <span class="comment">%   qinv = inversekinematic(abb, T);</span>
+0020 <span class="comment">%   check that all of them are feasible solutions!</span>
+0021 <span class="comment">%   and every Ti equals T</span>
+0022 <span class="comment">%   for i=1:8,</span>
+0023 <span class="comment">%        Ti = directkinematic(abb, qinv(:,i))</span>
+0024 <span class="comment">%   end</span>
+0025 <span class="comment">%    See also DIRECTKINEMATIC.</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%   Author: Arturo Gil Aparicio</span>
+0028 <span class="comment">%           Universitas Miguel Hern�ndez, SPAIN.</span>
+0029 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0030 
+0031 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0036 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0037 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0038 <span class="comment">% (at your option) any later version.</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0041 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0042 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0043 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0046 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0047 <a name="_sub0" href="#_subfunctions" class="code">function q = inversekinematic_IRB6650S_200_300(robot, T)</a>
+0048 
+0049 <span class="comment">%initialize q,</span>
+0050 <span class="comment">%eight possible solutions are generally feasible</span>
+0051 q=zeros(6,8);
+0052 
+0053 <span class="comment">% %Evaluate the parameters</span>
+0054 <span class="comment">% theta = eval(robot.DH.theta);</span>
+0055 d = eval(robot.DH.d);
+0056 L6=d(6);
+0057 
+0058 
+0059 <span class="comment">%T= [ nx ox ax Px;</span>
+0060 <span class="comment">%     ny oy ay Py;</span>
+0061 <span class="comment">%     nz oz az Pz];</span>
+0062 Px=T(1,4);
+0063 Py=T(2,4);
+0064 Pz=T(3,4);
+0065 
+0066 <span class="comment">%Compute the position of the wrist, being W the Z component of the end effector's system</span>
+0067 W = T(1:3,3);
+0068 
+0069 <span class="comment">% Pm: wrist position</span>
+0070 Pm = [Px Py Pz]' - L6*W; 
+0071 
+0072 <span class="comment">%first joint, two possible solutions admited:</span>
+0073 <span class="comment">% if q(1) is a solution, then q(1) + pi is also a solution</span>
+0074 q1=atan2(Pm(2), Pm(1));
+0075 
+0076 
+0077 <span class="comment">%solve for q2</span>
+0078 q2_1=<a href="#_sub1" class="code" title="subfunction q2 = solve_for_theta2(robot, q, Pm)">solve_for_theta2</a>(robot, [q1 0 0 0 0 0 0], Pm);
+0079 <span class="comment">%the other possible solution is q1 + pi</span>
+0080 q2_2=<a href="#_sub1" class="code" title="subfunction q2 = solve_for_theta2(robot, q, Pm)">solve_for_theta2</a>(robot, [q1+pi 0 0 0 0 0 0], Pm);
+0081 
+0082 <span class="comment">%solve for q3</span>
+0083 q3_1=<a href="#_sub2" class="code" title="subfunction q3 = solve_for_theta3(robot, q, Pm)">solve_for_theta3</a>(robot, [q1 0 0 0 0 0 0], Pm);
+0084 <span class="comment">%solver for q3 for both cases</span>
+0085 q3_2=<a href="#_sub2" class="code" title="subfunction q3 = solve_for_theta3(robot, q, Pm)">solve_for_theta3</a>(robot, [q1+pi 0 0 0 0 0 0], Pm);
+0086 
+0087 
+0088 <span class="comment">%Arrange solutions, there are 4 possible solutions so far, being</span>
+0089 <span class="comment">% each column repeated twice. For each triplet (theta1, theta2, theta3),</span>
+0090 <span class="comment">% there exist two possible solutions for the last three joints, generally</span>
+0091 <span class="comment">% called wrist up and wrist down solutions</span>
+0092 <span class="comment">% NOTE: so far there exist 4 possible solutions</span>
+0093 <span class="comment">% q = [q1    q1     q1+pi  q1+pi;</span>
+0094 <span class="comment">%      q2_1(1) q2_1(2)   q2_2(1)  q2_2(2);</span>
+0095 <span class="comment">%      q3_1(1) q3_1(2)  q3_2(1)  q3_2(2);</span>
+0096 <span class="comment">%      0          0           0       0;</span>
+0097 <span class="comment">%      0          0           0       0;</span>
+0098 <span class="comment">%      0          0           0       0];</span>
+0099 
+0100 <span class="comment">%the next matrix doubles each column. For each two columns, two different</span>
+0101 <span class="comment">%configurations for theta4, theta5 and theta6 will be computed. These</span>
+0102 <span class="comment">%configurations are generally referred as wrist up and wrist down solution</span>
+0103 q = [q1         q1         q1        q1       q1+pi   q1+pi   q1+pi   q1+pi;   
+0104      q2_1(1)    q2_1(1)    q2_1(2)   q2_1(2)  q2_2(1) q2_2(1) q2_2(2) q2_2(2);
+0105      q3_1(1)    q3_1(1)    q3_1(2)   q3_1(2)  q3_2(1) q3_2(1) q3_2(2) q3_2(2);
+0106      0          0          0         0         0      0       0       0;
+0107      0          0          0         0         0      0       0       0;
+0108      0          0          0         0         0      0       0       0];
+0109 
+0110  <span class="comment">%normalize q to [-pi, pi]</span>
+0111  q = <a href="../../../../arte3.1.4/lib/normalize.html" class="code" title="function q = normalize(q)">normalize</a>(q);
+0112 
+0113 
+0114 <span class="comment">% solve for the last three joints</span>
+0115 <span class="comment">% for any of the possible combinations (theta1, theta2, theta3)</span>
+0116 <span class="keyword">for</span> i=1:2:size(q,2),
+0117     qtemp = <a href="../../../../arte3.1.4/lib/kinematics/solve_spherical_wrist.html" class="code" title="function q = solve_spherical_wrist(robot, q, T, wrist, method)">solve_spherical_wrist</a>(robot, q(:,i), T, 1,<span class="string">'geometric'</span>); <span class="comment">%wrist up</span>
+0118     q(:,i)=qtemp;
+0119     
+0120     qtemp = <a href="../../../../arte3.1.4/lib/kinematics/solve_spherical_wrist.html" class="code" title="function q = solve_spherical_wrist(robot, q, T, wrist, method)">solve_spherical_wrist</a>(robot, q(:,i), T, -1, <span class="string">'geometric'</span>); <span class="comment">%wrist up</span>
+0121     q(:,i+1)=qtemp;
+0122 <span class="keyword">end</span>
+0123 
+0124 
+0125 
+0126 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0127 <span class="comment">% solve for second joint theta2, two different</span>
+0128 <span class="comment">% solutions are returned, corresponding</span>
+0129 <span class="comment">% to elbow up and down solution</span>
+0130 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0131 <a name="_sub1" href="#_subfunctions" class="code">function q2 = solve_for_theta2(robot, q, Pm)</a>
+0132 
+0133 <span class="comment">%Evaluate the parameters</span>
+0134 d = eval(robot.DH.d);
+0135 a = eval(robot.DH.a);
+0136 alpha = eval(robot.DH.alpha);
+0137 
+0138 <span class="comment">%See geometry</span>
+0139 L2=a(2);
+0140 L3=d(4);
+0141 A2=a(3);
+0142 
+0143 <span class="comment">%See geometry of the robot</span>
+0144 <span class="comment">%compute L4</span>
+0145 L4 = sqrt(A2^2 + L3^2);
+0146 
+0147 <span class="comment">%The inverse kinematic problem can be solved as in the IRB 140 (for example)</span>
+0148 
+0149 <span class="comment">%given q1 is known, compute first DH transformation</span>
+0150 T01=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 1);
+0151 
+0152 <span class="comment">%Express Pm in the reference system 1, for convenience</span>
+0153 p1 = inv(T01)*[Pm; 1];
+0154 
+0155 r = sqrt(p1(1)^2 + p1(2)^2);
+0156 
+0157 beta = atan2(-p1(2), p1(1));
+0158 gamma = real(acos((L2^2+r^2-L4^2)/(2*r*L2)));
+0159 
+0160 <span class="comment">%return two possible solutions</span>
+0161 <span class="comment">%elbow up and elbow down</span>
+0162 <span class="comment">%the order here is important and is coordinated with the function</span>
+0163 <span class="comment">%solve_for_theta3</span>
+0164 q2(1) = pi/2 - beta - gamma; <span class="comment">%elbow up</span>
+0165 q2(2) = pi/2 - beta + gamma; <span class="comment">%elbow down</span>
+0166 
+0167 
+0168 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0169 <span class="comment">% solve for third joint theta3, two different</span>
+0170 <span class="comment">% solutions are returned, corresponding</span>
+0171 <span class="comment">% to elbow up and down solution</span>
+0172 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0173 <a name="_sub2" href="#_subfunctions" class="code">function q3 = solve_for_theta3(robot, q, Pm)</a>
+0174 
+0175 <span class="comment">%Evaluate the parameters</span>
+0176 theta = eval(robot.DH.theta);
+0177 d = eval(robot.DH.d);
+0178 a = eval(robot.DH.a);
+0179 alpha = eval(robot.DH.alpha);
+0180 
+0181 <span class="comment">%See geometry</span>
+0182 L2=a(2);
+0183 L3=d(4);
+0184 A2=a(3);
+0185 
+0186 <span class="comment">%See geometry of the robot</span>
+0187 <span class="comment">%compute L4</span>
+0188 L4 = sqrt(A2^2 + L3^2);
+0189 
+0190 <span class="comment">%the angle phi is fixed</span>
+0191 phi=acos((A2^2+L4^2-L3^2)/(2*A2*L4));
+0192 
+0193 <span class="comment">%given q1 is known, compute first DH transformation</span>
+0194 T01=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 1);
+0195 
+0196 <span class="comment">%Express Pm in the reference system 1, for convenience</span>
+0197 p1 = inv(T01)*[Pm; 1];
+0198 
+0199 r = sqrt(p1(1)^2 + p1(2)^2);
+0200 
+0201 eta = real(acos((L2^2 + L4^2 - r^2)/(2*L2*L4)));
+0202 
+0203 <span class="comment">%return two possible solutions</span>
+0204 <span class="comment">%elbow up and elbow down solutions</span>
+0205 <span class="comment">%the order here is important</span>
+0206 q3(1) = pi - phi- eta; 
+0207 q3(2) = pi - phi + eta; 
+0208 
+0209 
+0210 
+0211</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

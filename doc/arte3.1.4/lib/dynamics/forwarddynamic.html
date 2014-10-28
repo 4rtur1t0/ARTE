@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of forwarddynamic</title>
+  <meta name="keywords" content="forwarddynamic">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">lib</a> &gt; <a href="index.html">dynamics</a> &gt; forwarddynamic.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib/dynamics&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>forwarddynamic
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [t, q, qd] = forwarddynamic(robot, time_end, q0, qd0, tau, torqfun, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  [T Q QD]= FORWARDDYNAMIC(ROBOT, TIME_END, Q0, Qd0, TAU, torqfun, varargin)
+
+  Compute forwarddynamics for the robot ROBOT for a period of TIME_END
+  seconds. The initial state is defined by joint position Q0 and joint
+  velocity Qd0. A constant vector of torques TAU is specified.
+
+  Returns a time vector T, position Q and velocity QD when applying a
+  torque TAU during a time period time_end
+
+
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+   email: arturo.gil@umh.es date:   26/04/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="accel.html" class="code" title="function qdd = accel(robot, q, qd, torque)">accel</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/demos/forwarddynamics_demo.html" class="code" title="">forwarddynamics_demo</a>	SCRIPT TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../../arte3.1.4/demos/forwarddynamics_demo_3dof.html" class="code" title="">forwarddynamics_demo_3dof</a>	SCRIPT TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function xd = fdyn_private(time, x, tau, robot, torqfun, varargin)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%  [T Q QD]= FORWARDDYNAMIC(ROBOT, TIME_END, Q0, Qd0, TAU, torqfun, varargin)</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  Compute forwarddynamics for the robot ROBOT for a period of TIME_END</span>
+0005 <span class="comment">%  seconds. The initial state is defined by joint position Q0 and joint</span>
+0006 <span class="comment">%  velocity Qd0. A constant vector of torques TAU is specified.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  Returns a time vector T, position Q and velocity QD when applying a</span>
+0009 <span class="comment">%  torque TAU during a time period time_end</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0013 <span class="comment">%   email: arturo.gil@umh.es date:   26/04/2012</span>
+0014 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0015 
+0016 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0021 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0022 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0023 <span class="comment">% (at your option) any later version.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0026 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0027 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0028 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0031 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0032 <a name="_sub0" href="#_subfunctions" class="code">function [t, q, qd] = forwarddynamic(robot, time_end, q0, qd0, tau, torqfun, varargin)</a>
+0033 
+0034     n = robot.DOF;
+0035 
+0036     <span class="comment">% concatenate q and qd into the initial state vector</span>
+0037     q0 = [q0(:); qd0(:)];
+0038         
+0039     [t,y] = ode45(@<a href="#_sub1" class="code" title="subfunction xd = fdyn_private(time, x, tau, robot, torqfun, varargin)">fdyn_private</a>, [0 time_end], q0,[], tau, robot, torqfun, varargin{:});
+0040     q = y(:,1:n)';
+0041     qd = y(:,n+1:2*n)';
+0042 
+0043 <span class="keyword">end</span>
+0044 
+0045 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0046 <span class="comment">%   FDYN_PRIVATE  private function called by FORWARDDYNAMIC</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">%    XDD = FDYN_PRIVATE(T, X, TAU, ROBOT, TORQUEFUN)</span>
+0049 <span class="comment">%</span>
+0050 <span class="comment">%   FORWARDDYNAMIC calls this function to evaluate the velocity and</span>
+0051 <span class="comment">%   acceleration.</span>
+0052 <span class="comment">%   TIME is the current time.</span>
+0053 <span class="comment">%   X = [Q QD] is the state vector</span>
+0054 <span class="comment">%   TAU is a vector of contant torques applied at each joint</span>
+0055 <span class="comment">%</span>
+0056 <span class="comment">%   TORQUEFUN is the string name of the function to compute joint torques and called as</span>
+0057 <span class="comment">%</span>
+0058 <span class="comment">%       TAU = TORQUEFUN(T, X)</span>
+0059 <span class="comment">%</span>
+0060 <span class="comment">% if not given zero joint torques are assumed.</span>
+0061 <span class="comment">%</span>
+0062 <span class="comment">% The function returns XDD = [QD QDD].</span>
+0063 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0064 <a name="_sub1" href="#_subfunctions" class="code">function xd = fdyn_private(time, x, tau, robot, torqfun, varargin)</a>
+0065 <span class="comment">%time</span>
+0066     n = robot.DOF;
+0067 
+0068     q = x(1:n)';
+0069     qd = x(n+1:2*n)';
+0070     
+0071     
+0072     qdd = <a href="accel.html" class="code" title="function qdd = accel(robot, q, qd, torque)">accel</a>(robot, x(1:n,1), x(n+1:2*n,1), tau);
+0073     xd = [x(n+1:2*n,1); qdd];
+0074 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

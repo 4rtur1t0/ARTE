@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of init_lib</title>
+  <meta name="keywords" content="init_lib">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">arte3.1.4</a> &gt; init_lib.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>init_lib
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   init_lib 
+   Initialization file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   init_lib</span>
+0003 <span class="comment">%   Initialization file</span>
+0004 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0005 
+0006 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0011 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0012 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0013 <span class="comment">% (at your option) any later version.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0016 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0017 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0018 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0021 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0022 
+0023 
+0024 <span class="comment">%presentation</span>
+0025 
+0026 echo on
+0027 <span class="comment">%     ARTE (A Robotics Toolbox for Education)</span>
+0028 <span class="comment">%     Copyright (C) 2012  Arturo Gil Aparicio, arturo.gil@umh.es</span>
+0029 <span class="comment">%     http://arvc.umh.es/arte</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0032 <span class="comment">%     it under the terms of the GNU Lesser General Public License as published by</span>
+0033 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0034 <span class="comment">%     any later version.</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0037 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0038 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0039 <span class="comment">%     GNU  Lesser General Public License for more details.</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">%     You should have received a copy of the GNU Lesser General Public License</span>
+0042 <span class="comment">%     along with this program.  If not, see  &lt;http://www.gnu.org/licenses/&gt;.</span>
+0043 <span class="comment">%</span>
+0044 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">%     To begin with, try loading a robot:</span>
+0047 <span class="comment">%     &gt;&gt; robot = load_robot('ABB','IRB140');</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">%     Next, draw it on its zero position:</span>
+0050 <span class="comment">%     &gt;&gt; drawrobot3d(robot,[0 0 0 0 0 0])</span>
+0051 <span class="comment">%</span>
+0052 <span class="comment">%     Next, try a different pose:</span>
+0053 <span class="comment">%     &gt;&gt; drawrobot3d(robot,[0 pi/2 -pi/2 0 0 0])</span>
+0054 <span class="comment">%</span>
+0055 <span class="comment">%     Finally, use the teach pendant to move the robot:</span>
+0056 <span class="comment">%     &gt;&gt; teach</span>
+0057 <span class="comment">%</span>
+0058 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0059 echo off
+0060     
+0061 <span class="comment">%initialize variables</span>
+0062 <span class="keyword">global</span> configuration robot
+0063 
+0064 <span class="comment">%base directory for the library</span>
+0065 configuration.libpath = pwd();<span class="comment">% '/Users/arturogil/Desktop/robot_lib2.0';</span>
+0066 
+0067 configuration.time_delay = 0.001; <span class="comment">%delay in seconds between frames when animating a robot. see animate.m for more information</span>
+0068 
+0069 configuration.delta_time = 0.005; <span class="comment">%minimum time between two consecutive poses of the robot. Adjust this time from 0.01 to 0.2, according to your processor</span>
+0070 
+0071 configuration.min_resolution=0.0001;
+0072 
+0073 <span class="comment">%Number each of the figures to plot everything</span>
+0074 configuration.figure.robot=1;
+0075 configuration.figure.q=2;
+0076 configuration.figure.qd=3;
+0077 configuration.figure.qdd=4;</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

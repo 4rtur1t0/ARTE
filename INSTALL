@@ -1,0 +1,58 @@
+**********************************
+INSTALL
+**********************************
+
+copy the directory containing all the .m files in a directory
+
+add the whole directory and sub-directories to the Matlab PATH
+
+To initialize the library, inside Matlab you should be placed in the directory where the library is installed:
+>> pwd
+
+
+ans =
+
+/Users/arturo/Desktop/arte_lib3.1.0
+
+Next, in the Matlab command prompt type:
+
+>> init_lib
+
+To view all functions and demos type:
+
+>> help Contents
+
+If you want to have a fast view of the main capabilities of the library, type:
+>> demos
+
+
+**********************************
+HELP and DOCUMENTATION
+**********************************
+
+1: manual
+
+reference/reference.pdf is the documentation of the library.
+
+2: desktop help GUI
+from the Matlab desktop, choose help, and select the ARTE LIB. There exists HTML documentation for all functions in the library.
+
+3: command line
+As usual command line help is available. For example type: help inversekinematic
+
+**********************************
+DEMOS
+**********************************
+4: type demos to observe the main capabilities of the library.
+The demo files are under arte_lib3.1.4/demos
+Type:
+>> demos
+
+**********************************
+HOME PAGE
+**********************************
+	http://arvc.umh.es/arte
+
+Please note that the library is everyday under development. Please send email bug reports, comments or code contributions to:
+
+	Arturo Gil	arturo.gil@umh.es

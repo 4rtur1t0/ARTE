@@ -1,0 +1,57 @@
+You can start with a fast view of the main capabilities of the library. Please type:
+>> demos
+
+**********************************
+FAST TUTORIAL
+**********************************
+
+Start by loading a robot:
+>> robot=load_robot('ABB','IRB140')
+
+
+Now draw it on its zero position:
+
+>> drawrobot3d(robot, [0 0 0 0 0 0])
+
+Now draw a different position:
+
+>> drawrobot3d(robot, [pi/4 pi/8 pi/4 0 0 0])
+
+Draw it in transparent mode to see the Denavit-Hartenberg reference systems:
+
+>> robot.graphical.draw_transparent=1
+>> drawrobot3d(robot, [pi/4 pi/8 pi/4 0 0 0])
+
+Again in solid mode:
+>> robot.graphical.draw_transparent=0;
+>> drawrobot3d(robot, [pi/4 pi/8 pi/4 0 0 0])
+
+Now launch the "teach" graphical user interface:
+>> teach
+
+Click on the Z+, Z-, X+, X-, Y+ or Y- buttons to move the robot in the base reference system. Or move the sliders to move the robot joints.
+
+Now, we can add more things to the robot environment:
+
+>> robot.equipment=load_robot('equipment', 'bumper_cutting'); 
+
+Draw the robot and see the environment:
+
+>> drawrobot3d(robot, q)
+
+Now load a gripper:
+
+>> robot.tool=load_robot('equipment/end_tools', 'parallel_gripper_0'); 
+
+Move everything using the GUI application. You can load other end tools, such as:
+
+>> robot.tool=load_robot('equipment/end_tools', 'vacuum_2'); 
+
+**********************************
+HOME PAGE
+**********************************
+	http://www.arvc.umh.es/arte
+
+Please note that the library is everyday under development. Please send email bug reports, comments or code contributions to:
+
+	Arturo Gil	arturo.gil@umh.es

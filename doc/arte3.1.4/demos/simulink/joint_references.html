@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of joint_references</title>
+  <meta name="keywords" content="joint_references">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">demos</a> &gt; <a href="index.html">simulink</a> &gt; joint_references.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos/simulink&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>joint_references
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function q=joint_references(time) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  JOINT_REFERENCES
+  Obtain q when the robot makes a linear trajectory of the end effector 
+  in cartesian space
+
+  See also INVERSEKINEMATIC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/RAPID/functions/select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>	DIRECTKINEMATIC		Direct Kinematic for serial robots.</li><li><a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/quaternion2T.html" class="code" title="function T = quaternion2T(Q, P)">quaternion2T</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/slerp.html" class="code" title="function [qm] = slerp (qi, qn, t, eps)">slerp</a>	%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%  JOINT_REFERENCES</span>
+0003 <span class="comment">%  Obtain q when the robot makes a linear trajectory of the end effector</span>
+0004 <span class="comment">%  in cartesian space</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  See also INVERSEKINEMATIC</span>
+0007 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0008 
+0009 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0014 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0015 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0016 <span class="comment">% (at your option) any later version.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0019 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0020 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0021 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0024 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0025 <a name="_sub0" href="#_subfunctions" class="code">function q=joint_references(time)</a>
+0026 
+0027 <span class="keyword">global</span> robot
+0028 
+0029 time;
+0030 <span class="keyword">if</span> time == 0
+0031     robot.q=[0 0 0 0 0 0]';
+0032 <span class="keyword">end</span>
+0033 
+0034 simulation_time = 0.5;<span class="comment">%s</span>
+0035 
+0036 <span class="comment">%this is important, as this will be the initial joint</span>
+0037 <span class="comment">%values in the first integrator</span>
+0038 <span class="comment">%initial position</span>
+0039 T1 = <a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>(robot, [0 0 0 0 0.1 0]);
+0040 <span class="comment">%final position</span>
+0041 T2 = <a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>(robot, [0.3 0.3 0.3 0.1 0.1 0.1]);
+0042 
+0043 Q1 = <a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>(T1);
+0044 Q2 = <a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>(T2);
+0045 <span class="comment">%interpolate between the two orientations</span>
+0046 [Qm] = <a href="../../../arte3.1.4/lib/slerp.html" class="code" title="function [qm] = slerp (qi, qn, t, eps)">slerp</a>(Q1, Q2, time/simulation_time, 0.01);
+0047 
+0048 
+0049 
+0050 initial_point=T1(1:3,4);
+0051 end_point=T2(1:3,4);
+0052 
+0053 <span class="comment">% %NOA matrix end point</span>
+0054 <span class="comment">% T2=[1 0 0 0.5;</span>
+0055 <span class="comment">%     0 1 0 0.4;</span>
+0056 <span class="comment">%     0 0 1 0.3;</span>
+0057 <span class="comment">%     0 0 0  1];</span>
+0058 
+0059 <span class="comment">%speed of the movement</span>
+0060 speed = norm(initial_point-end_point)/simulation_time;<span class="comment">%m/s</span>
+0061 
+0062 v=(end_point-initial_point);
+0063 v=v/norm(v); <span class="comment">%unit vector in the direction of the line</span>
+0064 
+0065 point = initial_point + speed*time*v;
+0066 
+0067 <span class="comment">%T1(1:3,4)=point(1:3);</span>
+0068 
+0069 Ttotal = <a href="../../../arte3.1.4/lib/quaternion2T.html" class="code" title="function T = quaternion2T(Q, P)">quaternion2T</a>(Qm, point(1:3));
+0070 qinv = <a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>(robot, Ttotal);
+0071 q = <a href="../../../arte3.1.4/RAPID/functions/select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>(robot, qinv, robot.q);
+0072 
+0073 <span class="comment">%update current robot joints</span>
+0074 robot.q=q;</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

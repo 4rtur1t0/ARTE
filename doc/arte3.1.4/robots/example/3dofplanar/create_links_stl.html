@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of create_links_stl</title>
+  <meta name="keywords" content="create_links_stl">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../../index.html">Home</a> &gt;  <a href="../../../index.html">arte3.1.4</a> &gt; <a href="#">robots</a> &gt; <a href="#">example</a> &gt; <a href="index.html">3dofplanar</a> &gt; create_links_stl.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../../index.html"><img alt="<" border="0" src="../../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/robots/example/3dofplanar&nbsp;<img alt=">" border="0" src="../../../../right.png"></a></td></tr></table>-->
+
+<h1>create_links_stl
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%
+   LINK 0: BASE
+%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../arte3.1.4/tools/surf2stl/surf2stl.html" class="code" title="function surf2stl(filename,x,y,z,mode,writemode)">surf2stl</a>	SURF2STL   Write STL file from surface data.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   LINK 0: BASE</span>
+0003 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0004 filename=<span class="string">'link0.stl'</span>; <span class="comment">%base</span>
+0005 cyl_radius=0.05;
+0006 cyl_height = 0.1;
+0007 precision = 20; <span class="comment">% increase to obtain a more accurate drawing</span>
+0008 
+0009 <span class="comment">%create a unit height cylinder with 100 points. Radius 75</span>
+0010 [X,Y,Z] = cylinder([cyl_radius], precision);
+0011 
+0012 <span class="comment">%Multiply Z by height</span>
+0013 Z=Z*2*cyl_height-cyl_height;
+0014 
+0015 <span class="comment">%Save in stl format, create new file</span>
+0016 <a href="../../../../arte3.1.4/tools/surf2stl/surf2stl.html" class="code" title="function surf2stl(filename,x,y,z,mode,writemode)">surf2stl</a>(filename, X, Y, Z, <span class="string">'ascii'</span>, <span class="string">'w'</span>);
+0017 
+0018 <span class="comment">%now create a disk, bottom</span>
+0019 radius = linspace(0,cyl_radius,precision); <span class="comment">% For ten rings</span>
+0020 theta = (pi/180)*[0:15:360]; <span class="comment">% For eight angles</span>
+0021 [R,T] = meshgrid(radius,theta); <span class="comment">% Make radius/theta grid</span>
+0022 X = R.*cos(T); <span class="comment">% Convert grid to cartesian coordintes</span>
+0023 Y = R.*sin(T);
+0024 
+0025 <span class="comment">%append this solid to already created file, bottom disk</span>
+0026 <a href="../../../../arte3.1.4/tools/surf2stl/surf2stl.html" class="code" title="function surf2stl(filename,x,y,z,mode,writemode)">surf2stl</a>(filename, X, Y, 0.*X, <span class="string">'ascii'</span>, <span class="string">'a+'</span>);
+0027 <span class="comment">%top disk</span>
+0028 <a href="../../../../arte3.1.4/tools/surf2stl/surf2stl.html" class="code" title="function surf2stl(filename,x,y,z,mode,writemode)">surf2stl</a>(filename, X, Y, cyl_height.*ones(size(X,1), size(X,2)), <span class="string">'ascii'</span>, <span class="string">'a+'</span>);
+0029 
+0030 
+0031 
+0032 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0033 <span class="comment">%   LINK 1</span>
+0034 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0035 filename=<span class="string">'link1.stl'</span>; 
+0036 cyl_radius=0.05;
+0037 cyl_height = 1;
+0038 precision = 20; <span class="comment">% increase to obtain a more accurate drawing</span>
+0039 
+0040 <span class="comment">%create a unit height cylinder with 100 points. Radius 75</span>
+0041 [Z,Y,X] = cylinder([cyl_radius], precision);
+0042 <span class="comment">%Multiply Z by height</span>
+0043 X=-X*cyl_height;
+0044 
+0045 <span class="comment">%Save in stl format, create new file</span>
+0046 <a href="../../../../arte3.1.4/tools/surf2stl/surf2stl.html" class="code" title="function surf2stl(filename,x,y,z,mode,writemode)">surf2stl</a>(filename, X, Y, Z, <span class="string">'ascii'</span>, <span class="string">'w'</span>);
+0047 
+0048 
+0049 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0050 <span class="comment">%   LINK 2</span>
+0051 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0052 filename=<span class="string">'link2.stl'</span>;
+0053 cyl_radius=0.05;
+0054 cyl_height = 1;
+0055 precision = 20; <span class="comment">% increase to obtain a more accurate drawing</span>
+0056 
+0057 <span class="comment">%create a unit height cylinder with 100 points. Radius 75</span>
+0058 [Z,Y,X] = cylinder([cyl_radius], precision);
+0059 <span class="comment">%Multiply Z by height</span>
+0060 X=-X*cyl_height;
+0061 
+0062 <span class="comment">%Save in stl format, create new file</span>
+0063 <a href="../../../../arte3.1.4/tools/surf2stl/surf2stl.html" class="code" title="function surf2stl(filename,x,y,z,mode,writemode)">surf2stl</a>(filename, X, Y, Z, <span class="string">'ascii'</span>, <span class="string">'w'</span>);
+0064 
+0065 
+0066 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0067 <span class="comment">%   LINK 3</span>
+0068 <span class="comment">%%%%%%%%%%%%%%%%%%</span>
+0069 filename=<span class="string">'link3.stl'</span>;
+0070 cyl_radius=0.05;
+0071 cyl_height = 1;
+0072 precision = 20; <span class="comment">% increase to obtain a more accurate drawing</span>
+0073 
+0074 <span class="comment">%create a unit height cylinder with 100 points. Radius 75</span>
+0075 [Z,Y,X] = cylinder([cyl_radius], precision);
+0076 <span class="comment">%Multiply Z by height</span>
+0077 X=-X*cyl_height;
+0078 
+0079 <span class="comment">%Save in stl format, create new file</span>
+0080 <a href="../../../../arte3.1.4/tools/surf2stl/surf2stl.html" class="code" title="function surf2stl(filename,x,y,z,mode,writemode)">surf2stl</a>(filename, X, Y, Z, <span class="string">'ascii'</span>, <span class="string">'w'</span>);</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

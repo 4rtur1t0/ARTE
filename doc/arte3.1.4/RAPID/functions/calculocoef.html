@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of calculocoef</title>
+  <meta name="keywords" content="calculocoef">
+  <meta name="description" content="CALCULOCOEF Función de cálculo de los coeficientes de los polinomios 4-3-4.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">RAPID</a> &gt; <a href="index.html">functions</a> &gt; calculocoef.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/RAPID/functions&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>calculocoef
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>CALCULOCOEF Función de cálculo de los coeficientes de los polinomios 4-3-4.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [caso,A,tt] = calculocoef(elem, vel,q0,qf,tmotor) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">    CALCULOCOEF Función de cálculo de los coeficientes de los polinomios 4-3-4.
+
+        [CASO, A ,TT]=CALCULOCOEF(ELEM,VEL,Q0,QF,TMOTOR) calcula los coeficientes
+        de los polinomios interpolados 4-3-4 en base a las especificaciones de    
+        los actuadores y los puntos de inicio y final.  
+        La matriz A de 5x3 contiene los coeficientes de los polinomios interpolados.
+        TT es el vector 3x1 de los intervalos de tiempo de aceleración, velocidad 
+        maxima y deceleración de los motores.
+        caso=1: Cada motor logra alcanzar su velocidad maxima.
+        caso=2: No hay tiempo de alcanzar la velocidad maxima de cada motor.
+
+        Ver también PLANIFICADOR, SINCRONIZADOR, EVALPOS, EVALVEL, EVALACEL.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%    CALCULOCOEF Función de cálculo de los coeficientes de los polinomios 4-3-4.</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">%        [CASO, A ,TT]=CALCULOCOEF(ELEM,VEL,Q0,QF,TMOTOR) calcula los coeficientes</span>
+0004 <span class="comment">%        de los polinomios interpolados 4-3-4 en base a las especificaciones de</span>
+0005 <span class="comment">%        los actuadores y los puntos de inicio y final.</span>
+0006 <span class="comment">%        La matriz A de 5x3 contiene los coeficientes de los polinomios interpolados.</span>
+0007 <span class="comment">%        TT es el vector 3x1 de los intervalos de tiempo de aceleración, velocidad</span>
+0008 <span class="comment">%        maxima y deceleración de los motores.</span>
+0009 <span class="comment">%        caso=1: Cada motor logra alcanzar su velocidad maxima.</span>
+0010 <span class="comment">%        caso=2: No hay tiempo de alcanzar la velocidad maxima de cada motor.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%        Ver también PLANIFICADOR, SINCRONIZADOR, EVALPOS, EVALVEL, EVALACEL.</span>
+0013 
+0014 
+0015 <a name="_sub0" href="#_subfunctions" class="code">function [caso,A,tt] = calculocoef(elem, vel,q0,qf,tmotor)</a>
+0016 
+0017 desp = (qf(elem,1) - q0(elem,1));
+0018 ttot = abs(desp/vel(elem));
+0019 
+0020 t0=0;
+0021 t3 = ttot;
+0022 
+0023 <span class="keyword">if</span> ttot &gt; 2*tmotor(elem)
+0024     t1=t0+tmotor(elem);
+0025     t2 = t3-tmotor(elem);
+0026 <span class="keyword">else</span><span class="comment">%rest of the cases</span>
+0027     t1 = (t0+t3)/2;
+0028     t2=t1;
+0029 <span class="keyword">end</span>
+0030 
+0031 
+0032 
+0033 A =[1 t0 t0^2  t0^3   t0^4    t0^5    t0^6    t0^7    t0^8    t0^9    t0^10 t0^11;
+0034     0 1  2*t0  3*t0^2 4*t0^3  5*t0^4  6*t0^5  7*t0^6  8*t0^7  9*t0^8  10*t0^9 11*t0^10;
+0035     0 0  2     6*t0   12*t0^2 20*t0^3 30*t0^4 42*t0^5 56*t0^6 72*t0^7 90*t0^8 110*t0^9;
+0036     1 t1 t1^2  t1^3   t1^4    t1^5    t1^6    t1^7    t1^8    t1^9    t1^10 t1^11;
+0037     0 1  2*t1  3*t1^2 4*t1^3  5*t1^4  6*t1^5  7*t1^6  8*t1^7  9*t1^8  10*t1^9 11*t1^10;
+0038     0 0  2     6*t1   12*t1^2 20*t1^3 30*t1^4 42*t1^5 56*t1^6 72*t1^7 90*t1^8 110*t1^9;
+0039     1 t2 t2^2  t2^3   t2^4    t2^5    t2^6    t2^7    t2^8    t2^9    t2^10 t2^11;
+0040     0 1  2*t2  3*t2^2 4*t2^3  5*t2^4  6*t2^5  7*t2^6  8*t2^7  9*t2^8  10*t2^9 11*t2^10;
+0041     0 0  2     6*t2   12*t2^2 20*t2^3 30*t2^4 42*t2^5 56*t2^6 72*t2^7 90*t2^8 110*t2^9;
+0042     1 t3 t3^2  t3^3   t3^4    t3^5    t3^6    t3^7    t3^8    t3^9    t3^10 t3^11;
+0043     0 1  2*t3  3*t3^2 4*t3^3  5*t3^4  6*t3^5  7*t3^6  8*t3^7  9*t3^8  10*t3^9 11*t3^10;
+0044     0 0  2     6*t3   12*t3^2 20*t3^3 30*t3^4 42*t3^5 56*t32^6 72*t3^7 90*t3^8 110*t3^9 ];
+0045 
+0046 
+0047 <span class="comment">% %-------------------------------------------------------------------------------</span>
+0048 <span class="comment">% %Tiempos de respuesta del motor (aceleración y frenado)</span>
+0049 <span class="comment">% %-------------------------------------------------------------------------------</span>
+0050 <span class="comment">% ti = tmotor(elem,1);</span>
+0051 <span class="comment">% tf = tmotor(elem,2);</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">% %-------------------------------------------------------------------------------</span>
+0054 <span class="comment">% %Cálculo de los coeficientes.</span>
+0055 <span class="comment">% %-------------------------------------------------------------------------------</span>
+0056 <span class="comment">% if vel(elem) ~= 0</span>
+0057 <span class="comment">%     %-Determinacion del caso</span>
+0058 <span class="comment">%     desp = (qf(elem,1) - q0(elem,1));</span>
+0059 <span class="comment">%     ttot = abs(desp/vel(elem));</span>
+0060 <span class="comment">%     if ttot &gt; (ti + tf)</span>
+0061 <span class="comment">%        caso = 1;</span>
+0062 <span class="comment">%     else</span>
+0063 <span class="comment">%        caso = 2;</span>
+0064 <span class="comment">%     end;</span>
+0065 <span class="comment">%</span>
+0066 <span class="comment">%     %****************************** CASO 1**************************************</span>
+0067 <span class="comment">%     if caso == 1</span>
+0068 <span class="comment">%</span>
+0069 <span class="comment">%     %vector de tiempo: Arranque - Velocidad Max - Desaceleracion</span>
+0070 <span class="comment">%     tt = [ ti ttot-(ti+tf) tf ];</span>
+0071 <span class="comment">%</span>
+0072 <span class="comment">%     %Determinacion de los coeficientes polinomiales</span>
+0073 <span class="comment">%     A = zeros(3,5);</span>
+0074 <span class="comment">%</span>
+0075 <span class="comment">% %Coeficientes del polinomio de posicion</span>
+0076 <span class="comment">% A(1,1) = q0(elem,1);</span>
+0077 <span class="comment">% A(1,2) = q0(elem,2)*tt(1);</span>
+0078 <span class="comment">% A(1,3) = q0(elem,3)*tt(1)^2/2;</span>
+0079 <span class="comment">% A(1,4) = tt(1)*vel(elem) - A(1,2) - 4*A(1,3)/3;</span>
+0080 <span class="comment">% A(1,5) = -tt(1)*vel(elem)/2 + A(1,2)/2 + A(1,3)/2;</span>
+0081 <span class="comment">%</span>
+0082 <span class="comment">% %Coeficientes del polinomio de aceleracion</span>
+0083 <span class="comment">% A(3,1) = qf(elem,1);</span>
+0084 <span class="comment">% A(3,2) = qf(elem,2)*tt(3);</span>
+0085 <span class="comment">% A(3,3) = qf(elem,3)*tt(3)^2/2;</span>
+0086 <span class="comment">% A(3,4) = tt(3)*vel(elem) - A(3,2) + 4*A(3,3)/3;</span>
+0087 <span class="comment">% A(3,5) = (tt(3)*vel(elem) - A(3,2) + A(3,3))/2;</span>
+0088 <span class="comment">%</span>
+0089 <span class="comment">% %Espacio recorrido en los anteriores intervalos</span>
+0090 <span class="comment">% x1 = A(1,2) + A(1,3) + A(1,4) + A(1,5);</span>
+0091 <span class="comment">% x3 = A(3,2) - A(3,3) + A(3,4) - A(3,5);</span>
+0092 <span class="comment">% x2 = qf(elem,1) - q0(elem,1) - ( x1 + x3);</span>
+0093 <span class="comment">%</span>
+0094 <span class="comment">% %Tiempo real a velocidad maxima.</span>
+0095 <span class="comment">% tt(2) = x2/vel(elem);</span>
+0096 <span class="comment">%</span>
+0097 <span class="comment">% %Coeficientes del polinomio de velocidad.</span>
+0098 <span class="comment">% A(2,1) = A(1,1) + A(1,2) + A(1,3) + A(1,4) + A(1,5);</span>
+0099 <span class="comment">% A(2,2) = vel(elem)*tt(2);</span>
+0100 <span class="comment">%</span>
+0101 <span class="comment">% %******************************** CASO 2**************************************</span>
+0102 <span class="comment">% elseif caso == 2</span>
+0103 <span class="comment">%</span>
+0104 <span class="comment">% t  = (ti + tf)/2;</span>
+0105 <span class="comment">% tt = [ t t ];</span>
+0106 <span class="comment">% A  = zeros(2,5);</span>
+0107 <span class="comment">%</span>
+0108 <span class="comment">% % Arranque del motor.</span>
+0109 <span class="comment">% A(1,1) = q0(elem,1);</span>
+0110 <span class="comment">% A(1,2) = q0(elem,2)*tt(1);</span>
+0111 <span class="comment">% A(1,3) = q0(elem,3)*tt(1)^2/2;</span>
+0112 <span class="comment">%</span>
+0113 <span class="comment">% % Desaceleracion del motor.</span>
+0114 <span class="comment">% A(2,1) = qf(elem,1);</span>
+0115 <span class="comment">% A(2,2) = qf(elem,2)*tt(2);</span>
+0116 <span class="comment">% A(2,3) = qf(elem,3)*tt(2)^2/2;</span>
+0117 <span class="comment">%</span>
+0118 <span class="comment">% % Los polinomios para este caso son de quinto orden.</span>
+0119 <span class="comment">% B = [    1            1             1          -1;</span>
+0120 <span class="comment">%      6/tt(1)^2    12/tt(1)^2        0           0;</span>
+0121 <span class="comment">%       3/tt(1)      4/tt(1)      -3/tt(2)     4/tt(2);</span>
+0122 <span class="comment">%          0            0        -6/tt(2)^2  12/tt(2)^2 ];</span>
+0123 <span class="comment">%</span>
+0124 <span class="comment">% b = [ -A(1,1) + A(1,2) + A(1,3) + A(2,1) - A(2,2) + A(2,3);</span>
+0125 <span class="comment">%                      -2*A(1,3)/tt(1)^2;</span>
+0126 <span class="comment">%       -(A(1,2) + 2*A(1,3))/tt(1) + (A(2,2) - 2*A(2,3))/tt(2);</span>
+0127 <span class="comment">%                      -2*A(2,3)/tt(2)^2                      ];</span>
+0128 <span class="comment">%</span>
+0129 <span class="comment">% x = inv(B)*b;</span>
+0130 <span class="comment">%</span>
+0131 <span class="comment">% % Coeficientes 4 y 5 de cada segmento.</span>
+0132 <span class="comment">% A(1,4) = x(1);</span>
+0133 <span class="comment">% A(1,5) = x(2);</span>
+0134 <span class="comment">%</span>
+0135 <span class="comment">% A(2,4) = x(3);</span>
+0136 <span class="comment">% A(2,5) = x(4);</span>
+0137 <span class="comment">%</span>
+0138 <span class="comment">% end;</span>
+0139 <span class="comment">%</span>
+0140 <span class="comment">% % Para cuando el motor no se mueve.</span>
+0141 <span class="comment">% else</span>
+0142 <span class="comment">%  caso = 2;</span>
+0143 <span class="comment">%  tt = [0 0 0];</span>
+0144 <span class="comment">%  A = zeros(2,5);</span>
+0145 <span class="comment">% end;</span>
+0146 <span class="comment">%</span>
+0147 <span class="comment">% return</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 11:08:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

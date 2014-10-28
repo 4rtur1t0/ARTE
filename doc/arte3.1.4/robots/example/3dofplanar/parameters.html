@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of parameters</title>
+  <meta name="keywords" content="parameters">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../../index.html">Home</a> &gt;  <a href="../../../index.html">arte3.1.4</a> &gt; <a href="#">robots</a> &gt; <a href="#">example</a> &gt; <a href="index.html">3dofplanar</a> &gt; parameters.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../../index.html"><img alt="<" border="0" src="../../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/robots/example/3dofplanar&nbsp;<img alt=">" border="0" src="../../../../right.png"></a></td></tr></table>-->
+
+<h1>parameters
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function robot = parameters() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   PARAMETERS Returns a data structure containing the parameters of the
+   example 3 DOF planar robot.
+
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+   email: arturo.gil@umh.es date:   05/03/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   PARAMETERS Returns a data structure containing the parameters of the</span>
+0003 <span class="comment">%   example 3 DOF planar robot.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0006 <span class="comment">%   email: arturo.gil@umh.es date:   05/03/2012</span>
+0007 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0008 
+0009 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0014 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0015 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0016 <span class="comment">% (at your option) any later version.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0019 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0020 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0021 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0024 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0025 <a name="_sub0" href="#_subfunctions" class="code">function robot = parameters()</a>
+0026 
+0027 robot.name=<span class="string">'Example 3DOF planar arm'</span>;
+0028 
+0029 <span class="comment">%kinematic data DH parameters</span>
+0030 robot.DH.theta=<span class="string">'[q(1) q(2) q(3)]'</span>;
+0031 robot.DH.d=<span class="string">'[0  0  0]'</span>;
+0032 robot.DH.a=<span class="string">'[1  1  1]'</span>;
+0033 robot.DH.alpha=<span class="string">'[0  0  0]'</span>;
+0034 
+0035 <span class="comment">%number of degrees of freedom</span>
+0036 robot.DOF = 3;
+0037 
+0038 <span class="comment">%Jacobian matrix</span>
+0039 robot.J=[];
+0040 
+0041 robot.kind=[<span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span>];
+0042 
+0043 
+0044 <span class="comment">%Function name to compute inverse kinematic</span>
+0045 robot.inversekinematic_fn = <span class="string">'inversekinematic_3dofplanar(robot, T)'</span>;
+0046 robot.directkinematic_fn = <span class="string">'directkinematic(robot, q)'</span>;
+0047 
+0048 <span class="comment">%minimum and maximum rotation angle in rad</span>
+0049 robot.maxangle =[<a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-180) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(180); <span class="comment">%Axis 1, minimum, maximum</span>
+0050                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-180) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(180);
+0051                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-180) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(180)]; <span class="comment">%Axis 2, minimum, maximum</span>
+0052                 
+0053 <span class="comment">%maximum absolute speed of each joint rad/s or m/s</span>
+0054 robot.velmax = []; <span class="comment">%empty, not available</span>
+0055 
+0056 <span class="comment">% end effectors maximum velocity</span>
+0057 robot.linear_velmax = 0; <span class="comment">%m/s, example, not available</span>
+0058 
+0059 <span class="comment">%base reference system</span>
+0060 robot.T0 = eye(4);
+0061 
+0062 <span class="comment">%INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION</span>
+0063 <span class="comment">%position, velocity and acceleration</span>
+0064 robot=<a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>(robot);
+0065 robot.path = pwd;
+0066 
+0067 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0068 <span class="comment">%GRAPHICS</span>
+0069 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0070 <span class="comment">%read graphics files</span>
+0071 robot.graphical.has_graphics=1;
+0072 robot.graphical.color = [255 20 40]./255;
+0073 <span class="comment">%for transparency</span>
+0074 robot.graphical.draw_transparent=0;
+0075 <span class="comment">%draw DH systems</span>
+0076 robot.graphical.draw_axes=1;
+0077 <span class="comment">%DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for</span>
+0078 <span class="comment">%bigger robots</span>
+0079 robot.graphical.axes_scale=1;
+0080 <span class="comment">%adjust for a default view of the robot</span>
+0081 robot.axis=[-3.5 3.5 -3.5 3.5 0 1]
+0082 robot = <a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>(robot);
+0083 
+0084 
+0085 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0086 <span class="comment">%DYNAMIC PARAMETERS</span>
+0087 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0088 robot.has_dynamics=1;
+0089 
+0090 <span class="comment">%link masses (kg)</span>
+0091 robot.m=[1 1 1] ;
+0092 
+0093 <span class="comment">%COM of each link with respect to own reference system</span>
+0094 robot.r=[-0.5      0         0; <span class="comment">%(rx, ry, rz) link 1</span>
+0095          -0.5      0         0;
+0096          -0.5      0         0];<span class="comment">%(rx, ry, rz) link 2</span>
+0097 
+0098 <span class="comment">%link masses</span>
+0099 m1 = robot.m(1);
+0100 m2 = robot.m(2);
+0101 m3 = robot.m(3);
+0102 
+0103 L1 = robot.DH.a(1);
+0104 L2 = robot.DH.a(2);
+0105 L3 = robot.DH.a(3);
+0106 
+0107 <span class="comment">%Momentos de inercia de cada eslabon.</span>
+0108 <span class="comment">% Ixx    Iyy    Izz    Ixy    Iyz    Ixz, por cada fila</span>
+0109 robot.I=[0   0   m1*L1/3    0    0    0;
+0110          0   0   m2*L2/3    0    0    0;
+0111          0   0   m3*L3/3    0    0    0];
+0112      
+0113 <span class="comment">%Actuator rotor inertia</span>
+0114 robot.Jm=[0 0 0];
+0115 <span class="comment">%Reduction ration motor/joint speed</span>
+0116 robot.G=[0 0 0];
+0117 <span class="comment">%consider friction</span>
+0118 robot.friction=1;
+0119 <span class="comment">%Viscous friction factor, motor referred</span>
+0120 <span class="comment">%robot.B = [1e-3  1e-3 1e-3];</span>
+0121 robot.B = [0  0 0];
+0122 <span class="comment">%Coulomb friction, motor referred</span>
+0123 robot.Tc = [0 0;
+0124             0 0;
+0125             0 0];
+0126</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

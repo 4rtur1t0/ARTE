@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of inversekinematic_KR_1000_1300_TITAN</title>
+  <meta name="keywords" content="inversekinematic_KR_1000_1300_TITAN">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../../index.html">Home</a> &gt;  <a href="../../../index.html">arte3.1.4</a> &gt; <a href="#">robots</a> &gt; <a href="#">KUKA</a> &gt; <a href="index.html">KR_1000_1300_TITAN</a> &gt; inversekinematic_KR_1000_1300_TITAN.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../../index.html"><img alt="<" border="0" src="../../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/robots/KUKA/KR_1000_1300_TITAN&nbsp;<img alt=">" border="0" src="../../../../right.png"></a></td></tr></table>-->
+
+<h1>inversekinematic_KR_1000_1300_TITAN
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function q = inversekinematic_KR_1000_1300_TITAN(robot, T) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   Q = INVERSEKINEMATIC_KR_1000_1300_TITAN(robot, T)    
+   Solves the inverse kinematic problem for the KUKA KR 1000 1300 TITAN robot
+   where:
+   robot stores the robot parameters.
+   T is an homogeneous transform that specifies the position/orientation
+   of the end effector.
+
+   A call to Q=INVERSEKINEMATIC_KR_1000_1300_TITAN returns 8 possible solutions, thus,
+   Q is a 6x8 matrix where each column stores 6 feasible joint values.
+
+   
+   Example code:
+
+   robot=load_robot('kuka', 'KR_1000_1300_TITAN');
+   q = [0 0 0 0 0 0];    
+   T = directkinematic(robot, q);
+   %Call the inversekinematic for this robot
+   qinv = inversekinematic(robot, T);
+   check that all of them are feasible solutions!
+   and every Ti equals T
+   for i=1:8,
+        Ti = directkinematic(robot, qinv(:,i))
+   end
+    See also DIRECTKINEMATIC.
+   Authors:   Javier Mart�nez Gonz�lez
+              Jos� Francisco Mu�oz Sempere
+              Silvia Carretero Monasor
+              Marcos G�mez Parres
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ Copyright (C) 2012, by Arturo Gil Aparicio
+
+ This file is part of ARTE (A Robotics Toolbox for Education).
+
+ ARTE is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ ARTE is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Leser General Public License
+ along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>	DENAVIT Compute an homogeneous transform matrix DH in terms of</li><li><a href="../../../../arte3.1.4/lib/normalize.html" class="code" title="function q = normalize(q)">normalize</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function q2 = solve_for_theta2(robot, q, Pm)</a></li><li><a href="#_sub2" class="code">function q3 = solve_for_theta3(robot, q, Pm)</a></li><li><a href="#_sub3" class="code">function q = solve_for_last_three_joints(robot, q, T, wrist)</a></li><li><a href="#_sub4" class="code">function  qreal = arrange_solutions(q)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   Q = INVERSEKINEMATIC_KR_1000_1300_TITAN(robot, T)</span>
+0003 <span class="comment">%   Solves the inverse kinematic problem for the KUKA KR 1000 1300 TITAN robot</span>
+0004 <span class="comment">%   where:</span>
+0005 <span class="comment">%   robot stores the robot parameters.</span>
+0006 <span class="comment">%   T is an homogeneous transform that specifies the position/orientation</span>
+0007 <span class="comment">%   of the end effector.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   A call to Q=INVERSEKINEMATIC_KR_1000_1300_TITAN returns 8 possible solutions, thus,</span>
+0010 <span class="comment">%   Q is a 6x8 matrix where each column stores 6 feasible joint values.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%   Example code:</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%   robot=load_robot('kuka', 'KR_1000_1300_TITAN');</span>
+0016 <span class="comment">%   q = [0 0 0 0 0 0];</span>
+0017 <span class="comment">%   T = directkinematic(robot, q);</span>
+0018 <span class="comment">%   %Call the inversekinematic for this robot</span>
+0019 <span class="comment">%   qinv = inversekinematic(robot, T);</span>
+0020 <span class="comment">%   check that all of them are feasible solutions!</span>
+0021 <span class="comment">%   and every Ti equals T</span>
+0022 <span class="comment">%   for i=1:8,</span>
+0023 <span class="comment">%        Ti = directkinematic(robot, qinv(:,i))</span>
+0024 <span class="comment">%   end</span>
+0025 <span class="comment">%    See also DIRECTKINEMATIC.</span>
+0026 <span class="comment">%   Authors:   Javier Mart�nez Gonz�lez</span>
+0027 <span class="comment">%              Jos� Francisco Mu�oz Sempere</span>
+0028 <span class="comment">%              Silvia Carretero Monasor</span>
+0029 <span class="comment">%              Marcos G�mez Parres</span>
+0030 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0031 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0036 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0037 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0038 <span class="comment">% (at your option) any later version.</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0041 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0042 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0043 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0046 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0047 
+0048 <a name="_sub0" href="#_subfunctions" class="code">function q = inversekinematic_KR_1000_1300_TITAN(robot, T)</a>
+0049 
+0050 <span class="comment">%initialize q,</span>
+0051 <span class="comment">%eight possible solutions are generally feasible</span>
+0052 q=zeros(6,8);
+0053 
+0054 <span class="comment">%Evaluate the parameters</span>
+0055 theta = eval(robot.DH.theta);
+0056 d = eval(robot.DH.d);
+0057 a = eval(robot.DH.a);
+0058 alpha = eval(robot.DH.alpha);
+0059 
+0060 L6=d(6); <span class="comment">%Distancia de la mu�eca al efector final.</span>
+0061 
+0062 A1 = a(1);
+0063 
+0064 <span class="comment">%T= [ nx ox ax Px;</span>
+0065 <span class="comment">%     ny oy ay Py;</span>
+0066 <span class="comment">%     nz oz az Pz];</span>
+0067 Px=T(1,4);
+0068 Py=T(2,4);
+0069 Pz=T(3,4);
+0070 
+0071 <span class="comment">%Compute the position of the wrist, being W the Z component of the end effector's system</span>
+0072 <span class="comment">%Tomamos el vector &quot;a&quot;</span>
+0073 W = T(1:3,3); <span class="comment">%ax, ay, az</span>
+0074 
+0075 <span class="comment">% Pm: wrist position (Posici�n de la mu�eca)</span>
+0076 Pm = [Px Py Pz]' - L6*W; 
+0077 
+0078 <span class="comment">%first joint, two possible solutions admited:</span>
+0079 <span class="comment">% if q(1) is a solution, then q(1) + pi is also a solution</span>
+0080 <span class="comment">%Obtenemos &quot;theta 1&quot; mediante m�todos geom�tricos.</span>
+0081 q1=atan2(-Pm(2), Pm(1));
+0082 
+0083 
+0084 <span class="comment">%solve for q2</span>
+0085 q2_1=<a href="#_sub1" class="code" title="subfunction q2 = solve_for_theta2(robot, q, Pm)">solve_for_theta2</a>(robot, [q1 0 0 0 0 0 0], Pm);
+0086 
+0087 q2_2=<a href="#_sub1" class="code" title="subfunction q2 = solve_for_theta2(robot, q, Pm)">solve_for_theta2</a>(robot, [q1+pi 0 0 0 0 0 0], Pm);
+0088 
+0089 <span class="comment">%solve for q3</span>
+0090 q3_1=<a href="#_sub2" class="code" title="subfunction q3 = solve_for_theta3(robot, q, Pm)">solve_for_theta3</a>(robot, [q1 0 0 0 0 0 0], Pm);
+0091 
+0092 q3_2=<a href="#_sub2" class="code" title="subfunction q3 = solve_for_theta3(robot, q, Pm)">solve_for_theta3</a>(robot, [q1+pi 0 0 0 0 0 0], Pm);
+0093 
+0094 
+0095 <span class="comment">%Arrange solutions, there are 8 possible solutions so far.</span>
+0096 <span class="comment">% if q1 is a solution, q1* = q1 + pi is also a solution.</span>
+0097 <span class="comment">% For each (q1, q1*) there are two possible solutions</span>
+0098 <span class="comment">% for q2 and q3 (namely, elbow up and elbow up solutions)</span>
+0099 <span class="comment">% So far, we have 4 possible solutions. Howefer, for each triplet (theta1, theta2, theta3),</span>
+0100 <span class="comment">% there exist two more possible solutions for the last three joints, generally</span>
+0101 <span class="comment">% called wrist up and wrist down solutions. For this reason,</span>
+0102 <span class="comment">%the next matrix doubles each column. For each two columns, two different</span>
+0103 <span class="comment">%configurations for theta4, theta5 and theta6 will be computed. These</span>
+0104 <span class="comment">%configurations are generally referred as wrist up and wrist down solution</span>
+0105 q = [q1         q1         q1        q1       q1+pi   q1+pi   q1+pi   q1+pi;   
+0106      q2_1(1)    q2_1(1)    q2_1(2)   q2_1(2)  q2_2(1) q2_2(1) q2_2(2) q2_2(2);
+0107      q3_1(1)    q3_1(1)    q3_1(2)   q3_1(2)  q3_2(1) q3_2(1) q3_2(2) q3_2(2);
+0108      0          0          0         0         0      0       0       0;
+0109      0          0          0         0         0      0       0       0;
+0110      0          0          0         0         0      0       0       0];
+0111 
+0112 <span class="comment">%At this point, we want to asure, that, at least, the function returns</span>
+0113 <span class="comment">%4 real solutions q(1:4). If any of the solutions q(1:4) is complex, only</span>
+0114 <span class="comment">%the real part will be returned. If any of the solutions q(5:8) is complex,</span>
+0115 <span class="comment">%it will not be considered and removed</span>
+0116 q = <a href="#_sub4" class="code" title="subfunction  qreal = arrange_solutions(q)">arrange_solutions</a>(q);
+0117 
+0118 
+0119 <span class="comment">%normalize q to [-pi, pi]</span>
+0120 q = <a href="../../../../arte3.1.4/lib/normalize.html" class="code" title="function q = normalize(q)">normalize</a>(q);
+0121 
+0122 
+0123 <span class="comment">% % solve for the last three joints</span>
+0124 <span class="comment">% % for any of the possible combinations (theta1, theta2, theta3)</span>
+0125 <span class="comment">% %Please note the special orientation of the wrist of this robot. In this</span>
+0126 <span class="comment">% %case, we employ an 'ad hoc' function to solve for the final orientaion</span>
+0127 <span class="keyword">for</span> i=1:2:size(q,2),
+0128     qtemp = <a href="#_sub3" class="code" title="subfunction q = solve_for_last_three_joints(robot, q, T, wrist)">solve_for_last_three_joints</a>(robot, q(:,i), T, 1); <span class="comment">%wrist up</span>
+0129     q(:,i)=qtemp;
+0130     
+0131     qtemp = <a href="#_sub3" class="code" title="subfunction q = solve_for_last_three_joints(robot, q, T, wrist)">solve_for_last_three_joints</a>(robot, q(:,i), T, -1); <span class="comment">%wrist down</span>
+0132     q(:,i+1)=qtemp;
+0133 <span class="keyword">end</span>
+0134 
+0135 
+0136 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0137 <span class="comment">% solve for second joint theta2, two different</span>
+0138 <span class="comment">% solutions are returned, corresponding</span>
+0139 <span class="comment">% to elbow up and down solution</span>
+0140 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0141 <a name="_sub1" href="#_subfunctions" class="code">function q2 = solve_for_theta2(robot, q, Pm)</a>
+0142 
+0143 <span class="comment">%Evaluate the parameters</span>
+0144 d = eval(robot.DH.d);
+0145 a = eval(robot.DH.a);
+0146 
+0147 <span class="comment">%See geometry</span>
+0148 <span class="comment">%Par�metros con los que calculamos &quot;theta 2&quot; y &quot;theta 3&quot;, tambi�n mediante</span>
+0149 <span class="comment">%m�todos geom�tricos.</span>
+0150 <span class="comment">%Tenemos en cuenta el desfase de 65mm entre los centros de los sistemas</span>
+0151 <span class="comment">%de referencia de los eslabones 2 y 3.</span>
+0152 L2=abs(a(2));
+0153 L3=abs(d(4));
+0154 A2 = abs(a(3)); <span class="comment">%ESTE ELEMENTO ES EL DESFASE CITADO</span>
+0155 <span class="comment">%given q1 is known, compute first DH transformation</span>
+0156 T01=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 1);
+0157 
+0158 L4 = sqrt(A2^2 + L3^2); <span class="comment">%LONGITUD DEL ESLAB�N TENIENDO EN CUENTA EL DESFASE</span>
+0159 <span class="comment">%(DISTANCIA REAL ENTRE MU�ECA Y ESLAB�N 2)</span>
+0160 <span class="comment">%Express Pm in the reference system 1, for convenience</span>
+0161 p1 = inv(T01)*[Pm; 1];
+0162 
+0163 r = sqrt(p1(1)^2 + p1(2)^2); <span class="comment">%r ES LA DISTANCIA DEL SIST. 1 A LA MU�ECA</span>
+0164 
+0165 beta = atan2(-p1(2), p1(1)); <span class="comment">%BETA=ARCTG(-Y/X)</span>
+0166 gamma = (acos((L2^2+r^2-L4^2)/(2*r*L2))); <span class="comment">%TEOREMA DEL COSENO</span>
+0167 
+0168 <span class="keyword">if</span> ~isreal(gamma)
+0169     disp(<span class="string">'WARNING:inversekinematic_KUKA_1000_1300_TITAN: the point is not reachable for this configuration, imaginary solutions'</span>); 
+0170     <span class="comment">%gamma = real(gamma);</span>
+0171 <span class="keyword">end</span>
+0172 
+0173 <span class="comment">%return two possible solutions</span>
+0174 <span class="comment">%elbow up and elbow down</span>
+0175 <span class="comment">%the order here is important and is coordinated with the function</span>
+0176 <span class="comment">%solve_for_theta</span>
+0177 q2(1) = pi/2-gamma-beta; <span class="comment">%elbow up (CODO ARRIBA)</span>
+0178 q2(2) = pi/2+gamma-beta; <span class="comment">%elbow down (CODO ABAJO)</span>
+0179 <span class="comment">%DEBEMOS A�ADIR UN �NGULO DE PI/2 DEBIDO A DESFASES EN NUESTROS SISTEMAS DE</span>
+0180 <span class="comment">%REFERENCIA</span>
+0181 
+0182 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0183 <span class="comment">% solve for third joint theta3, two different</span>
+0184 <span class="comment">% solutions are returned, corresponding</span>
+0185 <span class="comment">% to elbow up and down solution</span>
+0186 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0187 <a name="_sub2" href="#_subfunctions" class="code">function q3 = solve_for_theta3(robot, q, Pm)</a>
+0188 
+0189 <span class="comment">%Evaluate the parameters</span>
+0190 d = eval(robot.DH.d);
+0191 a = eval(robot.DH.a);
+0192 
+0193 <span class="comment">%See geometry</span>
+0194 L2=abs(a(2));
+0195 L3=abs(d(4));
+0196 A2 = abs(a(3));
+0197 
+0198 L4 = sqrt(A2^2 + L3^2); <span class="comment">%VOLVEMOS A TENER EN CUENTA EL DESFASE</span>
+0199 
+0200 phi=acos((A2^2+L4^2-L3^2)/(2*A2*L4)); <span class="comment">%TEOMERA DEL COSENO</span>
+0201 <span class="comment">%PHI, ES EL �NGULO QUE FORMAN LAS L�NEA QUE DEFINEN EL DESFASE ENTRE 2 Y 3,</span>
+0202 <span class="comment">%Y EL PROPIO ESLAB�N 4</span>
+0203 <span class="comment">%given q1 is known, compute first DH transformation</span>
+0204 T01=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 1);
+0205 
+0206 <span class="comment">%Express Pm in the reference system 1, for convenience</span>
+0207 p1 = inv(T01)*[Pm; 1];
+0208 
+0209 r = sqrt(p1(1)^2 + p1(2)^2); <span class="comment">%DE NUEVO, DISTANCIA ENTRE SIST.1 Y MU�ECA</span>
+0210 
+0211 eta = (acos((L2^2 + L4^2 - r^2)/(2*L2*L4))); <span class="comment">%TEOREMA DEL COSENO</span>
+0212 <span class="comment">%ETA, ES EL �NGULO REAL ENTRE LOS ESLABONES 3 Y 4</span>
+0213 
+0214 <span class="keyword">if</span> ~isreal(eta)
+0215    disp(<span class="string">'WARNING:inversekinematic_KUKA_1000_1300_TITAN: the point is not reachable for this configuration, imaginary solutions'</span>); 
+0216    <span class="comment">%eta = real(eta);</span>
+0217 <span class="keyword">end</span>
+0218 
+0219 <span class="comment">%return two possible solutions</span>
+0220 <span class="comment">%elbow up and elbow down solutions</span>
+0221 <span class="comment">%the order here is important</span>
+0222 q3(1) = pi - phi - eta; <span class="comment">%CODO ARRIBA</span>
+0223 q3(2) = pi - phi + eta; <span class="comment">%CODO ABAJO</span>
+0224 <span class="comment">%SE A�ADEN LOS �NGULOS &quot;PI&quot; EN AMBAS SOLUCIONES DEBIDO A DESFASES ENTRE</span>
+0225 <span class="comment">%NUESTROS SISTEMAS DE REFERENCIA.</span>
+0226 
+0227 <span class="comment">% Solve for the last three joints asuming an spherical wrist</span>
+0228 <a name="_sub3" href="#_subfunctions" class="code">function q = solve_for_last_three_joints(robot, q, T, wrist)</a>
+0229 
+0230 <span class="comment">% T is the noa matrix defining the position/orientation of the end</span>
+0231 <span class="comment">% effector's reference system</span>
+0232 vx6=T(1:3,1);
+0233 vz6=T(1:3,3);
+0234 vz5=T(1:3,3); <span class="comment">% The vector a T(1:3,3) is coincident with z5</span>
+0235 
+0236 <span class="comment">% Obtain the position and orientation of the system 3</span>
+0237 <span class="comment">% using the already computed joints q1, q2 and q3</span>
+0238 T01=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 1);
+0239 T12=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 2);
+0240 T23=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 3);
+0241 T03=T01*T12*T23;
+0242 
+0243 vx3=T03(1:3,1);
+0244 vy3=T03(1:3,2);
+0245 vz3=T03(1:3,3);
+0246 
+0247 <span class="comment">% find z4 normal to the plane formed by z3 and a</span>
+0248 vz4=cross(vz3, vz6);    <span class="comment">% end effector's vector a: T(1:3,3)</span>
+0249 
+0250 <span class="comment">% in case of degenerate solution,</span>
+0251 <span class="comment">% when vz3 and vz6 are parallel--&gt; then z4=0 0 0, choose q(4)=0 as solution</span>
+0252 <span class="keyword">if</span> norm(vz4) &lt;= 0.00001
+0253     <span class="keyword">if</span> wrist == 1 <span class="comment">%wrist up</span>
+0254         q(4)=0;
+0255     <span class="keyword">else</span>
+0256         q(4)=-pi; <span class="comment">%wrist down</span>
+0257     <span class="keyword">end</span>
+0258 <span class="keyword">else</span>
+0259     <span class="comment">%this is the normal and most frequent solution</span>
+0260     cosq4=wrist*dot(-vy3,vz4);
+0261     sinq4=wrist*dot(vx3,vz4);
+0262     q(4)=atan2(sinq4, cosq4);
+0263 <span class="keyword">end</span>
+0264 <span class="comment">%propagate the value of q(4) to compute the system 4</span>
+0265 T34=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 4);
+0266 T04=T03*T34;
+0267 vx4=T04(1:3,1);
+0268 vy4=T04(1:3,2);
+0269 
+0270 <span class="comment">% solve for q5</span>
+0271 cosq5=dot(vx4,vz5);
+0272 sinq5=dot(vy4,vz5);
+0273 q(5)=atan2(sinq5, cosq5);
+0274 
+0275 <span class="comment">%propagate now q(5) to compute T05</span>
+0276 T45=<a href="../../../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 5);
+0277 T05=T04*T45;
+0278 vx5=T05(1:3,1);
+0279 vy5=T05(1:3,2);
+0280 
+0281 <span class="comment">% solve for q6</span>
+0282 cosq6=dot(vx6,vx5);
+0283 sinq6=dot(vx6,vy5);
+0284 q(6)=atan2(sinq6, cosq6);
+0285 
+0286 
+0287 <span class="comment">%remove complex solutions for q for the q1+pi solutions</span>
+0288 <a name="_sub4" href="#_subfunctions" class="code">function  qreal = arrange_solutions(q)</a>
+0289 qreal=q(:,1:4);
+0290 
+0291 <span class="comment">%sum along rows if any angle is complex, for any possible solutions, then v(i) is complex</span>
+0292 v = sum(q, 1);
+0293 
+0294 <span class="keyword">for</span> i=5:8,
+0295     <span class="keyword">if</span> isreal(v(i))
+0296         qreal=[qreal q(:,i)]; <span class="comment">%store the real solutions</span>
+0297     <span class="keyword">end</span>
+0298 <span class="keyword">end</span>
+0299 
+0300 qreal = real(qreal);</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of parameters</title>
+  <meta name="keywords" content="parameters">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../../index.html">Home</a> &gt;  <a href="../../../index.html">arte3.1.4</a> &gt; <a href="#">robots</a> &gt; <a href="#">STAUBLI</a> &gt; <a href="index.html">RX160L</a> &gt; parameters.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../../index.html"><img alt="<" border="0" src="../../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/robots/STAUBLI/RX160L&nbsp;<img alt=">" border="0" src="../../../../right.png"></a></td></tr></table>-->
+
+<h1>parameters
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function robot = parameters() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   PARAMETERS Returns a data structure containing the parameters of the
+   RX160L.
+
+   Author: RUBEN HERNANDEZ SANCHEZ
+                     ADRIAN DELGADO GARCIA
+                     ALEJANDRO MONTOYA GRACIA
+                     CARMEN MIRALLES PEREZ. Universidad Miguel Hernández de Elche. 
+   email: arturo.gil@umh.es date:   09/01/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+ Copyright (C) 2012, by Arturo Gil Aparicio
+
+ This file is part of ARTE (A Robotics Toolbox for Education).
+ 
+ ARTE is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ ARTE is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Leser General Public License
+ along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/lib/load_motors.html" class="code" title="function motors = load_motors(indexes)">load_motors</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   PARAMETERS Returns a data structure containing the parameters of the</span>
+0003 <span class="comment">%   RX160L.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   Author: RUBEN HERNANDEZ SANCHEZ</span>
+0006 <span class="comment">%                     ADRIAN DELGADO GARCIA</span>
+0007 <span class="comment">%                     ALEJANDRO MONTOYA GRACIA</span>
+0008 <span class="comment">%                     CARMEN MIRALLES PEREZ. Universidad Miguel Hernández de Elche.</span>
+0009 <span class="comment">%   email: arturo.gil@umh.es date:   09/01/2012</span>
+0010 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0017 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0018 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0019 <span class="comment">% (at your option) any later version.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0022 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0023 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0024 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0027 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0028 <a name="_sub0" href="#_subfunctions" class="code">function robot = parameters()</a>
+0029 
+0030 robot.name= <span class="string">'RX160L'</span>;
+0031 
+0032 <span class="comment">%Path where everything is stored for this robot</span>
+0033 robot.path = <span class="string">'robots/staubli/RX160L'</span>;
+0034 
+0035 robot.DH.theta= <span class="string">'[q(1) q(2)-pi/2 q(3)+pi/2 q(4) q(5) q(6)]'</span>;
+0036 robot.DH.d=<span class="string">'[0.55 0 0 0.925 0 0.11]'</span>;
+0037 robot.DH.a=<span class="string">'[0.15 0.825 0 0 0 0]'</span>;
+0038 robot.DH.alpha= <span class="string">'[-pi/2 0 pi/2 -pi/2 pi/2 0]'</span>;
+0039 robot.J=[];
+0040 
+0041 
+0042 robot.inversekinematic_fn = <span class="string">'inversekinematic_rx160l(robot, T)'</span>;
+0043 
+0044 <span class="comment">%number of degrees of freedom</span>
+0045 robot.DOF = 6;
+0046 
+0047 <span class="comment">%rotational: 0, translational: 1</span>
+0048 robot.kind=[<span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span>];
+0049 
+0050 <span class="comment">%minimum and maximum rotation angle in rad</span>
+0051 robot.maxangle =[<a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-160) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(160); <span class="comment">%Axis 1, minimum, maximum</span>
+0052                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-137.5) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(137.5); <span class="comment">%Axis 2, minimum, maximum</span>
+0053                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-150) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(150); <span class="comment">%Axis 3</span>
+0054                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-270) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(270); <span class="comment">%Axis 4: Unlimited (400º default)</span>
+0055                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-105) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(120); <span class="comment">%Axis 5</span>
+0056                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-270) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(270)]; <span class="comment">%Axis 6: Unlimited (800º default)</span>
+0057 
+0058 <span class="comment">%maximum absolute speed of each joint rad/s or m/s</span>
+0059 robot.velmax = [<a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(200); <span class="comment">%Axis 1, rad/s</span>
+0060                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(200); <span class="comment">%Axis 2, rad/s</span>
+0061                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(255); <span class="comment">%Axis 3, rad/s</span>
+0062                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(315); <span class="comment">%Axis 4, rad/s</span>
+0063                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(360); <span class="comment">%Axis 5, rad/s</span>
+0064                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(870)];<span class="comment">%Axis 6, rad/s</span>
+0065             
+0066 <span class="comment">% end effectors maximum velocity</span>
+0067 robot.linear_velmax = 0.0; <span class="comment">%m/s</span>
+0068 
+0069 <span class="comment">%base reference system</span>
+0070 robot.T0 = eye(4);
+0071 
+0072 <span class="comment">%INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION</span>
+0073 <span class="comment">%position, velocity and acceleration</span>
+0074 robot=<a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>(robot);
+0075 
+0076 <span class="comment">% GRAPHICS</span>
+0077 robot.graphical.has_graphics=1;
+0078 robot.graphical.color = [250 20 40]./255;
+0079 <span class="comment">%for transparency</span>
+0080 robot.graphical.draw_transparent=0;
+0081 <span class="comment">%draw DH systems</span>
+0082 robot.graphical.draw_axes=1;
+0083 <span class="comment">%DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for</span>
+0084 <span class="comment">%bigger robots</span>
+0085 robot.graphical.axes_scale=1;
+0086 <span class="comment">%adjust for a default view of the robot</span>
+0087 robot.axis=[-1.5 1.5 -1.5 1.5 0 3.2];
+0088 <span class="comment">%read graphics files</span>
+0089 robot = <a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>(robot);
+0090 
+0091 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0092 <span class="comment">%DYNAMIC PARAMETERS</span>
+0093 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0094 robot.has_dynamics=1;
+0095 
+0096 <span class="comment">%link masses (kg)</span>
+0097 robot.dynamics.masses=[62.594 70.748 27.260 38.302 0.756 0.053];
+0098 
+0099 <span class="comment">%consider friction in the computations</span>
+0100 robot.dynamics.friction=0;
+0101 
+0102 
+0103 <span class="comment">%COM of each link with respect to own reference system</span>
+0104 robot.dynamics.r_com=[-0.13 0.47   -0.18; <span class="comment">%(rx, ry, rz) link 1</span>
+0105      0       0         0; <span class="comment">%(rx, ry, rz) link 2</span>
+0106     0.05    -0.55     -0.14;  <span class="comment">%(rx, ry, rz) link 3</span>
+0107     0       0.004       0;<span class="comment">%(rx, ry, rz) link 4</span>
+0108     0.01       0           0;<span class="comment">%(rx, ry, rz) link 5</span>
+0109     0       0         0];<span class="comment">%(rx, ry, rz) link 6</span>
+0110 
+0111 <span class="comment">%Inertia matrices of each link with respect to its D-H reference system.</span>
+0112 <span class="comment">% Ixx    Iyy    Izz    Ixy    Iyz    Ixz, for each row</span>
+0113 robot.dynamics.Inertia=[1.158 -0.031 -0.224 1.42 -0.038 1.469;
+0114     7.277 0 0 7.641 0.011 0.671;
+0115     0.344 0.007 -0.007 0.292 -0.001 0.329;
+0116     1.909 0 0.059 1.893 0 0.237;
+0117     0.001 0 0 0.001 0 0.001;
+0118     0 0 0 0 0 0];
+0119 
+0120 robot.motors=<a href="../../../../arte3.1.4/lib/load_motors.html" class="code" title="function motors = load_motors(indexes)">load_motors</a>([5 5 5 4 4 4]);
+0121 <span class="comment">%Speed reductor at each joint</span>
+0122 robot.motors.G=[300 300 300 300 300 300];</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

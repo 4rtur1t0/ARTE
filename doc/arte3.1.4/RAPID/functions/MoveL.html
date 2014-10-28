@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of MoveL</title>
+  <meta name="keywords" content="MoveL">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">RAPID</a> &gt; <a href="index.html">functions</a> &gt; MoveL.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/RAPID/functions&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>MoveL
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   MoveL: Make a linear planning in space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="get_conf_data.html" class="code" title="function conf=get_conf_data(robtarget)">get_conf_data</a>	Obtain joint configuration values from robtarget data type</li><li><a href="obtain_linear_speed.html" class="code" title="function vel=obtain_linear_speed(robot, speeddata)">obtain_linear_speed</a>	compute linear end effector's speed according to speeddata variable</li><li><a href="obtain_zone_data.html" class="code" title="function radius = obtain_zone_data(zonedata)">obtain_zone_data</a>	given a tag specifying the zone data. Return a radius in meters</li><li><a href="select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="test_joint_limits.html" class="code" title="function [joint, time] = test_joint_limits(robot)">test_joint_limits</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/dynamics/accel.html" class="code" title="function qdd = accel(robot, q, qd, torque)">accel</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>	DIRECTKINEMATIC		Direct Kinematic for serial robots.</li><li><a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/quaternion2T.html" class="code" title="function T = quaternion2T(Q, P)">quaternion2T</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/single_joint_spline.html" class="code" title="function [theta, thetap, thetapp, poly] = single_joint_spline(thetaini, thetafinal, velini, velfinal, time_vector)">single_joint_spline</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/slerp.html" class="code" title="function [qm] = slerp (qi, qn, t, eps)">slerp</a>	%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>	ANIMATE(ROBOT, Q)</li><li><a href="../../../arte3.1.4/tools/vect_arrow.html" class="code" title="function vect_arrow(p0, p1, color, width)">vect_arrow</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/RAPID/programs/p_disp.html" class="code" title="function main()">p_disp</a>	</li><li><a href="../../../arte3.1.4/RAPID/programs/program_robot.html" class="code" title="">program_robot</a>	Para la simulación de un programa</li><li><a href="../../../arte3.1.4/RAPID/programs/test_initial.html" class="code" title="">test_initial</a>	BEGINMODULE</li><li><a href="../../../arte3.1.4/RAPID/programs/test_rapid.html" class="code" title="">test_rapid</a>	BEGINMODULE</li><li><a href="../../../arte3.1.4/RAPID/programs/test_simulation.html" class="code" title="">test_simulation</a>	se declaran las variables necesarias</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   MoveL: Make a linear planning in space</span>
+0003 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0004 
+0005 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0010 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0011 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0012 <span class="comment">% (at your option) any later version.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0015 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0016 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0017 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0020 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0021 <a name="_sub0" href="#_subfunctions" class="code">function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)</a>
+0022 
+0023 <span class="keyword">global</span> configuration
+0024 
+0025 fprintf(<span class="string">'\nCall to MoveL'</span>, robot.name);
+0026 
+0027 
+0028 <span class="comment">%Ttool, transformation from the robot's end to the TCP</span>
+0029 Ttool = <a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>(gripper(2:end));
+0030 
+0031 
+0032 <span class="comment">%current position and orientation</span>
+0033 T=<a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>(robot, robot.q);
+0034 
+0035 Ttotal = T*Ttool;
+0036 
+0037 <span class="comment">%last target</span>
+0038 p0 = Ttotal(1:3,4);
+0039 <span class="comment">%orientation</span>
+0040 Q0 = <a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>(Ttotal);
+0041 
+0042 
+0043 <span class="comment">%in this case, plan a linear trajectory from point</span>
+0044 <span class="comment">%if robot.last_zone_data=='fine'</span>
+0045     <span class="comment">%compute target joint coordinates, from the inverse kinematics</span>
+0046     <span class="comment">%select desired joint values by using conf data from robtarget</span>
+0047     <span class="comment">%select configuration</span>
+0048 final_conf = <a href="get_conf_data.html" class="code" title="function conf=get_conf_data(robtarget)">get_conf_data</a>(robtarget);
+0049 Ttotal = <a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>(robtarget);
+0050 
+0051 <span class="comment">%final position</span>
+0052 p1 = Ttotal(1:3,4);
+0053 <span class="comment">% and orientation</span>
+0054 Q1 = <a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>(Ttotal);
+0055 
+0056 distance = norm(p1-p0);
+0057 <span class="comment">%unit vector in the direction of the trajectory normalize</span>
+0058 u = (p1-p0)/norm(p1-p0);
+0059 
+0060 speed = <a href="obtain_linear_speed.html" class="code" title="function vel=obtain_linear_speed(robot, speeddata)">obtain_linear_speed</a>(robot, speeddata);
+0061 
+0062 tmax = distance/speed;
+0063 
+0064 <span class="comment">%compute current robot speed in modulus. m/s</span>
+0065 v_current = 1;
+0066 
+0067 <span class="keyword">if</span> tmax &lt;= configuration.delta_time
+0068     disp(<span class="string">'/RAPID/MOVEL: No movement is performed. Making a null movement of 1 second'</span>);
+0069     tmax = 2*configuration.delta_time; <span class="comment">%avoid errors</span>
+0070     distance = 1;
+0071     u=[0 0 0]';
+0072 <span class="keyword">end</span>
+0073 <span class="comment">%local time for the planning</span>
+0074 t = [0:configuration.delta_time:tmax]';
+0075 
+0076 <span class="comment">%when fine is specified, the radius is zero, otherwise,</span>
+0077 <span class="comment">%the radius represents a sphere around the target where the</span>
+0078 <span class="comment">%movement is changed to the next target</span>
+0079 radius = <a href="obtain_zone_data.html" class="code" title="function radius = obtain_zone_data(zonedata)">obtain_zone_data</a>(zonedata);
+0080 <span class="keyword">if</span> radius == 0 <span class="comment">%target point is fine</span>
+0081     <span class="comment">%plan an acceleration profile one the line that connects both</span>
+0082     <span class="comment">%points. Asume as a one joint planifier</span>
+0083     <span class="comment">%[pos, vel, accel] = compute_joint_trajectory(0, distance, t, v_current, 0);</span>
+0084     [pos, vel, <a href="../../../arte3.1.4/lib/dynamics/accel.html" class="code" title="function qdd = accel(robot, q, qd, torque)">accel</a>] = <a href="../../../arte3.1.4/lib/single_joint_spline.html" class="code" title="function [theta, thetap, thetapp, poly] = single_joint_spline(thetaini, thetafinal, velini, velfinal, time_vector)">single_joint_spline</a>(0, distance, v_current, 0, t);
+0085 <span class="keyword">else</span>
+0086     <span class="comment">%[pos, vel, accel] = compute_joint_trajectory(0, distance, t, v_current, speed);</span>
+0087     [pos, vel, <a href="../../../arte3.1.4/lib/dynamics/accel.html" class="code" title="function qdd = accel(robot, q, qd, torque)">accel</a>] = <a href="../../../arte3.1.4/lib/single_joint_spline.html" class="code" title="function [theta, thetap, thetapp, poly] = single_joint_spline(thetaini, thetafinal, velini, velfinal, time_vector)">single_joint_spline</a>(0, distance, v_current, speed, t);
+0088 <span class="keyword">end</span>
+0089 
+0090 <span class="comment">%current_conf = compute_configuration(robot, robot.q);</span>
+0091 
+0092 pp=[];
+0093 q_line=[];
+0094 
+0095 N=length(pos);
+0096 <span class="keyword">for</span> j=1:N,
+0097     pj = p0 + u*pos(j);
+0098     
+0099     <span class="comment">%interpolate between the initial and final quaternions</span>
+0100     <span class="comment">%to find an orientation between both</span>
+0101     [Qm] = <a href="../../../arte3.1.4/lib/slerp.html" class="code" title="function [qm] = slerp (qi, qn, t, eps)">slerp</a>(Q0, Q1, (j-1)/N, 0.01);
+0102     
+0103     <span class="comment">%find homogeneous matrix corresponding to pi and Qm</span>
+0104     Ttotal = <a href="../../../arte3.1.4/lib/quaternion2T.html" class="code" title="function T = quaternion2T(Q, P)">quaternion2T</a>(Qm, pj);
+0105     
+0106     pp=[pp T(1:3,4)];
+0107     
+0108     <span class="comment">%find T, of the robot's end points</span>
+0109     T=Ttotal*inv(Ttool);
+0110     
+0111     <span class="comment">%find all the possible solutions to reach T</span>
+0112     qinv = <a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>(robot, T);
+0113     
+0114     <span class="comment">%interpolate configuration</span>
+0115     <span class="comment">%middle_conf = current_conf*(1-(i-1)/N) + final_conf*((i-1)/N);</span>
+0116     <span class="comment">%select at each timestep the closes configuration</span>
+0117     <span class="comment">% q=select_closest_configuration(robot, qinv, middle_conf);</span>
+0118     <span class="comment">%q=select_closest_configuration(robot, qinv, current_conf);</span>
+0119     q=<a href="select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>(robot, qinv, robot.q);
+0120      
+0121     <span class="comment">%store the joint coordinates in a vector for ulterior animation</span>
+0122     q_line = [q_line q];
+0123     
+0124     
+0125     <span class="comment">%the robot performs the movement until the index found. The coordinates, joint speed and acceleratin</span>
+0126     <span class="comment">%are stored and used in the planning of the next point</span>
+0127     robot.q=q;
+0128     robot.qd=zeros(robot.DOF,1);
+0129     robot.qdd=zeros(robot.DOF,1);
+0130     
+0131     <span class="comment">%store all the trajectory for plotting</span>
+0132     <span class="comment">%the joint trajectories, speeds and acceleration of susequent movements are</span>
+0133     <span class="comment">%store here</span>
+0134    <span class="comment">% robot.q_vector=[robot.q_vector q];</span>
+0135    <span class="comment">% robot.qd_vector=[robot.qd_vector zeros(robot.DOF,1)];</span>
+0136    <span class="comment">% robot.qdd_vector=[robot.qdd_vector zeros(robot.DOF,1)];</span>
+0137     
+0138     <span class="comment">%update current configuration</span>
+0139    <span class="comment">% current_conf = compute_configuration(robot, robot.q);</span>
+0140 <span class="keyword">end</span>
+0141 
+0142   
+0143 <span class="comment">%a global time for the planning is computed.</span>
+0144 <span class="comment">%in this way, the total trajectory of different movements can be plotted</span>
+0145 <span class="keyword">if</span> length(robot.time)==0
+0146     tend = 0;
+0147 <span class="keyword">else</span>
+0148     tend = robot.time(end);
+0149 <span class="keyword">end</span>
+0150 t = t + tend;
+0151 <span class="comment">%store total time</span>
+0152 robot.time=[robot.time t'];
+0153 
+0154 <span class="comment">%Test whether there are joints outside mechanical limits</span>
+0155 <a href="test_joint_limits.html" class="code" title="function [joint, time] = test_joint_limits(robot)">test_joint_limits</a>(robot);
+0156 
+0157 <span class="comment">%Plot position, velocity and acceleration</span>
+0158 <span class="comment">%plot_joint_data(robot);</span>
+0159 <span class="comment">%Now, animate the robot in 3D</span>
+0160 <a href="../../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>(robot, q_line);
+0161 
+0162 <span class="comment">%Plot an arroy between p0 an p1</span>
+0163 <a href="../../../arte3.1.4/tools/vect_arrow.html" class="code" title="function vect_arrow(p0, p1, color, width)">vect_arrow</a>(p0,p1,<span class="string">'b'</span>)
+0164 
+0165 plot3(pp(1,:),pp(2,:),pp(3,:), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2)
+0166 
+0167</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

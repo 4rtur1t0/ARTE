@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of p_disp</title>
+  <meta name="keywords" content="p_disp">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">RAPID</a> &gt; <a href="index.html">programs</a> &gt; p_disp.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/RAPID/programs&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>p_disp
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function main() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/RAPID/functions/Reset.html" class="code" title="function [robot] = Reset(robot, variable)">Reset</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/RAPID/functions/Set.html" class="code" title="function [robot] = Set(robot, variable)">Set</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function ASIR_DEJAR()</a></li><li><a href="#_sub2" class="code">function COGER_PIEZA()</a></li><li><a href="#_sub3" class="code">function  METER_EN_CAJA()</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 
+0002 <a name="_sub0" href="#_subfunctions" class="code">function main()</a>
+0003 <span class="keyword">global</span> robot
+0004 
+0005 gripper=[1,[[0,0,120]/1000,[1,0,0,0]],[0.1,[0,0,100],[1,0,0,0],0,0,0]];
+0006 pos_inicial_1=[[701.14,0,567.0]/1000,[0.5,0,0.866025403784439,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+0007 pos_inicial_2=[[500,0,200]/1000,[6.12303176911189E-17,0,1,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+0008 
+0009 <span class="comment">%pos de recogida</span>
+0010 pos_aprox_rec=[[54.1,-625.4,300.4]/1000,[0.20946,0.62224,0.65494,-0.37418],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+0011 pos_rec=[[54.1,-625.4,300.4]/1000,[0.20946,0.62224,0.65494,-0.37418],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+0012 
+0013 <span class="comment">%posicion dejar</span>
+0014 pos_aprox_dej=[[200,-550,300]/1000,[0,0.707106781186547,0.707106781186548,0],[-2,0,-1,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+0015 pos_dej=[[200,-550,300]/1000,[0,0.707106781186547,0.707106781186548,0],[-2,0,-1,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+0016 
+0017 pieza=0;
+0018 <span class="comment">%!Reset --&gt; abrir pinza</span>
+0019 <span class="comment">%!Set --&gt; Cerrar pinza</span>
+0020 
+0021 <span class="comment">%inicializar pieza</span>
+0022 pieza=0;
+0023 
+0024 robot=<a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>(robot,pos_inicial_1,<span class="string">'vmax'</span>,<span class="string">'z100'</span>,gripper, robot.wobj0);
+0025 robot=<a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>(robot,pos_inicial_2,<span class="string">'vmax'</span>,<span class="string">'z100'</span>,gripper, robot.wobj0);
+0026 
+0027 <span class="keyword">for</span> I=1:4,
+0028     <a href="#_sub1" class="code" title="subfunction ASIR_DEJAR()">ASIR_DEJAR</a>();
+0029     pieza =pieza +1;
+0030 <span class="keyword">end</span>
+0031 <span class="keyword">end</span>
+0032 
+0033 
+0034 
+0035 <a name="_sub1" href="#_subfunctions" class="code">function ASIR_DEJAR()</a>
+0036 <span class="keyword">global</span> robot
+0037     <span class="comment">%!Moverse a posición de aproximacion de recogida</span>
+0038     robot=<a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>(robot,pos_aprox_rec,<span class="string">'v1000'</span>,<span class="string">'z100'</span>,gripper, robot.wobj0);
+0039     <a href="#_sub2" class="code" title="subfunction COGER_PIEZA()">COGER_PIEZA</a>;
+0040     <span class="comment">%!Moverse a posición base de dejada</span>
+0041     robot=<a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>(robot,pos_aprox_dej,<span class="string">'v1000'</span>,<span class="string">'z100'</span>,gripper, robot.wobj0);
+0042     <a href="#_sub3" class="code" title="subfunction  METER_EN_CAJA()">METER_EN_CAJA</a>;    
+0043 <span class="keyword">end</span>
+0044 
+0045 <a name="_sub2" href="#_subfunctions" class="code">function COGER_PIEZA()</a>
+0046 <span class="keyword">global</span> robot
+0047     <span class="comment">%!Ahora abrir pinza</span>
+0048     <a href="../../../arte3.1.4/RAPID/functions/Reset.html" class="code" title="function [robot] = Reset(robot, variable)">Reset</a> do1; 
+0049     Waittime 0.1;!esperar apertura
+0050     <span class="comment">%!Coger</span>
+0051     robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot,pos_rec,<span class="string">'v1000'</span>,<span class="string">'z100'</span>,gripper, robot.wobj0);
+0052     <span class="comment">%!Ahora cerrar pinza</span>
+0053     <a href="../../../arte3.1.4/RAPID/functions/Set.html" class="code" title="function [robot] = Set(robot, variable)">Set</a> do1;
+0054     Waittime 0.1; !esperar cierre
+0055     <span class="comment">%!Subir por seguridad antes de ir al siguiente punto</span>
+0056     robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot,pos_aprox_rec,<span class="string">'v1000'</span>,<span class="string">'z100'</span>,gripper, robot.wobj0);
+0057 <span class="keyword">end</span>
+0058 
+0059 <a name="_sub3" href="#_subfunctions" class="code">function  METER_EN_CAJA()</a>
+0060     <span class="keyword">global</span> robot
+0061     <span class="keyword">if</span> pieza==0 
+0062         <span class="comment">%Bajar para meter primera pieza</span>
+0063         robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,0,0,-105),<span class="string">'v1000'</span>,<span class="string">'fine'</span>,gripper, robot.wobj0);
+0064     <span class="keyword">elseif</span> pieza==1 
+0065         robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,-55,0,0),<span class="string">'v1000'</span>,<span class="string">'z100'</span>,gripper, robot.wobj0);
+0066         robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,-55,0,-105),<span class="string">'v1000'</span>,<span class="string">'fine'</span>,gripper, robot.wobj0);
+0067     <span class="keyword">elseif</span> pieza==2 
+0068         robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,0,-55,0),<span class="string">'v1000'</span>,<span class="string">'fine'</span>,gripper, robot.wobj0);
+0069         robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,0,-55,-105),<span class="string">'v1000'</span>,<span class="string">'fine'</span>,gripper, robot.wobj0);
+0070     <span class="keyword">else</span>
+0071         robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,-55,-55,0),<span class="string">'v1000'</span>,<span class="string">'fine'</span>,gripper, robot.wobj0);
+0072         robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,-55,-55,-105),<span class="string">'v1000'</span>,<span class="string">'fine'</span>,gripper, robot.wobj0);
+0073     <span class="keyword">end</span>
+0074     <span class="comment">%Ahora abrir pinza</span>
+0075     <a href="../../../arte3.1.4/RAPID/functions/Reset.html" class="code" title="function [robot] = Reset(robot, variable)">Reset</a> do1;
+0076     Waittime 0.1;
+0077     <span class="comment">%Subir por seguridad antes de ir al siguiente punto</span>
+0078     robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot, <a href="../../../arte3.1.4/RAPID/functions/Offs.html" class="code" title="function robtarget = Offs(robot, robtarget, deltaX, deltaY, deltaZ, gripper, Wobj)">Offs</a>(pos_b_dej,0,0,105),<span class="string">'v1000'</span>,<span class="string">'z10'</span>,gripper, robot.wobj0);
+0079     
+0080 <span class="keyword">end</span>
+0081 
+0082</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

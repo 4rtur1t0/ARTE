@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of MoveC</title>
+  <meta name="keywords" content="MoveC">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">RAPID</a> &gt; <a href="index.html">functions</a> &gt; MoveC.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/RAPID/functions&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>MoveC
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function robot = MoveC(robot, robtarget1, robtarget2, speeddata, zonedata, gripper, Wobj) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   MoveC: Make a circular path in space.
+   The circular path is defined by three points:
+   - The current robot position.
+   - Robtarget1, which should be traversed by the robot.
+   - Robtarget2, as the final point.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="compute_configuration.html" class="code" title="function conf=compute_configuration(robot, q)">compute_configuration</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="obtain_linear_speed.html" class="code" title="function vel=obtain_linear_speed(robot, speeddata)">obtain_linear_speed</a>	compute linear end effector's speed according to speeddata variable</li><li><a href="select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="test_joint_limits.html" class="code" title="function [joint, time] = test_joint_limits(robot)">test_joint_limits</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>	DIRECTKINEMATIC		Direct Kinematic for serial robots.</li><li><a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/quaternion2T.html" class="code" title="function T = quaternion2T(Q, P)">quaternion2T</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/slerp.html" class="code" title="function [qm] = slerp (qi, qn, t, eps)">slerp</a>	%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>	ANIMATE(ROBOT, Q)</li><li><a href="../../../arte3.1.4/tools/circlefit3d/circlefit3d.html" class="code" title="function [center,rad,v1n,v2nb] = circlefit3d(p1,p2,p3)">circlefit3d</a>	circlefit3d: Compute center and radii of circles in 3d which are defined by three points on the circumference</li><li><a href="../../../arte3.1.4/tools/vect_arrow.html" class="code" title="function vect_arrow(p0, p1, color, width)">vect_arrow</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/RAPID/programs/test_initial.html" class="code" title="">test_initial</a>	BEGINMODULE</li><li><a href="../../../arte3.1.4/RAPID/programs/test_rapid.html" class="code" title="">test_rapid</a>	BEGINMODULE</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function theta=compute_angle(v1, v2, x)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   MoveC: Make a circular path in space.</span>
+0003 <span class="comment">%   The circular path is defined by three points:</span>
+0004 <span class="comment">%   - The current robot position.</span>
+0005 <span class="comment">%   - Robtarget1, which should be traversed by the robot.</span>
+0006 <span class="comment">%   - Robtarget2, as the final point.</span>
+0007 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0008 
+0009 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0014 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0015 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0016 <span class="comment">% (at your option) any later version.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0019 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0020 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0021 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0024 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0025 <a name="_sub0" href="#_subfunctions" class="code">function robot = MoveC(robot, robtarget1, robtarget2, speeddata, zonedata, gripper, Wobj)</a>
+0026 
+0027 <span class="keyword">global</span> configuration
+0028 
+0029 fprintf(<span class="string">'\nCall to MoveC'</span>, robot.name);
+0030 
+0031 
+0032 <span class="comment">%Ttool, transformation from the robot's end to the TCP</span>
+0033 Ttool = <a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>(gripper(2:end));
+0034 
+0035 <span class="comment">%current position and orientation</span>
+0036 T=<a href="../../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>(robot, robot.q);
+0037 
+0038 Ttotal = T*Ttool;
+0039 
+0040 <span class="comment">%current position and orientation</span>
+0041 p1 = Ttotal(1:3,4);
+0042 <span class="comment">%orientation</span>
+0043 Q1 = <a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>(Ttotal);
+0044 
+0045 Ttotal = <a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>(robtarget1);
+0046 <span class="comment">%middle, through point</span>
+0047 p2 = Ttotal(1:3,4);
+0048 <span class="comment">% and orientation</span>
+0049 Q2 = <a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>(Ttotal);
+0050 
+0051 <span class="comment">%final position</span>
+0052 Ttotal = <a href="transform_to_homogeneous.html" class="code" title="function T=transform_to_homogeneous(robtarget)">transform_to_homogeneous</a>(robtarget2);
+0053 <span class="comment">%middle, through point</span>
+0054 p3 = Ttotal(1:3,4);
+0055 <span class="comment">% and orientation</span>
+0056 Q3 = <a href="../../../arte3.1.4/lib/T2quaternion.html" class="code" title="function Q = T2quaternion(T)">T2quaternion</a>(Ttotal);
+0057 
+0058 <span class="comment">%fit a circle with three points</span>
+0059 [pm, R, v1, v2] = <a href="../../../arte3.1.4/tools/circlefit3d/circlefit3d.html" class="code" title="function [center,rad,v1n,v2nb] = circlefit3d(p1,p2,p3)">circlefit3d</a>(p1', p2', p3');
+0060 
+0061 h=figure(configuration.figure.robot);
+0062 
+0063 speed = <a href="obtain_linear_speed.html" class="code" title="function vel=obtain_linear_speed(robot, speeddata)">obtain_linear_speed</a>(robot, speeddata);
+0064 distance = 2*pi*R/2;
+0065 tmax = distance/speed;
+0066 
+0067 <span class="keyword">if</span> tmax &lt;= configuration.delta_time
+0068     disp(<span class="string">'/RAPID/MOVEC: No movement is performed. Making a null movement of 1 second'</span>);
+0069     tmax = 2*configuration.delta_time; <span class="comment">%avoid errors</span>
+0070     distance = 1;
+0071     u=[0 0 0]';
+0072 <span class="keyword">end</span>
+0073 
+0074 
+0075 <span class="comment">%vectors joining the central point, starting and end point</span>
+0076 x1 = (p1-pm')/norm(p1-pm');
+0077 x2 = (p2-pm')/norm(p2-pm');
+0078 x3 = (p3-pm')/norm(p3-pm');
+0079 
+0080 theta_ini=<a href="#_sub1" class="code" title="subfunction theta=compute_angle(v1, v2, x)">compute_angle</a>(v1, v2, x1);
+0081 theta_middle=<a href="#_sub1" class="code" title="subfunction theta=compute_angle(v1, v2, x)">compute_angle</a>(v1, v2, x2);
+0082 theta_end=<a href="#_sub1" class="code" title="subfunction theta=compute_angle(v1, v2, x)">compute_angle</a>(v1, v2, x3);
+0083 
+0084 
+0085 delta_theta=speed/R*configuration.delta_time;
+0086 
+0087 
+0088 theta=[theta_ini:delta_theta:theta_middle theta_middle:delta_theta:theta_end];
+0089 
+0090 current_conf = <a href="compute_configuration.html" class="code" title="function conf=compute_configuration(robot, q)">compute_configuration</a>(robot, robot.q);    
+0091 
+0092 q_circle=[];
+0093 pp=[];
+0094 N=length(theta);
+0095 <span class="keyword">for</span> j=1:N,
+0096    
+0097     pj  = pm' + v1'*R*cos(theta(j)) + v2'*R*sin(theta(j));
+0098     
+0099     pp = [pp pj];
+0100     
+0101     <span class="comment">%interpolate between the initial and final quaternions</span>
+0102     <span class="comment">%to find an orientation between both</span>
+0103     [Qm] = <a href="../../../arte3.1.4/lib/slerp.html" class="code" title="function [qm] = slerp (qi, qn, t, eps)">slerp</a>(Q1, Q3, (j-1)/N, 0.01);
+0104     
+0105     <span class="comment">%find homogeneous matrix corresponding to pi and Qm</span>
+0106     Ttotal = <a href="../../../arte3.1.4/lib/quaternion2T.html" class="code" title="function T = quaternion2T(Q, P)">quaternion2T</a>(Qm, pj);
+0107     
+0108     T=Ttotal*inv(Ttool);
+0109     
+0110     <span class="comment">%find all the possible solutions to reach T</span>
+0111     qinv = <a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>(robot, T);
+0112     
+0113     <span class="comment">%interpolate configuration</span>
+0114     <span class="comment">%middle_conf = current_conf*(1-(i-1)/N) + final_conf*((i-1)/N);</span>
+0115     <span class="comment">%select at each timestep the closes configuration</span>
+0116    <span class="comment">% q=select_closest_configuration(robot, qinv, middle_conf);</span>
+0117     <span class="comment">%q=select_closest_configuration(robot, qinv, current_conf);</span>
+0118      q=<a href="select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>(robot, qinv, robot.q);
+0119    
+0120     <span class="comment">%store the joint coordinates in a vector for ulterior animation</span>
+0121     q_circle = [q_circle q];
+0122     
+0123     
+0124     <span class="comment">%the robot performs the movement until the index found. The coordinates, joint speed and acceleratin</span>
+0125     <span class="comment">%are stored and used in the planning of the next point</span>
+0126     robot.q=q;
+0127     robot.qd=zeros(robot.DOF,1);
+0128     robot.qdd=zeros(robot.DOF,1);
+0129     
+0130     <span class="comment">%store all the trajectory for plotting</span>
+0131     <span class="comment">%the joint trajectories, speeds and acceleration of susequent movements are</span>
+0132     <span class="comment">%store here</span>
+0133   <span class="comment">%  robot.q_vector=[robot.q_vector q];</span>
+0134   <span class="comment">%  robot.qd_vector=[robot.qd_vector zeros(robot.DOF,1)];</span>
+0135   <span class="comment">%  robot.qdd_vector=[robot.qdd_vector zeros(robot.DOF,1)];</span>
+0136     
+0137     <span class="comment">%update current configuration</span>
+0138     current_conf = <a href="compute_configuration.html" class="code" title="function conf=compute_configuration(robot, q)">compute_configuration</a>(robot, robot.q);  
+0139 <span class="keyword">end</span>
+0140 
+0141 
+0142 <span class="comment">%local time for the planning</span>
+0143 t = [0:configuration.delta_time:2*tmax]';
+0144 
+0145 t=t(1:N);
+0146   
+0147 <span class="comment">%a global time for the planning is computed.</span>
+0148 <span class="comment">%in this way, the total trajectory of different movements can be plotted</span>
+0149 <span class="keyword">if</span> length(robot.time)==0
+0150     tend = 0;
+0151 <span class="keyword">else</span>
+0152     tend = robot.time(end);
+0153 <span class="keyword">end</span>
+0154 t = t + tend;
+0155 <span class="comment">%store total time</span>
+0156 robot.time=[robot.time t'];
+0157 
+0158 <span class="comment">%Test whether there are joints outside mechanical limits</span>
+0159 <a href="test_joint_limits.html" class="code" title="function [joint, time] = test_joint_limits(robot)">test_joint_limits</a>(robot);
+0160 
+0161 <span class="comment">%Plot position, velocity and acceleration</span>
+0162 <span class="comment">%plot_joint_data(robot);</span>
+0163 <span class="comment">%Now, animate the robot in 3D</span>
+0164 <a href="../../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>(robot, q_circle);
+0165 
+0166 <span class="comment">%Plot an arroy between pm an p1, p2 and p3</span>
+0167 <a href="../../../arte3.1.4/tools/vect_arrow.html" class="code" title="function vect_arrow(p0, p1, color, width)">vect_arrow</a>(pm', p1,<span class="string">'r'</span>)
+0168 <a href="../../../arte3.1.4/tools/vect_arrow.html" class="code" title="function vect_arrow(p0, p1, color, width)">vect_arrow</a>(pm', p2,<span class="string">'g'</span>)
+0169 <a href="../../../arte3.1.4/tools/vect_arrow.html" class="code" title="function vect_arrow(p0, p1, color, width)">vect_arrow</a>(pm', p3,<span class="string">'b'</span>)
+0170 <span class="comment">%Plot the trajectory</span>
+0171 plot3(pp(1,:),pp(2,:),pp(3,:), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2)
+0172 
+0173 
+0174 
+0175 
+0176 <span class="comment">%compute the angle between x and v1 in the reference system formed by v1</span>
+0177 <span class="comment">%and v2</span>
+0178 <a name="_sub1" href="#_subfunctions" class="code">function theta=compute_angle(v1, v2, x)</a>
+0179 <span class="comment">%cos</span>
+0180 ctheta = dot(v1, x);
+0181 stheta = dot(v2, x);
+0182 
+0183 theta = atan2(stheta, ctheta);
+0184 
+0185</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

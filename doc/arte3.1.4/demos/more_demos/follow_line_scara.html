@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of follow_line_scara</title>
+  <meta name="keywords" content="follow_line_scara">
+  <meta name="description" content="FOLLOW A LINE IN SPACE WITH A SCARA ROBOT">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">demos</a> &gt; <a href="index.html">more_demos</a> &gt; follow_line_scara.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos/more_demos&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>follow_line_scara
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>FOLLOW A LINE IN SPACE WITH A SCARA ROBOT</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> FOLLOW A LINE IN SPACE WITH A SCARA ROBOT</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/lib/kinematics/compute_joint_velocity.html" class="code" title="function vq = compute_joint_velocity(robot, q, V)">compute_joint_velocity</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% FOLLOW A LINE IN SPACE WITH A SCARA ROBOT</span>
+0002 
+0003 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0008 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0009 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0010 <span class="comment">% (at your option) any later version.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0013 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0014 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0015 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0018 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0019 
+0020 <span class="comment">%Compute points in line</span>
+0021 close all
+0022 
+0023 
+0024 robot =  <a href="../../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'example'</span>,<span class="string">'scara'</span>);
+0025 <span class="comment">%matriz de posición/orientación</span>
+0026 T=[1 0 0 0;0 -1 0 0; 0 0 -1 0; 0 0 0  1]
+0027 <span class="comment">%distancia entre puntos consecutivos</span>
+0028 delta = 0.01;
+0029 
+0030 punto_inicial = [0.7 0];
+0031 punto_final = [0 0.8];
+0032 
+0033 v=(punto_final-punto_inicial);
+0034 d=delta*v/norm(v); <span class="comment">%vector normalizado en la dirección de la recta</span>
+0035 distancia = sqrt((punto_final-punto_inicial)*(punto_final-punto_inicial)');
+0036 <span class="comment">%Generación de puntos en la trayectoria</span>
+0037 num_points = distancia/delta;
+0038 puntos = punto_inicial;
+0039 <span class="keyword">for</span> i=1:num_points,
+0040     puntos=[puntos;i*d+punto_inicial];
+0041 <span class="keyword">end</span>
+0042 puntos=[puntos;punto_final];
+0043 
+0044 figure, plot(puntos(:,1),puntos(:,2)), title(<span class="string">'Trayectoria en el espacio'</span>), xlabel(<span class="string">'X (m)'</span>), ylabel(<span class="string">'Y (m)'</span>)
+0045 
+0046 qs=[];
+0047 vqs=[];
+0048 <span class="keyword">for</span> i=1:length(puntos),
+0049     T(1,4)=puntos(i,1);
+0050     T(2,4)=puntos(i,2);
+0051     
+0052     q = <a href="../../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>(param, T);
+0053     vq = <a href="../../../arte3.1.4/lib/kinematics/compute_joint_velocity.html" class="code" title="function vq = compute_joint_velocity(robot, q, V)">compute_joint_velocity</a>(robot, q, [-1 1 0]/norm([-1 1 0]));
+0054     qs=[qs q];
+0055     vqs = [vqs vq];
+0056 <span class="keyword">end</span>
+0057 
+0058 figure, hold, plot(qs(1,:), <span class="string">'r'</span>),plot(qs(2,:), <span class="string">'g'</span>), plot(qs(3,:), <span class="string">'b'</span>), plot(qs(4,:), <span class="string">'c'</span>),
+0059 legend(<span class="string">'q_1 (rad)'</span>,<span class="string">'q_2 (rad)'</span>,<span class="string">'q_3 (rad)'</span>, <span class="string">'q_4 (rad)'</span>), title(<span class="string">'Joint trajectories'</span>), xlabel(<span class="string">'Step number'</span>)
+0060 
+0061 figure, hold, plot(vqs(1,:), <span class="string">'r'</span>),plot(vqs(2,:), <span class="string">'g'</span>), plot(vqs(3,:), <span class="string">'b'</span>),
+0062 legend(<span class="string">'vq_1 (rad/s)'</span>,<span class="string">'vq_2 (rad/s)'</span>,<span class="string">'vq_3 (rad/s)'</span>), title(<span class="string">'Joint speeds (rad/s)'</span>)
+0063 
+0064 figure,hold, plot(vqs(1,:)*30/pi, <span class="string">'r'</span>),plot(vqs(2,:)*30/pi, <span class="string">'g'</span>), plot(vqs(3,:)*30/pi, <span class="string">'b'</span>),
+0065 legend(<span class="string">'vq_1 (r.p.m.)'</span>,<span class="string">'vq_2 (r.p.m.)'</span>,<span class="string">'vq_3 (r.p.m.)'</span>),  title(<span class="string">'Joint speeds (r.p.m.)'</span>)</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

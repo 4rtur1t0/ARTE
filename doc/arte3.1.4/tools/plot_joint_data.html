@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of plot_joint_data</title>
+  <meta name="keywords" content="plot_joint_data">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">tools</a> &gt; plot_joint_data.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/tools&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>plot_joint_data
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function plot_joint_data(robot) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   PLOT_JOINT_DATA(robot)
+
+   Plots the position, velocity and acceleration of each joint.
+   The movement in joint coordinates must be stored in the variables
+   robot.q_vector: joint position
+   robot.qd_vector: joint speeds
+   robot.qdd_vector: joint accelerations.
+
+   The variables are plotted in the figures specified by configuration.figure.q,
+   configuration.figure.qd and configuration.figure.qdd, for position, 
+   speed and acceleration respectively.
+   
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+   email: arturo.gil@umh.es date:   25/02/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function leg=make_legend(tag, DOF)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   PLOT_JOINT_DATA(robot)</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   Plots the position, velocity and acceleration of each joint.</span>
+0005 <span class="comment">%   The movement in joint coordinates must be stored in the variables</span>
+0006 <span class="comment">%   robot.q_vector: joint position</span>
+0007 <span class="comment">%   robot.qd_vector: joint speeds</span>
+0008 <span class="comment">%   robot.qdd_vector: joint accelerations.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%   The variables are plotted in the figures specified by configuration.figure.q,</span>
+0011 <span class="comment">%   configuration.figure.qd and configuration.figure.qdd, for position,</span>
+0012 <span class="comment">%   speed and acceleration respectively.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0015 <span class="comment">%   email: arturo.gil@umh.es date:   25/02/2012</span>
+0016 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0017 
+0018 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0023 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0024 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0025 <span class="comment">% (at your option) any later version.</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0028 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0029 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0030 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0033 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0034 <a name="_sub0" href="#_subfunctions" class="code">function plot_joint_data(robot)</a>
+0035 <span class="keyword">global</span> configuration
+0036 
+0037 t = robot.time;
+0038 q = robot.q_vector;
+0039 qd = robot.qd_vector;
+0040 qdd = robot.qdd_vector;
+0041 
+0042 figure(configuration.figure.q)
+0043 
+0044 plot(t, q), grid, title(<span class="string">'Position vs. time'</span>)
+0045 xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Position (rad, m)'</span>)
+0046 legend(<a href="#_sub1" class="code" title="subfunction leg=make_legend(tag, DOF)">make_legend</a>(<span class="string">'q'</span>, robot.DOF));
+0047 
+0048 figure(configuration.figure.qd)
+0049 plot(t,qd), grid, title(<span class="string">'Velocity vs. time'</span>)
+0050 xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Velocity (rad/s, m/s)'</span>)
+0051 legend(<a href="#_sub1" class="code" title="subfunction leg=make_legend(tag, DOF)">make_legend</a>(<span class="string">'qd'</span>, robot.DOF));
+0052 
+0053 figure(configuration.figure.qdd)
+0054 plot(t,qdd), grid, title(<span class="string">'Acceleration vs. time'</span>)
+0055 xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Acceleration (rad/s^2, m/s^2)'</span>)
+0056 legend(<a href="#_sub1" class="code" title="subfunction leg=make_legend(tag, DOF)">make_legend</a>(<span class="string">'qdd'</span>, robot.DOF));
+0057 
+0058 
+0059 <span class="comment">%make a matrix legend of joint coordinates</span>
+0060 <a name="_sub1" href="#_subfunctions" class="code">function leg=make_legend(tag, DOF)</a>
+0061 
+0062 leg =[];
+0063 <span class="keyword">for</span> i=1:DOF,
+0064    leg=[leg; [tag sprintf(<span class="string">'_%d'</span>,i)]]; 
+0065 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

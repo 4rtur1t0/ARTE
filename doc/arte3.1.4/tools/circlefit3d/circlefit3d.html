@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of circlefit3d</title>
+  <meta name="keywords" content="circlefit3d">
+  <meta name="description" content="circlefit3d: Compute center and radii of circles in 3d which are defined by three points on the circumference">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">tools</a> &gt; <a href="index.html">circlefit3d</a> &gt; circlefit3d.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/tools/circlefit3d&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>circlefit3d
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>circlefit3d: Compute center and radii of circles in 3d which are defined by three points on the circumference</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [center,rad,v1n,v2nb] = circlefit3d(p1,p2,p3) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> circlefit3d: Compute center and radii of circles in 3d which are defined by three points on the circumference
+ usage: [center,rad,v1,v2] = circlefit3d(p1,p2,p3)
+
+ arguments: (input)
+  p1, p2, p3 - vectors of points (rowwise, size(p1) = [n 3])
+               describing the three corresponding points on the same circle.
+               p1, p2 and p3 must have the same length n.
+
+ arguments: (output)
+  center - (nx3) matrix of center points for each triple of points in p1,  p2, p3
+
+  rad    - (nx1) vector of circle radii.
+           if there have been errors, radii is a negative scalar ( = error code)
+
+  v1, v2 - (nx3) perpendicular vectors inside circle plane
+
+ Example usage:
+
+  (1)
+      p1 = rand(10,3);
+      p2 = rand(10,3);
+      p3 = rand(10,3);
+      [center, rad] = circlefit3d(p1,p2,p3);
+      % verification, result should be all (nearly) zero
+      result(:,1)=sqrt(sum((p1-center).^2,2))-rad;
+      result(:,2)=sqrt(sum((p2-center).^2,2))-rad;
+      result(:,3)=sqrt(sum((p3-center).^2,2))-rad;
+      if sum(sum(abs(result))) &lt; 1e-12,
+       disp('All circles have been found correctly.');
+      else,
+       disp('There had been errors.');
+      end
+
+
+ (2)
+       p1=rand(4,3);p2=rand(4,3);p3=rand(4,3);
+       [center,rad,v1,v2] = circlefit3d(p1,p2,p3);
+       plot3(p1(:,1),p1(:,2),p1(:,3),'bo');hold on;plot3(p2(:,1),p2(:,2),p2(:,3),'bo');plot3(p3(:,1),p3(:,2),p3(:,3),'bo');
+       for i=1:361,
+           a = i/180*pi;
+           x = center(:,1)+sin(a)*rad.*v1(:,1)+cos(a)*rad.*v2(:,1);
+           y = center(:,2)+sin(a)*rad.*v1(:,2)+cos(a)*rad.*v2(:,2);
+           z = center(:,3)+sin(a)*rad.*v1(:,3)+cos(a)*rad.*v2(:,3);
+           plot3(x,y,z,'r.');
+       end
+       axis equal;grid on;rotate3d on;
+
+ 
+ Author: Johannes Korsawe
+ E-mail: johannes.korsawe@volkswagen.de
+ Release: 1.0
+ Release date: 26/01/2012</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/RAPID/functions/MoveC.html" class="code" title="function robot = MoveC(robot, robtarget1, robtarget2, speeddata, zonedata, gripper, Wobj)">MoveC</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [center,rad,v1n,v2nb] = circlefit3d(p1,p2,p3)</a>
+0002 <span class="comment">% circlefit3d: Compute center and radii of circles in 3d which are defined by three points on the circumference</span>
+0003 <span class="comment">% usage: [center,rad,v1,v2] = circlefit3d(p1,p2,p3)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% arguments: (input)</span>
+0006 <span class="comment">%  p1, p2, p3 - vectors of points (rowwise, size(p1) = [n 3])</span>
+0007 <span class="comment">%               describing the three corresponding points on the same circle.</span>
+0008 <span class="comment">%               p1, p2 and p3 must have the same length n.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% arguments: (output)</span>
+0011 <span class="comment">%  center - (nx3) matrix of center points for each triple of points in p1,  p2, p3</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  rad    - (nx1) vector of circle radii.</span>
+0014 <span class="comment">%           if there have been errors, radii is a negative scalar ( = error code)</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%  v1, v2 - (nx3) perpendicular vectors inside circle plane</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% Example usage:</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%  (1)</span>
+0021 <span class="comment">%      p1 = rand(10,3);</span>
+0022 <span class="comment">%      p2 = rand(10,3);</span>
+0023 <span class="comment">%      p3 = rand(10,3);</span>
+0024 <span class="comment">%      [center, rad] = circlefit3d(p1,p2,p3);</span>
+0025 <span class="comment">%      % verification, result should be all (nearly) zero</span>
+0026 <span class="comment">%      result(:,1)=sqrt(sum((p1-center).^2,2))-rad;</span>
+0027 <span class="comment">%      result(:,2)=sqrt(sum((p2-center).^2,2))-rad;</span>
+0028 <span class="comment">%      result(:,3)=sqrt(sum((p3-center).^2,2))-rad;</span>
+0029 <span class="comment">%      if sum(sum(abs(result))) &lt; 1e-12,</span>
+0030 <span class="comment">%       disp('All circles have been found correctly.');</span>
+0031 <span class="comment">%      else,</span>
+0032 <span class="comment">%       disp('There had been errors.');</span>
+0033 <span class="comment">%      end</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% (2)</span>
+0037 <span class="comment">%       p1=rand(4,3);p2=rand(4,3);p3=rand(4,3);</span>
+0038 <span class="comment">%       [center,rad,v1,v2] = circlefit3d(p1,p2,p3);</span>
+0039 <span class="comment">%       plot3(p1(:,1),p1(:,2),p1(:,3),'bo');hold on;plot3(p2(:,1),p2(:,2),p2(:,3),'bo');plot3(p3(:,1),p3(:,2),p3(:,3),'bo');</span>
+0040 <span class="comment">%       for i=1:361,</span>
+0041 <span class="comment">%           a = i/180*pi;</span>
+0042 <span class="comment">%           x = center(:,1)+sin(a)*rad.*v1(:,1)+cos(a)*rad.*v2(:,1);</span>
+0043 <span class="comment">%           y = center(:,2)+sin(a)*rad.*v1(:,2)+cos(a)*rad.*v2(:,2);</span>
+0044 <span class="comment">%           z = center(:,3)+sin(a)*rad.*v1(:,3)+cos(a)*rad.*v2(:,3);</span>
+0045 <span class="comment">%           plot3(x,y,z,'r.');</span>
+0046 <span class="comment">%       end</span>
+0047 <span class="comment">%       axis equal;grid on;rotate3d on;</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">%</span>
+0050 <span class="comment">% Author: Johannes Korsawe</span>
+0051 <span class="comment">% E-mail: johannes.korsawe@volkswagen.de</span>
+0052 <span class="comment">% Release: 1.0</span>
+0053 <span class="comment">% Release date: 26/01/2012</span>
+0054 
+0055 <span class="comment">% Default values</span>
+0056 center = [];rad = 0;v1n=[];v2nb=[];
+0057 
+0058 <span class="comment">% check inputs</span>
+0059 <span class="comment">% check number of inputs</span>
+0060 <span class="keyword">if</span> nargin~=3,
+0061     fprintf(<span class="string">'??? Error using ==&gt; cirlefit3d\nThree input matrices are needed.\n'</span>);rad = -1;<span class="keyword">return</span>;
+0062 <span class="keyword">end</span>
+0063 <span class="comment">% check size of inputs</span>
+0064 <span class="keyword">if</span> size(p1,2)~=3 || size(p2,2)~=3 || size(p3,2)~=3,
+0065     fprintf(<span class="string">'??? Error using ==&gt; cirlefit3d\nAll input matrices must have three columns.\n'</span>);rad = -2;<span class="keyword">return</span>;
+0066 <span class="keyword">end</span>
+0067 n = size(p1,1);
+0068 <span class="keyword">if</span> size(p2,1)~=n || size(p3,1)~=n,
+0069     fprintf(<span class="string">'??? Error using ==&gt; cirlefit3d\nAll input matrices must have the same number or rows.\n'</span>);rad = -3;<span class="keyword">return</span>;
+0070 <span class="keyword">end</span>
+0071 <span class="comment">% more checks are to follow inside calculation</span>
+0072 
+0073 <span class="comment">% Start calculation</span>
+0074 <span class="comment">% v1, v2 describe the vectors from p1 to p2 and p3, resp.</span>
+0075 v1 = p2 - p1;v2 = p3 - p1;
+0076 <span class="comment">% l1, l2 describe the lengths of those vectors</span>
+0077 l1 = sqrt((v1(:,1).*v1(:,1)+v1(:,2).*v1(:,2)+v1(:,3).*v1(:,3)));
+0078 l2 = sqrt((v2(:,1).*v2(:,1)+v2(:,2).*v2(:,2)+v2(:,3).*v2(:,3)));
+0079 <span class="keyword">if</span> find(l1==0) | find(l2==0), <span class="comment">%#ok&lt;OR2&gt;</span>
+0080     fprintf(<span class="string">'??? Error using ==&gt; cirlefit3d\nCorresponding input points must not be identical.\n'</span>);rad = -4;<span class="keyword">return</span>;
+0081 <span class="keyword">end</span>
+0082 <span class="comment">% v1n, v2n describe the normalized vectors v1 and v2</span>
+0083 v1n = v1;<span class="keyword">for</span> i=1:3, v1n(:,i) = v1n(:,i)./l1;<span class="keyword">end</span>
+0084 v2n = v2;<span class="keyword">for</span> i=1:3, v2n(:,i) = v2n(:,i)./l2;<span class="keyword">end</span>
+0085 <span class="comment">% nv describes the normal vector on the plane of the circle</span>
+0086 nv = [v1n(:,2).*v2n(:,3) - v1n(:,3).*v2n(:,2) , v1n(:,3).*v2n(:,1) - v1n(:,1).*v2n(:,3) , v1n(:,1).*v2n(:,2) - v1n(:,2).*v2n(:,1)];
+0087 <span class="keyword">if</span> find(sum(abs(nv),2)&lt;1e-5),
+0088     fprintf(<span class="string">'??? Warning using ==&gt; cirlefit3d\nSome corresponding input points are nearly collinear.\n'</span>);
+0089 <span class="keyword">end</span>
+0090 <span class="comment">% v2nb: orthogonalization of v2n against v1n</span>
+0091 dotp = v2n(:,1).*v1n(:,1) + v2n(:,2).*v1n(:,2) + v2n(:,3).*v1n(:,3);
+0092 v2nb = v2n;<span class="keyword">for</span> i=1:3,v2nb(:,i) = v2nb(:,i) - dotp.*v1n(:,i);<span class="keyword">end</span>
+0093 <span class="comment">% normalize v2nb</span>
+0094 l2nb = sqrt((v2nb(:,1).*v2nb(:,1)+v2nb(:,2).*v2nb(:,2)+v2nb(:,3).*v2nb(:,3)));
+0095 <span class="keyword">for</span> i=1:3, v2nb(:,i) = v2nb(:,i)./l2nb;<span class="keyword">end</span>
+0096 
+0097 <span class="comment">% remark: the circle plane will now be discretized as follows</span>
+0098 <span class="comment">%</span>
+0099 <span class="comment">% origin: p1                    normal vector on plane: nv</span>
+0100 <span class="comment">% first coordinate vector: v1n  second coordinate vector: v2nb</span>
+0101 
+0102 <span class="comment">% calculate 2d coordinates of points in each plane</span>
+0103 <span class="comment">% p1_2d = zeros(n,2); % set per construction</span>
+0104 <span class="comment">% p2_2d = zeros(n,2);p2_2d(:,1) = l1; % set per construction</span>
+0105 p3_2d = zeros(n,2); <span class="comment">% has to be calculated</span>
+0106 <span class="keyword">for</span> i = 1:3,
+0107     p3_2d(:,1) = p3_2d(:,1) + v2(:,i).*v1n(:,i);
+0108     p3_2d(:,2) = p3_2d(:,2) + v2(:,i).*v2nb(:,i);
+0109 <span class="keyword">end</span>
+0110 
+0111 <span class="comment">% calculate the fitting circle</span>
+0112 <span class="comment">% due to the special construction of the 2d system this boils down to solving</span>
+0113 <span class="comment">% q1 = [0,0], q2 = [a,0], q3 = [b,c] (points on 2d circle)</span>
+0114 <span class="comment">% crossing perpendicular bisectors, s and t running indices:</span>
+0115 <span class="comment">% solve [a/2,s] = [b/2 + c*t, c/2 - b*t]</span>
+0116 <span class="comment">% solution t = (a-b)/(2*c)</span>
+0117 
+0118 a = l1;b = p3_2d(:,1);c = p3_2d(:,2);
+0119 t = 0.5*(a-b)./c;
+0120 scale1 = b/2 + c.*t;scale2 = c/2 - b.*t;
+0121 
+0122 <span class="comment">% centers</span>
+0123 center = zeros(n,3);
+0124 <span class="keyword">for</span> i=1:3,
+0125     center(:,i) = p1(:,i) + scale1.*v1n(:,i) + scale2.*v2nb(:,i);
+0126 <span class="keyword">end</span>
+0127 
+0128 <span class="comment">% radii</span>
+0129 rad = sqrt((center(:,1)-p1(:,1)).^2+(center(:,2)-p1(:,2)).^2+(center(:,3)-p1(:,3)).^2);</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

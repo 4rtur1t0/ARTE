@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of draw_link</title>
+  <meta name="keywords" content="draw_link">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">tools</a> &gt; draw_link.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/tools&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>draw_link
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function draw_link(robot, i, T) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   DRAW_LINK(ROBOT, I, T) 
+
+   Draws the I link of the robot according to the transformation matrix T,
+   where:
+   ROBOT is the current object storing the robot parameters. The graphical
+   representation of the robot is stored in the variables 
+   robot.graphical.link{1}.v --&gt; robot base
+   robot.graphical.link{2}.v --&gt; link 1...
+
+   If the robot has graphics the variable robot.graphical.has_graphics
+   must be set.
+
+   I is the current link number being drawn.
+
+   T is the global transformation that relates the base reference system
+   of the robot with the link's reference system.
+
+   If the variable robot.graphical.draw_axes is set, the reference system
+   associated with link i is drawn with arrows X (red), Y (green), Z (blue)
+
+    See also <a href="drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">DRAWROBOT3D</a>, <a href="animate.html" class="code" title="function animate(robot, q, line)">ANIMATE</a>
+
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche.
+   email: arturo.gil@umh.es date:   05/02/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="draw_patch.html" class="code" title="function draw_patch(F, V, C, transparent)">draw_patch</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="drawrobot3d_simulation.html" class="code" title="function robot=drawrobot3d_simulation(robot, q)">drawrobot3d_simulation</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   DRAW_LINK(ROBOT, I, T)</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   Draws the I link of the robot according to the transformation matrix T,</span>
+0005 <span class="comment">%   where:</span>
+0006 <span class="comment">%   ROBOT is the current object storing the robot parameters. The graphical</span>
+0007 <span class="comment">%   representation of the robot is stored in the variables</span>
+0008 <span class="comment">%   robot.graphical.link{1}.v --&gt; robot base</span>
+0009 <span class="comment">%   robot.graphical.link{2}.v --&gt; link 1...</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%   If the robot has graphics the variable robot.graphical.has_graphics</span>
+0012 <span class="comment">%   must be set.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   I is the current link number being drawn.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%   T is the global transformation that relates the base reference system</span>
+0017 <span class="comment">%   of the robot with the link's reference system.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%   If the variable robot.graphical.draw_axes is set, the reference system</span>
+0020 <span class="comment">%   associated with link i is drawn with arrows X (red), Y (green), Z (blue)</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%    See also DRAWROBOT3D, ANIMATE</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0025 <span class="comment">%   email: arturo.gil@umh.es date:   05/02/2012</span>
+0026 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0027 
+0028 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0033 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0034 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0035 <span class="comment">% (at your option) any later version.</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0038 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0039 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0040 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0041 <span class="comment">%</span>
+0042 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0043 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0044 <a name="_sub0" href="#_subfunctions" class="code">function draw_link(robot, i, T)</a>
+0045 
+0046 <span class="keyword">if</span> robot.graphical.has_graphics
+0047     <span class="comment">%Now draw points</span>
+0048     <span class="comment">%obtain arm points</span>
+0049     V=robot.graphical.link{i}.v;
+0050     V(:,4) = ones(length(V),1); <span class="comment">%homogeneous coordinates</span>
+0051     
+0052     <span class="comment">%transform points according to current coordinates</span>
+0053     V = (T*V')';
+0054     V  = V(:,1:3);
+0055     <span class="comment">%set robot.graphical.color to add a desired color to your robot</span>
+0056     <a href="draw_patch.html" class="code" title="function draw_patch(F, V, C, transparent)">draw_patch</a>(robot.graphical.link{i}.f,V,robot.graphical.color, robot.graphical.draw_transparent);
+0057 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

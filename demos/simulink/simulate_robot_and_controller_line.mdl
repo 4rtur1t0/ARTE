@@ -1,0 +1,4422 @@
+Model {
+  Name			  "simulate_robot_and_controller_line"
+  Version		  7.7
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.59"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "UTF-8"
+  SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  DataTypeOverrideAppliesTo "AllNumericTypes"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  MaxMDLFileLineLength	  120
+  Created		  "Tue Mar 19 19:00:26 2013"
+  Creator		  "arturo"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "arturogilaparicio"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Tue Apr  9 19:46:49 2013"
+  RTWModifiedTimeStamp	  287418500
+  ModelVersionFormat	  "1.%<AutoIncrement:59>"
+  ConfigurationManager	  "None"
+  SampleTimeColors	  off
+  SampleTimeAnnotations	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowSignalResolutionIcons on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  CovForceBlockReductionOff on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  CovExternalEMLEnable	  off
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.11.0"
+      Array {
+	Type			"Handle"
+	Dimension		9
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Version		  "1.11.0"
+	  StartTime		  "0.0"
+	  StopTime		  "0.5"
+	  AbsTol		  "auto"
+	  FixedStep		  "0.001"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ZcThreshold		  "auto"
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "0.001"
+	  MinStep		  "0.0005"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  ConcurrentTasks	  off
+	  Solver		  "ode3"
+	  SolverName		  "ode3"
+	  SolverJacobianMethodControl "auto"
+	  ShapePreserveControl	  "DisableAll"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  ZeroCrossAlgorithm	  "Nonadaptive"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  InsertRTBMode		  "Whenever possible"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.11.0"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveCompleteFinalSimState off
+	  SaveFormat		  "Array"
+	  SignalLoggingSaveFormat "ModelDataLogs"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  DSMLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  ReturnWorkspaceOutputs  off
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  DSMLoggingName	  "dsmout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  ReturnWorkspaceOutputsName "out"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Version		  "1.11.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    6
+	    Cell		    "PassReuseOutputArgsAs"
+	    Cell		    "PassReuseOutputArgsThreshold"
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    PropName		    "DisabledProps"
+	  }
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  UseIntDivNetSlope	  off
+	  UseSpecifiedMinMax	  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnhancedBackFolding	  off
+	  StrengthReduction	  off
+	  ExpressionFolding	  on
+	  BooleansAsBitfields	  off
+	  BitfieldContainerType	  "uint_T"
+	  EnableMemcpy		  on
+	  MemcpyThreshold	  64
+	  PassReuseOutputArgsAs	  "Structure reference"
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  off
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  EfficientMapNaN2IntZero on
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  MaxStackSize		  "Inherit from target"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	  AccelParallelForEachSubsystem	on
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.11.0"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"warning"
+	  CheckSSInitialOutputMsg on
+	  UnderspecifiedInitializationDetection	"Classic"
+	  MergeDetectMultiDrivingBlocksExec "none"
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "UseLocalSettings"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  MaskedZcDiagnostic	  "warning"
+	  IgnoredZcDiagnostic	  "warning"
+	  SolverPrmCheckMsg	  "warning"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "error"
+	  MultiTaskCondExecSysMsg "error"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  FixptConstUnderflowMsg  "none"
+	  FixptConstOverflowMsg	  "none"
+	  FixptConstPrecisionLossMsg "none"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  SimStateInterfaceChecksumMismatchMsg "warning"
+	  SimStateOlderReleaseMsg "error"
+	  InitInArrayFormatMsg	  "warning"
+	  StrictBusMsg		  "Warning"
+	  BusNameAdapt		  "WarnAndRepair"
+	  NonBusSignalsTreatedAsBus "none"
+	  LoggingUnavailableSignals "error"
+	  BlockIODiagnostic	  "none"
+	  SFUnusedDataAndEventsDiag "warning"
+	  SFUnexpectedBacktrackingDiag "warning"
+	  SFInvalidInputDataAccessInChartInitDiag "warning"
+	  SFNoUnconditionalDefaultTransitionDiag "warning"
+	  SFTransitionOutsideNaturalParentDiag "warning"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.11.0"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdBitPerFloat	  32
+	  ProdBitPerDouble	  64
+	  ProdBitPerPointer	  32
+	  ProdLargestAtomicInteger "Char"
+	  ProdLargestAtomicFloat  "None"
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetBitPerFloat	  32
+	  TargetBitPerDouble	  64
+	  TargetBitPerPointer	  32
+	  TargetLargestAtomicInteger "Char"
+	  TargetLargestAtomicFloat "None"
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.11.0"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  EnableParallelModelReferenceBuilds off
+	  ParallelModelReferenceErrorOnInvalidPool on
+	  ParallelModelReferenceMATLABWorkerInit "None"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  PropagateVarSize	  "Infer from blocks in model"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	  PropagateSignalLabelsOutOfModel off
+	  SupportModelReferenceSimTargetCustomCode off
+	}
+	Simulink.SFSimCC {
+	  $ObjectID		  8
+	  Version		  "1.11.0"
+	  SFSimEnableDebug	  on
+	  SFSimOverflowDetection  on
+	  SFSimEcho		  on
+	  SimBlas		  on
+	  SimCtrlC		  on
+	  SimExtrinsic		  on
+	  SimIntegrity		  on
+	  SimUseLocalCustomCode	  off
+	  SimParseCustomCode	  on
+	  SimBuildMode		  "sf_incremental_build"
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  9
+	  Version		  "1.11.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    6
+	    Cell		    "IncludeHyperlinkInReport"
+	    Cell		    "GenerateTraceInfo"
+	    Cell		    "GenerateTraceReport"
+	    Cell		    "GenerateTraceReportSl"
+	    Cell		    "GenerateTraceReportSf"
+	    Cell		    "GenerateTraceReportEml"
+	    PropName		    "DisabledProps"
+	  }
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  RTWUseLocalCustomCode	  off
+	  RTWUseSimCustomCode	  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  off
+	  GenerateTraceInfo	  off
+	  GenerateTraceReport	  off
+	  GenerateTraceReportSl	  off
+	  GenerateTraceReportSf	  off
+	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
+	  GenerateSLWebview	  off
+	  GenerateCodeMetricsReport off
+	  RTWCompilerOptimization "Off"
+	  CheckMdlBeforeBuild	  "Off"
+	  CustomRebuildMode	  "OnUpdate"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      10
+	      Version		      "1.11.0"
+	      Array {
+		Type			"Cell"
+		Dimension		17
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"IgnoreTestpoints"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		PropName		"DisabledProps"
+	      }
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IgnoreTestpoints	      off
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      MATLABFcnDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrFcnArg   "rt$I$N$M"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      InsertPolySpaceComments off
+	      SimulinkBlockComments   on
+	      MATLABSourceComments    off
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	      UseSimReservedNames     off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      11
+	      Version		      "1.11.0"
+	      Array {
+		Type			"Cell"
+		Dimension		15
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
+		Cell			"CPPClassGenCompliant"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"PortableWordSizes"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		PropName		"DisabledProps"
+	      }
+	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
+	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
+	      TargetFunctionLibrary   "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      ERTMultiwordTypeDef     "System defined"
+	      FunctionExecutionProfile off
+	      CodeExecutionProfiling  off
+	      ERTCodeCoverageTool     "None"
+	      ERTMultiwordLength      256
+	      MultiwordLength	      2048
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      ParMdlRefBuildCompliant on
+	      CompOptLevelCompliant   on
+	      IncludeMdlTerminateFcn  on
+	      GeneratePreprocessorConditionals "Disable all"
+	      CombineOutputUpdateFcns off
+	      CombineSignalStateStructs	off
+	      SuppressErrorStatus     off
+	      ERTFirstTimeCompliant   off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      SupportVariableSizeSignals off
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      CPPClassGenCompliant    off
+	      AutosarCompliant	      off
+	      UseMalloc		      off
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      ExtModeIntrfLevel	      "Level1"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      RTWCAPIRootIO	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	hdlcoderui.hdlcc {
+	  $ObjectID		  12
+	  Version		  "1.11.0"
+	  Description		  "HDL Coder custom configuration component"
+	  Name			  "HDL Coder"
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Solver"
+      ConfigPrmDlgPosition     [ 254, 90, 1090, 681 ] 
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  BlockDefaults {
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+    BlockRotation	    0
+    BlockMirror		    off
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Clock
+      DisplayTime	      off
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      DiscreteTransferFcn
+      Numerator		      "[1]"
+      Denominator	      "[1 0.5]"
+      InputProcessing	      "Elements as channels (sample based)"
+      InitialStates	      "0"
+      SampleTime	      "1"
+      a0EqualsOne	      off
+      NumCoefMin	      "[]"
+      NumCoefMax	      "[]"
+      DenCoefMin	      "[]"
+      DenCoefMax	      "[]"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      StateDataTypeStr	      "Inherit: Same as input"
+      NumCoefDataTypeStr      "Inherit: Inherit via internal rule"
+      DenCoefDataTypeStr      "Inherit: Inherit via internal rule"
+      NumProductDataTypeStr   "Inherit: Inherit via internal rule"
+      DenProductDataTypeStr   "Inherit: Inherit via internal rule"
+      NumAccumDataTypeStr     "Inherit: Inherit via internal rule"
+      DenAccumDataTypeStr     "Inherit: Inherit via internal rule"
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+    }
+    Block {
+      BlockType		      Gain
+      Gain		      "1"
+      Multiplication	      "Element-wise(K.*u)"
+      ParamMin		      "[]"
+      ParamMax		      "[]"
+      ParamDataTypeStr	      "Inherit: Same as input"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Integrator
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+      IgnoreLimit	      off
+      ZeroCross		      on
+      ContinuousStateAttributes	"''"
+    }
+    Block {
+      BlockType		      MATLABFcn
+      MATLABFcn		      "sin"
+      OutputDimensions	      "-1"
+      OutputSignalType	      "auto"
+      Output1D		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimitSource	      "Dialog"
+      UpperLimit	      "0.5"
+      LowerLimitSource	      "Dialog"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
+      BlockType		      Scope
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      DataTypeOverrideAppliesTo	"AllNumericTypes"
+      MinMaxOverflowLogging   "UseLocalSettings"
+      Variant		      off
+      GeneratePreprocessorConditionals off
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      AccumDataTypeStr	      "Inherit: Inherit via internal rule"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      VariableName	      "simulink_output"
+      MaxDataPoints	      "1000"
+      Decimation	      "1"
+      SampleTime	      "0"
+      FixptAsFi		      off
+      NumInputs		      "1"
+    }
+    Block {
+      BlockType		      TransferFcn
+      Numerator		      "[1]"
+      Denominator	      "[1 2 1]"
+      AbsoluteTolerance	      "auto"
+      ContinuousStateAttributes	"''"
+      Realization	      "auto"
+    }
+    Block {
+      BlockType		      ZeroOrderHold
+      SampleTime	      "1"
+    }
+  }
+  System {
+    Name		    "simulate_robot_and_controller_line"
+    Location		    [97, 90, 1879, 895]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "A4"
+    PaperUnits		    "centimeters"
+    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "179"
+    Block {
+      BlockType		      SubSystem
+      Name		      "ROBOT"
+      SID		      "1"
+      Ports		      [1, 1]
+      Position		      [875, 20, 1240, 440]
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDisplay	      "port_label('output', 1, 'Joint positions (rad)')\nport_label('input', 1, 'Control actions (Vo"
+      "lts)')\nimage(imread('images/robot.png'))"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"ROBOT"
+	Location		[164, 253, 1863, 1389]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "In1"
+	  SID			  "2"
+	  Position		  [75, 373, 105, 387]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  MATLABFcn
+	  Name			  "6 DOF ROBOT"
+	  SID			  "3"
+	  Ports			  [1, 1]
+	  Position		  [1280, 408, 1360, 452]
+	  BackgroundColor	  "lightBlue"
+	  MATLABFcn		  "call_direct_dynamics(u)"
+	  OutputDimensions	  "6"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  SID			  "4"
+	  Ports			  [1, 6]
+	  Position		  [250, 84, 255, 676]
+	  ShowName		  off
+	  Outputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "5"
+	  Ports			  [1, 6]
+	  Position		  [850, 501, 855, 789]
+	  BlockMirror		  on
+	  NamePlacement		  "alternate"
+	  ShowName		  off
+	  Outputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "ENABLE/DISABLE CONTROLS"
+	  SID			  "6"
+	  Ports			  [3, 3]
+	  Position		  [945, 383, 1110, 477]
+	  BackgroundColor	  "orange"
+	  NamePlacement		  "alternate"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Set [1 1 1 1 1 1] to enable all motors and controls. Set [1 0 0 0 0 0] to enable just joint 1 c"
+	  "ontrol, [0 1 0 0 0 0] to enable 2, and so on:"
+	  MaskStyleString	  "edit"
+	  MaskVariables		  "on_off_vector=@1;"
+	  MaskTunableValueString  "on"
+	  MaskEnableString	  "on"
+	  MaskVisibilityString	  "on"
+	  MaskToolTipString	  "on"
+	  MaskDisplay		  "port_label('input', 1, 'input_torque')\nport_label('output', 1, 'output_torque')\nport_label('input"
+	  "', 2, 'input_pos')\nport_label('output', 2, 'output_pos')\nport_label('input', 3, 'input_vel')\nport_label('output'"
+	  ", 3, 'output_vel')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "[1 1 1 1 1 1]"
+	  System {
+	    Name		    "ENABLE/DISABLE CONTROLS"
+	    Location		    [324, 768, 921, 1366]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In1"
+	      SID		      "7"
+	      Position		      [100, 53, 130, 67]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In2"
+	      SID		      "8"
+	      Position		      [100, 173, 130, 187]
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In3"
+	      SID		      "9"
+	      Position		      [100, 283, 130, 297]
+	      NamePlacement	      "alternate"
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "ENABLE/DISABLE POSITIONS"
+	      SID		      "10"
+	      Position		      [205, 165, 235, 195]
+	      Gain		      "on_off_vector"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "ENABLE/DISABLE SPEEDS"
+	      SID		      "11"
+	      Position		      [205, 275, 235, 305]
+	      Gain		      "on_off_vector"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "ENABLE/DISABLE TORQUES"
+	      SID		      "12"
+	      Position		      [205, 45, 235, 75]
+	      Gain		      "on_off_vector"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out1"
+	      SID		      "13"
+	      Position		      [340, 53, 370, 67]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out2"
+	      SID		      "14"
+	      Position		      [340, 173, 370, 187]
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out3"
+	      SID		      "15"
+	      Position		      [340, 283, 370, 297]
+	      NamePlacement	      "alternate"
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "In2"
+	      SrcPort		      1
+	      DstBlock		      "ENABLE/DISABLE POSITIONS"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "In1"
+	      SrcPort		      1
+	      DstBlock		      "ENABLE/DISABLE TORQUES"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "ENABLE/DISABLE TORQUES"
+	      SrcPort		      1
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "In3"
+	      SrcPort		      1
+	      DstBlock		      "ENABLE/DISABLE SPEEDS"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "ENABLE/DISABLE SPEEDS"
+	      SrcPort		      1
+	      DstBlock		      "Out3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "ENABLE/DISABLE POSITIONS"
+	      SrcPort		      1
+	      DstBlock		      "Out2"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator"
+	  SID			  "16"
+	  Ports			  [1, 1]
+	  Position		  [1415, 420, 1435, 440]
+	  InitialCondition	  "[0 0 0 0 0 0]"
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator1"
+	  SID			  "17"
+	  Ports			  [1, 1]
+	  Position		  [1520, 420, 1540, 440]
+	  InitialCondition	  "[0 0 0 0 0.1 0]"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Motoreducer 1"
+	  SID			  "18"
+	  Ports			  [2, 1]
+	  Position		  [390, 112, 465, 183]
+	  BackgroundColor	  "yellow"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Select motor index"
+	  MaskStyleString	  "edit"
+	  MaskVariables		  "index=@1;"
+	  MaskTunableValueString  "on"
+	  MaskEnableString	  "on"
+	  MaskVisibilityString	  "on"
+	  MaskToolTipString	  "on"
+	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "1"
+	  System {
+	    Name		    "Motoreducer 1"
+	    Location		    [261, 212, 1018, 588]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input (Volts)"
+	      SID		      "19"
+	      Position		      [90, 103, 120, 117]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Speed"
+	      SID		      "20"
+	      Position		      [570, 203, 600, 217]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Back EMF"
+	      SID		      "21"
+	      Position		      [290, 192, 345, 228]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio"
+	      SID		      "22"
+	      Position		      [495, 99, 530, 141]
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio 1"
+	      SID		      "23"
+	      Position		      [470, 189, 510, 231]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "Saturation"
+	      SID		      "24"
+	      Ports		      [1, 1]
+	      Position		      [330, 105, 360, 135]
+	      InputPortMap	      "u0"
+	      UpperLimit	      "robot.motors.constants(index,5)"
+	      LowerLimit	      "-robot.motors.constants(index,5)"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      SID		      "25"
+	      Ports		      [2, 1]
+	      Position		      [180, 102, 200, 133]
+	      Inputs		      "+-"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Torque constant"
+	      SID		      "26"
+	      Position		      [410, 104, 450, 136]
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      TransferFcn
+	      Name		      "motor= 1/(Ls + R)"
+	      SID		      "27"
+	      Position		      [230, 101, 290, 139]
+	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output Torque"
+	      SID		      "28"
+	      Position		      [570, 113, 600, 127]
+	      IconDisplay	      "Port number"
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Saturation"
+	      SrcPort		      1
+	      DstBlock		      "Torque constant"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "motor= 1/(Ls + R)"
+	      SrcPort		      1
+	      DstBlock		      "Saturation"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Torque constant"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio"
+	      SrcPort		      1
+	      DstBlock		      "Output Torque"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "motor= 1/(Ls + R)"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio 1"
+	      SrcPort		      1
+	      DstBlock		      "Back EMF"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Back EMF"
+	      SrcPort		      1
+	      Points		      [-120, 0]
+	      DstBlock		      "Sum1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Input (Volts)"
+	      SrcPort		      1
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Speed"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio 1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Motoreducer 2"
+	  SID			  "29"
+	  Ports			  [2, 1]
+	  Position		  [390, 212, 465, 283]
+	  BackgroundColor	  "yellow"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Select motor index"
+	  MaskStyleString	  "edit"
+	  MaskVariables		  "index=@1;"
+	  MaskTunableValueString  "on"
+	  MaskEnableString	  "on"
+	  MaskVisibilityString	  "on"
+	  MaskToolTipString	  "on"
+	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "1"
+	  System {
+	    Name		    "Motoreducer 2"
+	    Location		    [1622, 861, 2167, 1043]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input (Volts)"
+	      SID		      "30"
+	      Position		      [25, 33, 55, 47]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Speed"
+	      SID		      "31"
+	      Position		      [490, 133, 520, 147]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio"
+	      SID		      "32"
+	      Position		      [430, 29, 465, 71]
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio 1"
+	      SID		      "33"
+	      Position		      [335, 119, 375, 161]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Kv"
+	      SID		      "34"
+	      Position		      [225, 122, 280, 158]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "Max/min current"
+	      SID		      "35"
+	      Ports		      [1, 1]
+	      Position		      [265, 35, 295, 65]
+	      InputPortMap	      "u0"
+	      UpperLimit	      "robot.motors.constants(index,5)"
+	      LowerLimit	      "-robot.motors.constants(index,5)"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      SID		      "36"
+	      Ports		      [2, 1]
+	      Position		      [115, 32, 135, 63]
+	      Inputs		      "+-"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Torque constant"
+	      SID		      "37"
+	      Position		      [345, 34, 385, 66]
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      TransferFcn
+	      Name		      "motor"
+	      SID		      "38"
+	      Position		      [165, 31, 225, 69]
+	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output Torque"
+	      SID		      "39"
+	      Position		      [490, 43, 520, 57]
+	      IconDisplay	      "Port number"
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Max/min current"
+	      SrcPort		      1
+	      DstBlock		      "Torque constant"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "motor"
+	      SrcPort		      1
+	      DstBlock		      "Max/min current"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Torque constant"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio"
+	      SrcPort		      1
+	      DstBlock		      "Output Torque"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "motor"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio 1"
+	      SrcPort		      1
+	      DstBlock		      "Kv"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Kv"
+	      SrcPort		      1
+	      Points		      [-120, 0]
+	      DstBlock		      "Sum1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Input (Volts)"
+	      SrcPort		      1
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Speed"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio 1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Motoreducer 3"
+	  SID			  "40"
+	  Ports			  [2, 1]
+	  Position		  [390, 312, 465, 383]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Select motor index"
+	  MaskStyleString	  "edit"
+	  MaskVariables		  "index=@1;"
+	  MaskTunableValueString  "on"
+	  MaskEnableString	  "on"
+	  MaskVisibilityString	  "on"
+	  MaskToolTipString	  "on"
+	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "1"
+	  System {
+	    Name		    "Motoreducer 3"
+	    Location		    [1474, 861, 2019, 1043]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input (Volts)"
+	      SID		      "41"
+	      Position		      [25, 33, 55, 47]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Speed"
+	      SID		      "42"
+	      Position		      [490, 133, 520, 147]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio"
+	      SID		      "43"
+	      Position		      [430, 29, 465, 71]
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio 1"
+	      SID		      "44"
+	      Position		      [335, 119, 375, 161]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Kv"
+	      SID		      "45"
+	      Position		      [225, 122, 280, 158]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "Saturation"
+	      SID		      "46"
+	      Ports		      [1, 1]
+	      Position		      [265, 35, 295, 65]
+	      InputPortMap	      "u0"
+	      UpperLimit	      "robot.motors.constants(index,5)"
+	      LowerLimit	      "-robot.motors.constants(index,5)"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      SID		      "47"
+	      Ports		      [2, 1]
+	      Position		      [115, 32, 135, 63]
+	      Inputs		      "+-"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Torque constant"
+	      SID		      "48"
+	      Position		      [345, 34, 385, 66]
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      TransferFcn
+	      Name		      "motor: 1/(Ls+R)"
+	      SID		      "49"
+	      Position		      [165, 31, 225, 69]
+	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output Torque"
+	      SID		      "50"
+	      Position		      [490, 43, 520, 57]
+	      IconDisplay	      "Port number"
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Saturation"
+	      SrcPort		      1
+	      DstBlock		      "Torque constant"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "motor: 1/(Ls+R)"
+	      SrcPort		      1
+	      DstBlock		      "Saturation"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Torque constant"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio"
+	      SrcPort		      1
+	      DstBlock		      "Output Torque"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "motor: 1/(Ls+R)"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio 1"
+	      SrcPort		      1
+	      DstBlock		      "Kv"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Kv"
+	      SrcPort		      1
+	      Points		      [-120, 0]
+	      DstBlock		      "Sum1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Input (Volts)"
+	      SrcPort		      1
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Speed"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio 1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Motoreducer 4"
+	  SID			  "51"
+	  Ports			  [2, 1]
+	  Position		  [390, 412, 465, 483]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Select motor index"
+	  MaskStyleString	  "edit"
+	  MaskVariables		  "index=@1;"
+	  MaskTunableValueString  "on"
+	  MaskEnableString	  "on"
+	  MaskVisibilityString	  "on"
+	  MaskToolTipString	  "on"
+	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "1"
+	  System {
+	    Name		    "Motoreducer 4"
+	    Location		    [1622, 839, 2167, 1021]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input (Volts)"
+	      SID		      "52"
+	      Position		      [25, 33, 55, 47]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Speed"
+	      SID		      "53"
+	      Position		      [490, 133, 520, 147]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio"
+	      SID		      "54"
+	      Position		      [430, 29, 465, 71]
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio 1"
+	      SID		      "55"
+	      Position		      [335, 119, 375, 161]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Kv"
+	      SID		      "56"
+	      Position		      [225, 122, 280, 158]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "Saturation"
+	      SID		      "57"
+	      Ports		      [1, 1]
+	      Position		      [265, 35, 295, 65]
+	      InputPortMap	      "u0"
+	      UpperLimit	      "robot.motors.constants(index,5)"
+	      LowerLimit	      "-robot.motors.constants(index,5)"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      SID		      "58"
+	      Ports		      [2, 1]
+	      Position		      [115, 32, 135, 63]
+	      Inputs		      "+-"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Torque constant"
+	      SID		      "59"
+	      Position		      [345, 34, 385, 66]
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      TransferFcn
+	      Name		      "motor"
+	      SID		      "60"
+	      Position		      [165, 31, 225, 69]
+	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output Torque"
+	      SID		      "61"
+	      Position		      [490, 43, 520, 57]
+	      IconDisplay	      "Port number"
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Saturation"
+	      SrcPort		      1
+	      DstBlock		      "Torque constant"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "motor"
+	      SrcPort		      1
+	      DstBlock		      "Saturation"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Torque constant"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio"
+	      SrcPort		      1
+	      DstBlock		      "Output Torque"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "motor"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio 1"
+	      SrcPort		      1
+	      DstBlock		      "Kv"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Kv"
+	      SrcPort		      1
+	      Points		      [-120, 0]
+	      DstBlock		      "Sum1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Input (Volts)"
+	      SrcPort		      1
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Speed"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio 1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Motoreducer 5"
+	  SID			  "62"
+	  Ports			  [2, 1]
+	  Position		  [390, 512, 465, 583]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Select motor index"
+	  MaskStyleString	  "edit"
+	  MaskVariables		  "index=@1;"
+	  MaskTunableValueString  "on"
+	  MaskEnableString	  "on"
+	  MaskVisibilityString	  "on"
+	  MaskToolTipString	  "on"
+	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "1"
+	  System {
+	    Name		    "Motoreducer 5"
+	    Location		    [1622, 839, 2167, 1021]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input (Volts)"
+	      SID		      "63"
+	      Position		      [25, 33, 55, 47]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Speed"
+	      SID		      "64"
+	      Position		      [490, 133, 520, 147]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio"
+	      SID		      "65"
+	      Position		      [430, 29, 465, 71]
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio 1"
+	      SID		      "66"
+	      Position		      [335, 119, 375, 161]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Kv"
+	      SID		      "67"
+	      Position		      [225, 122, 280, 158]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "Saturation"
+	      SID		      "68"
+	      Ports		      [1, 1]
+	      Position		      [265, 35, 295, 65]
+	      InputPortMap	      "u0"
+	      UpperLimit	      "robot.motors.constants(index,5)"
+	      LowerLimit	      "-robot.motors.constants(index,5)"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      SID		      "69"
+	      Ports		      [2, 1]
+	      Position		      [115, 32, 135, 63]
+	      Inputs		      "+-"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Torque constant"
+	      SID		      "70"
+	      Position		      [345, 34, 385, 66]
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      TransferFcn
+	      Name		      "motor"
+	      SID		      "71"
+	      Position		      [165, 31, 225, 69]
+	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output Torque"
+	      SID		      "72"
+	      Position		      [490, 43, 520, 57]
+	      IconDisplay	      "Port number"
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Saturation"
+	      SrcPort		      1
+	      DstBlock		      "Torque constant"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "motor"
+	      SrcPort		      1
+	      DstBlock		      "Saturation"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Torque constant"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio"
+	      SrcPort		      1
+	      DstBlock		      "Output Torque"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "motor"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio 1"
+	      SrcPort		      1
+	      DstBlock		      "Kv"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Kv"
+	      SrcPort		      1
+	      Points		      [-120, 0]
+	      DstBlock		      "Sum1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Input (Volts)"
+	      SrcPort		      1
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Speed"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio 1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Motoreducer 6"
+	  SID			  "73"
+	  Ports			  [2, 1]
+	  Position		  [390, 612, 465, 683]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Select motor index"
+	  MaskStyleString	  "edit"
+	  MaskVariables		  "index=@1;"
+	  MaskTunableValueString  "on"
+	  MaskEnableString	  "on"
+	  MaskVisibilityString	  "on"
+	  MaskToolTipString	  "on"
+	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "1"
+	  System {
+	    Name		    "Motoreducer 6"
+	    Location		    [1622, 839, 2167, 1021]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Input (Volts)"
+	      SID		      "74"
+	      Position		      [25, 33, 55, 47]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Speed"
+	      SID		      "75"
+	      Position		      [490, 133, 520, 147]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio"
+	      SID		      "76"
+	      Position		      [430, 29, 465, 71]
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gear ratio 1"
+	      SID		      "77"
+	      Position		      [335, 119, 375, 161]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.G(index)"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Kv"
+	      SID		      "78"
+	      Position		      [225, 122, 280, 158]
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "Saturation"
+	      SID		      "79"
+	      Ports		      [1, 1]
+	      Position		      [265, 35, 295, 65]
+	      InputPortMap	      "u0"
+	      UpperLimit	      "robot.motors.constants(index,5)"
+	      LowerLimit	      "-robot.motors.constants(index,5)"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      SID		      "80"
+	      Ports		      [2, 1]
+	      Position		      [115, 32, 135, 63]
+	      Inputs		      "+-"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Torque constant"
+	      SID		      "81"
+	      Position		      [345, 34, 385, 66]
+	      Gain		      "robot.motors.constants(index,4)"
+	    }
+	    Block {
+	      BlockType		      TransferFcn
+	      Name		      "motor"
+	      SID		      "82"
+	      Position		      [165, 31, 225, 69]
+	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output Torque"
+	      SID		      "83"
+	      Position		      [490, 43, 520, 57]
+	      IconDisplay	      "Port number"
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Saturation"
+	      SrcPort		      1
+	      DstBlock		      "Torque constant"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "motor"
+	      SrcPort		      1
+	      DstBlock		      "Saturation"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Torque constant"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio"
+	      SrcPort		      1
+	      DstBlock		      "Output Torque"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "motor"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gear ratio 1"
+	      SrcPort		      1
+	      DstBlock		      "Kv"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Kv"
+	      SrcPort		      1
+	      Points		      [-120, 0]
+	      DstBlock		      "Sum1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Input (Volts)"
+	      SrcPort		      1
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Speed"
+	      SrcPort		      1
+	      DstBlock		      "Gear ratio 1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  SID			  "84"
+	  Ports			  [6, 1]
+	  Position		  [725, 103, 730, 697]
+	  ShowName		  off
+	  Inputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "85"
+	  Ports			  [3, 1]
+	  Position		  [1230, 385, 1235, 475]
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace"
+	  SID			  "86"
+	  Ports			  [1]
+	  Position		  [1155, 140, 1270, 170]
+	  VariableName		  "joint_torques"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace1"
+	  SID			  "87"
+	  Ports			  [1]
+	  Position		  [205, 30, 320, 60]
+	  VariableName		  "control_actions"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace2"
+	  SID			  "88"
+	  Ports			  [1]
+	  Position		  [1155, 85, 1270, 115]
+	  VariableName		  "joint_positions"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  SID			  "89"
+	  Position		  [1155, 498, 1185, 512]
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Motoreducer 1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Motoreducer 2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  DstBlock		  "Motoreducer 3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  5
+	  DstBlock		  "Motoreducer 5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  6
+	  DstBlock		  "Motoreducer 6"
+	  DstPort		  1
+	}
+	Line {
+	  Labels		  [1, 0]
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "6 DOF ROBOT"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "6 DOF ROBOT"
+	  SrcPort		  1
+	  DstBlock		  "Integrator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator"
+	  SrcPort		  1
+	  Points		  [35, 0]
+	  Branch {
+	    DstBlock		    "Integrator1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 105]
+	    Branch {
+	      Labels		      [1, 0]
+	      Points		      [-545, 0]
+	      DstBlock		      "ENABLE/DISABLE CONTROLS"
+	      DstPort		      3
+	    }
+	    Branch {
+	      Points		      [0, 110]
+	      DstBlock		      "Demux1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "ENABLE/DISABLE CONTROLS"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Motoreducer 1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  Points		  [-180, 0; 0, -315; -290, 0]
+	  DstBlock		  "Motoreducer 1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Motoreducer 2"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Motoreducer 3"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  Labels		  [4, 0]
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  Points		  [-200, 0; 0, -270; -275, 0; 0, -35]
+	  DstBlock		  "Motoreducer 2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  Points		  [-220, 0; 0, -215; -250, 0]
+	  DstBlock		  "Motoreducer 3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  Points		  [-240, 0; 0, -165; -230, 0]
+	  DstBlock		  "Motoreducer 4"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  5
+	  Points		  [-260, 0; 0, -115; -210, 0]
+	  DstBlock		  "Motoreducer 5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  6
+	  Points		  [-470, 0]
+	  DstBlock		  "Motoreducer 6"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Motoreducer 4"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Motoreducer 5"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Motoreducer 6"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "In1"
+	  SrcPort		  1
+	  Points		  [65, 0]
+	  Branch {
+	    DstBlock		    "Demux"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -335]
+	    DstBlock		    "To Workspace1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "ENABLE/DISABLE CONTROLS"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    DstBlock		    "Mux1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "To Workspace"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  DstBlock		  "Motoreducer 4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator1"
+	  SrcPort		  1
+	  Points		  [90, 0; 0, 145; -730, 0; 0, -145]
+	  DstBlock		  "ENABLE/DISABLE CONTROLS"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "ENABLE/DISABLE CONTROLS"
+	  SrcPort		  2
+	  Points		  [5, 0]
+	  Branch {
+	    Points		    [10, 0]
+	    Branch {
+	      DstBlock		      "Mux1"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [0, 75]
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    Points		    [0, -330]
+	    DstBlock		    "To Workspace2"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "ENABLE/DISABLE CONTROLS"
+	  SrcPort		  3
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Annotation {
+	  Name			  "accel"
+	  Position		  [1385, 415]
+	}
+	Annotation {
+	  Name			  "speed"
+	  Position		  [1475, 418]
+	}
+	Annotation {
+	  Name			  "position"
+	  Position		  [1582, 417]
+	}
+	Annotation {
+	  Name			  "The MATLAB Function calls the direct dynamics of the robot: \nReceives as input a 1x18 vector containing "
+	  "the \ntorques, position and joint\nspeeds for each of the joints. As a result, the joint \nacceleration of each joi"
+	  "nt is computed. \nAfter integration, the speed and position of each joint \nis computed and sent back to the contro"
+	  "ller"
+	  Position		  [1376, 285]
+	  BackgroundColor	  "lightBlue"
+	  DropShadow		  on
+	}
+	Annotation {
+	  Name			  "call direct dynamics\n function"
+	  Position		  [1326, 491]
+	}
+	Annotation {
+	  Name			  "The Motoreducer block models a brushed DC \nelectric motor coupled with a gear. \nThe block receives the "
+	  "index of the motor, \nas defined in the parameters.m file of the robot."
+	  Position		  [381, 68]
+	  HorizontalAlignment	  "left"
+	  BackgroundColor	  "yellow"
+	  DropShadow		  on
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ROBOT CONTROLLER"
+      SID		      "90"
+      Description	      "ROBOT CONTROLLER"
+      Ports		      [1, 1]
+      Position		      [250, 86, 585, 374]
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDisplay	      "port_label('output', 1, 'Control Actions')\nport_label('input', 1, 'Joint Positions')\nimage("
+      "imread('images/robot-controller.jpg'))"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"ROBOT CONTROLLER"
+	Location		[412, 296, 1968, 1303]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Joint Positions"
+	  SID			  "91"
+	  Position		  [285, 478, 315, 492]
+	  IconDisplay		  "Port number"
+	  PortDimensions	  "6"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add1"
+	  SID			  "92"
+	  Ports			  [2, 1]
+	  Position		  [630, 242, 660, 278]
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add2"
+	  SID			  "93"
+	  Ports			  [2, 1]
+	  Position		  [630, 327, 660, 363]
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add3"
+	  SID			  "94"
+	  Ports			  [2, 1]
+	  Position		  [630, 412, 660, 448]
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add4"
+	  SID			  "95"
+	  Ports			  [2, 1]
+	  Position		  [630, 497, 660, 533]
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add5"
+	  SID			  "96"
+	  Ports			  [2, 1]
+	  Position		  [630, 582, 660, 618]
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add6"
+	  SID			  "97"
+	  Ports			  [2, 1]
+	  Position		  [630, 667, 660, 703]
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Clock
+	  Name			  "Clock"
+	  SID			  "173"
+	  Position		  [110, 410, 130, 430]
+	  Decimation		  "10"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "98"
+	  Ports			  [1, 6]
+	  Position		  [520, 228, 530, 737]
+	  ShowName		  off
+	  Outputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux2"
+	  SID			  "174"
+	  Ports			  [1, 6]
+	  Position		  [390, 203, 400, 722]
+	  ShowName		  off
+	  Outputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Discrete PID 1"
+	  SID			  "99"
+	  Ports			  [1, 1]
+	  Position		  [730, 235, 785, 285]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
+	  MaskTunableValueString  "on,on,on,on"
+	  MaskCallbackString	  "|||"
+	  MaskEnableString	  "on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on"
+	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "600|6|0|0.001"
+	  System {
+	    Name		    "Discrete PID 1"
+	    Location		    [395, 170, 979, 547]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In1"
+	      SID		      "100"
+	      Position		      [125, 188, 155, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add7"
+	      SID		      "101"
+	      Ports		      [3, 1]
+	      Position		      [425, 180, 455, 210]
+	      Inputs		      "+++"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Derivative gain"
+	      SID		      "102"
+	      Position		      [225, 294, 280, 336]
+	      Gain		      "Kd/Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Difference"
+	      SID		      "103"
+	      Ports		      [1, 1]
+	      Position		      [315, 297, 375, 333]
+	      LibraryVersion	      "1.236"
+	      SourceBlock	      "simulink/Discrete/Difference"
+	      SourceType	      "Difference"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      GeneratePreprocessorConditionals off
+	      ICPrevInput	      "0.0"
+	      OutMin		      "[]"
+	      OutMax		      "[]"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutputDataTypeScalingMode	"Inherit via internal rule"
+	      OutDataType	      "fixdt(1, 16)"
+	      OutScaling	      "2^-10"
+	      LockScale		      off
+	      RndMeth		      "Floor"
+	      DoSatur		      off
+	    }
+	    Block {
+	      BlockType		      DiscreteTransferFcn
+	      Name		      "Discrete\nIntegrator"
+	      SID		      "104"
+	      Position		      [315, 177, 375, 213]
+	      Numerator		      " [1 0]"
+	      Denominator	      "[1 -1]"
+	      SampleTime	      "Ts"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Integral gain"
+	      SID		      "105"
+	      Position		      [225, 174, 285, 216]
+	      Gain		      "Ki*Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Proportional gain"
+	      SID		      "106"
+	      Position		      [265, 95, 300, 135]
+	      Gain		      "Kp"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out1"
+	      SID		      "107"
+	      Position		      [480, 188, 510, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "In1"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 0]
+		Branch {
+		  Points		  [0, 120]
+		  DstBlock		  "Derivative gain"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -80]
+		  DstBlock		  "Proportional gain"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Integral gain"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Discrete\nIntegrator"
+	      SrcPort		      1
+	      DstBlock		      "Add7"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Difference"
+	      SrcPort		      1
+	      Points		      [30, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Integral gain"
+	      SrcPort		      1
+	      DstBlock		      "Discrete\nIntegrator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Derivative gain"
+	      SrcPort		      1
+	      DstBlock		      "Difference"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Proportional gain"
+	      SrcPort		      1
+	      Points		      [105, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add7"
+	      SrcPort		      1
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Name		      "Implements a discretized PID controller."
+	      Position		      [285, 28]
+	    }
+	    Annotation {
+	      Name		      "ARTE: A Robotics Toolbox for Education"
+	      Position		      [281, 54]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Discrete PID 2"
+	  SID			  "108"
+	  Ports			  [1, 1]
+	  Position		  [730, 318, 785, 372]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
+	  MaskTunableValueString  "on,on,on,on"
+	  MaskCallbackString	  "|||"
+	  MaskEnableString	  "on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on"
+	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "1000|10|5|0.001"
+	  System {
+	    Name		    "Discrete PID 2"
+	    Location		    [395, 170, 979, 547]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In1"
+	      SID		      "109"
+	      Position		      [125, 188, 155, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add7"
+	      SID		      "110"
+	      Ports		      [3, 1]
+	      Position		      [425, 180, 455, 210]
+	      Inputs		      "+++"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Derivative gain"
+	      SID		      "111"
+	      Position		      [225, 294, 280, 336]
+	      Gain		      "Kd/Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Difference"
+	      SID		      "112"
+	      Ports		      [1, 1]
+	      Position		      [315, 297, 375, 333]
+	      LibraryVersion	      "1.236"
+	      SourceBlock	      "simulink/Discrete/Difference"
+	      SourceType	      "Difference"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      GeneratePreprocessorConditionals off
+	      ICPrevInput	      "0.0"
+	      OutMin		      "[]"
+	      OutMax		      "[]"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutputDataTypeScalingMode	"Inherit via internal rule"
+	      OutDataType	      "fixdt(1, 16)"
+	      OutScaling	      "2^-10"
+	      LockScale		      off
+	      RndMeth		      "Floor"
+	      DoSatur		      off
+	    }
+	    Block {
+	      BlockType		      DiscreteTransferFcn
+	      Name		      "Discrete\nIntegrator"
+	      SID		      "113"
+	      Position		      [315, 177, 375, 213]
+	      Numerator		      " [1 0]"
+	      Denominator	      "[1 -1]"
+	      SampleTime	      "Ts"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Integral gain"
+	      SID		      "114"
+	      Position		      [225, 174, 285, 216]
+	      Gain		      "Ki*Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Proportional gain"
+	      SID		      "115"
+	      Position		      [265, 95, 300, 135]
+	      Gain		      "Kp"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out1"
+	      SID		      "116"
+	      Position		      [480, 188, 510, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "In1"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 0]
+		Branch {
+		  Points		  [0, 120]
+		  DstBlock		  "Derivative gain"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -80]
+		  DstBlock		  "Proportional gain"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Integral gain"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Discrete\nIntegrator"
+	      SrcPort		      1
+	      DstBlock		      "Add7"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Difference"
+	      SrcPort		      1
+	      Points		      [30, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Integral gain"
+	      SrcPort		      1
+	      DstBlock		      "Discrete\nIntegrator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Derivative gain"
+	      SrcPort		      1
+	      DstBlock		      "Difference"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Proportional gain"
+	      SrcPort		      1
+	      Points		      [105, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add7"
+	      SrcPort		      1
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Name		      "Implements a discretized PID controller."
+	      Position		      [285, 28]
+	    }
+	    Annotation {
+	      Name		      "ARTE: A Robotics Toolbox for Education"
+	      Position		      [281, 54]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Discrete PID 3"
+	  SID			  "117"
+	  Ports			  [1, 1]
+	  Position		  [730, 403, 785, 457]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
+	  MaskTunableValueString  "on,on,on,on"
+	  MaskCallbackString	  "|||"
+	  MaskEnableString	  "on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on"
+	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "800|7|5|0.001"
+	  System {
+	    Name		    "Discrete PID 3"
+	    Location		    [395, 170, 979, 547]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In1"
+	      SID		      "118"
+	      Position		      [125, 188, 155, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add7"
+	      SID		      "119"
+	      Ports		      [3, 1]
+	      Position		      [425, 180, 455, 210]
+	      Inputs		      "+++"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Derivative gain"
+	      SID		      "120"
+	      Position		      [225, 294, 280, 336]
+	      Gain		      "Kd/Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Difference"
+	      SID		      "121"
+	      Ports		      [1, 1]
+	      Position		      [315, 297, 375, 333]
+	      LibraryVersion	      "1.236"
+	      SourceBlock	      "simulink/Discrete/Difference"
+	      SourceType	      "Difference"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      GeneratePreprocessorConditionals off
+	      ICPrevInput	      "0.0"
+	      OutMin		      "[]"
+	      OutMax		      "[]"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutputDataTypeScalingMode	"Inherit via internal rule"
+	      OutDataType	      "fixdt(1, 16)"
+	      OutScaling	      "2^-10"
+	      LockScale		      off
+	      RndMeth		      "Floor"
+	      DoSatur		      off
+	    }
+	    Block {
+	      BlockType		      DiscreteTransferFcn
+	      Name		      "Discrete\nIntegrator"
+	      SID		      "122"
+	      Position		      [315, 177, 375, 213]
+	      Numerator		      " [1 0]"
+	      Denominator	      "[1 -1]"
+	      SampleTime	      "Ts"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Integral gain"
+	      SID		      "123"
+	      Position		      [225, 174, 285, 216]
+	      Gain		      "Ki*Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Proportional gain"
+	      SID		      "124"
+	      Position		      [265, 95, 300, 135]
+	      Gain		      "Kp"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out1"
+	      SID		      "125"
+	      Position		      [480, 188, 510, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "In1"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 0]
+		Branch {
+		  Points		  [0, 120]
+		  DstBlock		  "Derivative gain"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -80]
+		  DstBlock		  "Proportional gain"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Integral gain"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Discrete\nIntegrator"
+	      SrcPort		      1
+	      DstBlock		      "Add7"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Difference"
+	      SrcPort		      1
+	      Points		      [30, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Integral gain"
+	      SrcPort		      1
+	      DstBlock		      "Discrete\nIntegrator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Derivative gain"
+	      SrcPort		      1
+	      DstBlock		      "Difference"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Proportional gain"
+	      SrcPort		      1
+	      Points		      [105, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add7"
+	      SrcPort		      1
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Name		      "Implements a discretized PID controller."
+	      Position		      [285, 28]
+	    }
+	    Annotation {
+	      Name		      "ARTE: A Robotics Toolbox for Education"
+	      Position		      [281, 54]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Discrete PID 4"
+	  SID			  "126"
+	  Ports			  [1, 1]
+	  Position		  [730, 488, 785, 542]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
+	  MaskTunableValueString  "on,on,on,on"
+	  MaskCallbackString	  "|||"
+	  MaskEnableString	  "on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on"
+	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "2000|10|0|0.001"
+	  System {
+	    Name		    "Discrete PID 4"
+	    Location		    [395, 170, 979, 547]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In1"
+	      SID		      "127"
+	      Position		      [125, 188, 155, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add7"
+	      SID		      "128"
+	      Ports		      [3, 1]
+	      Position		      [425, 180, 455, 210]
+	      Inputs		      "+++"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Derivative gain"
+	      SID		      "129"
+	      Position		      [225, 294, 280, 336]
+	      Gain		      "Kd/Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Difference"
+	      SID		      "130"
+	      Ports		      [1, 1]
+	      Position		      [315, 297, 375, 333]
+	      LibraryVersion	      "1.236"
+	      SourceBlock	      "simulink/Discrete/Difference"
+	      SourceType	      "Difference"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      GeneratePreprocessorConditionals off
+	      ICPrevInput	      "0.0"
+	      OutMin		      "[]"
+	      OutMax		      "[]"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutputDataTypeScalingMode	"Inherit via internal rule"
+	      OutDataType	      "fixdt(1, 16)"
+	      OutScaling	      "2^-10"
+	      LockScale		      off
+	      RndMeth		      "Floor"
+	      DoSatur		      off
+	    }
+	    Block {
+	      BlockType		      DiscreteTransferFcn
+	      Name		      "Discrete\nIntegrator"
+	      SID		      "131"
+	      Position		      [315, 177, 375, 213]
+	      Numerator		      " [1 0]"
+	      Denominator	      "[1 -1]"
+	      SampleTime	      "Ts"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Integral gain"
+	      SID		      "132"
+	      Position		      [225, 174, 285, 216]
+	      Gain		      "Ki*Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Proportional gain"
+	      SID		      "133"
+	      Position		      [265, 95, 300, 135]
+	      Gain		      "Kp"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out1"
+	      SID		      "134"
+	      Position		      [480, 188, 510, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "In1"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 0]
+		Branch {
+		  Points		  [0, 120]
+		  DstBlock		  "Derivative gain"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -80]
+		  DstBlock		  "Proportional gain"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Integral gain"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Discrete\nIntegrator"
+	      SrcPort		      1
+	      DstBlock		      "Add7"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Difference"
+	      SrcPort		      1
+	      Points		      [30, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Integral gain"
+	      SrcPort		      1
+	      DstBlock		      "Discrete\nIntegrator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Derivative gain"
+	      SrcPort		      1
+	      DstBlock		      "Difference"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Proportional gain"
+	      SrcPort		      1
+	      Points		      [105, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add7"
+	      SrcPort		      1
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Name		      "Implements a discretized PID controller."
+	      Position		      [285, 28]
+	    }
+	    Annotation {
+	      Name		      "ARTE: A Robotics Toolbox for Education"
+	      Position		      [281, 54]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Discrete PID 5"
+	  SID			  "135"
+	  Ports			  [1, 1]
+	  Position		  [730, 573, 785, 627]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
+	  MaskTunableValueString  "on,on,on,on"
+	  MaskCallbackString	  "|||"
+	  MaskEnableString	  "on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on"
+	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "3000|7|3|0.001"
+	  System {
+	    Name		    "Discrete PID 5"
+	    Location		    [395, 170, 979, 547]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In1"
+	      SID		      "136"
+	      Position		      [125, 188, 155, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add7"
+	      SID		      "137"
+	      Ports		      [3, 1]
+	      Position		      [425, 180, 455, 210]
+	      Inputs		      "+++"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Derivative gain"
+	      SID		      "138"
+	      Position		      [225, 294, 280, 336]
+	      Gain		      "Kd/Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Difference"
+	      SID		      "139"
+	      Ports		      [1, 1]
+	      Position		      [315, 297, 375, 333]
+	      LibraryVersion	      "1.236"
+	      SourceBlock	      "simulink/Discrete/Difference"
+	      SourceType	      "Difference"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      GeneratePreprocessorConditionals off
+	      ICPrevInput	      "0.0"
+	      OutMin		      "[]"
+	      OutMax		      "[]"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutputDataTypeScalingMode	"Inherit via internal rule"
+	      OutDataType	      "fixdt(1, 16)"
+	      OutScaling	      "2^-10"
+	      LockScale		      off
+	      RndMeth		      "Floor"
+	      DoSatur		      off
+	    }
+	    Block {
+	      BlockType		      DiscreteTransferFcn
+	      Name		      "Discrete\nIntegrator"
+	      SID		      "140"
+	      Position		      [315, 177, 375, 213]
+	      Numerator		      " [1 0]"
+	      Denominator	      "[1 -1]"
+	      SampleTime	      "Ts"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Integral gain"
+	      SID		      "141"
+	      Position		      [225, 174, 285, 216]
+	      Gain		      "Ki*Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Proportional gain"
+	      SID		      "142"
+	      Position		      [265, 95, 300, 135]
+	      Gain		      "Kp"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out1"
+	      SID		      "143"
+	      Position		      [480, 188, 510, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "In1"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 0]
+		Branch {
+		  Points		  [0, 120]
+		  DstBlock		  "Derivative gain"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -80]
+		  DstBlock		  "Proportional gain"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Integral gain"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Discrete\nIntegrator"
+	      SrcPort		      1
+	      DstBlock		      "Add7"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Difference"
+	      SrcPort		      1
+	      Points		      [30, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Integral gain"
+	      SrcPort		      1
+	      DstBlock		      "Discrete\nIntegrator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Derivative gain"
+	      SrcPort		      1
+	      DstBlock		      "Difference"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Proportional gain"
+	      SrcPort		      1
+	      Points		      [105, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add7"
+	      SrcPort		      1
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Name		      "Implements a discretized PID controller."
+	      Position		      [285, 28]
+	    }
+	    Annotation {
+	      Name		      "ARTE: A Robotics Toolbox for Education"
+	      Position		      [281, 54]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Discrete PID 6"
+	  SID			  "144"
+	  Ports			  [1, 1]
+	  Position		  [730, 658, 785, 712]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
+	  MaskTunableValueString  "on,on,on,on"
+	  MaskCallbackString	  "|||"
+	  MaskEnableString	  "on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on"
+	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "3000|5|0|0.001"
+	  System {
+	    Name		    "Discrete PID 6"
+	    Location		    [395, 170, 979, 547]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In1"
+	      SID		      "145"
+	      Position		      [125, 188, 155, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add7"
+	      SID		      "146"
+	      Ports		      [3, 1]
+	      Position		      [425, 180, 455, 210]
+	      Inputs		      "+++"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Derivative gain"
+	      SID		      "147"
+	      Position		      [225, 294, 280, 336]
+	      Gain		      "Kd/Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Difference"
+	      SID		      "148"
+	      Ports		      [1, 1]
+	      Position		      [315, 297, 375, 333]
+	      LibraryVersion	      "1.236"
+	      SourceBlock	      "simulink/Discrete/Difference"
+	      SourceType	      "Difference"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      GeneratePreprocessorConditionals off
+	      ICPrevInput	      "0.0"
+	      OutMin		      "[]"
+	      OutMax		      "[]"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutputDataTypeScalingMode	"Inherit via internal rule"
+	      OutDataType	      "fixdt(1, 16)"
+	      OutScaling	      "2^-10"
+	      LockScale		      off
+	      RndMeth		      "Floor"
+	      DoSatur		      off
+	    }
+	    Block {
+	      BlockType		      DiscreteTransferFcn
+	      Name		      "Discrete\nIntegrator"
+	      SID		      "149"
+	      Position		      [315, 177, 375, 213]
+	      Numerator		      " [1 0]"
+	      Denominator	      "[1 -1]"
+	      SampleTime	      "Ts"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Integral gain"
+	      SID		      "150"
+	      Position		      [225, 174, 285, 216]
+	      Gain		      "Ki*Ts"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Proportional gain"
+	      SID		      "151"
+	      Position		      [265, 95, 300, 135]
+	      Gain		      "Kp"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out1"
+	      SID		      "152"
+	      Position		      [480, 188, 510, 202]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "In1"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 0]
+		Branch {
+		  Points		  [0, 120]
+		  DstBlock		  "Derivative gain"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -80]
+		  DstBlock		  "Proportional gain"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Integral gain"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Discrete\nIntegrator"
+	      SrcPort		      1
+	      DstBlock		      "Add7"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Difference"
+	      SrcPort		      1
+	      Points		      [30, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Integral gain"
+	      SrcPort		      1
+	      DstBlock		      "Discrete\nIntegrator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Derivative gain"
+	      SrcPort		      1
+	      DstBlock		      "Difference"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Proportional gain"
+	      SrcPort		      1
+	      Points		      [105, 0]
+	      DstBlock		      "Add7"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add7"
+	      SrcPort		      1
+	      DstBlock		      "Out1"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Name		      "Implements a discretized PID controller."
+	      Position		      [285, 28]
+	    }
+	    Annotation {
+	      Name		      "ARTE: A Robotics Toolbox for Education"
+	      Position		      [281, 54]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain"
+	  SID			  "153"
+	  Position		  [985, 242, 1035, 278]
+	  Gain			  "4.8"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain1"
+	  SID			  "154"
+	  Position		  [985, 326, 1035, 364]
+	  Gain			  "4.8"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain2"
+	  SID			  "155"
+	  Position		  [985, 412, 1035, 448]
+	  Gain			  "4.8"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain3"
+	  SID			  "156"
+	  Position		  [985, 498, 1040, 532]
+	  Gain			  "4.8"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain4"
+	  SID			  "157"
+	  Position		  [985, 583, 1035, 617]
+	  Gain			  "4.8"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain5"
+	  SID			  "158"
+	  Position		  [985, 668, 1035, 702]
+	  Gain			  "4.8"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  SID			  "159"
+	  Ports			  [6, 1]
+	  Position		  [1155, 210, 1165, 735]
+	  ShowName		  off
+	  Inputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  SID			  "160"
+	  Ports			  [1, 1]
+	  Position		  [860, 245, 890, 275]
+	  InputPortMap		  "u0"
+	  UpperLimit		  "10"
+	  LowerLimit		  "-10"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation1"
+	  SID			  "161"
+	  Ports			  [1, 1]
+	  Position		  [860, 330, 890, 360]
+	  InputPortMap		  "u0"
+	  UpperLimit		  "10"
+	  LowerLimit		  "-10"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation2"
+	  SID			  "162"
+	  Ports			  [1, 1]
+	  Position		  [860, 415, 890, 445]
+	  InputPortMap		  "u0"
+	  UpperLimit		  "10"
+	  LowerLimit		  "-10"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation3"
+	  SID			  "163"
+	  Ports			  [1, 1]
+	  Position		  [860, 500, 890, 530]
+	  InputPortMap		  "u0"
+	  UpperLimit		  "10"
+	  LowerLimit		  "-10"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation4"
+	  SID			  "164"
+	  Ports			  [1, 1]
+	  Position		  [860, 585, 890, 615]
+	  InputPortMap		  "u0"
+	  UpperLimit		  "10"
+	  LowerLimit		  "-10"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation5"
+	  SID			  "165"
+	  Ports			  [1, 1]
+	  Position		  [860, 670, 890, 700]
+	  InputPortMap		  "u0"
+	  UpperLimit		  "10"
+	  LowerLimit		  "-10"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope"
+	  SID			  "176"
+	  Ports			  [1]
+	  Position		  [330, 279, 360, 311]
+	  Floating		  off
+	  Location		  [188, 390, 512, 629]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  SaveName		  "ScopeData1"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace2"
+	  SID			  "177"
+	  Ports			  [1]
+	  Position		  [285, 200, 345, 230]
+	  VariableName		  "reference"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	  SaveFormat		  "Array"
+	}
+	Block {
+	  BlockType		  ZeroOrderHold
+	  Name			  "Zero-Order\nHold"
+	  SID			  "167"
+	  Position		  [1225, 460, 1260, 490]
+	  SampleTime		  "0.001"
+	}
+	Block {
+	  BlockType		  MATLABFcn
+	  Name			  "planning"
+	  SID			  "178"
+	  Ports			  [1, 1]
+	  Position		  [200, 403, 260, 437]
+	  MATLABFcn		  "joint_references"
+	  OutputDimensions	  "6"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Control Actions (Volts)"
+	  SID			  "168"
+	  Position		  [1350, 468, 1380, 482]
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "Gain5"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Gain4"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Gain3"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Gain2"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Gain1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Gain"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation5"
+	  SrcPort		  1
+	  DstBlock		  "Gain5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation4"
+	  SrcPort		  1
+	  DstBlock		  "Gain4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation3"
+	  SrcPort		  1
+	  DstBlock		  "Gain3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation2"
+	  SrcPort		  1
+	  DstBlock		  "Gain2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation1"
+	  SrcPort		  1
+	  DstBlock		  "Gain1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation"
+	  SrcPort		  1
+	  DstBlock		  "Gain"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add6"
+	  SrcPort		  1
+	  DstBlock		  "Discrete PID 6"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add5"
+	  SrcPort		  1
+	  DstBlock		  "Discrete PID 5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add4"
+	  SrcPort		  1
+	  DstBlock		  "Discrete PID 4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add3"
+	  SrcPort		  1
+	  DstBlock		  "Discrete PID 3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add2"
+	  SrcPort		  1
+	  DstBlock		  "Discrete PID 2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Zero-Order\nHold"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Joint Positions"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Add1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Add2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  DstBlock		  "Add3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  DstBlock		  "Add4"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  5
+	  DstBlock		  "Add5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  6
+	  DstBlock		  "Add6"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Zero-Order\nHold"
+	  SrcPort		  1
+	  DstBlock		  "Control Actions (Volts)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete PID 1"
+	  SrcPort		  1
+	  DstBlock		  "Saturation"
+	  DstPort		  1
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "Add1"
+	  SrcPort		  1
+	  DstBlock		  "Discrete PID 1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete PID 2"
+	  SrcPort		  1
+	  DstBlock		  "Saturation1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete PID 3"
+	  SrcPort		  1
+	  DstBlock		  "Saturation2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete PID 4"
+	  SrcPort		  1
+	  DstBlock		  "Saturation3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete PID 5"
+	  SrcPort		  1
+	  DstBlock		  "Saturation4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete PID 6"
+	  SrcPort		  1
+	  DstBlock		  "Saturation5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Clock"
+	  SrcPort		  1
+	  DstBlock		  "planning"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "planning"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  Branch {
+	    Points		    [0, -205]
+	    DstBlock		    "To Workspace2"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [5, 0; 20, 0]
+	    Branch {
+	      Points		      [85, 0]
+	      DstBlock		      "Demux2"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, -125]
+	      DstBlock		      "Scope"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  1
+	  DstBlock		  "Add1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  2
+	  DstBlock		  "Add2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  3
+	  DstBlock		  "Add3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  4
+	  DstBlock		  "Add4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  5
+	  DstBlock		  "Add5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  6
+	  DstBlock		  "Add6"
+	  DstPort		  1
+	}
+	Annotation {
+	  Name			  "Reference"
+	  Position		  [335, 395]
+	}
+      }
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope"
+      SID		      "169"
+      Ports		      [1]
+      Position		      [1525, 214, 1555, 246]
+      Floating		      off
+      Location		      [234, 152, 1526, 762]
+      Open		      on
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      TimeRange		      "0.5"
+      YMin		      "-0.25"
+      YMax		      "0.35"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope4"
+      SID		      "170"
+      Ports		      [1]
+      Position		      [750, 84, 780, 116]
+      Floating		      off
+      Location		      [67, 241, 1280, 734]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "-2.5"
+      YMax		      "50"
+      SaveName		      "ScopeData4"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Line {
+      SrcBlock		      "ROBOT CONTROLLER"
+      SrcPort		      1
+      Points		      [145, 0]
+      Branch {
+	DstBlock		"ROBOT"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -25]
+	DstBlock		"Scope4"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "ROBOT"
+      SrcPort		      1
+      Points		      [180, 0]
+      Branch {
+	Points			[0, 445; -1300, 0; 0, -445]
+	DstBlock		"ROBOT CONTROLLER"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"Scope"
+	DstPort			1
+      }
+    }
+    Annotation {
+      Name		      "control actions"
+      Position		      [662, 204]
+    }
+    Annotation {
+      Name		      "feedback: joint positions"
+      Position		      [157, 206]
+    }
+    Annotation {
+      Name		      "joint positions"
+      Position		      [1324, 199]
+    }
+  }
+}

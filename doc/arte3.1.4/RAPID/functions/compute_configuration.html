@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of compute_configuration</title>
+  <meta name="keywords" content="compute_configuration">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">RAPID</a> &gt; <a href="index.html">functions</a> &gt; compute_configuration.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/RAPID/functions&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>compute_configuration
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function conf=compute_configuration(robot, q) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ CONF= COMPUTE_CONFIGURATION(Q) 
+ Returns the configuration corresponding to the current joint coordinates
+ In RAPID the configuration variable is used to distinguish among the
+ different solutions for the inverse kinematic problem. 
+ The variable conf=[cf1 cf4 cf6 cfx] is formed by the position of the
+ first, fourth and sixth robot axis. The last component cfx is used for
+ special robots requiring an additional component to specify a particular
+ pose univoquely. If the angle is positive, the conf value has one of the
+ following values:
+         1 | 0
+        ---|---
+         2 | 3
+ that can be computed with the formulae: floor(joint_angle x 2/pi)
+ if the angle is negative, then
+         -3 | -4
+         ---|---
+         -2 | -1
+ computed as: ceil(joint_angle × 2/pi ? 1)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="MoveC.html" class="code" title="function robot = MoveC(robot, robtarget1, robtarget2, speeddata, zonedata, gripper, Wobj)">MoveC</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="select_closest_configuration.html" class="code" title="function q=select_closest_configuration(robot, qinv, conf)">select_closest_configuration</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="select_configuration.html" class="code" title="function q=select_configuration(robot, qinv, conf)">select_configuration</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/RAPID/teach.html" class="code" title="function varargout = teach(varargin)">teach</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">% CONF= COMPUTE_CONFIGURATION(Q)</span>
+0003 <span class="comment">% Returns the configuration corresponding to the current joint coordinates</span>
+0004 <span class="comment">% In RAPID the configuration variable is used to distinguish among the</span>
+0005 <span class="comment">% different solutions for the inverse kinematic problem.</span>
+0006 <span class="comment">% The variable conf=[cf1 cf4 cf6 cfx] is formed by the position of the</span>
+0007 <span class="comment">% first, fourth and sixth robot axis. The last component cfx is used for</span>
+0008 <span class="comment">% special robots requiring an additional component to specify a particular</span>
+0009 <span class="comment">% pose univoquely. If the angle is positive, the conf value has one of the</span>
+0010 <span class="comment">% following values:</span>
+0011 <span class="comment">%         1 | 0</span>
+0012 <span class="comment">%        ---|---</span>
+0013 <span class="comment">%         2 | 3</span>
+0014 <span class="comment">% that can be computed with the formulae: floor(joint_angle x 2/pi)</span>
+0015 <span class="comment">% if the angle is negative, then</span>
+0016 <span class="comment">%         -3 | -4</span>
+0017 <span class="comment">%         ---|---</span>
+0018 <span class="comment">%         -2 | -1</span>
+0019 <span class="comment">% computed as: ceil(joint_angle × 2/pi ? 1)</span>
+0020 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0021 
+0022 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0027 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0028 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0029 <span class="comment">% (at your option) any later version.</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0032 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0033 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0034 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0037 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0038 <a name="_sub0" href="#_subfunctions" class="code">function conf=compute_configuration(robot, q)</a>
+0039 <span class="comment">%initialize conf data</span>
+0040 conf = zeros(1,4);
+0041 
+0042 <span class="keyword">if</span> q(1)&gt;=0
+0043     cf1 = floor(q(1)*2/pi);
+0044 <span class="keyword">else</span>
+0045     cf1 = ceil(q(1)* 2/pi) - 1;
+0046 <span class="keyword">end</span>
+0047 
+0048 <span class="keyword">if</span> robot.DOF&lt;4
+0049    <span class="keyword">return</span>; 
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="keyword">if</span> q(4)&gt;=0
+0053     cf4 = floor(q(4)*2/pi);
+0054 <span class="keyword">else</span>
+0055     cf4 = ceil(q(4)*2/pi) - 1;
+0056 <span class="keyword">end</span>
+0057 
+0058 <span class="keyword">if</span> robot.DOF&lt;6
+0059    <span class="keyword">return</span>; 
+0060 <span class="keyword">end</span>
+0061 
+0062 <span class="keyword">if</span> q(6)&gt;=0
+0063     cf6 = floor(q(6)*2/pi);
+0064 <span class="keyword">else</span>
+0065     cf6 = ceil(q(6)*2/pi) - 1;
+0066 <span class="keyword">end</span>
+0067 
+0068 conf = [cf1 cf4 cf6 0];</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

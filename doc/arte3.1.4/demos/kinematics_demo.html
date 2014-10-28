@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of kinematics_demo</title>
+  <meta name="keywords" content="kinematics_demo">
+  <meta name="description" content="SCRIPT TEST FOR THE KINEMATIC PROBLEM">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">demos</a> &gt; kinematics_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>kinematics_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>SCRIPT TEST FOR THE KINEMATIC PROBLEM</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> SCRIPT TEST FOR THE KINEMATIC PROBLEM</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>	DIRECTKINEMATIC		Direct Kinematic for serial robots.</li><li><a href="../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/lib/test_joints.html" class="code" title="function error=test_joints(robot, q)">test_joints</a>	Test whether any of the joint angles exceeds the mechanical</li><li><a href="../../arte3.1.4/tools/adjust_view.html" class="code" title="function adjust_view(robot)">adjust_view</a>	ADJUST_VIEW(ROBOT)</li><li><a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="demos.html" class="code" title="">demos</a>	Copyright (C) 2012, by Arturo Gil Aparicio</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% SCRIPT TEST FOR THE KINEMATIC PROBLEM</span>
+0002 
+0003 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0008 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0009 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0010 <span class="comment">% (at your option) any later version.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0013 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0014 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0015 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0018 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0019 
+0020 close all
+0021 
+0022 
+0023 fprintf(<span class="string">'\nTHE DEMO PRESENTS THE DIRECT AND INVERSE KINEMATIC PROBLEM'</span>)
+0024 
+0025 <span class="comment">%there are eight possible solutions for the</span>
+0026 <span class="comment">%inverse kinematic problem for these robots</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%Try differen configurations</span>
+0029 q = [0.1 -0.3 0.3 0.4 0.5 0.6]
+0030 <span class="comment">%q = [pi/4 pi/4 pi/8 pi/8 pi/8 pi/8]</span>
+0031 <span class="comment">%q = [-0.9*pi 0 0 0 pi/3 0];</span>
+0032 <span class="comment">%q = [pi/4 pi/4 pi/4 0 0 0];</span>
+0033 
+0034 <span class="comment">%load robot parameters</span>
+0035 <span class="comment">% you can try different robots</span>
+0036 <span class="comment">%robot=load_robot('abb', 'IRB140'); n_solutions = 8;</span>
+0037 <span class="comment">%robot=load_robot('abb', 'IRB1600_6_120'); n_solutions = 8;</span>
+0038 <span class="comment">%robot=load_robot('abb', 'IRB1600_X145_M2004'); n_solutions = 8;</span>
+0039 <span class="comment">%robot=load_robot('abb', 'IRB1600ID'); n_solutions = 8;</span>
+0040 <span class="comment">%robot=load_robot('abb', 'IRB2400'); n_solutions = 8;</span>
+0041 <span class="comment">%robot=load_robot('abb', 'IRB4400'); n_solutions = 8;</span>
+0042 <span class="comment">%robot=load_robot('abb', 'IRB4600'); n_solutions = 8;</span>
+0043 <span class="comment">%robot=load_robot('abb', 'IRB52'); n_solutions = 8;</span>
+0044 <span class="comment">%robot=load_robot('abb', 'IRB6620'); n_solutions = 8;</span>
+0045 <span class="comment">%robot=load_robot('abb', 'IRB6620LX'); n_solutions = 4;</span>
+0046 <span class="comment">%robot=load_robot('abb', 'IRB6650S_125_350'); n_solutions = 8;</span>
+0047 <span class="comment">%robot=load_robot('abb', 'IRB7600_150'); n_solutions = 8;</span>
+0048 <span class="comment">%robot=load_robot('abb', 'IRB7600_400_255_m2000'); n_solutions = 8;</span>
+0049 <span class="comment">%robot=load_robot('abb', 'IRB7600_500_230'); n_solutions = 8;</span>
+0050 <span class="comment">%ADEPT</span>
+0051 <span class="comment">%robot=load_robot('adept', 'Viper_s1700D'); n_solutions = 8;</span>
+0052 <span class="comment">%EPSON</span>
+0053 <span class="comment">%robot=load_robot('epson', 'Prosix_C3_A601C'); n_solutions = 8;</span>
+0054 <span class="comment">%FANUC</span>
+0055 <span class="comment">%robot=load_robot('fanuc', 'LR_MATE_200iC'); n_solutions = 8;</span>
+0056 <span class="comment">%KUKA</span>
+0057 <span class="comment">%robot=load_robot('kuka', 'KR30_jet'); n_solutions = 8;</span>
+0058 <span class="comment">%robot=load_robot('kuka', 'KR5_2ARC_HW'); n_solutions = 8;</span>
+0059 <span class="comment">%robot=load_robot('kuka', 'KR5_arc'); n_solutions = 8;</span>
+0060 <span class="comment">%robot=load_robot('kuka', 'KR5_sixx_R650'); n_solutions = 8;</span>
+0061 <span class="comment">%robot=load_robot('kuka', 'KR5_sixx_R850'); n_solutions = 8;</span>
+0062 <span class="comment">%robot=load_robot('kuka', 'KR6_2'); n_solutions = 8;</span>
+0063 <span class="comment">%robot=load_robot('kuka', 'KR90_R2700_pro'); n_solutions = 8;</span>
+0064 <span class="comment">%robot=load_robot('kuka', 'KR90_R3100_EXTRA'); n_solutions = 8;</span>
+0065 <span class="comment">%robot=load_robot('kuka', 'KR_1000_1300_TITAN'); n_solutions = 8;</span>
+0066 <span class="comment">%robot=load_robot('kuka', 'KR_16_arc_HW'); n_solutions = 8;</span>
+0067 <span class="comment">%robot=load_robot('kuka', 'KR_30_L16_2'); n_solutions = 8;</span>
+0068 <span class="comment">%MITSUBISHI</span>
+0069 <span class="comment">%robot=load_robot('mitsubishi', 'pa-10'); n_solutions = 8;%q=[0 0 0 0 0 0];</span>
+0070 <span class="comment">%robot=load_robot('mitsubishi', 'rv-6s'); n_solutions = 8;%q=[0 0 0 0 0 0];</span>
+0071 <span class="comment">%STANFORD ARM</span>
+0072 <span class="comment">%robot=load_robot('stanford', ''); n_solutions = 4;%q=[0 0 0 0 0 0];</span>
+0073 <span class="comment">%STAUBLI</span>
+0074 <span class="comment">%robot=load_robot('staubli', 'RX160L'); n_solutions = 8; q=[0.1 -0.6 1 0.4 0.5 0.6]</span>
+0075 <span class="comment">%UNIMATE</span>
+0076 <span class="comment">%robot=load_robot('unimate', 'puma560'); n_solutions = 8;</span>
+0077 
+0078 
+0079 
+0080 <span class="comment">%adjust 3D view as desired</span>
+0081 <a href="../../arte3.1.4/tools/adjust_view.html" class="code" title="function adjust_view(robot)">adjust_view</a>(robot)
+0082 
+0083 <span class="comment">%there are just 2 solutions for these robots</span>
+0084 <span class="comment">%q = [pi/2 0.2 0.8 pi/4]</span>
+0085 <span class="comment">%q = [-pi/4 pi/2 0.5 pi]</span>
+0086 <span class="comment">%robot=load_robot('kuka', 'KR5_scara_R350_Z200'); n_solutions = 2;</span>
+0087 <span class="comment">%robot=load_robot('example', 'scara'); n_solutions = 2;</span>
+0088 <span class="comment">%robot=load_robot('example', '2dofplanar'); n_solutions = 2;</span>
+0089 <span class="comment">%robot=load_robot('example', '3dofplanar'); n_solutions = 2;</span>
+0090 <span class="comment">%robot=load_robot('example', 'prismatic');n_solutions = 1; %just one possible solutions for this case</span>
+0091 
+0092 
+0093 <span class="comment">%draw the robot</span>
+0094 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot, q)
+0095 
+0096 <span class="comment">%Now compute direct kinematics for this position q</span>
+0097 T = <a href="../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>(robot, q)
+0098 
+0099 <span class="comment">%Set to zero if you want to see the robot transparent</span>
+0100 robot.graphical.draw_transparent=1;
+0101 
+0102 <span class="comment">%Set to one if you want to see the DH axes</span>
+0103 <span class="comment">%abb.graphical.draw_axes=1;</span>
+0104 
+0105 <span class="comment">%Call the inversekinematic for this robot</span>
+0106 <span class="comment">% all the possible solutions are stored at qinv</span>
+0107 <span class="comment">% at least, one of the possible solutions should be coincident with q</span>
+0108 qinv = <a href="../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>(robot, T);
+0109 
+0110 
+0111 fprintf(<span class="string">'\nNOW WE CAN REPRESENT THE DIFFERENT SOLUTIONS TO ACHIEVE THE SAME POSITION AND ORIENTATION\n'</span>)
+0112 fprintf(<span class="string">'\nNot that some solutions may not be feasible. Some joints may be out of range\n'</span>)
+0113 <span class="comment">%check that all of them are possible solutions!</span>
+0114 <span class="keyword">for</span> i=1:size(qinv,2),
+0115     
+0116     Ti = <a href="../../arte3.1.4/lib/kinematics/directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>(robot, qinv(:,i)) <span class="comment">%Ti is constant for the different solutions</span>
+0117     
+0118     
+0119     <span class="comment">% Note that all the solutions may not be feasible. Some of the joints may</span>
+0120     <span class="comment">% be out of range. You can test this situation with test_joints</span>
+0121     <a href="../../arte3.1.4/lib/test_joints.html" class="code" title="function error=test_joints(robot, q)">test_joints</a>(robot, qinv(:,i));
+0122     
+0123     
+0124     <span class="comment">%now draw the robot to see the solution</span>
+0125     <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot, qinv(:,i))
+0126     
+0127     pause(2);
+0128 <span class="keyword">end</span>
+0129 
+0130</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

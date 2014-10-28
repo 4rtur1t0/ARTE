@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of parameters</title>
+  <meta name="keywords" content="parameters">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../../index.html">Home</a> &gt;  <a href="../../../index.html">arte3.1.4</a> &gt; <a href="#">robots</a> &gt; <a href="#">KUKA</a> &gt; <a href="index.html">KR30_jet</a> &gt; parameters.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../../index.html"><img alt="<" border="0" src="../../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/robots/KUKA/KR30_jet&nbsp;<img alt=">" border="0" src="../../../../right.png"></a></td></tr></table>-->
+
+<h1>parameters
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function robot = parameters() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   PARAMETERS Returns a data structure containing the parameters of the KUKA KR30_jet.
+   
+   Authors: Sir Juan Carlos Blay, Sir Francisco Manuel Sabuco, Mr. Fernando Torres and Lord Emilio López.
+   Universidad Miguel Hernández de Elche. 
+   date:  20/12/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   PARAMETERS Returns a data structure containing the parameters of the KUKA KR30_jet.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   Authors: Sir Juan Carlos Blay, Sir Francisco Manuel Sabuco, Mr. Fernando Torres and Lord Emilio López.</span>
+0005 <span class="comment">%   Universidad Miguel Hernández de Elche.</span>
+0006 <span class="comment">%   date:  20/12/2012</span>
+0007 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0008 
+0009 
+0010 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0015 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0016 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0017 <span class="comment">% (at your option) any later version.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0020 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0021 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0022 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0025 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0026 <a name="_sub0" href="#_subfunctions" class="code">function robot = parameters()</a>
+0027 
+0028 <span class="comment">%Denavit-Hartemberg parameters</span>
+0029 robot.DH.theta= <span class="string">'[deg2rad(20.34) q(2)+deg2rad(69.66) q(3) q(4) q(5) q(6)]'</span>;
+0030 robot.DH.d=<span class="string">'[q(1) 0 0 -0.83 0 -0.15]'</span>;
+0031 robot.DH.a=<span class="string">'[-0.486 0.85 0.145 0 0 0]'</span>;
+0032 robot.DH.alpha= <span class="string">'[0 0 pi/2 -pi/2 pi/2 pi]'</span>;
+0033 
+0034 <span class="comment">%Jacobian matrix</span>
+0035 robot.J=[];
+0036 
+0037 <span class="comment">%robot name</span>
+0038 robot.name= <span class="string">'KUKA_KR30_jet'</span>;
+0039 
+0040 <span class="comment">%inverse kinematic function</span>
+0041 robot.inversekinematic_fn = <span class="string">'inversekinematic_kuka_kr30_jet(robot, T)'</span>;
+0042 
+0043 <span class="comment">%number of degrees of freedom</span>
+0044 robot.DOF = 6;
+0045 
+0046 <span class="comment">%joint movement kind; rotational: 5, translational: 1</span>
+0047 robot.kind=[<span class="string">'T'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span>];
+0048 
+0049 <span class="comment">%minimum and maximum rotation angle in rad</span>
+0050 robot.maxangle =[-2.5 2.75; <span class="comment">%Axis 1, minimum, maximum</span>
+0051                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(0) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(180); <span class="comment">%Axis 2, minimum, maximum</span>
+0052                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-120) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(158); <span class="comment">%Axis 3</span>
+0053                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-350) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(350); <span class="comment">%Axis 4</span>
+0054                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-119) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(150); <span class="comment">%Axis 5</span>
+0055                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-350) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(350)]; <span class="comment">%Axis 6</span>
+0056 
+0057 <span class="comment">%maximum absolute speed of each joint rad/s or m/s</span>
+0058 robot.velmax = [3.2; <span class="comment">%Axis 1, m/s</span>
+0059                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(126); <span class="comment">%Axis 2, rad/s</span>
+0060                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(166); <span class="comment">%Axis 3, rad/s</span>
+0061                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(260); <span class="comment">%Axis 4, rad/s</span>
+0062                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(245); <span class="comment">%Axis 5, rad/s</span>
+0063                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(322)];<span class="comment">%Axis 6, rad/s</span>
+0064 <span class="comment">% end effectors maximum velocity</span>
+0065 robot.linear_velmax = 3.2; <span class="comment">%m/s</span>
+0066 
+0067 <span class="comment">%base reference system</span>
+0068  robot.T0 = eye(4);
+0069  
+0070 <span class="comment">%             [-1 0 0 0;</span>
+0071 <span class="comment">%             0 0 1 0;</span>
+0072 <span class="comment">%             0 1 0 0;</span>
+0073 <span class="comment">%             0 0 0 1];</span>
+0074       
+0075         
+0076 <span class="comment">%INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION</span>
+0077 <span class="comment">%position, velocity and acceleration</span>
+0078 robot=<a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>(robot);
+0079 
+0080 <span class="comment">% GRAPHICS</span>
+0081 robot.graphical.has_graphics=1;
+0082 robot.graphical.color = [202, 97, 0]./255;
+0083 <span class="comment">%for transparency</span>
+0084 robot.graphical.draw_transparent=0;
+0085 <span class="comment">%draw DH systems</span>
+0086 robot.graphical.draw_axes=1;
+0087 <span class="comment">%DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for</span>
+0088 <span class="comment">%bigger robots</span>
+0089 robot.graphical.axes_scale=1;
+0090 <span class="comment">%adjust for a default view of the robot</span>
+0091 robot.axis=[-2 3 -4 4 -4 4];
+0092 <span class="comment">%read graphics files</span>
+0093 robot = <a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>(robot);
+0094 
+0095 <span class="comment">%DYNAMICS</span>
+0096 robot.has_dynamics=0;</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

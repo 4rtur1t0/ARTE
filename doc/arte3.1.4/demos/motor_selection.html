@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of motor_selection</title>
+  <meta name="keywords" content="motor_selection">
+  <meta name="description" content="SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">demos</a> &gt; motor_selection.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>motor_selection
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function motor_selection </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">   SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF
+   THE ARM.
+   The script uses the inverse dynamic model of the robot to simulate
+   different motion states and compute the torques for each situation.
+   The torques at each joint, as well as the torques at each motor are computed
+   (reduced by the gear ratio). A trapezoidal speed profile can be
+   selected at the parameters section of this file. This trapezoidal
+   profile should meet the desired features of the robot, such as maximum
+   joint speed, maximum acceleration/deceleration.
+   Please note that the movement of the robot is not simulated. The reader
+   should imagine that the manipulator is fixed at a given initial
+   position and the inverse dynamic function returns the torques at each
+   joint necessary to bring the arm to that motion state (defined by position q,
+   speed qd and acceleration qdd).
+   
+   As a reference, below you can find the call to the inverse dynamics
+   function.
+ 
+   TAU = inversedynamic(robot, Q, QD, QDD, GRAV, FEXT)
+
+ Copyright (C) 2012, by Arturo Gil Aparicio
+
+ This file is part of ARTE (A Robotics Toolbox for Education).
+ 
+ ARTE is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ ARTE is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Leser General Public License
+ along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [input_speeds, input_accelerations, time]=build_trapezoidal_speed_profile(maximum_speeds, maximum_accels, total_time)</a></li><li><a href="#_sub2" class="code">function [vel acc]=compute_values(time_i, vel_max, acc_max, total_time)</a></li><li><a href="#_sub3" class="code">function compute_inverse_dynamics(q, input_speeds, input_accels, time)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%   SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF</span>
+0002 <span class="comment">%   THE ARM.</span>
+0003 <span class="comment">%   The script uses the inverse dynamic model of the robot to simulate</span>
+0004 <span class="comment">%   different motion states and compute the torques for each situation.</span>
+0005 <span class="comment">%   The torques at each joint, as well as the torques at each motor are computed</span>
+0006 <span class="comment">%   (reduced by the gear ratio). A trapezoidal speed profile can be</span>
+0007 <span class="comment">%   selected at the parameters section of this file. This trapezoidal</span>
+0008 <span class="comment">%   profile should meet the desired features of the robot, such as maximum</span>
+0009 <span class="comment">%   joint speed, maximum acceleration/deceleration.</span>
+0010 <span class="comment">%   Please note that the movement of the robot is not simulated. The reader</span>
+0011 <span class="comment">%   should imagine that the manipulator is fixed at a given initial</span>
+0012 <span class="comment">%   position and the inverse dynamic function returns the torques at each</span>
+0013 <span class="comment">%   joint necessary to bring the arm to that motion state (defined by position q,</span>
+0014 <span class="comment">%   speed qd and acceleration qdd).</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%   As a reference, below you can find the call to the inverse dynamics</span>
+0017 <span class="comment">%   function.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%   TAU = inversedynamic(robot, Q, QD, QDD, GRAV, FEXT)</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0026 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0027 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0028 <span class="comment">% (at your option) any later version.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0031 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0032 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0033 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0036 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0037 
+0038 <a name="_sub0" href="#_subfunctions" class="code">function motor_selection</a>
+0039 
+0040 close all
+0041 <span class="keyword">global</span> robot
+0042 
+0043 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0044 <span class="comment">% PARAMETERS SECTION</span>
+0045 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0046 
+0047 <span class="comment">% robot pose: experiment by changing the pose while observing the different</span>
+0048 <span class="comment">%             torques at each joint</span>
+0049 q=[0 0 -pi/2 0 0 0]; <span class="comment">%rad</span>
+0050 
+0051 <span class="comment">%maximum speeds for joint 1, 2, 3, 4, 5 and 6</span>
+0052 <span class="comment">%maximum_speeds=[3 4 5 5.5 6 6.3]; %rad/second</span>
+0053 maximum_speeds=[3 3 4 5 5 5];
+0054 <span class="comment">%maximum acceleration/deceleration for each joint</span>
+0055 <span class="comment">%maximum_accels=[2 3 3.5 4 5 6]; %rad/second^2</span>
+0056 maximum_accels=[5 5 6 7 8 9];
+0057 
+0058 <span class="comment">% time of the trapezoidal profile that the joint moves at maximum speed</span>
+0059 time_at_constant_speed=0.4; <span class="comment">%seconds</span>
+0060 
+0061 
+0062 <span class="comment">%load robot parameters</span>
+0063 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'unimate'</span>, <span class="string">'puma560'</span>);
+0064 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot, q)
+0065 
+0066 
+0067 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0068 <span class="comment">%  FIRST, COMPUTE TRAPEZOIDAL PROFILES</span>
+0069 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0070 <span class="comment">%compute acceleration plus deceleration times for every joint</span>
+0071 time_acc = 2*maximum_speeds./maximum_accels+time_at_constant_speed;
+0072 
+0073 <span class="comment">%compute the total time for the slowest joint</span>
+0074 total_time=max(time_acc);
+0075 
+0076 <span class="comment">% Trapezoidal speed profiles for each joint</span>
+0077 [input_speeds, input_accels, time]=<a href="#_sub1" class="code" title="subfunction [input_speeds, input_accelerations, time]=build_trapezoidal_speed_profile(maximum_speeds, maximum_accels, total_time)">build_trapezoidal_speed_profile</a>(maximum_speeds, maximum_accels, total_time);
+0078 
+0079 
+0080 
+0081 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0082 <span class="comment">% FINALLY, COMPUTE TORQUES FOR EACH MOTION STATE.</span>
+0083 <span class="comment">% Please note that we consider that the robot is placed at a fixed position and consider</span>
+0084 <span class="comment">% different motion situations when we change the acceleration and speed at</span>
+0085 <span class="comment">% each joint. For each motion state, the inverse dynamic model returns the</span>
+0086 <span class="comment">% torques at each joint that would bring the robot to that motion.</span>
+0087 <span class="comment">%</span>
+0088 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0089 <a href="#_sub3" class="code" title="subfunction compute_inverse_dynamics(q, input_speeds, input_accels, time)">compute_inverse_dynamics</a>(q, input_speeds, input_accels, time);
+0090 
+0091 
+0092 fprintf(<span class="string">'\n\nOBSERVE THE PLOTS AND NOTE DOWN THE PEAK TORQUE, NOMINAL TORQUE AND MOTOR SPEEDS'</span>)
+0093 fprintf(<span class="string">'\nNOW COMPUTE THE TORQUES FOR 5 DIFFERENT SELECTED MOTIONS STATES'</span>)
+0094 fprintf(<span class="string">'\nPRESS ANY KEY TO CONTINUE...'</span>)
+0095 
+0096 pause
+0097 
+0098 <span class="comment">% NOW COMPUTE THE WORST CASE CONSIDERING ONLY THE SPEED AND ACCELERATION AT</span>
+0099 <span class="comment">% 5 MOTIONS STATES</span>
+0100 input_speeds = [zeros(6,1) maximum_speeds' maximum_speeds' maximum_speeds' zeros(6,1) ];
+0101 input_accels = [maximum_accels' maximum_accels' zeros(6,1) -maximum_accels' -maximum_accels' ];
+0102 
+0103 <a href="#_sub3" class="code" title="subfunction compute_inverse_dynamics(q, input_speeds, input_accels, time)">compute_inverse_dynamics</a>(q, input_speeds, input_accels, [1:5]);
+0104 
+0105 
+0106 
+0107 
+0108 <span class="comment">%Computes a trapezoidal speed profile for every joint given maximum</span>
+0109 <span class="comment">%permitted accelerations and maximum joint speeds</span>
+0110 <a name="_sub1" href="#_subfunctions" class="code">function [input_speeds, input_accelerations, time]=build_trapezoidal_speed_profile(maximum_speeds, maximum_accels, total_time)</a>
+0111 
+0112 delta_time=0.01;
+0113 
+0114 <span class="comment">%build time vector: twice acceleration time plus time at constant speed</span>
+0115 time = 0:delta_time:total_time;
+0116 
+0117 input_speeds=[];
+0118 input_accelerations=[];
+0119 
+0120 <span class="keyword">for</span> j=1:length(maximum_speeds), 
+0121     vel_row=[];
+0122     acc_row=[];
+0123     <span class="keyword">for</span> i=1:length(time), 
+0124         [vel acc] = <a href="#_sub2" class="code" title="subfunction [vel acc]=compute_values(time_i, vel_max, acc_max, total_time)">compute_values</a>(time(i), maximum_speeds(j), maximum_accels(j), total_time);
+0125         vel_row = [vel_row vel];
+0126         acc_row = [acc_row acc];        
+0127     <span class="keyword">end</span>
+0128     input_speeds = [input_speeds; vel_row];
+0129     input_accelerations = [input_accelerations; acc_row];    
+0130 <span class="keyword">end</span>
+0131 
+0132 
+0133 
+0134 
+0135 <span class="comment">%returns the values of velocity and speed corresponding to a given time</span>
+0136 <a name="_sub2" href="#_subfunctions" class="code">function [vel acc]=compute_values(time_i, vel_max, acc_max, total_time)</a>
+0137 
+0138 tacc = vel_max/acc_max;
+0139 tdec = total_time-tacc;
+0140 
+0141 <span class="keyword">if</span> time_i &lt; tacc
+0142     vel = time_i.*acc_max;
+0143     acc = acc_max;
+0144     <span class="keyword">return</span>;
+0145 <span class="keyword">elseif</span> (time_i &gt;= tacc) &amp; (time_i &lt; tdec)
+0146     vel = vel_max;
+0147     acc = 0;
+0148     <span class="keyword">return</span>;
+0149 <span class="keyword">else</span> <span class="comment">% time_i&gt; tdec</span>
+0150     vel = vel_max-(time_i-tdec)*acc_max;
+0151     acc = -acc_max;    
+0152 <span class="keyword">end</span>
+0153 
+0154 
+0155 
+0156 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0157 <span class="comment">%   COMPUTE THE INVERSE DYNAMICS FOR EACH MOTION STATE</span>
+0158 <span class="comment">%</span>
+0159 <span class="comment">%</span>
+0160 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0161 <a name="_sub3" href="#_subfunctions" class="code">function compute_inverse_dynamics(q, input_speeds, input_accels, time)</a>
+0162 <span class="keyword">global</span> robot
+0163 
+0164 <span class="comment">%adjust_view(robot)</span>
+0165 torques=[];
+0166 <span class="keyword">for</span> j=1:length(time), 
+0167     fprintf(<span class="string">'\nComputing time %d out of %d'</span>, j, length(time));
+0168     <span class="comment">% compute the torque to bring the robot instantaneously to this motion</span>
+0169     <span class="comment">% state. change M=1  to add the effects of a 1kg mass load at the end effector</span>
+0170     M=1;
+0171     <span class="comment">%please note that the force due to the load acts on the z axis of</span>
+0172     tau=<a href="../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>(robot, q, input_speeds(:,j), input_accels(:,j), [0  0 -9.81]', [M*9.81 0 0 0 0 0]');
+0173     torques=[torques tau'];
+0174 <span class="keyword">end</span>
+0175 
+0176 
+0177 <span class="comment">%plot trapezoidal profiles</span>
+0178 figure, hold, xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Input reference speeds (rad/s)'</span>)
+0179 plot(time, input_speeds(1,:), time, input_speeds(2,:), time, input_speeds(3,:),<span class="keyword">...</span>
+0180         time, input_speeds(4,:), time, input_speeds(5,:), time, input_speeds(6,:));
+0181 legend(<span class="string">'Speed for joint 1 (qd1)'</span>,<span class="string">'Speed for joint 2 (qd2)'</span>,<span class="string">'Speed for joint 3 (qd3)'</span>,<span class="keyword">...</span><span class="comment"> </span>
+0182    <span class="string">'Speed for joint 4 (qd4)'</span>,<span class="string">'Speed for joint 5 (qd5)'</span>,<span class="string">'Speed for joint 6 (qd6)'</span> )
+0183 <span class="comment">%plot trapezoidal profiles, acceleration</span>
+0184 figure, hold, xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Input reference acceleration (rad/s)'</span>)
+0185 plot(time, input_accels(1,:), time, input_accels(2,:), time, input_accels(3,:),<span class="keyword">...</span>
+0186         time, input_accels(4,:), time, input_accels(5,:), time, input_accels(6,:));
+0187 legend(<span class="string">'Acceleration for joint 1 (qd1)'</span>,<span class="string">'Acceleration for joint 2 (qd2)'</span>,<span class="string">'Acceleration for joint 3 (qd3)'</span>,<span class="keyword">...</span><span class="comment"> </span>
+0188    <span class="string">'Acceleration for joint 4 (qd4)'</span>,<span class="string">'Acceleration for joint 5 (qd5)'</span>,<span class="string">'Acceleration for joint 6 (qd6)'</span> )
+0189 
+0190 
+0191 <span class="comment">% plot results. First, torques at each joint</span>
+0192 figure, hold, xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Join Torques (N m)'</span>)
+0193 plot(time, torques(1,:), time, torques(2,:), time, torques(3,:),<span class="keyword">...</span>
+0194         time, torques(4,:), time, torques(5,:), time, torques(6,:));
+0195 legend(<span class="string">'Torque for joint 1 '</span>,<span class="string">'Torque  for joint 2 '</span>,<span class="string">'Torque  for joint 3 '</span>,<span class="keyword">...</span><span class="comment"> </span>
+0196    <span class="string">'Torque  for joint 4'</span>,<span class="string">'Torque  for joint 5 '</span>,<span class="string">'Torque  for joint 6 '</span> )
+0197 
+0198 <span class="comment">%plot torques at each motor</span>
+0199 figure, hold, xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Motor Torques (N m)'</span>)
+0200 plot(time, torques(1,:)/robot.motors.G(1), time, torques(2,:)/robot.motors.G(2), time, torques(3,:)/robot.motors.G(3),<span class="keyword">...</span>
+0201         time, torques(4,:)/robot.motors.G(4), time, torques(5,:)/robot.motors.G(5), time, torques(6,:)/robot.motors.G(6));
+0202 legend(<span class="string">'Torque at motor 1 '</span>,<span class="string">'Torque at motor 2 '</span>,<span class="string">'Torque at motor 3 '</span>,<span class="keyword">...</span><span class="comment"> </span>
+0203    <span class="string">'Torque at motor 4 '</span>,<span class="string">'Torque at motor 5 '</span>,<span class="string">'Torque at motor 6 '</span> )
+0204 
+0205 <span class="comment">%plot power needed by the motor at each time step, without considering the</span>
+0206 <span class="comment">%losses at the gears</span>
+0207 figure, hold, xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Power needed by each motor (W)'</span>)
+0208 plot(time, torques(1,:).*input_speeds(1,:), time, torques(2,:).*input_speeds(2,:), time, torques(3,:).*input_speeds(3,:),<span class="keyword">...</span>
+0209         time, torques(4,:).*input_speeds(4,:), time, torques(5,:).*input_speeds(5,:), time, torques(6,:).*input_speeds(6,:));
+0210 legend(<span class="string">'Power: motor 1'</span>,<span class="string">'Power: motor 2'</span>,<span class="string">'Power: motor 3'</span>,<span class="keyword">...</span><span class="comment"> </span>
+0211    <span class="string">'Power: motor 4'</span>,<span class="string">'Power: motor 5'</span>,<span class="string">'Power: motor 6'</span> )
+0212 
+0213 <span class="comment">%plot motor speed in rpm for each motor</span>
+0214 figure, hold, xlabel(<span class="string">'time (s)'</span>), ylabel(<span class="string">'Speed in r.p.m of every motor (rev/min)'</span>)
+0215 plot(time, robot.motors.G(1)*input_speeds(1,:)*30/pi, time, robot.motors.G(2)*input_speeds(2,:)*30/pi, time, robot.motors.G(3)*input_speeds(3,:)*30/pi,<span class="keyword">...</span>
+0216         time, robot.motors.G(4)*input_speeds(4,:)*30/pi, time, robot.motors.G(5)*input_speeds(5,:)*30/pi, time, robot.motors.G(6)*input_speeds(6,:)*30/pi);
+0217 legend(<span class="string">'Speed at motor 1 (qd1*G)'</span>,<span class="string">'Speed at motor 2 (qd2*G)'</span>,<span class="string">'Speed at motor 3 (qd3*G)'</span>,<span class="keyword">...</span><span class="comment"> </span>
+0218    <span class="string">'Speed at motor 4 (qd4*G)'</span>,<span class="string">'Speed at motor 5 (qd5*G)'</span>,<span class="string">'Speed at motor 6 (qd6*G)'</span> )
+0219 
+0220 
+0221 
+0222 <span class="comment">%Now present results:</span>
+0223 fprintf(<span class="string">'\nMAIN RESULTS (referred to each motor): '</span>)
+0224 fprintf(<span class="string">'\n------------------------------------------------------------------------------------ '</span>)
+0225 fprintf(<span class="string">'\n                         Joint 1 - Joint 2 - Joint 3 - Joint 4  - Joint 5 - Joint 6: '</span>)
+0226 fprintf(<span class="string">'\nPeak Torque (N·m):        %.3f     %.3f     %.3f     %.3f      %.3f    %.3f '</span>, max(abs(torques(1,:)/robot.motors.G(1))), max(abs(torques(2,:)/robot.motors.G(2))) , max(abs(torques(3,:)/robot.motors.G(3))) , max(abs(torques(4,:)/robot.motors.G(4))) , max(abs(torques(5,:)/robot.motors.G(5))) , max(abs(torques(6,:)/robot.motors.G(6))))
+0227 fprintf(<span class="string">'\nNominal Torque (N·m):     %.3f     %.3f     %.3f     %.3f      %.3f    %.3f  '</span>, abs(torques(1,round(length(torques)/2))/robot.motors.G(1)), abs(torques(2,round(length(torques)/2))/robot.motors.G(2)), abs(torques(3,round(length(torques)/2))/robot.motors.G(3))<span class="keyword">...</span>
+0228     , abs(torques(4,round(length(torques)/2))/robot.motors.G(4)), abs(torques(5,round(length(torques)/2))/robot.motors.G(5)), abs(torques(6,round(length(torques)/2))/robot.motors.G(6)))
+0229 fprintf(<span class="string">'\nMax motor speed (r.p.m.): %.1f    %.1f    %.1f    %.1f     %.1f   %.1f  '</span>, max(abs(robot.motors.G(1)*input_speeds(1,:))*30/pi), max(abs(robot.motors.G(2)*input_speeds(2,:))*30/pi), max(abs(robot.motors.G(3)*input_speeds(3,:))*30/pi)<span class="keyword">...</span>
+0230     ,max(abs(robot.motors.G(4)*input_speeds(4,:))*30/pi), max(abs(robot.motors.G(5)*input_speeds(5,:))*30/pi), max(abs(robot.motors.G(6)*input_speeds(6,:))*30/pi))
+0231 fprintf(<span class="string">'\n------------------------------------------------------------------------------------ '</span>)
+0232 
+0233</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

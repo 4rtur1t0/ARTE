@@ -1,0 +1,22 @@
+- basic_robot_program.m: Just go to four different target points in simulation.
+- basic.prg: The above script translated to a RAPID program.
+
+- practice_1_programming.m: in order to run the program. Type:
+    >> init_lib 
+    >> robot=load_robot('abb', 'IRB140');
+    >> teach
+            Click on Load end Tool and load the arte/robots/equipment/end_tools/parallel_gripper_0 that defines a parallel gripper.
+            Click on Load equipment and load arte/robots/equipment/tables/table_two_areas that represents a conveyor belt with two workin areas.
+        	Click on Load a piece and load arte/robots/equipment/cylinders/cilynder_tiny that represents a piece.
+-pract_pr.prg: the above script translated to RAPID.The robot can be programmed with this RAPID file.
+
+- practice_1_packaging: A packaging demo in Matlab. In order to run the program. Type:
+    >> init_lib 
+    >> robot=load_robot('abb', 'IRB140');
+    >> teach
+            Click on Load end Tool and load the arte/robots/equipment/end_tools/parallel_gripper_0 that defines a parallel gripper.
+            Click on Load equipment and load arte/robots/equipment/tables/table_extended. That represents a work table.
+        	Click on Load a piece and load arte/robots/equipment/cylinders/cilynder_tiny that represents a piece.
+-pract_pac.prg: the above script translated to RAPID.
+
+ 

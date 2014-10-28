@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of slerp</title>
+  <meta name="keywords" content="slerp">
+  <meta name="description" content="%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">lib</a> &gt; slerp.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>slerp
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [qm] = slerp (qi, qn, t, eps) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%
+%%%     SLERP     %%%%%%
+%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/RAPID/functions/MoveC.html" class="code" title="function robot = MoveC(robot, robtarget1, robtarget2, speeddata, zonedata, gripper, Wobj)">MoveC</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/demos/simulink/joint_references.html" class="code" title="function q=joint_references(time)">joint_references</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%%%%     SLERP     %%%%%%</span>
+0003 <span class="comment">%%%%%%%%%%%%%%%%%</span>
+0004 
+0005 <span class="comment">%        Sagi Dalyot %</span>
+0006 
+0007 <span class="comment">%       This routine aims for calculating a unit quaternion,  describing a rotation matrix,</span>
+0008 <span class="comment">%       which lies between two known unit quaternions - q1 and q2,</span>
+0009 <span class="comment">%       using a spherical linear interpolation - Slerp.</span>
+0010 <span class="comment">%       Slerp follow the shortest great arc on a unit sphere,</span>
+0011 <span class="comment">%       hence, the shortest possible interpolation path.</span>
+0012 <span class="comment">%       Consequently, Slerp has constant angular velocity,</span>
+0013 <span class="comment">%       so it is the optimal interpolation curve between two rotations.</span>
+0014 <span class="comment">%       (first published by Sheomake K., 1985 - Animating Rotation with Quaternion Curves)</span>
+0015 
+0016 <span class="comment">%       end of file -&gt;  explnation of rotation matrix and quaternions</span>
+0017 
+0018 <span class="comment">%       in general:</span>
+0019 <span class="comment">%       slerp(q1, q2, t) = q1*(sin(1-t)*teta)/sin(t) + q2*(sin(t*teta))/sin(teta)</span>
+0020 <span class="comment">%       where teta is the angle between the two unit quaternions,</span>
+0021 <span class="comment">%       and t is between [0,1]</span>
+0022 
+0023 <span class="comment">%       two border cases will be delt:</span>
+0024 <span class="comment">%       1: where q1 = q2 (or close by eps)</span>
+0025 <span class="comment">%       2: where q1 = -q2 (angle between unit quaternions is 180 degrees).</span>
+0026 <span class="comment">%       in general, if q1=q2 then Slerp(q; q; t) == q</span>
+0027 
+0028 <a name="_sub0" href="#_subfunctions" class="code">function [qm] = slerp (qi, qn, t, eps)</a>
+0029 
+0030 <span class="comment">%       where qi=[w1 x1 y1 z1] - start unit quaternions</span>
+0031 <span class="comment">%                      qn=[w2 x2 y2 z2] - end unit quaternions</span>
+0032 <span class="comment">%                      t=[0 to 1]</span>
+0033 <span class="comment">%                      eps=threshold value</span>
+0034 
+0035 <span class="keyword">if</span> t==0 <span class="comment">% saving calculation time -&gt; where qm=qi</span>
+0036     qm=qi;    
+0037 <span class="keyword">elseif</span> t==1 <span class="comment">% saving calculation time -&gt; where qm=qn</span>
+0038     qm=qn;    
+0039 <span class="keyword">else</span>
+0040     qi = qi(:)';
+0041     qn = qn(:)';
+0042     
+0043     C=dot(qi, qn);                  <span class="comment">% Calculating the angle beteen the unit quaternions by dot product</span>
+0044     
+0045     teta=acos(C);
+0046     
+0047     <span class="keyword">if</span> (1 - C) &lt;= eps <span class="comment">% if angle teta is close by epsilon to 0 degrees -&gt; calculate by linear interpolation</span>
+0048         qm=qi*(1-t) + qn*t; <span class="comment">% avoiding divisions by number close to 0</span>
+0049         
+0050     <span class="keyword">elseif</span> (1 + C) &lt;= eps <span class="comment">% when teta is close by epsilon to 180 degrees the result is undefined -&gt; no shortest direction to rotate</span>
+0051         q2(1) = qi(4); q2(2) = -qi(3); q2(3)= qi(2); q2(4) = -qi(1); <span class="comment">% rotating one of the unit quaternions by 90 degrees -&gt; q2</span>
+0052         qm=qi*(sin((1-t)*(pi/2)))+q2*sin(t*(pi/2));
+0053         
+0054     <span class="keyword">else</span>
+0055         qm=qi*(sin((1-t)*teta))/sin(teta)+qn*sin(t*teta)/sin(teta);
+0056     <span class="keyword">end</span>
+0057 <span class="keyword">end</span>
+0058 
+0059 
+0060 <span class="comment">% eof</span>
+0061 <span class="comment">%  q = [w, (x, y, z)]    quaternion definition</span>
+0062 <span class="comment">%</span>
+0063 <span class="comment">%  where</span>
+0064 <span class="comment">%  R = [1-2*y^2-2*z^2   2*x*y-2*w*z     2*x*z+2*w*y         R is function of 3  euler rotation angles</span>
+0065 <span class="comment">%         2*x*y+2*w*z    1-2*x^2-2*z^2   2*y*z-2*w*x</span>
+0066 <span class="comment">%         2*x*z-2*w*y     2*y*z+2*w*x    1-2*x^2-2*y^2]</span>
+0067 <span class="comment">%  =&gt; R = [M00 M01 M02</span>
+0068 <span class="comment">%                M10 M11 M12</span>
+0069 <span class="comment">%                M20 M21 M22]</span>
+0070 <span class="comment">%  =&gt; trace(R) = 4 - 4*(x^2+y^2+z^2), and x^2+y^2+z^2+w^2==1</span>
+0071 <span class="comment">%  =&gt; w=(trace)^.5</span>
+0072 <span class="comment">%  =&gt; x=(M21-M12)/4*w</span>
+0073 <span class="comment">%  =&gt; y=(M02-M21)/4*w</span>
+0074 <span class="comment">%  =&gt; x=(M10-M01)/4*w</span>
+0075 <span class="comment">%  =&gt; q = [w, (x, y, z)]</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

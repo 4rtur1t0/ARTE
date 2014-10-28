@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of parameters</title>
+  <meta name="keywords" content="parameters">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../../index.html">Home</a> &gt;  <a href="../../../index.html">arte3.1.4</a> &gt; <a href="#">robots</a> &gt; <a href="#">UNIMATE</a> &gt; <a href="index.html">puma560</a> &gt; parameters.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../../index.html"><img alt="<" border="0" src="../../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/robots/UNIMATE/puma560&nbsp;<img alt=">" border="0" src="../../../../right.png"></a></td></tr></table>-->
+
+<h1>parameters
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function robot = parameters() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   PARAMETERS Returns a data structure containing the parameters of the
+   UNIMATE PUMA 560 robot.
+
+   Author: Arturo Gil. Universidad Miguel Hern�ndez de Elche. 
+   email: arturo.gil@umh.es date:   03/03/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/lib/load_motors.html" class="code" title="function motors = load_motors(indexes)">load_motors</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   PARAMETERS Returns a data structure containing the parameters of the</span>
+0003 <span class="comment">%   UNIMATE PUMA 560 robot.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hern�ndez de Elche.</span>
+0006 <span class="comment">%   email: arturo.gil@umh.es date:   03/03/2012</span>
+0007 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0008 
+0009 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0014 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0015 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0016 <span class="comment">% (at your option) any later version.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0019 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0020 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0021 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0024 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0025 <a name="_sub0" href="#_subfunctions" class="code">function robot = parameters()</a>
+0026 <span class="comment">%KYNEMATICS</span>
+0027 robot.name= <span class="string">'puma_560'</span>;
+0028 
+0029 robot.DH.theta = <span class="string">'[q(1) q(2) q(3) q(4) q(5) q(6)]'</span>;
+0030 robot.DH.d=<span class="string">'[0  0   0.15005  0.4318     0    0.04]'</span>;
+0031 robot.DH.a=<span class="string">'[0 0.4318  0.0203      0       0    0]'</span>;
+0032 robot.DH.alpha= <span class="string">'[pi/2  0   -pi/2  pi/2   -pi/2 0]'</span>;
+0033 robot.J=[];
+0034 robot.name=<span class="string">'Puma 560 robotic arm'</span>;
+0035 
+0036 robot.inversekinematic_fn = <span class="string">'inversekinematic_puma560(robot, T)'</span>;
+0037 
+0038 
+0039 <span class="comment">%R: rotational, T: translational</span>
+0040 robot.kind=[<span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span> <span class="string">'R'</span>];
+0041 
+0042 <span class="comment">%number of degrees of freedom</span>
+0043 robot.DOF = 6;
+0044 
+0045 <span class="comment">%minimum and maximum rotation angle in rad</span>
+0046 robot.maxangle =[<a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-160) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(160); <span class="comment">%Axis 1, minimum, maximum</span>
+0047                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-110) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(110); <span class="comment">%Axis 2, minimum, maximum</span>
+0048                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-135) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(135); <span class="comment">%Axis 3</span>
+0049                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-266) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(266); <span class="comment">%Axis 4: Unlimited (400� default)</span>
+0050                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-100) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(100); <span class="comment">%Axis 5</span>
+0051                 <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(-266) <a href="../../../../arte3.1.4/lib/deg2rad.html" class="code" title="function rad = deg2rad(deg)">deg2rad</a>(266)]; <span class="comment">%Axis 6: Unlimited (800� default)</span>
+0052 
+0053 <span class="comment">%maximum absolute speed of each joint rad/s or m/s</span>
+0054 robot.velmax = [1
+0055                 1
+0056                 1
+0057                 1
+0058                 1
+0059                 1];<span class="comment">%not available</span>
+0060 <span class="comment">% end effectors maximum velocity</span>
+0061 robot.linear_velmax = 0.5; <span class="comment">%m/s, from datasheet</span>
+0062 
+0063 
+0064 <span class="comment">%base reference system</span>
+0065 robot.T0 = eye(4);
+0066 
+0067 <span class="comment">%INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION</span>
+0068 <span class="comment">%position, velocity and acceleration</span>
+0069 robot=<a href="../../../../arte3.1.4/RAPID/init_sim_variables.html" class="code" title="function robot = init_sim_variables(robot)">init_sim_variables</a>(robot);
+0070 robot.path = pwd;
+0071 
+0072 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0073 <span class="comment">% GRAPHICS</span>
+0074 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0075 <span class="comment">%read graphics files</span>
+0076 robot.graphical.has_graphics=1;
+0077 robot.graphical.color = [150 180 130]./255;
+0078 <span class="comment">%for transparency</span>
+0079 robot.graphical.draw_transparent=0;
+0080 <span class="comment">%draw DH systems</span>
+0081 robot.graphical.draw_axes=1;
+0082 <span class="comment">%DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for</span>
+0083 <span class="comment">%bigger robots</span>
+0084 robot.graphical.axes_scale=1;
+0085 <span class="comment">%adjust for a default view of the robot</span>
+0086 robot.axis=[-1 1 -1 1 -0.66 2];
+0087 robot = <a href="../../../../arte3.1.4/tools/read_graphics.html" class="code" title="function robot=read_graphics(robot)">read_graphics</a>(robot);
+0088 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0089 
+0090 
+0091 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0092 <span class="comment">%DYNAMIC PARAMETERS</span>
+0093 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0094 robot.has_dynamics=1;
+0095 
+0096 <span class="comment">%consider friction in the computations</span>
+0097 robot.dynamics.friction=0;
+0098 
+0099 <span class="comment">%link masses (kg)</span>
+0100 robot.dynamics.masses=[0 17.4 4.8 0.82 0.34 0.09];
+0101 
+0102 <span class="comment">%COM of each link with respect to own reference system</span>
+0103 robot.dynamics.r_com=[0       0          0; <span class="comment">%(rx, ry, rz) link 1</span>
+0104     -0.3638     0.006     0.2275; <span class="comment">%(rx, ry, rz) link 2</span>
+0105     -0.0203    -0.0141     0.070;  <span class="comment">%(rx, ry, rz) link 3</span>
+0106     0       0.019       0;<span class="comment">%(rx, ry, rz) link 4</span>
+0107     0       0           0;<span class="comment">%(rx, ry, rz) link 5</span>
+0108    0         0         -0.008];<span class="comment">%(rx, ry, rz) link 6</span>
+0109 
+0110 <span class="comment">%Inertia matrices of each link with respect to its D-H reference system.</span>
+0111 <span class="comment">% Ixx    Iyy    Izz    Ixy    Iyz    Ixz, for each row</span>
+0112 robot.dynamics.Inertia=[0      0.35    0       0    0    0;
+0113     0.13    0.524    0.539    0    0    0;
+0114     0.066    0.086    0.0125    0    0    0;
+0115     1.8e-3    1.3e-3    1.8e-3    0    0    0;
+0116     0.3e-3    0.4e-3    0.3e-3    0    0    0;
+0117     0.15e-3    0.15e-3    0.04e-3    0    0    0];
+0118 
+0119 
+0120 <span class="comment">%Please note that we are simulating the motors as presented in MAXON</span>
+0121 <span class="comment">%catalog</span>
+0122 robot.motors=<a href="../../../../arte3.1.4/lib/load_motors.html" class="code" title="function motors = load_motors(indexes)">load_motors</a>([5 5 5 5 5 5]);
+0123 
+0124 
+0125 <span class="comment">%Actuator rotor inertia</span>
+0126 <span class="comment">%robot.motors.Inertia=[200e-6 200e-6 200e-6 33e-6 33e-6 33e-6];</span>
+0127 <span class="comment">%Speed reductor at each joint</span>
+0128 <span class="comment">%robot.motors.G=[-62.6111 107.815 -53.7063 76.0364 71.923 76.686];</span>
+0129 <span class="comment">%Please note that, for simplicity in control, we consider that the gear</span>
+0130 <span class="comment">%ratios are all positive</span>
+0131 robot.motors.G=[62.6111 107.815 53.7063 76.0364 71.923 76.686];
+0132 
+0133 
+0134 
+0135 <span class="comment">% Obtained from motor catalog under practicals/inverse_dynamics.</span>
+0136 <span class="comment">% These constants are used to model a DC motor attached to each joint</span>
+0137 <span class="comment">%   R: Coil resistance (Ohm)</span>
+0138 <span class="comment">%   L: Coil inductance (H)</span>
+0139 <span class="comment">%   Kv: Speed constant of motor (V/rad/s)</span>
+0140 <span class="comment">%   Kp: Torque constant (Nm/A)</span>
+0141 <span class="comment">%   Max_current (A): max current in coil.</span>
+0142 <span class="comment">%   Max mechanical speed: max mechanical speed of the motor (rad/s)</span>
+0143 <span class="comment">%   These parameters are used to simulate the direct dynamics of the robot</span>
+0144 <span class="comment">%   including the motors.</span>
+0145 <span class="comment">%                        R(Ohm)  L(H)    Kv(V/rad/s) Kp(Nm/A) Max_current (A) Max speed (rad/s)</span>
+0146 <span class="comment">%robot.motors.constants=[0.39  0.00065     0.054      0.054        125           3500 ];%these correspond to Maxon, 167132;</span>
+0147    
+0148 <span class="comment">% %Viscous friction, motor referred</span>
+0149 <span class="comment">%robot.motors.Viscous = [1.48e-3 .817e-3 1.38e-3 71.2e-6 82.6e-6 36.7e-6];</span>
+0150 <span class="comment">% %Coulomb friction factors, motor referred</span>
+0151 <span class="comment">% %Tc+, Tc-</span>
+0152 <span class="comment">%robot.motors.Coulomb  = [ 0.395      -0.435;</span>
+0153 <span class="comment">%                           0.126      -0.071;</span>
+0154 <span class="comment">%                           0.132      -0.105;</span>
+0155 <span class="comment">%                           11.2e-3 -16.9e-3;</span>
+0156 <span class="comment">%                           9.26e-3 -14.5e-3;</span>
+0157 <span class="comment">%                           3.96e-3 -10.5e-3];</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

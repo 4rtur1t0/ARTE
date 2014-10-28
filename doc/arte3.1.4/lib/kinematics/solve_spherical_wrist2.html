@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of solve_spherical_wrist2</title>
+  <meta name="keywords" content="solve_spherical_wrist2">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">lib</a> &gt; <a href="index.html">kinematics</a> &gt; solve_spherical_wrist2.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib/kinematics&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>solve_spherical_wrist2
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function q = solve_spherical_wrist2(robot, q, T, wrist) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   q = solve_spherical_wrist(robot, q, T, wrist)    
+   Solves the inverse kinematic problem for a spherical wrist
+   robot: robot structure.
+   q: vector containing the values of the joints 1, 2 and 3.
+   T: orientation of the last reference system.
+   wrist: select -1 or 1 for two possible solutions (wrist up, wrist down)
+   
+    See also <a href="directkinematic.html" class="code" title="function T = directkinematic(robot, q)">DIRECTKINEMATIC</a>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>	DENAVIT Compute an homogeneous transform matrix DH in terms of</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/robots/ABB/IRB140/inversekinematic_irb140.html" class="code" title="function [q, valid] = inversekinematic_irb140(robot, T)">inversekinematic_irb140</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB7600_400_255_m2000/inversekinematic_irb7600_400_255_m2000.html" class="code" title="function q = inversekinematic_irb7600_400_255_m2000(robot, T)">inversekinematic_irb7600_400_255_m2000</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%   q = solve_spherical_wrist(robot, q, T, wrist)</span>
+0003 <span class="comment">%   Solves the inverse kinematic problem for a spherical wrist</span>
+0004 <span class="comment">%   robot: robot structure.</span>
+0005 <span class="comment">%   q: vector containing the values of the joints 1, 2 and 3.</span>
+0006 <span class="comment">%   T: orientation of the last reference system.</span>
+0007 <span class="comment">%   wrist: select -1 or 1 for two possible solutions (wrist up, wrist down)</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    See also DIRECTKINEMATIC.</span>
+0010 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0011 
+0012 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0017 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0018 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0019 <span class="comment">% (at your option) any later version.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0022 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0023 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0024 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0027 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0028 
+0029 <a name="_sub0" href="#_subfunctions" class="code">function q = solve_spherical_wrist2(robot, q, T, wrist)</a>
+0030 
+0031 <span class="comment">% Obtain the position and orientation of the system 3</span>
+0032 <span class="comment">% using the already computed joints q1, q2 and q3</span>
+0033 T01=<a href="dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 1);
+0034 T12=<a href="dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 2);
+0035 T23=<a href="dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 3);
+0036 T03=T01*T12*T23;
+0037 
+0038 x3=T03(1:3,1);
+0039 y3=T03(1:3,2);
+0040 z3=T03(1:3,3);
+0041 
+0042 <span class="comment">% T= [ nx ox ax Px;</span>
+0043 <span class="comment">%     ny oy ay Py;</span>
+0044 <span class="comment">%     nz oz az Pz];</span>
+0045 a=T(1:3,3);
+0046 
+0047 <span class="comment">% find z4 normal to the plane formed by z3 and a</span>
+0048 z4=cross(z3, a);    <span class="comment">% end effector's vector a: T(1:3,3)</span>
+0049 
+0050 <span class="comment">% in case of degenerate solution,</span>
+0051 <span class="comment">% when z3 and z6 are parallel, choose q(4)=0 as solution</span>
+0052 <span class="keyword">if</span> norm(z4) &lt;= 0.00001
+0053     <span class="keyword">if</span> wrist == 1 <span class="comment">%wrist up</span>
+0054         q(4)=0;
+0055     <span class="keyword">else</span>
+0056         q(4)=-pi;
+0057     <span class="keyword">end</span>
+0058 <span class="keyword">else</span>
+0059     cq4=wrist*dot(z4, -y3);
+0060     sq4=wrist*dot(z4, x3);
+0061     q(4)=atan2(sq4, cq4);
+0062 <span class="keyword">end</span>
+0063 
+0064 <span class="comment">% solve for q5</span>
+0065 T34=<a href="dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 4);
+0066 T04=T03*T34;
+0067 x4=T04(1:3, 1);
+0068 y4=T04(1:3, 2);
+0069 
+0070 z5=T(1:3, 3); <span class="comment">% The vector a T(1:3,3) is coincident with z5</span>
+0071 
+0072 cq5=dot(z5, y4);    
+0073 sq5=dot(z5, -x4);
+0074 q(5)=atan2(sq5, cq5);
+0075  
+0076 <span class="comment">% solve for q6</span>
+0077 x6=T(1:3, 1);
+0078  
+0079 T45=<a href="dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, 5);
+0080 T05=T04*T45;
+0081 x5=T05(1:3, 1);
+0082 y5=T05(1:3, 2);
+0083 
+0084 cq6=dot(x6, -x5);
+0085 sq6=dot(x6, -y5);    
+0086 q(6)=atan2(sq6, cq6);</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

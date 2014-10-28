@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of drawrobot3d</title>
+  <meta name="keywords" content="drawrobot3d">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">tools</a> &gt; drawrobot3d.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/tools&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>drawrobot3d
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function drawrobot3d(robot, q, noclear) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ DRAWROBOT3D(ROBOT, Q)    3D drawing with DH reference systems of the robot at the
+ current joint coordinates Q. The robot parameters are stored in the
+ variable ROBOT. Q = [q1 q2 ... qN] is a vector of joint values.
+
+ If the robot possesses 3D graphics, the function DRAW_LINK is called to represent
+ the link in 3D. Otherwise a line connecting each consecutive reference
+ system is plotted.
+
+ See also DENAVIT, DIRECTKINEMATIC, <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">DRAW_LINK</a>.
+
+   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche.
+   email: arturo.gil@umh.es date:   05/02/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>	DENAVIT Compute an homogeneous transform matrix DH in terms of</li><li><a href="draw_axes.html" class="code" title="function draw_axes(T, X_text, Y_text, Z_text, scale)">draw_axes</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">draw_link</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/RAPID/programs/program_robot.html" class="code" title="">program_robot</a>	Para la simulación de un programa</li><li><a href="../../arte3.1.4/RAPID/teach.html" class="code" title="function varargout = teach(varargin)">teach</a>	</li><li><a href="../../arte3.1.4/demos/demos.html" class="code" title="">demos</a>	Copyright (C) 2012, by Arturo Gil Aparicio</li><li><a href="../../arte3.1.4/demos/follow_line_pa10.html" class="code" title="">follow_line_pa10</a>	Copyright (C) 2012, by Arturo Gil Aparicio</li><li><a href="../../arte3.1.4/demos/forwarddynamics_demo.html" class="code" title="">forwarddynamics_demo</a>	SCRIPT TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../arte3.1.4/demos/forwarddynamics_demo_3dof.html" class="code" title="">forwarddynamics_demo_3dof</a>	SCRIPT TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../arte3.1.4/demos/inversedynamics_2DOFplanar.html" class="code" title="">inversedynamics_2DOFplanar</a>	SCRIPT TEST FOR THE 2DOF arm</li><li><a href="../../arte3.1.4/demos/inversedynamics_3DOFplanar.html" class="code" title="">inversedynamics_3DOFplanar</a>	SCRIPT TEST FOR THE 3 DOF planar manipulator</li><li><a href="../../arte3.1.4/demos/inversedynamics_puma560.html" class="code" title="">inversedynamics_puma560</a>	SCRIPT TO TEST THE DYNAMICS OF THE PUMA 560 ROBOT</li><li><a href="../../arte3.1.4/demos/kinematics_demo.html" class="code" title="">kinematics_demo</a>	SCRIPT TEST FOR THE KINEMATIC PROBLEM</li><li><a href="../../arte3.1.4/demos/manufacturing_demo.html" class="code" title="">manufacturing_demo</a>	SCRIPT TO TEST THE GRAPHIC CAPABILITIES OF THE TOOLBOX: ROBOT IN A MANUFACTURING CELL</li><li><a href="../../arte3.1.4/demos/more_demos/draw_errors_scara.html" class="code" title="">draw_errors_scara</a>	PROPAGATE A GAUSSIAN ERROR DISTRIBUTION OF EACH JOINT TO AN ERROR IN</li><li><a href="../../arte3.1.4/demos/more_demos/draw_errors_scara_monte_carlo.html" class="code" title="">draw_errors_scara_monte_carlo</a>	THE DEMO PRESENTS AN ERROR PROPAGATION USING A MONTE-CARLO METHOD</li><li><a href="../../arte3.1.4/demos/motor_selection.html" class="code" title="function motor_selection">motor_selection</a>	SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF</li><li><a href="../../arte3.1.4/demos/simulink/plot_results_line.html" class="code" title="">plot_results_line</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/demos/spot_welding_demo.html" class="code" title="">spot_welding_demo</a>	SCRIPT TO TEST THE GRAPHIC CAPABILITIES OF THE TOOLBOX: ROBOT IN A MANUFACTURING CELL</li><li><a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="adjust_view.html" class="code" title="function adjust_view(robot)">adjust_view</a>	ADJUST_VIEW(ROBOT)</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">% DRAWROBOT3D(ROBOT, Q)    3D drawing with DH reference systems of the robot at the</span>
+0003 <span class="comment">% current joint coordinates Q. The robot parameters are stored in the</span>
+0004 <span class="comment">% variable ROBOT. Q = [q1 q2 ... qN] is a vector of joint values.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% If the robot possesses 3D graphics, the function DRAW_LINK is called to represent</span>
+0007 <span class="comment">% the link in 3D. Otherwise a line connecting each consecutive reference</span>
+0008 <span class="comment">% system is plotted.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% See also DENAVIT, DIRECTKINEMATIC, DRAW_LINK.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche.</span>
+0013 <span class="comment">%   email: arturo.gil@umh.es date:   05/02/2012</span>
+0014 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0015 
+0016 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0021 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0022 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0023 <span class="comment">% (at your option) any later version.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0026 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0027 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0028 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0031 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0032 <a name="_sub0" href="#_subfunctions" class="code">function drawrobot3d(robot, q, noclear)</a>
+0033 <span class="keyword">global</span> configuration
+0034 
+0035 <span class="comment">%if q is not specified, then assume zero pose</span>
+0036 <span class="keyword">if</span> ~exist(<span class="string">'q'</span>)
+0037     q=zeros(1,robot.DOF)
+0038 <span class="keyword">end</span>
+0039 
+0040 h=figure(configuration.figure.robot);
+0041 
+0042 <span class="comment">%get adjusted view</span>
+0043 [az,el] = view;
+0044 
+0045 <span class="comment">%retrieve the current zoom</span>
+0046 zz=get(gca,<span class="string">'CameraViewAngle'</span>);
+0047 
+0048 <span class="comment">%delete figure</span>
+0049 <span class="keyword">if</span> ~exist(<span class="string">'noclear'</span>)
+0050     clf(h), grid on, hold on
+0051 <span class="keyword">end</span>
+0052 xlabel(<span class="string">'X (m)'</span>), ylabel(<span class="string">'Y (m)'</span>), zlabel(<span class="string">'Z (m)'</span>)
+0053 
+0054 <span class="comment">%apply the stored view</span>
+0055 view(az,el);
+0056 <span class="comment">%apply the zoom</span>
+0057 set(gca,<span class="string">'CameraViewAngle'</span>, zz);
+0058 
+0059 origin = [0 0 0];
+0060 destination = [];
+0061 color = [<span class="string">'r'</span> <span class="string">'g'</span> <span class="string">'b'</span> <span class="string">'c'</span> <span class="string">'m'</span> <span class="string">'y'</span> <span class="string">'k'</span>];
+0062 
+0063 V=[];
+0064 
+0065 T = robot.T0;
+0066 <span class="keyword">for</span> i=1:robot.DOF+1,
+0067     
+0068     <span class="keyword">if</span> robot.graphical.has_graphics
+0069         <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">draw_link</a>(robot, i, T);        
+0070     <span class="keyword">else</span>
+0071         <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">draw_link</a>(robot, i, T);
+0072         
+0073         destination=T(1:3,4);
+0074         col = randperm(6);
+0075         line([origin(1) destination(1)],[origin(2) destination(2)],[origin(3) destination(3)], <span class="string">'Color'</span>,  color(col(1)) ,<span class="string">'LineWidth'</span>, 3 );
+0076         origin = destination;
+0077     <span class="keyword">end</span>
+0078     <span class="comment">%draw D-H axes</span>
+0079     <span class="keyword">if</span> robot.graphical.draw_axes
+0080         <a href="draw_axes.html" class="code" title="function draw_axes(T, X_text, Y_text, Z_text, scale)">draw_axes</a>(T, sprintf(<span class="string">'X_%d'</span>,i-1), sprintf(<span class="string">'Y_%d'</span>,i-1), sprintf(<span class="string">'Z_%d'</span>,i-1), robot.graphical.axes_scale);
+0081     <span class="keyword">end</span>
+0082     <span class="comment">%obtain transformation to draw the next link</span>
+0083     <span class="keyword">if</span> i&lt;= robot.DOF
+0084        T=T*<a href="../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot, q, i);
+0085     <span class="keyword">end</span>
+0086 <span class="keyword">end</span>
+0087 <span class="comment">%save for later use</span>
+0088 T06robot=T;
+0089 
+0090 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0091 <span class="comment">% DRAW A TOOL AT THE ROBOT'S END</span>
+0092 <span class="comment">% if there is a tool attached, draw it!</span>
+0093 <span class="comment">% repeat the prior commands</span>
+0094 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0095 <span class="keyword">if</span> isfield(robot, <span class="string">'tool'</span>)
+0096 
+0097     <span class="comment">% Activate tool. Tools must be defined in a binary way.</span>
+0098     <span class="comment">% This means that they are open or closed depending</span>
+0099     <span class="comment">% on an joint</span>
+0100     <span class="keyword">if</span> robot.tool_activated
+0101         q_tool=ones(1,robot.tool.DOF);
+0102     <span class="keyword">else</span>
+0103         q_tool=zeros(1,robot.tool.DOF);
+0104     <span class="keyword">end</span>
+0105     robot.tool.T0=T;
+0106     <span class="keyword">for</span> i=1:robot.tool.DOF+1,
+0107         <span class="keyword">if</span> robot.tool.graphical.has_graphics
+0108             <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">draw_link</a>(robot.tool, i, T);
+0109         <span class="keyword">else</span>
+0110             <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">draw_link</a>(robot.tool, i, T);
+0111             
+0112             destination=T(1:3,4);
+0113             col = randperm(6);
+0114             line([origin(1) destination(1)],[origin(2) destination(2)],[origin(3) destination(3)], <span class="string">'Color'</span>,  color(col(1)) ,<span class="string">'LineWidth'</span>, 3 );
+0115             origin = destination;
+0116         <span class="keyword">end</span>
+0117 <span class="comment">%         if robot.tool.graphical.draw_axes</span>
+0118 <span class="comment">%             draw_axes(T, sprintf('X_{tool%d}',i-1), sprintf('Y_{tool%d}',i-1), sprintf('Z_{tool%d}',i-1));</span>
+0119 <span class="comment">%         end</span>
+0120         <span class="comment">%obtain transformation to draw the next link</span>
+0121         <span class="keyword">if</span> (i)&lt;= robot.tool.DOF
+0122             T=T*<a href="../../arte3.1.4/lib/kinematics/dh.html" class="code" title="function A=dh(theta, d, a, alpha)">dh</a>(robot.tool, q_tool, i);
+0123         <span class="keyword">end</span>
+0124     <span class="keyword">end</span>
+0125     <span class="comment">%finally draw the Tool Center Point (TCP)</span>
+0126     <span class="keyword">if</span> robot.tool.graphical.draw_axes
+0127         <a href="draw_axes.html" class="code" title="function draw_axes(T, X_text, Y_text, Z_text, scale)">draw_axes</a>(T06robot*robot.tool.TCP, <span class="string">'X_{toolTCP}'</span>, <span class="string">'Y_{toolTCP}'</span>, <span class="string">'Z_{toolTCP}'</span>);
+0128     <span class="keyword">end</span>
+0129 <span class="keyword">end</span>
+0130 
+0131 
+0132 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0133 <span class="comment">%  draw equipment such as tables, conveyor velts... etc</span>
+0134 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0135 <span class="keyword">if</span> isfield(robot, <span class="string">'equipment'</span>)
+0136         <span class="keyword">if</span> robot.equipment.graphical.has_graphics
+0137             <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">draw_link</a>(robot.equipment, 1, robot.equipment.T0);
+0138         <span class="keyword">end</span>
+0139         <span class="keyword">if</span> robot.equipment.graphical.draw_axes
+0140             <a href="draw_axes.html" class="code" title="function draw_axes(T, X_text, Y_text, Z_text, scale)">draw_axes</a>(robot.equipment.T0, sprintf(<span class="string">'X_{env%d}'</span>,0), sprintf(<span class="string">'Y_{env%d}'</span>,0), sprintf(<span class="string">'Z_{env%d}'</span>,0));
+0141         <span class="keyword">end</span>      
+0142 <span class="keyword">end</span>
+0143 
+0144 
+0145 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0146 <span class="comment">%   DRAW A PIECE GRABBED</span>
+0147 <span class="comment">% this draws a piece grabbed at the robots end, or at the last known position</span>
+0148 <span class="comment">% the variable robot.tool_activated=1 asumes that the piece has been grabbed by the end tool</span>
+0149 <span class="comment">% robot.tool_activated==0 maintains the last known location for the pieced</span>
+0150 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0151 <span class="keyword">if</span> isfield(robot, <span class="string">'piece'</span>)
+0152         <span class="keyword">if</span> robot.piece.graphical.has_graphics
+0153             <span class="keyword">if</span> robot.tool_activated==1
+0154                <span class="comment">%update the last known position and orientation of the robot</span>
+0155                robot.piece.T0=T;
+0156             <span class="keyword">end</span>
+0157             <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">draw_link</a>(robot.piece, 1, robot.piece.T0); 
+0158         <span class="keyword">end</span>
+0159         <span class="keyword">if</span> robot.piece.graphical.draw_axes
+0160             <a href="draw_axes.html" class="code" title="function draw_axes(T, X_text, Y_text, Z_text, scale)">draw_axes</a>(robot.piece.T0, sprintf(<span class="string">'X_{env%d}'</span>,0), sprintf(<span class="string">'Y_{env%d}'</span>,0), sprintf(<span class="string">'Z_{env%d}'</span>,0));
+0161         <span class="keyword">end</span>      
+0162 <span class="keyword">end</span>
+0163 
+0164</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

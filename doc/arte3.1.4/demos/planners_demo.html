@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of planners_demo</title>
+  <meta name="keywords" content="planners_demo">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">demos</a> &gt; planners_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>planners_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function planner </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function k=first_order(q,t)</a></li><li><a href="#_sub2" class="code">function [k,qd1]=second_order(q,qd,t)</a></li><li><a href="#_sub3" class="code">function [k,qd1, qdd1]=third_order(q,qd,qdd,t)</a></li><li><a href="#_sub4" class="code">function [k,qd1, qdd1]=third_order_2(q,qd,t)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function planner</a>
+0002 close all
+0003 q0=0;
+0004 qd0=0;
+0005 qdd0=0;
+0006 q1=0.5; <span class="comment">%rad</span>
+0007 q2=0.8;
+0008 t0=0;
+0009 t1=10;<span class="comment">%s</span>
+0010 t2=20;<span class="comment">%s</span>
+0011 
+0012 figure, xlabel(<span class="string">'t (s)'</span>), ylabel(<span class="string">'q (rad), q_d (rad/s)'</span>), title(<span class="string">'PRIMER ORDEN'</span>), hold on
+0013 
+0014 
+0015 k=<a href="#_sub1" class="code" title="subfunction k=first_order(q,t)">first_order</a>([q0 q1],[t0 t1]);
+0016 k=<a href="#_sub1" class="code" title="subfunction k=first_order(q,t)">first_order</a>([q1 q2],[t1 t2]);
+0017 
+0018 
+0019 figure, xlabel(<span class="string">'t (s)'</span>), ylabel(<span class="string">'q (rad), q_d (rad/s)'</span>), title(<span class="string">'SEGUNDO ORDEN'</span>), hold on
+0020 
+0021 
+0022 [k,qd1]=<a href="#_sub2" class="code" title="subfunction [k,qd1]=second_order(q,qd,t)">second_order</a>([q0 q1],qd0,[t0 t1]);
+0023 k=<a href="#_sub2" class="code" title="subfunction [k,qd1]=second_order(q,qd,t)">second_order</a>([q1 q2],qd1,[t1 t2]);
+0024 
+0025 
+0026 figure, xlabel(<span class="string">'t (s)'</span>), ylabel(<span class="string">'q (rad), q_d (rad/s)'</span>), title(<span class="string">'TERCER ORDEN'</span>), hold on
+0027 [k,qd1,qdd1]=<a href="#_sub3" class="code" title="subfunction [k,qd1, qdd1]=third_order(q,qd,qdd,t)">third_order</a>([q0 q1],qd0,qdd0,[t0 t1]);
+0028 k=<a href="#_sub3" class="code" title="subfunction [k,qd1, qdd1]=third_order(q,qd,qdd,t)">third_order</a>([q1 q2],qd1,qdd1,[t1 t2]);
+0029 
+0030 figure, xlabel(<span class="string">'t (s)'</span>), ylabel(<span class="string">'q (rad), q_d (rad/s)'</span>), title(<span class="string">'TERCER ORDEN, SEGUNDA VERSIÓN'</span>), hold on
+0031 [k]=<a href="#_sub4" class="code" title="subfunction [k,qd1, qdd1]=third_order_2(q,qd,t)">third_order_2</a>([q0 q2],[0 0],[t0 t2]);
+0032 
+0033 
+0034 
+0035 
+0036 
+0037 <a name="_sub1" href="#_subfunctions" class="code">function k=first_order(q,t)</a>
+0038 
+0039 <span class="comment">%   PRIMER ORDEN</span>
+0040 
+0041 k=inv([1 t(1); 1 t(2)])*[q(1) q(2)]';
+0042 
+0043 t_v=t(1):0.01:t(2);
+0044 q_v=k(1)+k(2)*t_v;
+0045 qd_v=k(2)*ones(1,length(t_v));
+0046 
+0047 plot(t_v,q_v, <span class="string">'r'</span>)
+0048 plot(t_v,qd_v, <span class="string">'g'</span>)
+0049 
+0050 <a name="_sub2" href="#_subfunctions" class="code">function [k,qd1]=second_order(q,qd,t)</a>
+0051 
+0052 <span class="comment">%   SEGUNDO ORDEN</span>
+0053 k=inv([1 t(1) t(1)^2; 1 t(2) t(2)^2; 0 1 2*t(1)])*[q(1) q(2) qd(1)]';
+0054 
+0055 time=t(1):0.01:t(2);
+0056 q_t=k(1)+k(2)*time+k(3)*time.^2;
+0057 qd_t=k(2)*ones(1,length(time)) + 2*k(3)*time;
+0058 qdd_t=2*k(3)*ones(1,length(time));
+0059 
+0060 qd1 = k(2) + 2*k(3)*t(2);
+0061 
+0062 plot(time,q_t, <span class="string">'r'</span>)
+0063 plot(time,qd_t, <span class="string">'g'</span>)
+0064 plot(time,qdd_t, <span class="string">'b'</span>)
+0065 
+0066 
+0067 
+0068 <a name="_sub3" href="#_subfunctions" class="code">function [k,qd1, qdd1]=third_order(q,qd,qdd,t)</a>
+0069 
+0070 <span class="comment">%   tercer orden</span>
+0071 A=[1 t(1) t(1)^2 t(1)^3;
+0072    1 t(2) t(2)^2 t(2)^3;
+0073    0   1  2*t(1) 3*t(1)^2;
+0074    0   0   2     6*t(1)];
+0075 k=inv(A)*[q(1) q(2) qd(1) qdd(1)]';
+0076 
+0077 time=t(1):0.01:t(2);
+0078 q_t = k(1) + k(2)*time + k(3)*time.^2 + k(4)*time.^3;
+0079 qd_t= k(2)*ones(1,length(time)) + 2*k(3)*time + 3*k(4)*time.^2;
+0080 qdd_t=2*k(3)*ones(1,length(time)) + 6*k(4)*time;
+0081 
+0082 qd1 = k(2) + 2*k(3)*t(2) + 3*k(4)*t(2).^2;
+0083 qdd1 = 2*k(3) + 6*k(4)*t(2);
+0084 
+0085 plot(time,q_t, <span class="string">'r'</span>)
+0086 plot(time,qd_t, <span class="string">'g'</span>)
+0087 plot(time,qdd_t, <span class="string">'b'</span>)
+0088 
+0089 
+0090 <a name="_sub4" href="#_subfunctions" class="code">function [k,qd1, qdd1]=third_order_2(q,qd,t)</a>
+0091 
+0092 <span class="comment">%   tercer orden</span>
+0093 A=[1 t(1) t(1)^2 t(1)^3;
+0094    1 t(2) t(2)^2 t(2)^3;
+0095    0   1  2*t(1) 3*t(1)^2;
+0096    0   1  2*t(2) 3*t(2)^2];
+0097 k=inv(A)*[q(1) q(2) qd(1) qd(2)]';
+0098 
+0099 time=t(1):0.01:t(2);
+0100 q_t = k(1) + k(2)*time + k(3)*time.^2 + k(4)*time.^3;
+0101 qd_t= k(2)*ones(1,length(time)) + 2*k(3)*time + 3*k(4)*time.^2;
+0102 qdd_t=2*k(3)*ones(1,length(time)) + 6*k(4)*time;
+0103 
+0104 qd1 = k(2) + 2*k(3)*t(2) + 3*k(4)*t(2).^2;
+0105 qdd1 = 2*k(3) + 6*k(4)*t(2);
+0106 
+0107 plot(time,q_t, <span class="string">'r'</span>)
+0108 plot(time,qd_t, <span class="string">'g'</span>)
+0109 plot(time,qdd_t, <span class="string">'b'</span>)</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

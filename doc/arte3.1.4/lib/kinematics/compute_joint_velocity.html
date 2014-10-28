@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of compute_joint_velocity</title>
+  <meta name="keywords" content="compute_joint_velocity">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">lib</a> &gt; <a href="index.html">kinematics</a> &gt; compute_joint_velocity.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib/kinematics&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>compute_joint_velocity
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function vq = compute_joint_velocity(robot, q, V) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ COMPUTE_JOINT_VELOCITY computes the velocity of the joint given the velocity
+ vector V of the end effector
+
+   If robot.J is defined the Inverse Jacobian is evaluated to compute a given
+   velocity. The result depends on the definition of J.
+
+   On the other hand, if robot.J is an empty array a conventional Jacobian
+   is computed instead. The resulting joint speeds is computed as
+   qd = inv(J)*V, where V is the velocity vector expressed in the base reference frame.
+
+   See also <a href="compute_jacobian.html" class="code" title="function J = compute_jacobian(robot, q)">COMPUTE_JACOBIAN</a>.
+
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche.
+   email: arturo.gil@umh.es date:   26/04/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="compute_jacobian.html" class="code" title="function J = compute_jacobian(robot, q)">compute_jacobian</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/demos/more_demos/follow_line_scara.html" class="code" title="">follow_line_scara</a>	FOLLOW A LINE IN SPACE WITH A SCARA ROBOT</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">% COMPUTE_JOINT_VELOCITY computes the velocity of the joint given the velocity</span>
+0003 <span class="comment">% vector V of the end effector</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   If robot.J is defined the Inverse Jacobian is evaluated to compute a given</span>
+0006 <span class="comment">%   velocity. The result depends on the definition of J.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%   On the other hand, if robot.J is an empty array a conventional Jacobian</span>
+0009 <span class="comment">%   is computed instead. The resulting joint speeds is computed as</span>
+0010 <span class="comment">%   qd = inv(J)*V, where V is the velocity vector expressed in the base reference frame.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   See also COMPUTE_JACOBIAN.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0015 <span class="comment">%   email: arturo.gil@umh.es date:   26/04/2012</span>
+0016 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0017 
+0018 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0023 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0024 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0025 <span class="comment">% (at your option) any later version.</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0028 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0029 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0030 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0033 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0034 <a name="_sub0" href="#_subfunctions" class="code">function vq = compute_joint_velocity(robot, q, V)</a>
+0035 
+0036 theta = eval(robot.DH.theta);
+0037 <span class="comment">% d = eval(robot.DH.d);</span>
+0038 a = eval(robot.DH.a);
+0039 <span class="comment">% alpha = eval(robot.DH.alpha);</span>
+0040 
+0041  n=length(theta); <span class="comment">%# number of DOFs</span>
+0042 
+0043 <span class="comment">%use user provided J or compute jacobian</span>
+0044 <span class="keyword">if</span> ~isempty(robot.J)
+0045     J = eval(robot.J);   
+0046     <span class="keyword">if</span> robot.debug
+0047         fprintf(<span class="string">'\nComputing end effector speed for the %s robot with %d DOFs'</span>, robot.name, n);
+0048         fprintf(<span class="string">'\n:lib/kinematics/compute_joint_velocity: Using user defined J'</span>, robot.J);    
+0049     <span class="keyword">end</span>
+0050 <span class="keyword">else</span><span class="comment">%computing J from D-H parameters</span>
+0051     <span class="keyword">if</span> robot.debug
+0052         fprintf(<span class="string">'\nComputing end effector speed for the %s robot with %d DOFs'</span>, robot.name, n);
+0053         disp(<span class="string">'\n:lib/kinematics/compute_joint_velocity: Computing conventional Jacobian'</span>);
+0054     <span class="keyword">end</span>
+0055     J = <a href="compute_jacobian.html" class="code" title="function J = compute_jacobian(robot, q)">compute_jacobian</a>(robot, q, qd);
+0056     <span class="comment">%now V = [vn wn]';</span>
+0057     <span class="comment">%  V = J*qd';</span>
+0058 <span class="keyword">end</span>
+0059 
+0060 
+0061 vq = inv(J)*V';</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

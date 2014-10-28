@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of follow_line_pa10</title>
+  <meta name="keywords" content="follow_line_pa10">
+  <meta name="description" content="Copyright (C) 2012, by Arturo Gil Aparicio">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">demos</a> &gt; follow_line_pa10.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>follow_line_pa10
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Copyright (C) 2012, by Arturo Gil Aparicio</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Copyright (C) 2012, by Arturo Gil Aparicio
+
+ This file is part of ARTE (A Robotics Toolbox for Education).
+ 
+ ARTE is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ ARTE is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Leser General Public License
+ along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/RAPID/functions/select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/tools/adjust_view.html" class="code" title="function adjust_view(robot)">adjust_view</a>	ADJUST_VIEW(ROBOT)</li><li><a href="../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>	ANIMATE(ROBOT, Q)</li><li><a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="demos.html" class="code" title="">demos</a>	Copyright (C) 2012, by Arturo Gil Aparicio</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0006 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0007 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0008 <span class="comment">% (at your option) any later version.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0011 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0012 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0013 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0016 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0017 
+0018 <span class="comment">%Compute points in line</span>
+0019 close all
+0020 
+0021 robot =  <a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'mitsubishi'</span>,<span class="string">'pa-10'</span>);
+0022 
+0023 
+0024 <span class="comment">%NOA matrix initial point</span>
+0025 T1=[1 0 0 0.5;
+0026     0 1 0 -0.3;
+0027     0 0 1 0.4; 
+0028     0 0 0  1]
+0029 <span class="comment">%NOA matrix end point</span>
+0030 T2=[1 0 0 0.5;
+0031     0 1 0 0.4;
+0032     0 0 1 0.3; 
+0033     0 0 0  1]
+0034 
+0035 <span class="comment">%distancia entre puntos consecutivos</span>
+0036 delta = 0.02;
+0037 
+0038 punto_inicial = T1(1:3,4);
+0039 punto_final = T2(1:3,4);
+0040 
+0041 v=(punto_final-punto_inicial);
+0042 v=delta*v/norm(v); <span class="comment">%vector normalizado en la dirección de la recta</span>
+0043 distancia = sqrt((punto_final-punto_inicial)'*(punto_final-punto_inicial));
+0044 <span class="comment">%Generación de puntos en la trayectoria</span>
+0045 num_points = floor(distancia/delta);
+0046 puntos = punto_inicial;
+0047 <span class="keyword">for</span> i=1:num_points,
+0048     puntos=[puntos i*v+punto_inicial];
+0049 <span class="keyword">end</span>
+0050 puntos=[puntos punto_final];
+0051 
+0052 figure, hold on, grid, plot3(puntos(1,:),puntos(2,:),puntos(3,:)), title(<span class="string">'Trajectory in space'</span>), xlabel(<span class="string">'X (m)'</span>), ylabel(<span class="string">'Y (m)'</span>)
+0053 
+0054 qs=[];
+0055 <span class="keyword">for</span> i=1:length(puntos),
+0056     T1(1:3,4)=puntos(1:3,i);    
+0057     qinv = <a href="../../arte3.1.4/lib/kinematics/inversekinematic.html" class="code" title="function q = inversekinematic(robot, T)">inversekinematic</a>(robot, T1);
+0058     
+0059     q=<a href="../../arte3.1.4/RAPID/functions/select_closest_joint_coordinates.html" class="code" title="function q=select_closest_joint_coordinates(robot, qinv, q_current)">select_closest_joint_coordinates</a>(robot, qinv, robot.q);
+0060     qs=[qs q];
+0061     robot.q=q;
+0062 <span class="keyword">end</span>
+0063 
+0064 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot, qs(:,1))
+0065 <a href="../../arte3.1.4/tools/adjust_view.html" class="code" title="function adjust_view(robot)">adjust_view</a>(robot)
+0066 <a href="../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot, qs(:,end))
+0067 
+0068 <span class="comment">%Now, animate the robot in 3D</span>
+0069 <a href="../../arte3.1.4/tools/animate.html" class="code" title="function animate(robot, q, line)">animate</a>(robot, qs);
+0070 
+0071 figure, hold, plot(qs(1,:), <span class="string">'r.'</span>),plot(qs(2,:), <span class="string">'g.'</span>), plot(qs(3,:), <span class="string">'b.'</span>), plot(qs(4,:), <span class="string">'c.'</span>), 
+0072 plot(qs(5,:), <span class="string">'m.'</span>), plot(qs(6,:), <span class="string">'y.'</span>),
+0073 legend(<span class="string">'q_1 (rad)'</span>,<span class="string">'q_2 (rad)'</span>,<span class="string">'q_3 (rad)'</span>, <span class="string">'q_4 (rad)'</span>, <span class="string">'q_5 (rad)'</span>, <span class="string">'q_6 (rad)'</span> ), title(<span class="string">'Joint trajectories'</span>), xlabel(<span class="string">'Step number'</span>)
+0074</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of program_robot</title>
+  <meta name="keywords" content="program_robot">
+  <meta name="description" content="Para la simulación de un programa">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">RAPID</a> &gt; <a href="index.html">programs</a> &gt; program_robot.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/RAPID/programs&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>program_robot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Para la simulación de un programa</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Para la simulación de un programa</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Para la simulación de un programa</span>
+0002 
+0003 <span class="comment">%robot = load_robot('abb','irb140');</span>
+0004 robot.equipment = <a href="../../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'equipment'</span>,<span class="string">'tables/table_small'</span>);
+0005 <span class="comment">% %robot.equipment = load_robot('equipment','bumper_cutting');</span>
+0006 robot.tool= <a href="../../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'equipment'</span>,<span class="string">'end_tools/parallel_gripper_0'</span>);
+0007 <span class="comment">% robot.piece=load_robot('equipment','cylinders/cylinder_tiny');</span>
+0008 <span class="comment">% robot.piece.T0= [1 0 0 -0.35;</span>
+0009 <span class="comment">%              0 1 0 -0.55;</span>
+0010 <span class="comment">%              0 0 1 0.2;</span>
+0011 <span class="comment">%              0 0 0 1];</span>
+0012 robot.tool.graphical.draw_axes=1
+0013 <a href="../../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>(robot,[0 0 0 0 0 0])
+0014 
+0015 
+0016 gripper=[1,[[0,0,120]/1000,[1,0,0,0]],[0.1,[0,0,100],[1,0,0,0],0,0,0]];
+0017 
+0018 tp1=[[0.40000, 0.30000, 0.70000],[1.00000, 0.00000, -0.00000, -0.00000], [0.00000, -1.00000, 1.00000, 0.00000], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+0019 
+0020 tp2=[[0,-0.60,0.1],[0.177878,0.301528,-0.099821,-0.931384],[0.000000,-1.000000,-2.000000,0.000000],[9E9,9E9,9E9,9E9,9E9,9E9]];
+0021 tp3=[[-0.372948,-0.464961,0.7],[0.033044,-0.436929,0.898885,0.002757],[-2.000000,0.000000,1.000000,0.000000],[9E9,9E9,9E9,9E9,9E9,9E9]]; 
+0022 tp4=[[-0.372948,-0.464961,0.4],[0.033044,-0.436929,0.898885,0.002757],[-2.000000,0.000000,1.000000,0.000000],[9E9,9E9,9E9,9E9,9E9,9E9]]; 
+0023 
+0024 robot=<a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>(robot, tp1, <span class="string">'vmax'</span> , <span class="string">'fine'</span> , robot.tool0, robot.wobj0);
+0025 robot=<a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>(robot, tp2, <span class="string">'vmax'</span> , <span class="string">'fine'</span> , robot.tool0, robot.wobj0);
+0026 robot=<a href="../../../arte3.1.4/RAPID/functions/MoveJ.html" class="code" title="function [robot] = MoveJ(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveJ</a>(robot,tp3,<span class="string">'vmax'</span>,<span class="string">'fine'</span>, robot.tool0, robot.wobj0);
+0027 robot.tool_activated=1; <span class="comment">%Set do1 en RAPID</span>
+0028 robot=<a href="../../../arte3.1.4/RAPID/functions/MoveL.html" class="code" title="function robot = MoveL(robot, robtarget, speeddata, zonedata, gripper, Wobj)">MoveL</a>(robot,tp4,<span class="string">'vmax'</span>,<span class="string">'fine'</span>, robot.tool0, robot.wobj0);
+0029 
+0030 
+0031 <span class="comment">% robot=MoveL(robot,tp2,'vmax','fine', robot.tool0, robot.wobj0);</span>
+0032 <span class="comment">% robot=MoveL(robot,tp3,'vmax','fine', robot.tool0, robot.wobj0);</span>
+0033 <span class="comment">% robot.tool_activated=0; %Reset do1 en RAPID</span>
+0034 <span class="comment">% robot=MoveJ(robot, tp5, 'vmax' , 'fine' , robot.tool0, robot.wobj0);</span>
+0035 <span class="comment">% robot=MoveJ(robot, tp1, 'vmax' , 'fine' , robot.tool0, robot.wobj0);</span>
+0036 <span class="comment">% robot=MoveC(robot, tp2, tp3,  'vmax' , 'fine' , robot.tool0, robot.wobj0);</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

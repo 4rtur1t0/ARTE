@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of read_graphics</title>
+  <meta name="keywords" content="read_graphics">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">tools</a> &gt; read_graphics.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/tools&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>read_graphics
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function robot=read_graphics(robot) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ ROBOT=READ_GRAPHICS(ROBOT)    
+ Reads the 3D graphics files associated to the robot.
+ Each robot has N+1 graphics files stored at its directory: robot/abb/IRB140
+ link0.stl, link1.stl, ..., link6.stl, where link0.stl defines the robot
+ base, link1.stl, the first link connecting the base and link 2 etc.
+ Each graphics file is defined in STL (Standard Tessellation Language)
+ format, supported by many 3D software packages:
+   http://en.wikipedia.org/wiki/STL_%28file_format%29
+
+ Prior to the call of READ_GRAPHICS, the variable
+ robot.graphical.has_graphics has to be set to one.
+
+ ROBOT=READ_GRAPHICS(ROBOT), stores the current robot Faces and vertices
+ of each file in the variables:
+   
+  robot.graphical.link{1}.f --&gt; faces robot base, 
+  robot.graphical.link{1}.v --&gt; vertices robot base,
+  robot.graphical.link{2}.f --&gt; faces link 1, 
+  robot.graphical.link{2}.v --&gt; vertices link 1...
+
+  the vector f defines the position of a set of points that represent each
+  robot link in its current DH reference system. The units of f are
+  meters.
+
+  READ_GRAPHICS calls the function STL_READ, in charge of reading each of
+  the files associated to the robot.
+
+ See also <a href="draw_link.html" class="code" title="function draw_link(robot, i, T)">DRAW_LINK</a>, <a href="draw_patch.html" class="code" title="function draw_patch(F, V, C, transparent)">DRAW_PATCH</a>, <a href="stl_read.html" class="code" title="function [F, V, C] = stl_read(filename)">STL_READ</a>.
+
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche.
+   email: arturo.gil@umh.es date:   05/02/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="stl_read.html" class="code" title="function [F, V, C] = stl_read(filename)">stl_read</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/robots/ABB/ERRORS_IRB1600X_140/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/ERRORS_IRB4400/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB140/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB1600ID/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB1600_6_120/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB1600_X145_M2004/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB2400/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB4600/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB52/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB6620/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB6620LX/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB6650S_125_350/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB6650S_200_300/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB7600_150/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB7600_400_255_m2000/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ABB/IRB7600_500_230/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/ADEPT/Viper_s1700D/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/EPSON/Prosix_C3_A601C/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/FANUC/LR_MATE_200iC/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR30_jet/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR5_2ARC_HW/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR5_arc/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR5_scara_R350_Z200/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR5_sixx_R650/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR5_sixx_R850/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR6_2/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR90_R2700_pro/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR90_R3100_EXTRA/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR_1000_1300_TITAN/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR_16_arc_HW/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/KUKA/KR_30_L16_2/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/MITSUBISHI/PA-10/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/MITSUBISHI/rv-6s/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/STAUBLI/RX160L/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/UNIMATE/puma560/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/bodywork/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/box_big/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/bumper_cutting/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/cylinders/cylinder_big/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/cylinders/cylinder_small/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/cylinders/cylinder_tiny/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/end_tools/parallel_gripper_0/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/end_tools/parallel_gripper_1/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/end_tools/spot_welding/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/end_tools/vacuum_1/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/end_tools/vacuum_2/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/tables/table_big/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/equipment/tables/table_small/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/example/2dofplanar/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/example/3dofplanar/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/example/parallel/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/example/scara/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../arte3.1.4/robots/example/stanford/parameters.html" class="code" title="function robot = parameters()">parameters</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">% ROBOT=READ_GRAPHICS(ROBOT)</span>
+0003 <span class="comment">% Reads the 3D graphics files associated to the robot.</span>
+0004 <span class="comment">% Each robot has N+1 graphics files stored at its directory: robot/abb/IRB140</span>
+0005 <span class="comment">% link0.stl, link1.stl, ..., link6.stl, where link0.stl defines the robot</span>
+0006 <span class="comment">% base, link1.stl, the first link connecting the base and link 2 etc.</span>
+0007 <span class="comment">% Each graphics file is defined in STL (Standard Tessellation Language)</span>
+0008 <span class="comment">% format, supported by many 3D software packages:</span>
+0009 <span class="comment">%   http://en.wikipedia.org/wiki/STL_%28file_format%29</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% Prior to the call of READ_GRAPHICS, the variable</span>
+0012 <span class="comment">% robot.graphical.has_graphics has to be set to one.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% ROBOT=READ_GRAPHICS(ROBOT), stores the current robot Faces and vertices</span>
+0015 <span class="comment">% of each file in the variables:</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%  robot.graphical.link{1}.f --&gt; faces robot base,</span>
+0018 <span class="comment">%  robot.graphical.link{1}.v --&gt; vertices robot base,</span>
+0019 <span class="comment">%  robot.graphical.link{2}.f --&gt; faces link 1,</span>
+0020 <span class="comment">%  robot.graphical.link{2}.v --&gt; vertices link 1...</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%  the vector f defines the position of a set of points that represent each</span>
+0023 <span class="comment">%  robot link in its current DH reference system. The units of f are</span>
+0024 <span class="comment">%  meters.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%  READ_GRAPHICS calls the function STL_READ, in charge of reading each of</span>
+0027 <span class="comment">%  the files associated to the robot.</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% See also DRAW_LINK, DRAW_PATCH, STL_READ.</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0032 <span class="comment">%   email: arturo.gil@umh.es date:   05/02/2012</span>
+0033 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0034 
+0035 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0040 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0041 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0042 <span class="comment">% (at your option) any later version.</span>
+0043 <span class="comment">%</span>
+0044 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0045 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0046 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0047 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0050 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0051 <a name="_sub0" href="#_subfunctions" class="code">function robot=read_graphics(robot)</a>
+0052 
+0053 <span class="comment">%degrees of freedom</span>
+0054 n=robot.DOF;
+0055 
+0056 <span class="keyword">if</span> robot.graphical.has_graphics    
+0057     
+0058     full_name = [robot.path <span class="string">'/link0.stl'</span>];
+0059     
+0060     <span class="comment">%check whether there exist graphics files for the robot</span>
+0061     <span class="keyword">if</span> exist(full_name, <span class="string">'file'</span>)~=2
+0062         disp(<span class="string">'NO GRAPHICS FILE FOUND, not reading graphics'</span>);
+0063         disp(<span class="string">'Please, remember to place link0.stl, link1.stl at each robot directory'</span>);
+0064         disp(<span class="string">'Check the following directory: '</span>)
+0065         robot.path
+0066         robot.graphical.has_graphics=0
+0067         <span class="keyword">return</span>;
+0068     <span class="keyword">end</span>
+0069     pwd
+0070     <span class="keyword">for</span> i=0:n,
+0071         link_name=sprintf(<span class="string">'/link%d.stl'</span>, i);
+0072         fprintf(<span class="string">'\nReading link %d\n %s\n'</span>, i, [robot.path link_name]);
+0073         <span class="comment">%load link 0, base</span>
+0074         [fout, vout, cout] = <a href="stl_read.html" class="code" title="function [F, V, C] = stl_read(filename)">stl_read</a>([robot.path link_name]);
+0075         robot.graphical.link{i+1}.f = fout;
+0076         robot.graphical.link{i+1}.v = vout;
+0077         <span class="comment">%robot.graphical.link{i+1}.c = cout+robot.graphical.color;</span>
+0078     <span class="keyword">end</span>
+0079     <span class="comment">%load a default color if not specified</span>
+0080     <span class="keyword">if</span> robot.graphical.color(1) &gt; 1.0
+0081         robot.graphical.color = [204 51 0]./255;
+0082         disp(<span class="string">'NO VALID COLOR FOUND, PLEASE SPECIFY robot.graphical.color as [0.5 0.6 0.7]'</span>);
+0083     <span class="keyword">end</span>
+0084 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

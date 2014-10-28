@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of dh</title>
+  <meta name="keywords" content="dh">
+  <meta name="description" content="DENAVIT Compute an homogeneous transform matrix DH in terms of">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">lib</a> &gt; <a href="index.html">kinematics</a> &gt; dh.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib/kinematics&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>dh
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>DENAVIT Compute an homogeneous transform matrix DH in terms of</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function A=dh(theta, d, a, alpha) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">   DENAVIT Compute an homogeneous transform matrix DH in terms of
+   Denavit-Hartenberg's parameters of the robot
+
+   A = DH(TETA, D, A, alpha) returns a 4 x 4 homogeneous
+   transformation matrix  as a function of the the Denavit-Hartenberg's
+   parameters D, alpha, A and THETA for link i.
+
+   A = DH(robot, q, i) is an abbreviated call to return a 4x4
+   homogeneous transformation matrix as a function of the robot parameters
+   robot.DH.theta, d, a, alpha the joint values q and the transformation i.
+   For i = 1, the function returns the transformation matrix T01, for i=2,
+   T02..., etc.
+
+    See also <a href="directkinematic.html" class="code" title="function T = directkinematic(robot, q)">DIRECTKINEMATIC</a>.
+
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche.
+   email: arturo.gil@umh.es date:   01/01/2012</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../arte3.1.4/lib/dynamics/inversedynamic.html" class="code" title="function tau = inversedynamic(robot, q, qd, qdd, grav, fext)">inversedynamic</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="compute_jacobian.html" class="code" title="function J = compute_jacobian(robot, q)">compute_jacobian</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="directkinematic.html" class="code" title="function T = directkinematic(robot, q)">directkinematic</a>	DIRECTKINEMATIC		Direct Kinematic for serial robots.</li><li><a href="solve_spherical_wrist.html" class="code" title="function q = solve_spherical_wrist(robot, q, T, wrist, method)">solve_spherical_wrist</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="solve_spherical_wrist2.html" class="code" title="function q = solve_spherical_wrist2(robot, q, T, wrist)">solve_spherical_wrist2</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/lib/transform_to_own.html" class="code" title="function transform_to_own(manufacturer,model, mm2m)">transform_to_own</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/ERRORS_IRB1600X_140/inversekinematic_irb1600X_140.html" class="code" title="function [q] = inversekinematic_irb1600X_140(robot, T)">inversekinematic_irb1600X_140</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/ERRORS_IRB4400/inversekinematic_irb4400.html" class="code" title="function q = inversekinematic_irb4400(robot, T)">inversekinematic_irb4400</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB140/inversekinematic_irb140.html" class="code" title="function [q, valid] = inversekinematic_irb140(robot, T)">inversekinematic_irb140</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB1600ID/inversekinematic_irb1600id.html" class="code" title="function q = inversekinematic_irb1600id(robot, T)">inversekinematic_irb1600id</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB1600_6_120/inversekinematic_irb1600_6_120.html" class="code" title="function [q, valid] = inversekinematic_irb1600_6_120(robot, T)">inversekinematic_irb1600_6_120</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB1600_X145_M2004/inversekinematic_abb_irb1600_X145_m2004.html" class="code" title="function [q, valid] = inversekinematic_abb_irb1600_X145_m2004(robot, T)">inversekinematic_abb_irb1600_X145_m2004</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB2400/inversekinematic_irb2400.html" class="code" title="function [q] = inversekinematic_irb2400(robot, T)">inversekinematic_irb2400</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB4600/inversekinematic_IRB_4600.html" class="code" title="function [q, valid] = inversekinematic_IRB_4600(robot, T)">inversekinematic_IRB_4600</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB52/inversekinematic_irb52.html" class="code" title="function [q] = inversekinematic_irb52(robot, T)">inversekinematic_irb52</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB6620/inversekinematic_irb6620.html" class="code" title="function q = inversekinematic_irb6620(robot, T)">inversekinematic_irb6620</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB6620LX/inversekinematic_irb6620lx.html" class="code" title="function [q] = inversekinematic_irb6620lx(robot, T)">inversekinematic_irb6620lx</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB6650S_125_350/inversekinematic_irb6650S_125_350.html" class="code" title="function q = inversekinematic_irb6650S_125_350(robot, T)">inversekinematic_irb6650S_125_350</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB6650S_200_300/inversekinematic_IRB6650S_200_300.html" class="code" title="function q = inversekinematic_IRB6650S_200_300(robot, T)">inversekinematic_IRB6650S_200_300</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB7600_150/inversekinematic_IRB_7600_150.html" class="code" title="function q = inversekinematic_IRB_7600_150(robot, T)">inversekinematic_IRB_7600_150</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB7600_400_255_m2000/inversekinematic_irb7600_400_255_m2000.html" class="code" title="function q = inversekinematic_irb7600_400_255_m2000(robot, T)">inversekinematic_irb7600_400_255_m2000</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ABB/IRB7600_500_230/inversekinematic_irb7600_500_230.html" class="code" title="function [q] = inversekinematic_irb7600_500_230(robot, T)">inversekinematic_irb7600_500_230</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/ADEPT/Viper_s1700D/inversekinematic_Viper_s1700D.html" class="code" title="function [q] = inversekinematic_Viper_s1700D(robot, T)">inversekinematic_Viper_s1700D</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/EPSON/Prosix_C3_A601C/inversekinematic_Prosix_C3_A601C.html" class="code" title="function [q] = inversekinematic_Prosix_C3_A601C(robot, T)">inversekinematic_Prosix_C3_A601C</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/FANUC/LR_MATE_200iC/inversekinematic_fanuc_mate.html" class="code" title="function q = inversekinematic_fanuc_mate(robot, T)">inversekinematic_fanuc_mate</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR30_jet/inversekinematic_kuka_kr30_jet.html" class="code" title="function q = inversekinematic_kuka_kr30_jet(robot, T)">inversekinematic_kuka_kr30_jet</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR5_2ARC_HW/inversekinematic_kuka_kr5_2arc_HW.html" class="code" title="function q = inversekinematic_kuka_kr5_2arc_HW(robot, T)">inversekinematic_kuka_kr5_2arc_HW</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR5_arc/inversekinematic_kuka_kr5_arc.html" class="code" title="function q = inversekinematic_kuka_kr5_arc(robot, T)">inversekinematic_kuka_kr5_arc</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR5_scara_R350_Z200/inversekinematic_KUKA_KR5_scara_R350_Z200.html" class="code" title="function q = inversekinematic_KUKA_KR5_scara_R350_Z200(robot, T)">inversekinematic_KUKA_KR5_scara_R350_Z200</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR5_sixx_R650/inversekinematic_kuka_kr5_sixx_r650.html" class="code" title="function q = inversekinematic_kuka_kr5_sixx_r650(robot, T)">inversekinematic_kuka_kr5_sixx_r650</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR5_sixx_R850/inversekinematic_kuka_kr5_sixx_r850.html" class="code" title="function q = inversekinematic_kuka_kr5_sixx_r850(robot, T)">inversekinematic_kuka_kr5_sixx_r850</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR6_2/inversekinematic_kuka_kr6_2.html" class="code" title="function q = inversekinematic_kuka_kr6_2(robot, T)">inversekinematic_kuka_kr6_2</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR90_R2700_pro/inversekinematic_kuka_kr90_R2700_pro.html" class="code" title="function q = inversekinematic_kuka_kr90_R2700_pro(robot, T)">inversekinematic_kuka_kr90_R2700_pro</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR90_R3100_EXTRA/inversekinematic_kuka_KR90_R3100_EXTRA.html" class="code" title="function q = inversekinematic_kuka_KR90_R3100_EXTRA(robot, T)">inversekinematic_kuka_KR90_R3100_EXTRA</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR_1000_1300_TITAN/inversekinematic_KR_1000_1300_TITAN.html" class="code" title="function q = inversekinematic_KR_1000_1300_TITAN(robot, T)">inversekinematic_KR_1000_1300_TITAN</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/KUKA/KR_16_arc_HW/inversekinematic_kuka_kr_16_arc_HW.html" class="code" title="function q = inversekinematic_kuka_kr_16_arc_HW(robot, T)">inversekinematic_kuka_kr_16_arc_HW</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/MITSUBISHI/PA-10/inversekinematic_pa_10_6DOF.html" class="code" title="function q = inversekinematic_pa_10_6DOF(robot, T)">inversekinematic_pa_10_6DOF</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/MITSUBISHI/rv-6s/inversekinematic_rv_6s.html" class="code" title="function q = inversekinematic_rv_6s(robot, T)">inversekinematic_rv_6s</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/STAUBLI/RX160L/inversekinematic_rx160l.html" class="code" title="function q = inversekinematic_rx160l(robot, T)">inversekinematic_rx160l</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/UNIMATE/puma560/inversekinematic_puma560.html" class="code" title="function q = inversekinematic_puma560(robot, T)">inversekinematic_puma560</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/example/scara/inversekinematic_scara.html" class="code" title="function q = inversekinematic_scara(robot, T)">inversekinematic_scara</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/robots/example/stanford/inversekinematic_stanford.html" class="code" title="function q = inversekinematic_stanford(robot, T)">inversekinematic_stanford</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/tools/drawrobot3d.html" class="code" title="function drawrobot3d(robot, q, noclear)">drawrobot3d</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../../arte3.1.4/tools/drawrobot3d_simulation.html" class="code" title="function robot=drawrobot3d_simulation(robot, q)">drawrobot3d_simulation</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%   DENAVIT Compute an homogeneous transform matrix DH in terms of</span>
+0002 <span class="comment">%   Denavit-Hartenberg's parameters of the robot</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   A = DH(TETA, D, A, alpha) returns a 4 x 4 homogeneous</span>
+0005 <span class="comment">%   transformation matrix  as a function of the the Denavit-Hartenberg's</span>
+0006 <span class="comment">%   parameters D, alpha, A and THETA for link i.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%   A = DH(robot, q, i) is an abbreviated call to return a 4x4</span>
+0009 <span class="comment">%   homogeneous transformation matrix as a function of the robot parameters</span>
+0010 <span class="comment">%   robot.DH.theta, d, a, alpha the joint values q and the transformation i.</span>
+0011 <span class="comment">%   For i = 1, the function returns the transformation matrix T01, for i=2,</span>
+0012 <span class="comment">%   T02..., etc.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%    See also DIRECTKINEMATIC.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0017 <span class="comment">%   email: arturo.gil@umh.es date:   01/01/2012</span>
+0018 
+0019 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0024 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0025 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0026 <span class="comment">% (at your option) any later version.</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0029 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0030 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0031 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0034 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0035 <a name="_sub0" href="#_subfunctions" class="code">function A=dh(theta, d, a, alpha)</a>
+0036 <span class="keyword">switch</span> nargin
+0037     <span class="keyword">case</span> 3 <span class="comment">%abbreviated call to denavit</span>
+0038         <span class="comment">%arrange arguments</span>
+0039         robot = theta;
+0040         q = d;
+0041         i = a;
+0042         
+0043         theta = eval(robot.DH.theta);
+0044         d = eval(robot.DH.d);
+0045         a = eval(robot.DH.a);
+0046         alpha = eval(robot.DH.alpha);
+0047         
+0048         theta = theta(i);
+0049         d = d(i);
+0050         a = a(i);
+0051         alpha = alpha(i);
+0052         
+0053         A=[cos(theta)  -cos(alpha)*sin(theta)   sin(alpha)*sin(theta)   a*cos(theta);
+0054             sin(theta)   cos(alpha)*cos(theta)  -sin(alpha)*cos(theta)   a*sin(theta);
+0055             0              sin(alpha)             cos(alpha)             d;
+0056             0                     0                     0              1];
+0057     <span class="keyword">case</span> 4 <span class="comment">%full 4 argumen call to denavit</span>
+0058         A=[cos(theta)  -cos(alpha)*sin(theta)   sin(alpha)*sin(theta)   a*cos(theta);
+0059             sin(theta)   cos(alpha)*cos(theta)  -sin(alpha)*cos(theta)   a*sin(theta);
+0060             0              sin(alpha)             cos(alpha)             d;
+0061             0         0                     0              1];
+0062     <span class="keyword">otherwise</span>
+0063         disp(<span class="string">'ERROR:denavit: uncorrect number of arguments'</span>)
+0064 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

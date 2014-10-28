@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of plot_every_robot_demo</title>
+  <meta name="keywords" content="plot_every_robot_demo">
+  <meta name="description" content="SCRIPT TEST TO LOAD ALL ROBOTS">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">demos</a> &gt; plot_every_robot_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>plot_every_robot_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>SCRIPT TEST TO LOAD ALL ROBOTS</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> SCRIPT TEST TO LOAD ALL ROBOTS</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% SCRIPT TEST TO LOAD ALL ROBOTS</span>
+0002 
+0003 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0008 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0009 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0010 <span class="comment">% (at your option) any later version.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0013 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0014 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0015 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0018 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0019 
+0020 close all
+0021 
+0022 
+0023 fprintf(<span class="string">'\nTHE DEMO LOADS ALL ROBOTS AND PLOTS THEM'</span>)
+0024 
+0025 <span class="comment">%there are eight possible solutions for the</span>
+0026 
+0027 <span class="comment">%load robot parameters</span>
+0028 <span class="comment">% you can try different robots</span>
+0029 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB52'</span>); 
+0030 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB140'</span>); 
+0031 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB1600_6_120'</span>);  
+0032 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB1600_X145_M2004'</span>);  
+0033 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB1600ID'</span>);  
+0034 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB2400'</span>);  
+0035 <span class="comment">%robot=load_robot('abb', 'IRB4400');</span>
+0036 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB4600'</span>);  
+0037 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB6620'</span>);  
+0038 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB6620LX'</span>); 
+0039 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB6650S_125_350'</span>);  
+0040 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB7600_150'</span>);  
+0041 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB7600_400_255_m2000'</span>);  
+0042 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'abb'</span>, <span class="string">'IRB7600_500_230'</span>);  
+0043 <span class="comment">%ADEPT</span>
+0044 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'adept'</span>, <span class="string">'Viper_s1700D'</span>);  
+0045 <span class="comment">%EPSON</span>
+0046 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'epson'</span>, <span class="string">'Prosix_C3_A601C'</span>);  
+0047 <span class="comment">%FANUC</span>
+0048 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'fanuc'</span>, <span class="string">'LR_MATE_200iC'</span>);  
+0049 <span class="comment">%KUKA</span>
+0050 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR5_2ARC_HW'</span>);  
+0051 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR5_arc'</span>);  
+0052 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR5_scara_R350_Z200'</span>);  
+0053 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR5_sixx_R650'</span>);  
+0054 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR5_sixx_R850'</span>);  
+0055 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR6_2'</span>);  
+0056 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR30_jet'</span>);  
+0057 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR90_R2700_pro'</span>);  
+0058 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR90_R3100_EXTRA'</span>);  
+0059 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR_16_arc_HW'</span>);  
+0060 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR_30_L16_2'</span>);  
+0061 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'kuka'</span>, <span class="string">'KR_1000_1300_TITAN'</span>);  
+0062 <span class="comment">%MITSUBISHI</span>
+0063 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'mitsubishi'</span>, <span class="string">'pa-10'</span>);  
+0064 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'mitsubishi'</span>, <span class="string">'rv-6s'</span>);  
+0065 <span class="comment">%STANFORD ARM</span>
+0066 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'example'</span>, <span class="string">'stanford'</span>); 
+0067 <span class="comment">%STAUBLI</span>
+0068 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'staubli'</span>, <span class="string">'RX160L'</span>);   
+0069 <span class="comment">%UNIMATE</span>
+0070 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'unimate'</span>, <span class="string">'puma560'</span>);  
+0071 
+0072 
+0073 <span class="comment">%EXAMPLE ROBOTS</span>
+0074 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'example'</span>, <span class="string">'2dofplanar'</span>); 
+0075 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'example'</span>, <span class="string">'3dofplanar'</span>); 
+0076 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'example'</span>, <span class="string">'scara'</span>); 
+0077 robot=<a href="../../arte3.1.4/lib/load_robot.html" class="code" title="function robot = load_robot(varargin)">load_robot</a>(<span class="string">'example'</span>, <span class="string">'stanford'</span>); 
+0078 
+0079 
+0080</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of spline</title>
+  <meta name="keywords" content="spline">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">arte3.1.4</a> &gt; <a href="index.html">lib</a> &gt; spline.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/lib&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>spline
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function poly = spline(tacel, thetaini, thetafinal, velini, velfinal, acelini) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  poly = spline(tacel, thetaini, thetafinal, velini, velfinal, acelini)
+
+  Computes the coefficients a b c d e of the polynomial defined as
+  theta(t) = a + bt + ct^2 + dt^3 + et^4
+  Returns: poly = [a b c d e]
+  Inputs:
+   tacel: total time to perform movement
+   thetaini, thetafinal: initial and final joint coordinates.
+   velini, velfinal: initial and final joint speeds.
+   acelini: initial acceleration of the joints.
+
+   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+   email: arturo.gil@umh.es date:   26/06/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%  poly = spline(tacel, thetaini, thetafinal, velini, velfinal, acelini)</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  Computes the coefficients a b c d e of the polynomial defined as</span>
+0005 <span class="comment">%  theta(t) = a + bt + ct^2 + dt^3 + et^4</span>
+0006 <span class="comment">%  Returns: poly = [a b c d e]</span>
+0007 <span class="comment">%  Inputs:</span>
+0008 <span class="comment">%   tacel: total time to perform movement</span>
+0009 <span class="comment">%   thetaini, thetafinal: initial and final joint coordinates.</span>
+0010 <span class="comment">%   velini, velfinal: initial and final joint speeds.</span>
+0011 <span class="comment">%   acelini: initial acceleration of the joints.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%   Author: Arturo Gil. Universidad Miguel Hernández de Elche.</span>
+0014 <span class="comment">%   email: arturo.gil@umh.es date:   26/06/2012</span>
+0015 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0016 
+0017 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0022 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0023 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0024 <span class="comment">% (at your option) any later version.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0027 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0028 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0029 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0032 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0033 <a name="_sub0" href="#_subfunctions" class="code">function poly = spline(tacel, thetaini, thetafinal, velini, velfinal, acelini)</a>
+0034 
+0035 A=[1 0 0 0 0;
+0036    1 tacel tacel^2 tacel^3 tacel^4;
+0037    0 1 0 0 0;
+0038    0 1 2*tacel 3*tacel^2 4*tacel^3;
+0039    0 0 2 0 0];
+0040 
+0041 b = [thetaini thetafinal velini velfinal acelini]';
+0042 
+0043 x = inv(A)*b
+0044 
+0045 poly = x;
+0046 
+0047 
+0048 t=0:0.001:tacel;
+0049 
+0050 theta = x(1) + x(2)*t + x(3)*t.^2+ x(4)*t.^3+x(5)*t.^4;
+0051 
+0052 thetap = x(2)+2*x(3)*t+3*x(4)*t.^2+4*x(5)*t.^3;
+0053 
+0054 thetapp = 2*x(3)+6*x(4)*t+12*x(5)*t.^2;
+0055 
+0056 figure, plot(t, theta)
+0057 figure, plot(t, thetap)
+0058 figure, plot(t, thetapp)</pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

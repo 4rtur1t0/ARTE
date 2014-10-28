@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of find_singular_points</title>
+  <meta name="keywords" content="find_singular_points">
+  <meta name="description" content="LOOK FOR SINGULAR POINTS IN JOINT SPACE">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">arte3.1.4</a> &gt; <a href="../index.html">demos</a> &gt; <a href="index.html">more_demos</a> &gt; find_singular_points.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for arte3.1.4/demos/more_demos&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>find_singular_points
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>LOOK FOR SINGULAR POINTS IN JOINT SPACE</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function singular_points = find_singular_points(param) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> LOOK FOR SINGULAR POINTS IN JOINT SPACE</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% LOOK FOR SINGULAR POINTS IN JOINT SPACE</span>
+0002 
+0003 <span class="comment">% Copyright (C) 2012, by Arturo Gil Aparicio</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This file is part of ARTE (A Robotics Toolbox for Education).</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% ARTE is free software: you can redistribute it and/or modify</span>
+0008 <span class="comment">% it under the terms of the GNU Lesser General Public License as published by</span>
+0009 <span class="comment">% the Free Software Foundation, either version 3 of the License, or</span>
+0010 <span class="comment">% (at your option) any later version.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% ARTE is distributed in the hope that it will be useful,</span>
+0013 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0014 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0015 <span class="comment">% GNU Lesser General Public License for more details.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% You should have received a copy of the GNU Leser General Public License</span>
+0018 <span class="comment">% along with ARTE.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0019 
+0020 <a name="_sub0" href="#_subfunctions" class="code">function singular_points = find_singular_points(param)</a>
+0021 
+0022 singular_points=[];
+0023 
+0024 q=[0 0 0 0];
+0025 
+0026 teta = eval(param.DH.theta);
+0027 d = eval(param.DH.d);
+0028 a = eval(param.DH.a);
+0029 alfa = eval(param.DH.alpha);
+0030 
+0031 <span class="comment">%J = eval(param.J)</span>
+0032 
+0033 
+0034 q1=-pi:0.05:pi;
+0035 q2=-pi:0.05:pi;
+0036 
+0037 <span class="keyword">for</span> i=1:length(q1),
+0038     fprintf(<span class="string">'\nIteration %d of %d'</span>, i, length(q1))
+0039    <span class="keyword">for</span> j=1:length(q2),
+0040         q=[q1(i) q2(j) 0];
+0041         J = eval(param.J);
+0042        
+0043         val = det(J);
+0044         <span class="keyword">if</span> abs(val) &lt; 0.0001
+0045             singular_points = [singular_points q'];
+0046         <span class="keyword">end</span>
+0047    <span class="keyword">end</span>
+0048 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-May-2013 19:30:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
