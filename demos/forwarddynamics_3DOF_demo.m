@@ -26,7 +26,7 @@ robot=load_robot('example', '3dofplanar');
 
 %simulate for 50 seconds, change this depending on your computer speed and
 %the total time that you want to simulate
-total_simulation_time = 50; 
+total_simulation_time = 10; 
 
 %initial position and joint speed
 q0 = [0 0 0]';
@@ -58,14 +58,14 @@ adjust_view(robot);
 %you may redefine the gravity vector
 %in this case you may one of the next two lines, that define
 %the gravity acting along the Y axis or the Z axis, respectively.
-g=[0  9.81 0]'; %y axis
+g=[0  -9.81 0]'; %y axis
 %g=[0  0 9.81]'; % Z axis
 
 %tau = [3 2 1]';
 tau = [0 0 0]';%no torques applied
 
 %select friction or not
-robot.dynamics.friction = 1;
+robot.dynamics.friction = 0;
 
 fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 
