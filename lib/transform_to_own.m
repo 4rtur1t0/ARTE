@@ -76,10 +76,12 @@ n=length(theta); %# number of DOFs
 %T=eye(4);
 T=robot.T0;
 for i=0:robot.DOF,
-    fprintf('\nReading link %d BASE\n %s\n', i, sprintf([robot.path '/link%d_base.stl'], i));
+    file_i_base=sprintf('/link%d_base.stl', i);
+    file_i=sprintf('/link%d.stl', i);
     %read file in base reference system. Please note that link0 is already
     %defined in the base reference system. In the first loop T= identity
-    [fout, vout, cout] = stl_read(sprintf([robot.path '/link%d_base.stl'], i));
+    fprintf('\nReading link %d BASE\n %s\n', i, [robot.path  file_i_base]);
+    [fout, vout, cout] = stl_read([robot.path  file_i_base]);
     
     %change points from mm to meters.
     V=vout/mm2m;
@@ -100,15 +102,14 @@ for i=0:robot.DOF,
     %inverse transform, the points V in link i are now referred to its own D-H reference system
     V = (inv(T)*V')';
     V  = V(:,1:3);
-    fprintf('\nWriting link %d\n %s\n', i, sprintf([robot.path '/link%d.stl'], i));
-    stlwrite(sprintf([robot.path '/link%d.stl'], i), fout, V, 'mode', 'ascii');
+    fprintf('\nWriting link %d\n %s\n', i, [robot.path file_i]);
+    stlwrite([robot.path '/link%d.stl'], fout, V, 'mode', 'ascii');
     %compute transformation for the next link
     if (i+1) > robot.DOF
         continue;
     end
     T = T*dh(theta(i+1), d(i+1), a(i+1), alfa(i+1));
 end
-
 %restore path
 cd(path);
 
