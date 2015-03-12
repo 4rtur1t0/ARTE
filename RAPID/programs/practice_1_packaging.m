@@ -20,10 +20,7 @@
 %   E) IF NECESSARY, CHANGE THE POSITION AND ORIENTATION OF THE piece,
 %   relative to the robot's base reference system.
 %
-%       >> robot.piece.T0= [1 0 0 -0.1;
-%                        0 1 0 -0.5;
-%                        0 0 1 0.2;
-%                        0 0 0 1]; 
+%       >> robot.piece.T0= [1 0 0 -0.1; 0 1 0 -0.5;0 0 1 0.2;0 0 0 1]; 
 %
 %   The A, B, C, D and E steps can be performed usint the 'teach' application
 %   by clicking on the Load equipment, load end tool, and load piece

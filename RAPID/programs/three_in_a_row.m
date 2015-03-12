@@ -44,7 +44,7 @@
 %
 % In RAPID, consider the use of ConfJ on, or ConfJ off, or ConfL on, or ConfL off
 % in the case the controller avoids the change of configurations between target points
-function tres
+function three_in_a_row
 
 global RT_pos_ini RJ_ini RT_aprox_rec RT_pos_rec
 global RT_aprox_dej RT_pos_dej TD_gripper VAR_pieza
