@@ -49,7 +49,6 @@ m1=robot.dynamics.masses(1);
 m2=robot.dynamics.masses(2);
 
 
-
 %M is a 2x2 manipulator inertia matrix
 M = [(m1*(1/3) + m2)*a1^2 + m2*a1*a2*cos(q(2)) + (1/3)*m2*a2^2 ... 
       (1/2)*m2*a1*a2*cos(q(2))+(1/3)*m2*a2^2 ;
