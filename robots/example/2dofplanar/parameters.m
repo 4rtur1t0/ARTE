@@ -120,7 +120,7 @@ robot.has_dynamics=1;
 robot.dynamics.friction=0;
 
 %link masses (kg)
-robot.dynamics.masses=[1 1];
+robot.dynamics.masses=[0.5 0.5];
 
 %COM of each link with respect to own reference system
 robot.dynamics.r_com=[-0.5      0         0; %(rx, ry, rz) link 1, w/r to reference system 1
