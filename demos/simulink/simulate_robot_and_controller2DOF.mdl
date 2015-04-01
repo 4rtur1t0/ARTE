@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.212"
+    ComputedModelVersion    "1.214"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,9 +30,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "arturogilaparicio"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Mar 30 11:50:56 2015"
-  RTWModifiedTimeStamp	  349613439
-  ModelVersionFormat	  "1.%<AutoIncrement:212>"
+  LastModifiedDate	  "Wed Apr  1 11:37:54 2015"
+  RTWModifiedTimeStamp	  349789043
+  ModelVersionFormat	  "1.%<AutoIncrement:214>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -686,6 +686,10 @@ Model {
   }
   BlockParameterDefaults {
     Block {
+      BlockType		      Clock
+      DisplayTime	      off
+    }
+    Block {
       BlockType		      Constant
       Value		      "1"
       VectorParams1D	      on
@@ -891,7 +895,7 @@ Model {
   }
   System {
     Name		    "simulate_robot_and_controller2DOF"
-    Location		    [961, 164, 2225, 882]
+    Location		    [440, 67, 1704, 785]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -905,7 +909,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "321"
+    SIDHighWatermark	    "323"
     Block {
       BlockType		      Mux
       Name		      "Mux"
@@ -937,7 +941,7 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"ROBOT"
-	Location		[417, 137, 2395, 1064]
+	Location		[375, 156, 2353, 1083]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -962,10 +966,17 @@ Model {
 	  Name			  "2 DOF ROBOT"
 	  SID			  "3"
 	  Ports			  [1, 1]
-	  Position		  [1280, 408, 1360, 452]
+	  Position		  [1290, 408, 1370, 452]
 	  BackgroundColor	  "lightBlue"
 	  MATLABFcn		  "call_direct_dynamics2DOF_fast(u)"
 	  OutputDimensions	  "2"
+	}
+	Block {
+	  BlockType		  Clock
+	  Name			  "Clock"
+	  SID			  "323"
+	  Position		  [1205, 450, 1225, 470]
+	  Decimation		  "10"
 	}
 	Block {
 	  BlockType		  Demux
@@ -1021,7 +1032,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Motor 1"
-	    Location		    [516, 425, 1776, 1087]
+	    Location		    [516, 513, 1776, 1175]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1058,7 +1069,7 @@ Model {
 	      Position		      [290, 292, 345, 328]
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
-	      Gain		      "0.147"
+	      Gain		      "0.547"
 	    }
 	    Block {
 	      BlockType		      Gain
@@ -1081,8 +1092,8 @@ Model {
 	      Ports		      [1, 1]
 	      Position		      [420, 105, 450, 135]
 	      InputPortMap	      "u0"
-	      UpperLimit	      "15"
-	      LowerLimit	      "-15"
+	      UpperLimit	      "30"
+	      LowerLimit	      "-30"
 	      ZeroCross		      off
 	    }
 	    Block {
@@ -1098,7 +1109,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "234"
 	      Position		      [490, 86, 555, 154]
-	      Gain		      "0.147"
+	      Gain		      "0.547"
 	    }
 	    Block {
 	      BlockType		      TransferFcn
@@ -1192,7 +1203,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Motor 2"
-	    Location		    [430, 311, 1706, 976]
+	    Location		    [430, 355, 1706, 1020]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1229,7 +1240,7 @@ Model {
 	      Position		      [290, 292, 345, 328]
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
-	      Gain		      "0.147"
+	      Gain		      "0.547"
 	    }
 	    Block {
 	      BlockType		      Gain
@@ -1252,8 +1263,8 @@ Model {
 	      Ports		      [1, 1]
 	      Position		      [420, 105, 450, 135]
 	      InputPortMap	      "u0"
-	      UpperLimit	      "15"
-	      LowerLimit	      "-15"
+	      UpperLimit	      "30"
+	      LowerLimit	      "-30"
 	      ZeroCross		      off
 	    }
 	    Block {
@@ -1269,7 +1280,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "286"
 	      Position		      [490, 86, 555, 154]
-	      Gain		      "0.147"
+	      Gain		      "0.547"
 	    }
 	    Block {
 	      BlockType		      TransferFcn
@@ -1361,9 +1372,8 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux1"
 	  SID			  "85"
-	  Ports			  [3, 1]
-	  Position		  [1230, 385, 1235, 475]
-	  Inputs		  "3"
+	  Ports			  [4, 1]
+	  Position		  [1265, 385, 1270, 475]
 	  DisplayOption		  "bar"
 	}
 	Block {
@@ -1403,7 +1413,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "Out1"
 	  SID			  "89"
-	  Position		  [1155, 458, 1185, 472]
+	  Position		  [1145, 458, 1175, 472]
 	  IconDisplay		  "Port number"
 	}
 	Line {
@@ -1450,7 +1460,7 @@ Model {
 	    }
 	    Branch {
 	      Labels		      [1, 0]
-	      Points		      [-272, 0; 0, -75]
+	      Points		      [-282, 0; 0, -95]
 	      DstBlock		      "Mux1"
 	      DstPort		      3
 	    }
@@ -1503,8 +1513,9 @@ Model {
 	  SrcPort		  1
 	  Points		  [90, 0; 0, 145; -535, 0; 0, -145; 20, 0]
 	  Branch {
-	    Points		    [15, 0]
+	    Points		    [5, 0]
 	    Branch {
+	      Points		      [0, -10]
 	      DstBlock		      "Mux1"
 	      DstPort		      2
 	    }
@@ -1533,17 +1544,23 @@ Model {
 	    DstPort		    1
 	  }
 	}
+	Line {
+	  SrcBlock		  "Clock"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
 	Annotation {
 	  Name			  "accel"
-	  Position		  [1397, 429]
+	  Position		  [1387, 414]
 	}
 	Annotation {
 	  Name			  "speed"
-	  Position		  [1489, 432]
+	  Position		  [1484, 417]
 	}
 	Annotation {
 	  Name			  "position"
-	  Position		  [1600, 431]
+	  Position		  [1595, 421]
 	}
 	Annotation {
 	  Name			  "The MATLAB Function calls the direct dynamics of the robot: \nReceives as input a 1x6 vector containing t"
@@ -1590,8 +1607,8 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"ROBOT CONTROLLER"
-	Location		[359, 281, 1679, 1016]
-	Open			off
+	Location		[359, 391, 1679, 1126]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1602,7 +1619,7 @@ Model {
 	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"80"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Reference"
@@ -1681,6 +1698,15 @@ Model {
 	  Lockdown		  off
 	}
 	Block {
+	  BlockType		  Display
+	  Name			  "Display 3"
+	  SID			  "322"
+	  Ports			  [1]
+	  Position		  [945, 340, 1035, 370]
+	  Decimation		  "1"
+	  Lockdown		  off
+	}
+	Block {
 	  BlockType		  Integrator
 	  Name			  "Integrator 1"
 	  SID			  "292"
@@ -1700,7 +1726,7 @@ Model {
 	  SID			  "296"
 	  Position		  [785, 265, 815, 295]
 	  ForegroundColor	  "red"
-	  Gain			  "0"
+	  Gain			  "10"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1711,7 +1737,7 @@ Model {
 	  SID			  "300"
 	  Position		  [770, 530, 800, 560]
 	  ForegroundColor	  "green"
-	  Gain			  "0"
+	  Gain			  "10"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1722,7 +1748,7 @@ Model {
 	  SID			  "295"
 	  Position		  [780, 197, 815, 233]
 	  ForegroundColor	  "red"
-	  Gain			  "0"
+	  Gain			  "50"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1733,7 +1759,7 @@ Model {
 	  SID			  "299"
 	  Position		  [765, 465, 795, 495]
 	  ForegroundColor	  "green"
-	  Gain			  "0"
+	  Gain			  "50"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1742,9 +1768,9 @@ Model {
 	  BlockType		  Gain
 	  Name			  "Kp 1"
 	  SID			  "294"
-	  Position		  [710, 135, 740, 165]
+	  Position		  [710, 134, 760, 176]
 	  ForegroundColor	  "red"
-	  Gain			  "0"
+	  Gain			  "100"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1753,9 +1779,9 @@ Model {
 	  BlockType		  Gain
 	  Name			  "Kp 2"
 	  SID			  "298"
-	  Position		  [695, 400, 725, 430]
+	  Position		  [695, 392, 750, 438]
 	  ForegroundColor	  "green"
-	  Gain			  "0"
+	  Gain			  "100"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1777,8 +1803,8 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [910, 200, 940, 230]
 	  InputPortMap		  "u0"
-	  UpperLimit		  "36"
-	  LowerLimit		  "-36"
+	  UpperLimit		  "48"
+	  LowerLimit		  "-48"
 	  ZeroCross		  off
 	}
 	Block {
@@ -1788,8 +1814,8 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [935, 465, 965, 495]
 	  InputPortMap		  "u0"
-	  UpperLimit		  "36"
-	  LowerLimit		  "-36"
+	  UpperLimit		  "48"
+	  LowerLimit		  "-48"
 	  ZeroCross		  off
 	}
 	Block {
@@ -1915,8 +1941,16 @@ Model {
 	Line {
 	  SrcBlock		  "Saturation 1"
 	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Mux"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [-30, 0]
+	    DstBlock		    "Display 3"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "Saturation 2"
@@ -1939,7 +1973,7 @@ Model {
 	Line {
 	  SrcBlock		  "Kp 1"
 	  SrcPort		  1
-	  Points		  [105, 0]
+	  Points		  [85, 0]
 	  DstBlock		  "Sum"
 	  DstPort		  1
 	}
@@ -1980,7 +2014,7 @@ Model {
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, -65]
+		Points			[0, -60]
 		DstBlock		"Kp 1"
 		DstPort			1
 	      }
@@ -2008,7 +2042,7 @@ Model {
 	Line {
 	  SrcBlock		  "Kp 2"
 	  SrcPort		  1
-	  Points		  [105, 0]
+	  Points		  [80, 0]
 	  DstBlock		  "Sum1"
 	  DstPort		  1
 	}
@@ -2051,8 +2085,8 @@ Model {
       Ports		      [1]
       Position		      [1145, 179, 1175, 211]
       Floating		      off
-      Location		      [123, 216, 811, 666]
-      Open		      off
+      Location		      [1291, 389, 2096, 949]
+      Open		      on
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
