@@ -92,8 +92,7 @@ for i=0:robot.DOF,
     %         0 1 0 0.1/2;
     %         0 0 1 0.02/2;
     %         0 0 0 1]
-   
-   %Or even re-scale the points
+    %Or even re-scale the points
     %        T=[2 0 0 0;
     %          0 1/2 0 0;
     %          0 0 1/5 0;
@@ -103,7 +102,8 @@ for i=0:robot.DOF,
     V = (inv(T)*V')';
     V  = V(:,1:3);
     fprintf('\nWriting link %d\n %s\n', i, [robot.path file_i]);
-    stlwrite([robot.path '/link%d.stl'], fout, V, 'mode', 'ascii');
+    stlwrite([robot.path file_i], fout, V, 'mode', 'ascii');
+    
     %compute transformation for the next link
     if (i+1) > robot.DOF
         continue;

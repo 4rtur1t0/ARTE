@@ -19,6 +19,8 @@
 close all
 
 robot =  load_robot('mitsubishi','pa-10');
+% or load any other robot with:
+%robot =  load_robot
 
 
 %NOA matrix initial point
@@ -70,7 +72,7 @@ drawrobot3d(robot, qs(:,end))
 %Now, animate the robot in 3D
 animate(robot, qs);
 
-figure, hold, plot(qs(1,:), 'r.'),plot(qs(2,:), 'g.'), plot(qs(3,:), 'b.'), plot(qs(4,:), 'c.'), 
+figure, hold, plot(qs(1,:), 'r'),plot(qs(2,:), 'g'), plot(qs(3,:), 'b'), plot(qs(4,:), 'c'), 
 plot(qs(5,:), 'm.'), plot(qs(6,:), 'y.'),
 legend('q_1 (rad)','q_2 (rad)','q_3 (rad)', 'q_4 (rad)', 'q_5 (rad)', 'q_6 (rad)' ), title('Joint trajectories'), xlabel('Step number')
 
