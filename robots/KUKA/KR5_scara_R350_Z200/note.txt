@@ -1,0 +1,1 @@
+The KUKA KR5 scara robot with a reach of 350 mm. Z depth 200 mm. 
