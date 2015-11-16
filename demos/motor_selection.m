@@ -170,7 +170,7 @@ for j=1:length(time),
     M=1;
     %please note that the force due to the load acts on the z axis of
     tau=inversedynamic(robot, q, input_speeds(:,j), input_accels(:,j), [0  0 -9.81]', [M*9.81 0 0 0 0 0]');
-    torques=[torques tau'];
+    torques=[torques tau];
 end
 
 
