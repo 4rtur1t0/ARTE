@@ -5,10 +5,13 @@
 %   C Defines the color of the robot.
 %   If transparent == 1, the robot is drawn with transparency.
 %   
+%   Example of use. Move to the directory arte/robots/ABB/IRB140, for example:
+%   >> [f, v, c] = stl_read('link0.stl')
+%   >> draw_patch(f, v)
 %   
 %	See also DRAW_LINK, DRAWROBOT3D, ANIMATE
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   05/02/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
@@ -38,8 +41,9 @@ end
 if nargin==3
     transparent=0;
 end
-
-set(gca, 'drawmode', 'fast');
+%Following github/banenky recommendation we have removed this line
+%since it is no longer supported by Matlab 2015
+%set(gca, 'drawmode', 'fast');
 
 %draw the vertices
 %note: vertices should be expressed in m

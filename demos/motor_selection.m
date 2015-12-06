@@ -1,5 +1,21 @@
-%   SCRIPT TO FIND THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF
+%   SCRIPT TO COMPUTE THE TORQUES AT EACH JOINT FOR DIFFERENT MOTION STATES OF
 %   THE ARM.
+%   
+%   In order to select an actuator (i.e. an electric motor, brushless for
+%   example), we may need.
+%   Nominal torque and speed: torque and speed for the 80% of the use of the motor. 
+%   Peak torque and speed: torque and speed for short periods of time. That
+%   is: a higher torque that can be exerted at higher speeds during a
+%   maximum of a 20% of the time.
+%   
+%   Of course, the 80-20% are just bare numbers and should be given by the
+%   robot manufacturer. Actually the torque in any motor depends directly
+%   on the quantity of current that can be driven into the motor.
+%   Typically, the peak torque is associated with a peak current. If the
+%   peak current is maintained for a long time the motor will not be able
+%   to dissipate the heat inside, thus generating high temperatures that
+%   could melt the coils, conductors... etc.
+%
 %   The script uses the inverse dynamic model of the robot to simulate
 %   different motion states and compute the torques for each situation.
 %   The torques at each joint, as well as the torques at each motor are computed
@@ -42,6 +58,16 @@ global robot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PARAMETERS SECTION
+%   Feel free to change the values of q, maximum_speeds and 
+%   maximum_accels. 
+%  
+%   This script tries to allow the student to test any mechanism
+%   at the worst case. In this sense, q should be adjusted 
+%   as the pose where each joint would (statically) be needing a
+%   higher torque.
+%   The maximum_speeds and maximum_acceleration define a trapezoidal
+%   speed profile. This trapezoidal speed is used by most machines
+%   to command changes in speed in any of their joints.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % robot pose: experiment by changing the pose while observing the different
@@ -59,8 +85,8 @@ maximum_accels=[5 5 6 7 8 9]; %rad/second^2
 time_at_constant_speed=0.4; %seconds
 
 
-%load robot parameters
-robot=load_robot('unimate', 'puma560');
+%load robot parameters. Just uncomment this line
+%robot=load_robot('ABB', 'IRB140');
 drawrobot3d(robot, q)
 
 
@@ -223,8 +249,8 @@ legend('Speed at motor 1 (qd1*G)','Speed at motor 2 (qd2*G)','Speed at motor 3 (
 fprintf('\nMAIN RESULTS (referred to each motor): ')
 fprintf('\n------------------------------------------------------------------------------------ ')
 fprintf('\n                         Joint 1 - Joint 2 - Joint 3 - Joint 4  - Joint 5 - Joint 6: ')
-fprintf('\nPeak Torque (N·m):        %.3f     %.3f     %.3f     %.3f      %.3f    %.3f ', max(abs(torques(1,:)/robot.motors.G(1))), max(abs(torques(2,:)/robot.motors.G(2))) , max(abs(torques(3,:)/robot.motors.G(3))) , max(abs(torques(4,:)/robot.motors.G(4))) , max(abs(torques(5,:)/robot.motors.G(5))) , max(abs(torques(6,:)/robot.motors.G(6))))
-fprintf('\nNominal Torque (N·m):     %.3f     %.3f     %.3f     %.3f      %.3f    %.3f  ', abs(torques(1,round(length(torques)/2))/robot.motors.G(1)), abs(torques(2,round(length(torques)/2))/robot.motors.G(2)), abs(torques(3,round(length(torques)/2))/robot.motors.G(3))...
+fprintf('\nPeak Torque (Nï¿½m):        %.3f     %.3f     %.3f     %.3f      %.3f    %.3f ', max(abs(torques(1,:)/robot.motors.G(1))), max(abs(torques(2,:)/robot.motors.G(2))) , max(abs(torques(3,:)/robot.motors.G(3))) , max(abs(torques(4,:)/robot.motors.G(4))) , max(abs(torques(5,:)/robot.motors.G(5))) , max(abs(torques(6,:)/robot.motors.G(6))))
+fprintf('\nNominal Torque (Nï¿½m):     %.3f     %.3f     %.3f     %.3f      %.3f    %.3f  ', abs(torques(1,round(length(torques)/2))/robot.motors.G(1)), abs(torques(2,round(length(torques)/2))/robot.motors.G(2)), abs(torques(3,round(length(torques)/2))/robot.motors.G(3))...
     , abs(torques(4,round(length(torques)/2))/robot.motors.G(4)), abs(torques(5,round(length(torques)/2))/robot.motors.G(5)), abs(torques(6,round(length(torques)/2))/robot.motors.G(6)))
 fprintf('\nMax motor speed (r.p.m.): %.1f    %.1f    %.1f    %.1f     %.1f   %.1f  ', max(abs(robot.motors.G(1)*input_speeds(1,:))*30/pi), max(abs(robot.motors.G(2)*input_speeds(2,:))*30/pi), max(abs(robot.motors.G(3)*input_speeds(3,:))*30/pi)...
     ,max(abs(robot.motors.G(4)*input_speeds(4,:))*30/pi), max(abs(robot.motors.G(5)*input_speeds(5,:))*30/pi), max(abs(robot.motors.G(6)*input_speeds(6,:))*30/pi))
