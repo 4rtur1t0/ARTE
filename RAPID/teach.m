@@ -40,7 +40,7 @@ function varargout = teach(varargin)
 
 % Edit the above text to modify the response to help teach
 
-% Last Modified by GUIDE v2.5 07-Nov-2013 17:17:00
+% Last Modified by GUIDE v2.5 11-Dec-2015 00:07:25
 global configuration robot 
 global controls program
 
@@ -89,7 +89,7 @@ guidata(hObject, handles);
 % uiwait(handles.figure1);
 
 %initialize application variables
-global robot configuration controls targets program
+global robot configuration controls targets program teachConfig
 
 %reset program
 program=[];
@@ -113,6 +113,10 @@ robot.q_vector=[];
 robot.qd_vector=[];
 robot.qdd_vector=[];
 robot.time=[];
+
+%init teach parameters
+teachConfig.movePrecision=0.01;
+teachConfig.interpolateMovement=0;
 
 
 %update T and Q in the program
@@ -597,20 +601,11 @@ function pushbutton_x_minus_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-global robot controls
+global robot controls teachConfig
 
 
 %FIND RESOLUTION OF MOVEMENT
-resolution=get(controls.popupmenu_resolution,'Value');
-if resolution==3 %low
-    delta=0.05; %m
-end
-if resolution==2
-    delta=0.1; %m
-end
-if resolution==1
-    delta=0.2; %m
-end
+delta = teachConfig.movementPrecision;
 
 
 
@@ -672,20 +667,10 @@ function pushbutton_x_plus_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-global robot controls
+global robot controls teachConfig
 %substract this quantity to X in base coordinates
 %compute total movement
-resolution=get(controls.popupmenu_resolution,'Value');
-if resolution==3 %low
-    delta=0.05; %m
-end
-if resolution==2
-    delta=0.1; %m
-end
-if resolution==1
-    delta=0.2; %m
-end
-
+delta = teachConfig.movementPrecision;
 
 T = directkinematic(robot, robot.q);
 P_ini=T(1:3,4);
@@ -746,19 +731,10 @@ function pushbutton_y_plus_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-global robot controls
+global robot controls teachConfig
 %substract this quantity to X in base coordinates
 %compute total movement
-resolution=get(controls.popupmenu_resolution,'Value');
-if resolution==3 %low
-    delta=0.05; %m
-end
-if resolution==2
-    delta=0.1; %m
-end
-if resolution==1
-    delta=0.2; %m
-end
+delta = teachConfig.movementPrecision;
 
 
 T = directkinematic(robot, robot.q);
@@ -817,19 +793,10 @@ function pushbutton_y_minus_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_y_minus (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global robot controls
+global robot controls teachConfig
 %substract this quantity to X in base coordinates
 %compute total movement
-resolution=get(controls.popupmenu_resolution,'Value');
-if resolution==3 %low
-    delta=0.05; %m
-end
-if resolution==2
-    delta=0.1; %m
-end
-if resolution==1
-    delta=0.2; %m
-end
+delta = teachConfig.movementPrecision;
 
 
 T = directkinematic(robot, robot.q);
@@ -889,20 +856,11 @@ function pushbutton_z_plus_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-global robot controls
+global robot controls teachConfig
 %substract this quantity to X in base coordinates
 
 %compute total movement
-resolution=get(controls.popupmenu_resolution,'Value');
-if resolution==3 %low
-    delta=0.05; %m
-end
-if resolution==2
-    delta=0.1; %m
-end
-if resolution==1
-    delta=0.2; %m
-end
+delta = teachConfig.movementPrecision;
 
 
 T = directkinematic(robot, robot.q);
@@ -962,19 +920,10 @@ function pushbutton_z_minus_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_z_minus (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global robot controls
+global robot controls teachConfig
 %substract this quantity to X in base coordinates
 %compute total movement
-resolution=get(controls.popupmenu_resolution,'Value');
-if resolution==3 %low
-    delta=0.05; %m
-end
-if resolution==2
-    delta=0.1; %m
-end
-if resolution==1
-    delta=0.2; %m
-end
+delta = teachConfig.movementPrecision;
 
 
 T = directkinematic(robot, robot.q);
@@ -2460,36 +2409,44 @@ end
 
 %follow a line in global coordinates
 function follow_line(P_ini,P_final)
-global robot configuration
+global robot configuration teachConfig
 %current end effector's position/orientation
 T = directkinematic(robot, robot.q);
 
 current_conf = compute_configuration(robot, robot.q);   
 
+%Having this compute independently of teachConfig.interpolateMovement is terribly inefficient, but like Matlab 
 path = lineal_path_planXYZ(P_ini,P_final);
 
-for i=1:size(path,2),
-    T(1:3,4)=path(:,i);
-    %several solutions are provided
-    qinv = inversekinematic(robot, T); 
-    %choose the closest to current position
-   
-    q=select_closest_joint_coordinates(qinv, robot.q);
-    
-    robot.q = q;
-    
-    %Test whether there are joints outside mechanical limits
-    error = test_joints(robot, robot.q);
-    
-    drawrobot3d(robot, robot.q);
-    
-    %current_conf = compute_configuration(robot, robot.q);  
-    
-    if error == 1
-        disp('\nAn error has occurred during the trajectory. Please check angle ranges');
-        break;
-    end
+if teachConfig.interpolateMovement == 0
+	startIndex = size(path,2);
+else
+	startIndex = 1;
 end
+
+for i=startIndex:size(path,2),
+	T(1:3,4)=path(:,i);
+	%several solutions are provided
+	qinv = inversekinematic(robot, T); 
+	%choose the closest to current position
+   
+	q=select_closest_joint_coordinates(qinv, robot.q);
+	
+	robot.q = q;
+	
+	%Test whether there are joints outside mechanical limits
+	error = test_joints(robot, robot.q);
+	
+	drawrobot3d(robot, robot.q);
+	
+	%current_conf = compute_configuration(robot, robot.q);  
+	
+	if error == 1
+	    disp('\nAn error has occurred during the trajectory. Please check angle ranges');
+	    break;
+	end
+end
+
 update_T_Q();
 update_sliders();
 plot3(path(1,:),path(2,:),path(3,:),'k', 'LineWidth', 3);
@@ -3130,3 +3087,45 @@ global robot
 
 robot.piece=load_robot();%('equipment/cylinders/cylinder_tiny');
 %robot.piece.T0(1:3,4)=[0 -0.45 0.2]';
+
+
+function edit_movementPrecision_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_movementPrecision (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_movementPrecision as text
+%        str2double(get(hObject,'String')) returns contents of edit_movementPrecision as a double
+global teachConfig
+if isnan(str2double(get(hObject, 'String')))
+	set(hObject, 'String', '0.01');
+	teachConfig.movementPrecision=0.01;
+	disp('lal');
+else
+	teachConfig.movementPrecision=str2double(get(hObject, 'String'));
+end
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_movementPrecision_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_movementPrecision (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in checkbox_animateMovement.
+function checkbox_animateMovement_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox_animateMovement (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox_animateMovement
+global teachConfig
+
+teachConfig.interpolateMovement = get(hObject, 'Value');
