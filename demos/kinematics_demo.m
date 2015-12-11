@@ -19,77 +19,27 @@
 
 close all
 
-
 fprintf('\nTHE DEMO PRESENTS THE DIRECT AND INVERSE KINEMATIC PROBLEM')
 
-%there are eight possible solutions for the 
-%inverse kinematic problem for most of these robots
+%there are eight possible solutions for the inverse kinematic problem for most of these robots
 n_solutions = 8;
 
-%Try different configurations
-%beware that, depending on the robot's topology
-%not all the eight possible solutions will be feasible
-%for an antropomorphic 6R robot.
+%Try different configurations beware that, depending on the robot's topology
+%not all the eight possible solutions will be feasible for an antropomorphic 6R robot.
 %q=[0 0 0 0 0 0]
-%q = [0.5 pi/8 -pi/8 0.1 0.5 0.6]
-%q = [-0.1 -0.8 0.8 0.5 1.5 pi]
+q = [0.1 0.1 0.1 0 0 0];
 
-%q = [pi/4 pi/4 pi/8 pi/8 pi/8 pi/8]
-%q = [-0.9*pi 0 0 0 pi/3 0];	
-q = [pi/4 pi/4 pi/4 0 0 0];
-
-%load robot parameters
-% you can try different robots
+%load robot parameters. You can try different robots
 %robot=load_robot('ABB', 'IRB140'); n_solutions = 8;
 %robot=load_robot('ABB', 'IRB120'); n_solutions = 8;
 %robot=load_robot('ABB', 'IRB1600_6_120'); n_solutions = 8;
-%*
 %robot=load_robot('ABB', 'IRB1600_X145_M2004'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB1600ID'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB2400'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB4400'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB4600'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB52'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB6620'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB6620LX'); n_solutions = 4;
-%robot=load_robot('ABB', 'IRB6650S_125_350'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB7600_150'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB7600_400_255_m2000'); n_solutions = 8;
-%robot=load_robot('ABB', 'IRB7600_500_230'); n_solutions = 8;
-%ADEPT
-%robot=load_robot('adept', 'Viper_s1700D'); n_solutions = 8;
-%EPSON
-%robot=load_robot('epson', 'Prosix_C3_A601C'); n_solutions = 8;
-%FANUC
-%robot=load_robot('fanuc', 'LR_MATE_200iC'); n_solutions = 8;
-%KUKA
-%robot=load_robot('kuka', 'KR30_jet'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR5_2ARC_HW'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR5_arc'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR5_sixx_R650'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR5_sixx_R850'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR6_2'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR90_R2700_pro'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR90_R3100_EXTRA'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR_1000_1300_TITAN'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR_16_arc_HW'); n_solutions = 8;
-%robot=load_robot('kuka', 'KR_30_L16_2'); n_solutions = 8;
-%MITSUBISHI
-%robot=load_robot('mitsubishi', 'pa-10'); n_solutions = 8;%q=[0 0 0 0 0 0];
-%robot=load_robot('mitsubishi', 'rv-6s'); n_solutions = 8;%q=[0 0 0 0 0 0];
-%STANFORD ARM
-%robot=load_robot('stanford', ''); n_solutions = 4;%q=[0 0 0 0 0 0];
-%STAUBLI
-%robot=load_robot('staubli', 'RX160L'); n_solutions = 8; q=[0.1 -0.6 1 0.4 0.5 0.6]
-%UNIMATE
-%robot=load_robot('unimate', 'puma560'); n_solutions = 8;
-
 
 
 %adjust 3D view as desired
 adjust_view(robot)
 
-%there are just 2 solutions for these robots
+%there are just 2 solutions for these robots and 4 DOF
 %q = [pi/2 0.2 0.8 pi/4]
 %q = [-pi/4 pi/2 0.5 pi]
 %robot=load_robot('kuka', 'KR5_scara_R350_Z200'); n_solutions = 2;
@@ -111,9 +61,8 @@ robot.graphical.draw_transparent=0;
 %Set to one if you want to see the DH axes
 %abb.graphical.draw_axes=1;
 
-%Call the inversekinematic for this robot
-% all the possible solutions are stored at qinv
-% at least, one of the possible solutions should be coincident with q
+%Call the inversekinematic for this robot. All the possible solutions are
+%stored at qinv. At least, one of the possible solutions should match q
 qinv = inversekinematic(robot, T);
 
 
@@ -123,8 +72,7 @@ correct=zeros(1,n_solutions);
 %check that all of them are possible solutions!
 for i=1:size(qinv,2),
     
-    Ti = directkinematic(robot, qinv(:,i)) %Ti is constant for the different solutions
-    
+    Ti = directkinematic(robot, qinv(:,i)) %Ti is constant for the different solutions    
     
     % Note that all the solutions may not be feasible. Some of the joints may
     % be out of range. You can test this situation with test_joints
@@ -134,7 +82,7 @@ for i=1:size(qinv,2),
     %now draw the robot to see the solution
     drawrobot3d(robot, qinv(:,i))
     
-    pause(1);
+    pause(5);
     
     k=sum(sum((T-Ti).^2));
     if k < 0.01 % a simple threshold to find differences in the solution
@@ -152,9 +100,10 @@ else
 end
 
 %Now, test if any of the solutions in qinv matches q
-delta=(repmat(q',[1 n_solutions])-qinv).^2;
 %find the solution that matches the initial q
-%and corresponds
+%delta is just a squared sum of errors at each of the columns of the matrix
+%which store the different solutions of qinv
+delta=(repmat(q',[1 n_solutions])-qinv).^2;
 i=find(sum(delta,1)<0.01);
 if ~isempty(i)
     fprintf('\nOK!: Found a matching solution:\n');
