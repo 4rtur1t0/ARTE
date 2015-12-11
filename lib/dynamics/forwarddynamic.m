@@ -63,7 +63,7 @@ end
 % The function returns XDD = [QD QDD].
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function xd = fdyn_private(time, x, tau, g, robot, torqfun, varargin)
-%time
+time
 	n = robot.DOF;
 
 	q = x(1:n)';

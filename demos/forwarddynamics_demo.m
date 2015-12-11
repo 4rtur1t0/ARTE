@@ -1,4 +1,4 @@
-% SCRIPT TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT
+% SCRIPT TO TEST THE DIRECT DYNAMICS OF THE PUMA 560 ROBOT
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
 %
@@ -16,24 +16,27 @@
 % 
 % You should have received a copy of the GNU Lesser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-
 fprintf('\nTHE SIMULATION PRESENTS THE ROBOT AT AN INITIAL POSITION WHEN NO TORQUES ARE APPLIED\n')
 
 %load robot parameters
-robot=load_robot('unimate', 'puma560');
+robot=load_robot('abb', 'irb140');
 
-total_simulation_time = 2; %simulate for 1 second
 
-%initial position and joint speed
+total_simulation_time = 0.5 %simulate for .5 second
+
+%initial position and joint speeds
 q0 = [0 0 0 0 0 0]';
 qd0 = [0 0 0 0 0 0]';
+
+g=[0   0 -9.81]'; %Z0 axis
 
 drawrobot3d(robot, q0);
 adjust_view(robot);
 
 %try both
-tau = [0 0 0 0 0 0]';%no torques applied
-%tau = [0 200 1 1 1 1]';
+%tau = [0 0 0 0 0 0]';%no torques applied
+tau = [0 200 1 1 1 1]';
+%tau = [20 20 21 21 21 21]';
 
 %no friction
 robot.friction = 0;
@@ -42,7 +45,9 @@ fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 
 %this may take a while, since it requires integration
 %of the acceleration at each time step
-[t q qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, []);
+%[t q qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, [0 0 9.81]);
+            %forwarddynamic(robot, time_end, q0, qd0, tau, g, torqfun, varargin)
+[t q qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, g, []);
 
 %animate it!!
 animate(robot, q)

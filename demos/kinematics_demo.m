@@ -31,12 +31,12 @@ n_solutions = 8;
 %not all the eight possible solutions will be feasible
 %for an antropomorphic 6R robot.
 %q=[0 0 0 0 0 0]
-q = [0.5 pi/8 -pi/8 0.1 0.5 0.6]
+%q = [0.5 pi/8 -pi/8 0.1 0.5 0.6]
 %q = [-0.1 -0.8 0.8 0.5 1.5 pi]
 
 %q = [pi/4 pi/4 pi/8 pi/8 pi/8 pi/8]
 %q = [-0.9*pi 0 0 0 pi/3 0];	
-%q = [pi/4 pi/4 pi/4 0 0 0];
+q = [pi/4 pi/4 pi/4 0 0 0];
 
 %load robot parameters
 % you can try different robots
@@ -148,7 +148,7 @@ end
 if sum(correct)==n_solutions
     fprintf('\nOK: Every solution in qinv yields the same position/orientation T');
 else
-    fprintf('\nERROR: One of the solutions seems to be uncorrect.');
+    fprintf('\nERROR: One or more of the solutions seems to be uncorrect.');
 end
 
 %Now, test if any of the solutions in qinv matches q
