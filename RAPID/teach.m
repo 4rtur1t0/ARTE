@@ -115,7 +115,7 @@ robot.qdd_vector=[];
 robot.time=[];
 
 %init teach parameters
-teachConfig.movePrecision=0.01;
+teachConfig.movementPrecision=0.01;
 teachConfig.interpolateMovement=0;
 
 

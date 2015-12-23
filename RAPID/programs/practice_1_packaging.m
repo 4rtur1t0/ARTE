@@ -51,6 +51,8 @@ global RT_pos_ini RJ_ini RT_aprox_rec RT_pos_rec
 global RT_aprox_dej RT_pos_dej TD_gripper VAR_pieza
 global robot
 
+%If desired, move the robot with respect to the world reference system
+%by modifying robot.T0. Example: robot.T0(2,4)=1;
 
 TD_gripper=[1,[[0,0,0.125],[1,0,0,0]],[0.1,[0,0,0.100],[1,0,0,0],0,0,0]];
 
@@ -63,8 +65,8 @@ RT_pos_rec=[[0.0345,-0.629,0.337],[0.261833,0.652321,0.67413,-0.226869],[-1,0,-1
 RT_aprox_dej=[[0.470,-0.460,0.500],[0.07981,0.603204,0.792983,-0.030902],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 RT_pos_dej=[[0.470,-0.460,0.450],[0.07981,0.603204,0.792983,-0.030902],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 
-%please: comment the following lines to avoid loading the
-%robot and equipment in every simulation
+%please: comment the following lines to avoid loading the robot and equipment in every simulation.
+%Feel free to load other robots/equipments... etc.
 robot = load_robot('abb','irb140');
 robot.equipment = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
@@ -131,7 +133,7 @@ MoveL(RT_pos_rec,'vmax','fine',TD_gripper, 'wobj0');
 simulation_close_tool; %Set do1;
 simulation_grip_piece;
 
-Waittime(0.1); !esperar cierre
+WaitTime(0.1); !esperar cierre
 %!Subir por seguridad antes de ir al siguiente punto
 MoveL(RT_aprox_rec,'vmax','z50',TD_gripper, 'wobj0');
 
@@ -161,7 +163,7 @@ simulation_release_piece;
 
 plot_points;
 
-Waittime(0.5);
+WaitTime(0.5);
 %Subir por seguridad antes de ir al siguiente punto
 MoveL(Offs(RT_pos_dej,0,0,0.105),'v1000','z10',TD_gripper, 'wobj0');
 

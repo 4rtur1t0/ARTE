@@ -26,8 +26,8 @@ n_solutions = 8;
 
 %Try different configurations beware that, depending on the robot's topology
 %not all the eight possible solutions will be feasible for an antropomorphic 6R robot.
-%q=[0 0 0 0 0 0]
-q = [0.1 0.1 0.1 0 0 0];
+q=[0.5 -0.5 pi/6 0.1 0.1 0.1]
+%q = [0.1 -pi/4 pi/4 0.1 0.1 0.1];
 
 %load robot parameters. You can try different robots
 %robot=load_robot('ABB', 'IRB140'); n_solutions = 8;
@@ -82,7 +82,7 @@ for i=1:size(qinv,2),
     %now draw the robot to see the solution
     drawrobot3d(robot, qinv(:,i))
     
-    pause(5);
+    pause(1);
     
     k=sum(sum((T-Ti).^2));
     if k < 0.01 % a simple threshold to find differences in the solution

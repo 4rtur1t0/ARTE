@@ -24,11 +24,12 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
-
+ 
 robot.DH.theta= '[-q(1) q(2)-pi/2 q(3)   q(4) q(5) q(6)]';
 robot.DH.d='[0.815          0     0    1.545 0 0.158]';
 robot.DH.a='[0.350         1.2    0.145    0 0 0]';
 robot.DH.alpha= '[-pi/2 0 -pi/2 pi/2 -pi/2 0]';
+
 robot.J=[];
 robot.name= 'KUKA_KR30_L16_2';
 

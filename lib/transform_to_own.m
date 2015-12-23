@@ -11,7 +11,11 @@
 %       namely, robots/abb/IRB6620.
 %       The vertices in each of the STL files are referred to the reference
 %       system of the robot base. They are normally expressed in millimeters.
-%       script 
+%       Please do pay attention to the reference system in your robot's
+%       graphics files. If your robot is placed with the Z0 axis pointing
+%       downwardsk, for example, modify the initial T matrix as indicated
+%       in NOTE 1 below.
+%       
 %
 %       STEP 2: In robots/abb/IRB6620/parameters.m, set robot.graphical.has_graphics=0
 %
@@ -73,8 +77,12 @@ a = eval(robot.DH.a);
 alfa = eval(robot.DH.alpha);
 
 n=length(theta); %# number of DOFs
-%T=eye(4);
-T=robot.T0;
+T=eye(4);
+% NOTE 1: 
+% T =[0 -1 0 0;
+%     0 0 1 0;
+%     1 0 0 0;
+%     0 0 0 1];
 for i=0:robot.DOF,
     file_i_base=sprintf('/link%d_base.stl', i);
     file_i=sprintf('/link%d.stl', i);
