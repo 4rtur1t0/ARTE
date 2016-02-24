@@ -6,24 +6,25 @@
 %
 % IN ORDER TO SIMULATE THE PROGRAM:
 %   A) FIRST, LOAD A ROBOT
-%       robot = load_robot('abb','irb140');
+%       >> robot = load_robot('abb','irb140');
 %       OR
-%       robot = load_robot('abb','irb52');
+%       >> robot = load_robot('abb','irb52');
 %   B) NEXT, LOAD SOME EQUIPMENT.
-%       robot.equipment = load_robot('equipment','tables/table_two_areas');
+%       >> robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 %      
 %   C) NOW, LOAD AN END TOOL
-%       robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
+%       >> robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
 %   D) FINALLY, LOAD A PIECE TO GRAB BY THE ROBOT
-%       robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
+%       >> robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
 %
 %   E) IF NECESSARY, CHANGE THE POSITION AND ORIENTATION OF THE piece,
 %   relative to the robot's base reference system.
 %
-%       robot.piece.T0= [1 0 0 -0.1;
-%                        0 1 0 -0.5;
-%                        0 0 1 0.2;
-%                        0 0 0 1]; 
+%       >> robot.piece.T0= [1 0 0 -0.1; 0 1 0 -0.5;0 0 1 0.2;0 0 0 1]; 
+%
+%   The A, B, C, D and E steps can be performed usint the 'teach' application
+%   by clicking on the Load equipment, load end tool, and load piece
+%   buttons.
 %
 % during the simulation, call simulation_open_tool; to open the tool and 
 % simulation_close_tool; to close it.
@@ -44,12 +45,14 @@
 %
 % In RAPID, consider the use of ConfJ on, or ConfJ off, or ConfL on, or ConfL off
 % in the case the controller avoids the change of configurations between target points
-function three_in_a_row
+function practice_1_packaging
 
 global RT_pos_ini RJ_ini RT_aprox_rec RT_pos_rec
 global RT_aprox_dej RT_pos_dej TD_gripper VAR_pieza
 global robot
 
+%If desired, move the robot with respect to the world reference system
+%by modifying robot.T0. Example: robot.T0(2,4)=1;
 
 TD_gripper=[1,[[0,0,0.125],[1,0,0,0]],[0.1,[0,0,0.100],[1,0,0,0],0,0,0]];
 
@@ -61,6 +64,14 @@ RT_pos_rec=[[0.0345,-0.629,0.337],[0.261833,0.652321,0.67413,-0.226869],[-1,0,-1
 
 RT_aprox_dej=[[0.470,-0.460,0.500],[0.07981,0.603204,0.792983,-0.030902],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 RT_pos_dej=[[0.470,-0.460,0.450],[0.07981,0.603204,0.792983,-0.030902],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+
+%please: comment the following lines to avoid loading the robot and equipment in every simulation.
+%Feel free to load other robots/equipments... etc.
+robot = load_robot('abb','irb140');
+%load static equipment, such as tables or 
+robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
+robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
+robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
 
 
 %local function to init simulation variables
@@ -100,10 +111,10 @@ function ASIR_DEJAR()
 
 global  RT_aprox_rec RT_aprox_dej TD_gripper 
 
-%!Moverse a posición de aproximacion de recogida
+%!Moverse a posiciï¿½n de aproximacion de recogida
 MoveJ(RT_aprox_rec,'vmax','z100',TD_gripper, 'wobj0');
 COGER_PIEZA;
-%!Moverse a posición base de dejada
+%!Moverse a posiciï¿½n base de dejada
 MoveJ(RT_aprox_dej,'vmax','z100',TD_gripper, 'wobj0');
 METER_EN_CAJA;
 
@@ -115,7 +126,7 @@ global RT_aprox_rec RT_pos_rec TD_gripper
 
 %!Ahora abrir pinza
 simulation_open_tool; %Reset do1; 
-Waittime(0.1);!esperar apertura
+WaitTime(0.1);!esperar apertura
 %!Coger
 MoveL(RT_pos_rec,'vmax','fine',TD_gripper, 'wobj0');
 
@@ -123,7 +134,7 @@ MoveL(RT_pos_rec,'vmax','fine',TD_gripper, 'wobj0');
 simulation_close_tool; %Set do1;
 simulation_grip_piece;
 
-Waittime(0.1); !esperar cierre
+WaitTime(0.1); !esperar cierre
 %!Subir por seguridad antes de ir al siguiente punto
 MoveL(RT_aprox_rec,'vmax','z50',TD_gripper, 'wobj0');
 
@@ -136,14 +147,14 @@ if VAR_pieza==0
     %Bajar para meter primera pieza
     MoveL(Offs(RT_pos_dej,0,0,-0.105),'v1000','fine',TD_gripper, 'wobj0');
 elseif VAR_pieza==1
-    MoveL(RT_pos_dej,'v1000','z100',TD_gripper, 'wobj0');
-    MoveL(Offs(RT_pos_dej,0,0,-0.055),'v1000','fine',TD_gripper, 'wobj0');
+    MoveL(Offs(RT_pos_dej,-0.055,0,0),'v1000','z100',TD_gripper, 'wobj0');
+    MoveL(Offs(RT_pos_dej,-0.055,0,-0.105),'v1000','fine',TD_gripper, 'wobj0');
 elseif VAR_pieza==2
-    MoveL(Offs(RT_pos_dej,0,0,0.05),'v1000','fine',TD_gripper, 'wobj0');
-    MoveL(Offs(RT_pos_dej,0,0,-0.005),'v1000','fine',TD_gripper, 'wobj0');
+    MoveL(Offs(RT_pos_dej,0,-0.055,0),'v1000','fine',TD_gripper, 'wobj0');
+    MoveL(Offs(RT_pos_dej,0,-0.055,-0.105),'v1000','fine',TD_gripper, 'wobj0');
 else
-    MoveL(Offs(RT_pos_dej,0,0,0.1),'v1000','fine',TD_gripper, 'wobj0');
-    MoveL(Offs(RT_pos_dej,0,0,0.045),'v1000','fine',TD_gripper, 'wobj0');
+    MoveL(Offs(RT_pos_dej,-0.055,-0.055,0),'v1000','fine',TD_gripper, 'wobj0');
+    MoveL(Offs(RT_pos_dej,-0.055,-0.055,-0.105),'v1000','fine',TD_gripper, 'wobj0');
 end
 
 %Ahora abrir pinza
@@ -153,7 +164,7 @@ simulation_release_piece;
 
 plot_points;
 
-Waittime(0.5);
+WaitTime(0.5);
 %Subir por seguridad antes de ir al siguiente punto
 MoveL(Offs(RT_pos_dej,0,0,0.105),'v1000','z10',TD_gripper, 'wobj0');
 

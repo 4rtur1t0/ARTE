@@ -2,9 +2,9 @@
 %   A) FIRST, LOAD A ROBOT
 %       robot = load_robot('abb','irb140');
 %   B) NEXT, LOAD SOME EQUIPMENT.
-%       robot.equipment = load_robot('equipment','tables/table_small');
+%       robot.equipment{1} = load_robot('equipment','tables/table_small');
 %       OR
-%       robot.equipment = load_robot('equipment','bumper_cutting');
+%       robot.equipment{1} = load_robot('equipment','bumper_cutting');
 %   C) NOW, LOAD AN END TOOL
 %       robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
 %   D) FINALLY, LOAD A PIECE TO GRAB BY THE ROBOT

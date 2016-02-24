@@ -148,14 +148,17 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  draw equipment such as tables, conveyor velts... etc
+%  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isfield(robot, 'equipment')
-        if robot.equipment.graphical.has_graphics
-            draw_link(robot.equipment, 1, robot.equipment.T0);
+    for i=1:length(robot.equipment),
+        if robot.equipment{i}.graphical.has_graphics
+            draw_link(robot.equipment{i}, 1, robot.equipment{i}.T0);
         end
-        if robot.equipment.graphical.draw_axes
-            draw_axes(robot.equipment.T0, sprintf('X_{env%d}',0), sprintf('Y_{env%d}',0), sprintf('Z_{env%d}',0));
-        end      
+        if robot.equipment{i}.graphical.draw_axes
+            draw_axes(robot.equipment{i}.T0, sprintf('X_{env%d}',0), sprintf('Y_{env%d}',0), sprintf('Z_{env%d}',0));
+        end
+    end
 end
 
 

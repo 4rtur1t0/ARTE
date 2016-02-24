@@ -47,7 +47,7 @@ echo on
 % >> adjust_view(robot);
 %
 % fprintf('\nNOW LOAD AUXILIAR EQUIPMENT')
-% >> robot.equipment=load_robot('equipment', 'bumper_cutting');
+% >> robot.equipment{1}=load_robot('equipment', 'bumper_cutting');
 %
 % >> drawrobot3d(robot, q)
 % 
@@ -73,7 +73,7 @@ adjust_view(robot);
 
 
 fprintf('\nNOW LOAD AUXILIAR EQUIPMENT')
-robot.equipment=load_robot('equipment', 'bumper_cutting'); 
+robot.equipment{1}=load_robot('equipment', 'bumper_cutting'); 
 
 %draw the robot
 drawrobot3d(robot, q)

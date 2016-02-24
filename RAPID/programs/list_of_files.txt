@@ -1,5 +1,5 @@
-- basic_robot_program.m: Just go to four different target points in simulation.
-- basic.prg: The above script translated to a RAPID program.
+- simple_examples/basic_robot_program.m: Just go to four different target points in simulation.
+- simple_examples/basic.prg: The above script translated to a RAPID program.
 
 - practice_1_programming.m: in order to run the program. Type:
     >> init_lib 

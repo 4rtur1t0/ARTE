@@ -42,7 +42,7 @@ echo on
 % adjust_view(robot);
 %
 % fprintf('\nNOW LOAD AUXILIAR EQUIPMENT')
-% robot.equipment=load_robot('equipment', 'bodywork');
+% robot.equipment{1}=load_robot('equipment', 'bodywork');
 %
 % drawrobot3d(robot, q)
 % 
@@ -68,7 +68,7 @@ adjust_view(robot);
 
 
 fprintf('\nNOW LOAD AUXILIAR EQUIPMENT')
-robot.equipment=load_robot('equipment', 'bodywork'); 
+robot.equipment{1}=load_robot('equipment', 'bodywork'); 
 
 fprintf('\nNOW LOAD A GRIPPER')
 robot.tool=load_robot('equipment/end_tools', 'spot_welding'); 
