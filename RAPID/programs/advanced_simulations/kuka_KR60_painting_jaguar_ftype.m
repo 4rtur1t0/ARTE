@@ -17,7 +17,7 @@
 %                        0 0 1 0.2;
 %                        0 0 0 1]; 
 
-function painting2
+function kuka_KR60_painting_jaguar_ftype
 
 global TD_tool0 RT_tp1 RT_tp2 RT_tp3 RT_tp4 RT_tp5 RT_tp6 RT_tp7 RT_tp8 RT_tp9 RT_tp10 RT_tp11 RT_tp12 RT_tp13 RT_tp14 RT_tp15 RT_tp16
 

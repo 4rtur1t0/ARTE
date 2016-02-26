@@ -22,7 +22,7 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 
-function test_viper_s1300
+function adept_viper_s1300_simulation
     global robot
     global qua
     global milling_tool
@@ -33,12 +33,12 @@ function test_viper_s1300
     q=[0 0 0 0 pi/2 0];
 
     % Configuración inicial
-    robot=load_robot('ADEPT', 'Viper_s1300');
+    robot=load_robot('ADEPT', 'VIPER_s1300b');
     punto=directkinematic(robot, [0 0 0 0 pi/2 0]);
     qua=T2quaternion(punto);
 
     robot.tool=load_robot('equipment/end_tools', 'milling_machine');
-    robot.equipment=load_robot('equipment', 'aluminum_plate');
+    robot.equipment{1}=load_robot('equipment', 'aluminum_plate');
     drawrobot3d(robot, q);
     robot.graphical.draw_axes = 0;
     robot.tool.graphical.draw_axes = 0;

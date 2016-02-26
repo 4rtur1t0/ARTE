@@ -1,15 +1,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   PARAMETERS Returns a data structure containing the parameters of a
-%   spot welding tool.
+%   PARAMETERS Returns a data structure containing the parameters of a oven. The oven is intended to be used is intended to be used as a working
+%   environment for robots. Please load it as:
 %
-%   Tooldata in RAPID:
-%   PERS tooldata welder:=[TRUE,[[0,0,425],[1,0,0,0]],[2.5,[0,0,200],[1,0,0,0],0.5,0.5,0.5]];
+%   robot.environment = load_robot('environment','oven')
 %
-%   Specify the tooldata as a Matlab vector
-%   welder=[TRUE,[[0,0,0.425],[1,0,0,0]],[2.5,[0,0,0.200],[1,0,0,0],0.5,0.5,0.5]];
-%
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
-%   email: arturo.gil@umh.es date:   09/12/2012
+%   Author: Carlos Pardo Pla. Universidad Miguel Hernández de Elche. 
+%   email: arturo.gil@umh.es date:   05/12/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
@@ -30,22 +26,19 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
 
-robot.name= 'SPOT WELDING END TOOL';
+robot.name= 'Oven';
 
-%Path where everything is stored for this robot
-robot.path = 'robots/end_tools/spot_welding';
-
-robot.DH.theta= '[-q(1) ]';
-robot.DH.d='[0.225 ]';
-robot.DH.a='[0.075]';
-robot.DH.alpha= '[-pi/2]';
+robot.DH.theta= '[]';
+robot.DH.d='[]';
+robot.DH.a='[]';
+robot.DH.alpha= '[]';
 robot.J=[];
 
 
 robot.inversekinematic_fn = '';
 
 %number of degrees of freedom
-robot.DOF = 1;
+robot.DOF = 0;
 
 %rotational: 0, translational: 1
 robot.kind=[];
@@ -59,15 +52,19 @@ robot.velmax = [];%Axis 6, rad/s
 robot.linear_velmax = 0; %m/s
 
 %base reference system
-robot.T0 = eye(4);
+%robot.T0 = eye(4);
+robot.T0 = [1 0 0 2;
+            0 1 0 2;
+             0 0 1 0;
+             0 0 0 1];
 
 %definition of the tool center point with respect to the last reference
 %system.
 %for tools, this TCP usually means the transformation from system 
 %(X_tool0,Y_tool0,Z_tool0) to (X_tool1,Y_tool1,Z_tool1)
-robot.TCP = [1 0 0 -0.0505;
+robot.TCP = [1 0 0 0;
              0 1 0 0;
-             0 0 1 0.45;
+             0 0 1 0;
              0 0 0 1]; 
 
 %INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION
@@ -75,14 +72,9 @@ robot.TCP = [1 0 0 -0.0505;
 robot=init_sim_variables(robot);
 robot.path = pwd;
 
-%needed by the simulation. Consider that the piece is not yet gripped (gripped = 0)
-robot.piece_gripped=0;
-%consider that the tool is closed (open=0)
-robot.tool_open=0;
-    
 % GRAPHICS
 robot.graphical.has_graphics=1;
-robot.graphical.color = [100 102 100]./255;
+robot.graphical.color = [80 80 85]./255;
 %for transparency
 robot.graphical.draw_transparent=0;
 %draw DH systems
@@ -91,7 +83,7 @@ robot.graphical.draw_axes=1;
 %bigger robots
 robot.graphical.axes_scale=1;
 %adjust for a default view of the robot
-robot.axis=[-0.75 0.75 -0.75 0.75 0 1.2];
+robot.axis=[-10 10 -10 10 0 5];
 %read graphics files
 robot = read_graphics(robot);
 
