@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   PARAMETERS Returns a data structure containing the parameters of the
-%   ABB IRB140.
+%   STAUBLI TX200 ROBOTIC ARM.
 %
-%   Author: Arturo Gil. Universidad Miguel Hernandez de Elche. 
-%   email: arturo.gil@umh.es date:   09/01/2012
+%   Authors: Manuel Esquer Cerezo, David Zambrana Vinaroz, Arturo Samper Rodríguez Universidad Miguel Hernandez de Elche. 
+%   16/12/2015
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Copyright (C) 2012, by Arturo Gil Aparicio
+% Copyright (C) 2015, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
 % 
@@ -14,7 +14,7 @@
 % it under the terms of the GNU Lesser General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
-% 
+%  
 % ARTE is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
 % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the

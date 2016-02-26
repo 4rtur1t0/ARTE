@@ -10,6 +10,7 @@
         	Click on Load a piece and load arte/robots/equipment/cylinders/cilynder_tiny that represents a piece.
 -pract_pr.prg: the above script translated to RAPID.The robot can be programmed with this RAPID file.
 
+advanced_examples
 - practice_1_packaging: A packaging demo in Matlab. In order to run the program. Type:
     >> init_lib 
     >> robot=load_robot('abb', 'IRB140');
