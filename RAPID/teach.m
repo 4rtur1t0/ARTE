@@ -2981,7 +2981,7 @@ function push_button_load_environment_Callback(hObject, eventdata, handles)
 
 global configuration robot controls
 %
-robot.equipment=load_robot
+robot.equipment{1}=load_robot
 
 % --- Executes on key press with focus on push_button_load_environment and none of its controls.
 function push_button_load_environment_KeyPressFcn(hObject, eventdata, handles)
