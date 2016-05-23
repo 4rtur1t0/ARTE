@@ -40,7 +40,7 @@ function varargout = teach(varargin)
 
 % Edit the above text to modify the response to help teach
 
-% Last Modified by GUIDE v2.5 23-May-2016 19:32:54
+% Last Modified by GUIDE v2.5 23-May-2016 13:35:47
 global configuration robot 
 global controls program
 
@@ -89,7 +89,7 @@ guidata(hObject, handles);
 % uiwait(handles.figure1);
 
 %initialize application variables
-global robot configuration controls targets program teachConfig 
+global robot configuration controls targets program teachConfig
 
 %reset program
 program=[];
@@ -120,7 +120,7 @@ teachConfig.interpolateMovement=0;
 
 
 %update T and Q in the program
-update_T_Q(handles)
+update_T_Q()
 update_sliders();
 
 figure(configuration.figure.robot);
@@ -317,7 +317,7 @@ else
     robot.q(1) = slider_value;%m
 end
 
-update_T_Q(handles);
+update_T_Q();
 figure(configuration.figure.robot);
 drawrobot3d(robot, robot.q);
 draw_target_points();
@@ -365,7 +365,7 @@ else
     robot.q(2) = slider_value;%m
 end
 
-update_T_Q(handles);
+update_T_Q();
 figure(configuration.figure.robot);
 drawrobot3d(robot, robot.q);
 draw_target_points();
@@ -415,7 +415,7 @@ else
     robot.q(3) = slider_value;%m
 end
 figure(configuration.figure.robot);
-update_T_Q(handles);
+update_T_Q();
 drawrobot3d(robot, robot.q);
 draw_target_points();
 
@@ -463,7 +463,7 @@ else
     robot.q(4) = slider_value;%m
 end
 
-update_T_Q(handles);
+update_T_Q();
 figure(configuration.figure.robot);
 drawrobot3d(robot, robot.q);
 draw_target_points();
@@ -512,7 +512,7 @@ if robot.kind(5)=='R'
 else
     robot.q(5) = slider_value;%m
 end
-update_T_Q(handles);
+update_T_Q();
 figure(configuration.figure.robot);
 drawrobot3d(robot, robot.q);
 draw_target_points();
@@ -560,7 +560,7 @@ if robot.kind(6)=='R'
 else
     robot.q(6) = slider_value;%m
 end
-update_T_Q(handles);
+update_T_Q();
 figure(configuration.figure.robot);
 drawrobot3d(robot, robot.q);
 draw_target_points();
@@ -625,7 +625,7 @@ if line_reorient==1
         P_final = P_ini - delta*T(1:3,1);
     end
     
-    follow_line(P_ini,P_final,handles);
+    follow_line(P_ini,P_final);
     
 else% REORIENTATION
     
@@ -656,7 +656,7 @@ else% REORIENTATION
     eval(command);
 end
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points();
 
@@ -688,7 +688,7 @@ if line_reorient==1
         P_final = P_ini + delta*T(1:3,1);
     end
     
-    follow_line(P_ini,P_final, handles);
+    follow_line(P_ini,P_final);
     
 else% REORIENTATION
     
@@ -719,7 +719,7 @@ else% REORIENTATION
     eval(command);
 end
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points();
 
@@ -753,7 +753,7 @@ if line_reorient==1
         P_final = P_ini + delta*T(1:3,2);
     end
     
-    follow_line(P_ini,P_final, handles);
+    follow_line(P_ini,P_final);
     
 else% REORIENTATION
     
@@ -784,7 +784,7 @@ else% REORIENTATION
     eval(command);
 end
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points();
 
@@ -815,7 +815,7 @@ if line_reorient==1
         P_final = P_ini - delta*T(1:3,2);
     end
     
-    follow_line(P_ini,P_final, handles);
+    follow_line(P_ini,P_final);
     
 else% REORIENTATION
     
@@ -846,7 +846,7 @@ else% REORIENTATION
     eval(command);
 end
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points();
 
@@ -879,7 +879,7 @@ if line_reorient==1
         P_final = P_ini + delta*T(1:3,3);
     end
     
-    follow_line(P_ini,P_final, handles);
+    follow_line(P_ini,P_final);
     
 else% REORIENTATION
     
@@ -911,7 +911,7 @@ else% REORIENTATION
     %eval(command);
 end
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points();
 
@@ -942,7 +942,7 @@ if line_reorient==1
         P_final = P_ini - delta*T(1:3,3);
     end
     
-    follow_line(P_ini,P_final, handles);
+    follow_line(P_ini,P_final);
     
 else% REORIENTATION
     
@@ -973,7 +973,7 @@ else% REORIENTATION
     eval(command);
 end
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points();
 
@@ -1001,7 +1001,8 @@ controls.edit_q1=hObject;
 % Hint: edit controls usually have a white background on Windows.
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');    
+    set(hObject,'BackgroundColor','white');
+    
 end
 
 %set(hObject, 'String', 'Push button pushed')
@@ -1032,6 +1033,8 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
+
+
 function edit_q3_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_q3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -1039,6 +1042,8 @@ function edit_q3_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit_q3 as text
 %        str2double(get(hObject,'String')) returns contents of edit_q3 as a double
+
+
 
 % --- Executes during object creation, after setting all properties.
 function edit_q3_CreateFcn(hObject, eventdata, handles)
@@ -1343,7 +1348,7 @@ end
 
 for i=1:program.n_lines,
     eval(program.matlab_lines{i});
-    update_T_Q(handles);
+    update_T_Q();
     update_sliders();
     draw_target_points();
 end
@@ -1546,17 +1551,8 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-function edit_nz_Callback(hObject, ~, handles)
-% hObject    handle to edit_nz (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit_nz as text
-%        str2double(get(hObject,'String')) returns contents of edit_nz as a double
-
-
-
-%function edit_nz_Callback(hObject, eventdata, handles)
+function edit_nz_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_nz (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -1660,10 +1656,10 @@ function pushbutton_moveT_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-global robot configuration teachConfig
+global robot controls configuration
 
 %get values of T from dialog
-[T,Q,P]=get_TQ_from_dialog(handles);
+[T,Q,P]=get_TQ_from_dialog();
 
 %if there is a tool attached to it, the total transformation has
 % already considered it in the computation of direct kinematics
@@ -1693,20 +1689,14 @@ robot.q_vector=path;
 %Test whether there are joints outside mechanical limits
 test_joint_limits(robot);
 
-if teachConfig.interpolateMovement == 0
-	startIndex = size(path,2);
-else
-	startIndex = 1;
-end
-
 %do not move if current and final coordinates are the same
-for i=startIndex:size(path,2),
+for i=1:size(path,2),
    drawrobot3d(robot, path(:,i)); 
    pause(configuration.time_delay);  
 end
 
 robot.q=q_final;
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points()
 
@@ -1890,7 +1880,7 @@ function pushbutton_moveQ_Callback(hObject, eventdata, handles)
 global robot controls configuration
 
 %get values of T from dialog
-[T,Q,P]=get_TQ_from_dialog(handles);
+[T,Q,P]=get_TQ_from_dialog();
 
 %convert quaternion to orientation
 T = quaternion2T(Q);
@@ -1934,7 +1924,7 @@ for i=1:size(path,2),
 end
 
 robot.q=q_final;
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points()
 
@@ -2039,7 +2029,176 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
+% --- Executes on button press in pushbutton_simulate_instruction.
+% function pushbutton_simulate_instruction_Callback(hObject, eventdata, handles)
+% % hObject    handle to pushbutton_simulate_instruction (see GCBO)
+% % eventdata  reserved - to be defined in a future version of MATLAB
+% % handles    structure with handles and user data (see GUIDATA)
+% 
+% global controls targets robot
+% 
+% %reset position velocity acceleration and time
+% robot.q_vector=[];
+% robot.qd_vector=[];
+% robot.qdd_vector=[];
+% robot.time=[];
+% 
+% tool0=[];
+% wobj0=[];
+% 
+% [instruction_matlab, instruction_rapid, tp1, tp2, joint_coord]=build_instruction_to_eval(); 
+% eval(instruction_matlab);
+% s = get(controls.popupmenu_instruction,'String');
+% i = get(controls.popupmenu_instruction,'Value');
+% s1=s{i};
+% 
+% switch s1
+%     case {'MoveJ','MoveL'}
+%         
+%         s = get(controls.popupmenu_target_point,'String');
+%         target_num = get(controls.popupmenu_target_point,'Value');
+%         s2=s{target_num};
+%         
+%         s = get(controls.popupmenu_speed,'String');
+%         i = get(controls.popupmenu_speed,'Value');
+%         s3=s{i};
+%         
+%         s = get(controls.popupmenu_precision,'String');
+%         i = get(controls.popupmenu_precision,'Value');
+%         s4=s{i};
+%         
+%         instruction_rapid = [s1 ' ' s2 ',' s3 ',' s4 ',tool0\Wobj:=wobj0;'];
+%         
+%         tp=construct_target(target_num);
+% 
+%         instruction_matlab = ['robot=' s1 '(robot, tp, s3, s4, tool0, wobj0);'];
+%         fprintf('\n**********************************************\n');
+%         fprintf('Evaluating instruction:\nRAPID:\n\t%s\nMatlab:\n\t%s\n', instruction_rapid, instruction_matlab);
+%         fprintf('**********************************************\n');
+%         
+%         eval(instruction_matlab);
+%         
+%      case 'MoveAbsJ'
+%         
+%         s = get(controls.popupmenu_target_point,'String');
+%         target_num = get(controls.popupmenu_target_point,'Value');
+%         s2=s{target_num};
+%         
+%         s = get(controls.popupmenu_speed,'String');
+%         i = get(controls.popupmenu_speed,'Value');
+%         s3=s{i};
+%         
+%         s = get(controls.popupmenu_precision,'String');
+%         i = get(controls.popupmenu_precision,'Value');
+%         s4=s{i};
+%         
+%         instruction_rapid = [s1 ' ' s2 ',' s3 ',' s4 ',tool0\Wobj:=wobj0;'];
+%         
+%         
+%         joint_coord=[targets{target_num}.q' 1e9, 1e9, 1e9, 1e9, 1e9, 1e9];
+%         
+%         instruction_matlab = ['robot=' s1 '(robot, joint_coord, s3, s4, tool0, wobj0);'];
+%         fprintf('\n**********************************************\n');
+%         fprintf('Evaluating instruction:\nRAPID:\n\t%s\nMatlab:\n\t%s\n', instruction_rapid, instruction_matlab);
+%         fprintf('**********************************************\n');
+%         
+%         eval(instruction_matlab);
+%         
+%         
+%     case 'MoveC'
+%         s = get(controls.popupmenu_target_point,'String');
+%         target_num1 = get(controls.popupmenu_target_point,'Value');
+%         s2=s{target_num1};
+%         
+%         s = get(controls.popupmenu_through_point,'String');
+%         target_num2 = get(controls.popupmenu_through_point,'Value');
+%         s3=s{target_num2};
+%         
+%         s = get(controls.popupmenu_speed,'String');
+%         i = get(controls.popupmenu_speed,'Value');
+%         vel=s{i};
+%         
+%         s = get(controls.popupmenu_precision,'String');
+%         i = get(controls.popupmenu_precision,'Value');
+%         prec=s{i};
+%         
+%         instruction_rapid = [s1 ' ' s3 ',' s2 ',' vel ',' prec  ',tool0\Wobj:=wobj0;'];
+%         
+%         tp2=construct_target(target_num1);
+%         tp1=construct_target(target_num2);%the through point
+%         
+%         instruction_matlab = ['robot=' s1 '(robot, tp1, tp2, vel , prec);'];
+%         fprintf('\n**********************************************\n');
+%         fprintf('Evaluating instruction:\nRAPID:\n\t%s\nMatlab:\n\t%s\n', instruction_rapid, instruction_matlab);
+%         fprintf('**********************************************\n');
+%         
+%         eval(instruction_matlab);
+%         
+%     otherwise disp('RAPID instruction not supported');
+% end
 
+% %reset position velocity acceleration and time
+% robot.q_vector=[];
+% robot.qd_vector=[];
+% robot.qdd_vector=[];
+% robot.time=[];
+% 
+% update_T_Q();
+% update_sliders();
+% draw_target_points();
+
+%clf(controls.global_gui_handle)
+%drawnow()
+
+
+% --- Executes on button press in pushbutton_save_instruction.
+% function pushbutton_save_instruction_Callback(hObject, eventdata, handles)
+% % hObject    handle to pushbutton_save_instruction (see GCBO)
+% % eventdata  reserved - to be defined in a future version of MATLAB
+% % handles    structure with handles and user data (see GUIDATA)
+% 
+% global controls targets robot program
+
+% %Get instruction name
+% instruction = [];
+% 
+% s = get(controls.popupmenu_instruction,'String');
+% i = get(controls.popupmenu_instruction,'Value');
+% s1=s{i};
+% 
+% s = get(controls.popupmenu_target_point,'String');
+% target_num = get(controls.popupmenu_target_point,'Value');
+% s2=s{target_num};
+% 
+% s = get(controls.popupmenu_speed,'String');
+% i = get(controls.popupmenu_speed,'Value');
+% s3=s{i};
+% 
+% s = get(controls.popupmenu_precision,'String');
+% i = get(controls.popupmenu_precision,'Value');
+% s4=s{i};
+
+
+% [instruction_matlab, instruction_rapid]=build_instruction_to_save(); 
+% 
+% 
+% %program.program_counter = program.program_counter + 1;
+% program.n_lines = program.n_lines + 1;
+% 
+% program.rapid_lines{program.n_lines} = instruction_rapid;%[s1 ' ' s2 ',' s3 ',' s4 ',tool0\Wobj:=wobj0;'];
+% program.matlab_lines{program.n_lines} = instruction_matlab;%['robot=' s1 '(robot,' s2 ',' sprintf('''%s''', s3) ',' sprintf('''%s''', s4) ');'];
+% 
+% 
+% fprintf('\n**********************************************\n');
+% fprintf('Adding instruction to program.\nCurrent program:');
+% fprintf('\n**********************************************\n');
+% for i=1:program.n_lines,
+%     fprintf('\n%s', program.rapid_lines{i});
+% end
+% fprintf('\n**********************************************\n');
+% update_T_Q();
+% update_sliders();
+% draw_target_points()
 
 
 
@@ -2090,10 +2249,10 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %update the values from T to the dialog
-function update_T_Q(handles)
+function update_T_Q()
 
-global robot 
-%controls
+global robot controls
+
 
 T = directkinematic(robot, robot.q);
 
@@ -2104,64 +2263,63 @@ if isfield(robot, 'tool')
 end
 
 %Update T
-set(handles.edit_nx, 'String', num2str(T(1,1), '%.3f'));
-set(handles.edit_ny, 'String', num2str(T(2,1), '%.3f'));
-set(handles.edit_nz, 'String', num2str(T(3,1), '%.3f'));
-
-set(handles.edit_ox, 'String', num2str(T(1,2), '%.3f'));
-set(handles.edit_oy, 'String', num2str(T(2,2), '%.3f'));
-set(handles.edit_oz, 'String', num2str(T(3,2), '%.3f'));
-set(handles.edit_ax, 'String', num2str(T(1,3), '%.3f'));
-set(handles.edit_ay, 'String', num2str(T(2,3), '%.3f'));
-set(handles.edit_az, 'String', num2str(T(3,3), '%.3f'));
-set(handles.edit_pxt, 'String', num2str(T(1,4), '%.3f'));
-set(handles.edit_pyt, 'String', num2str(T(2,4), '%.3f'));
-set(handles.edit_pzt, 'String', num2str(T(3,4), '%.3f'));
+set(controls.edit_nx, 'String', num2str(T(1,1), '%.3f'));
+set(controls.edit_ny, 'String', num2str(T(2,1), '%.3f'));
+set(controls.edit_nz, 'String', num2str(T(3,1), '%.3f'));
+set(controls.edit_ox, 'String', num2str(T(1,2), '%.3f'));
+set(controls.edit_oy, 'String', num2str(T(2,2), '%.3f'));
+set(controls.edit_oz, 'String', num2str(T(3,2), '%.3f'));
+set(controls.edit_ax, 'String', num2str(T(1,3), '%.3f'));
+set(controls.edit_ay, 'String', num2str(T(2,3), '%.3f'));
+set(controls.edit_az, 'String', num2str(T(3,3), '%.3f'));
+set(controls.edit_pxt, 'String', num2str(T(1,4), '%.3f'));
+set(controls.edit_pyt, 'String', num2str(T(2,4), '%.3f'));
+set(controls.edit_pzt, 'String', num2str(T(3,4), '%.3f'));
 
 %convert T to quaternion
 Q = T2quaternion(T);
 Q=real(Q);
-set(handles.edit_Q0, 'String', num2str(Q(1),'%.3f'));
-set(handles.edit_Q1, 'String', num2str(Q(2), '%.3f'));
-set(handles.edit_Q2, 'String', num2str(Q(3), '%.3f'));
-set(handles.edit_Q3, 'String', num2str(Q(4), '%.3f'));
+set(controls.edit_Q0, 'String', num2str(Q(1),'%.3f'));
+set(controls.edit_Q1, 'String', num2str(Q(2), '%.3f'));
+set(controls.edit_Q2, 'String', num2str(Q(3), '%.3f'));
+set(controls.edit_Q3, 'String', num2str(Q(4), '%.3f'));
 %the same position as in T
-set(handles.edit_pxq, 'String', num2str(T(1,4), '%.3f'));
-set(handles.edit_pyq, 'String', num2str(T(2,4), '%.3f'));
-set(handles.edit_pzq, 'String', num2str(T(3,4), '%.3f'));
+set(controls.edit_pxq, 'String', num2str(T(1,4), '%.3f'));
+set(controls.edit_pyq, 'String', num2str(T(2,4), '%.3f'));
+set(controls.edit_pzq, 'String', num2str(T(3,4), '%.3f'));
 
 
 %obtain the values of T Q and posittion from
-function [T,Q,P]=get_TQ_from_dialog(handles)
+function [T,Q,P]=get_TQ_from_dialog()
 
-%global robot controls
+global robot controls
 
-%init as identity matrix
+
 T = eye(4);
 
 %Update T
-T(1,1)=sscanf(get(handles.edit_nx(2), 'String'),'%f');
-T(2,1)=sscanf(get(handles.edit_ny(2), 'String'), '%f');
-T(3,1)=sscanf(get(handles.edit_nz(2), 'String'), '%f');
-T(1,2)=sscanf(get(handles.edit_ox(2), 'String'), '%f');
-T(2,2)=sscanf(get(handles.edit_oy(2), 'String'), '%f');
-T(3,2)=sscanf(get(handles.edit_oz(2), 'String'), '%f');
-T(1,3)=sscanf(get(handles.edit_ax(2), 'String'), '%f');
-T(2,3)=sscanf(get(handles.edit_ay(2), 'String'), '%f');
-T(3,3)=sscanf(get(handles.edit_az(2), 'String'), '%f');
-T(1,4)=sscanf(get(handles.edit_pxt(2), 'String'), '%f');
-T(2,4)=sscanf(get(handles.edit_pyt(2), 'String'), '%f');
-T(3,4)=sscanf(get(handles.edit_pzt(2), 'String'), '%f');
+T(1,1)=sscanf(get(controls.edit_nx, 'String'),'%f');
+T(2,1)=sscanf(get(controls.edit_ny, 'String'), '%f');
+T(3,1)=sscanf(get(controls.edit_nz, 'String'), '%f');
+T(1,2)=sscanf(get(controls.edit_ox, 'String'), '%f');
+T(2,2)=sscanf(get(controls.edit_oy, 'String'), '%f');
+T(3,2)=sscanf(get(controls.edit_oz, 'String'), '%f');
+T(1,3)=sscanf(get(controls.edit_ax, 'String'), '%f');
+T(2,3)=sscanf(get(controls.edit_ay, 'String'), '%f');
+T(3,3)=sscanf(get(controls.edit_az, 'String'), '%f');
+T(1,4)=sscanf(get(controls.edit_pxt, 'String'), '%f');
+T(2,4)=sscanf(get(controls.edit_pyt, 'String'), '%f');
+T(3,4)=sscanf(get(controls.edit_pzt, 'String'), '%f');
  
 Q = zeros(1,4);
-Q(1)=sscanf(get(handles.edit_Q0(2), 'String'),'%f');
-Q(2)=sscanf(get(handles.edit_Q1(2), 'String'),'%f');
-Q(3)=sscanf(get(handles.edit_Q2(2), 'String'),'%f');
-Q(4)=sscanf(get(handles.edit_Q3(2), 'String'),'%f');
+Q(1)=sscanf(get(controls.edit_Q0, 'String'),'%f');
+Q(2)=sscanf(get(controls.edit_Q1, 'String'),'%f');
+Q(3)=sscanf(get(controls.edit_Q2, 'String'),'%f');
+Q(4)=sscanf(get(controls.edit_Q3, 'String'),'%f');
 
-P(1)=sscanf(get(handles.edit_pxq(2), 'String'), '%f');
-P(2)=sscanf(get(handles.edit_pyq(2), 'String'), '%f');
-P(3)=sscanf(get(handles.edit_pzq(2), 'String'), '%f');
+P(1)=sscanf(get(controls.edit_pxq, 'String'), '%f');
+P(2)=sscanf(get(controls.edit_pyq, 'String'), '%f');
+P(3)=sscanf(get(controls.edit_pzq, 'String'), '%f');
 
 
 %update the position of the sliders as well as the edit boxes associated to
@@ -2250,7 +2408,7 @@ end
 
 
 %follow a line in global coordinates
-function follow_line(P_ini,P_final, handles)
+function follow_line(P_ini,P_final)
 global robot configuration teachConfig
 %current end effector's position/orientation
 T = directkinematic(robot, robot.q);
@@ -2289,7 +2447,7 @@ for i=startIndex:size(path,2),
 	end
 end
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 plot3(path(1,:),path(2,:),path(3,:),'k', 'LineWidth', 3);
 
@@ -2727,7 +2885,7 @@ function pushbutton_reset_all_Callback(hObject, eventdata, handles)
 
 global configuration robot controls
 
-update_T_Q(handles);
+update_T_Q();
 figure(configuration.figure.robot);
 
 
@@ -2739,7 +2897,7 @@ command =[' MoveAbsJ(final_joints,' sprintf(' ''%s'' ', 'vmax') ',' sprintf(' ''
 eval(command);
 robot.q=final_joints;
 
-update_T_Q(handles);
+update_T_Q();
 draw_target_points();
 update_sliders();
 
@@ -2902,7 +3060,7 @@ function pushbutton_refresh_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global robot
 
-update_T_Q(handles);
+update_T_Q();
 update_sliders();
 draw_target_points();
 drawrobot3d(robot, robot.q)
@@ -2961,30 +3119,23 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-
+% --- Executes on button press in checkbox_animateMovement.
 function checkbox_animateMovement_Callback(hObject, eventdata, handles)
-% hObject    handle to edit_movementPrecision (see GCBO)
+% hObject    handle to checkbox_animateMovement (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit_movementPrecision as text
-%        str2double(get(hObject,'String')) returns contents of edit_movementPrecision as a double
+% Hint: get(hObject,'Value') returns toggle state of checkbox_animateMovement
 global teachConfig
-if get(hObject, 'Value')==1	
-	teachConfig.interpolateMovement=1;
-else
-	teachConfig.interpolateMovement=0;
-end
+
+teachConfig.interpolateMovement = get(hObject, 'Value');
 
 
-% --- Executes during object creation, after setting all properties.
-function checkbox_animateMovement_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit_movementPrecision (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
+% --- Executes on key press with focus on edit_nx and none of its controls.
+function edit_nx_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to edit_nx (see GCBO)
+% eventdata  structure with the following fields (see UICONTROL)
+%	Key: name of the key that was pressed, in lower case
+%	Character: character interpretation of the key(s) that was pressed
+%	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
+% handles    structure with handles and user data (see GUIDATA)
