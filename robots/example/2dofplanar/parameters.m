@@ -90,7 +90,7 @@ robot.graphical.draw_axes=1;
 %bigger robots
 robot.graphical.axes_scale=1;
 %adjust for a default view of the robot
-robot.axis=[-2.2 2.2 -2.2 2.2 0 2.2]
+robot.axis = [-2.2 2.2 -2.2 2.2 0 2.2];
 robot = read_graphics(robot);
 
 
@@ -144,7 +144,7 @@ robot.dynamics.Inertia=[0   m1*L1^2/3   m1*L1^2/3    0	0	0;
 
 %Inertia of the rotor
 robot.motors.Inertia=[0 0];
-%Reduction ration motor/joint speed
+%Reduction ratio: motor_speed/joint speed
 robot.motors.G=[1  1];
 
 

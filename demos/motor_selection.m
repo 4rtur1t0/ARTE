@@ -89,6 +89,7 @@ time_at_constant_speed=0.4; %seconds
 %robot=load_robot('ABB', 'IRB140');
 drawrobot3d(robot, q)
 
+robot.motors.G = [10 10 10 10 10 10]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  FIRST, COMPUTE TRAPEZOIDAL PROFILES

@@ -1,41 +1,81 @@
 Model {
   Name			  "simulate_robot_and_controller"
-  Version		  7.7
+  Version		  8.5
   MdlSubVersion		  0
+  SavedCharacterEncoding  "ISO-8859-1"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.61"
+    ComputedModelVersion    "1.62"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
-  SavedCharacterEncoding  "UTF-8"
-  SaveDefaultBlockParams  on
   ScopeRefreshTime	  0.035000
-  OverrideScopeRefreshTime on
+  OverrideScopeRefreshTime off
   DisableAllScopes	  off
   DataTypeOverride	  "UseLocalSettings"
   DataTypeOverrideAppliesTo "AllNumericTypes"
   MinMaxOverflowLogging	  "UseLocalSettings"
   MinMaxOverflowArchiveMode "Overwrite"
+  FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
+  Object {
+    $PropName		    "BdWindowsInfo"
+    $ObjectID		    1
+    $ClassName		    "Simulink.BDWindowsInfo"
+    Object {
+      $PropName		      "WindowsInfo"
+      $ObjectID		      2
+      $ClassName	      "Simulink.WindowInfo"
+      IsActive		      [1]
+      Location		      [151.0, 214.0, 1822.0, 983.0]
+      Object {
+	$PropName		"ModelBrowserInfo"
+	$ObjectID		3
+	$ClassName		"Simulink.ModelBrowserInfo"
+	Visible			[0]
+	DockPosition		"Left"
+	Width			[50]
+	Height			[50]
+	Filter			[8]
+      }
+      Object {
+	$PropName		"ExplorerBarInfo"
+	$ObjectID		4
+	$ClassName		"Simulink.ExplorerBarInfo"
+	Visible			[1]
+      }
+      Object {
+	$PropName		"EditorsInfo"
+	$ObjectID		5
+	$ClassName		"Simulink.EditorInfo"
+	IsActive		[1]
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
+	Extents			[1788.0, 810.0]
+	ZoomFactor		[1.0]
+	Offset			[0.0, 0.0]
+      }
+    }
+  }
   Created		  "Tue Mar 19 19:00:26 2013"
   Creator		  "arturo"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "arturogilaparicio"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 17 19:16:59 2014"
-  RTWModifiedTimeStamp	  291716099
-  ModelVersionFormat	  "1.%<AutoIncrement:61>"
-  ConfigurationManager	  "None"
+  LastModifiedDate	  "Mon Oct 17 12:48:44 2016"
+  RTWModifiedTimeStamp	  398609282
+  ModelVersionFormat	  "1.%<AutoIncrement:62>"
+  ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "none"
   WideLines		  off
   ShowLineDimensions	  off
   ShowPortDataTypes	  off
+  ShowDesignRanges	  off
   ShowLoopsOnError	  on
   IgnoreBidirectionalLines off
   ShowStorageClass	  off
@@ -45,6 +85,7 @@ Model {
   SortedOrder		  off
   ExecutionContextIcon	  off
   ShowLinearizationAnnotations on
+  ShowMarkup		  on
   BlockNameDataTip	  off
   BlockParametersDataTip  off
   BlockDescriptionStringDataTip	off
@@ -53,6 +94,11 @@ Model {
   BrowserShowLibraryLinks off
   BrowserLookUnderMasks	  off
   SimulationMode	  "normal"
+  PauseTimes		  "5"
+  NumberOfSteps		  1
+  SnapshotBufferSize	  10
+  SnapshotInterval	  10
+  NumberOfLastSnapshots	  0
   LinearizationMsg	  "none"
   Profile		  off
   ParamWorkspaceSource	  "MATLABWorkspace"
@@ -60,6 +106,24 @@ Model {
   AccelTemplateMakefile	  "accel_default_tmf"
   AccelMakeCommand	  "make_rtw"
   TryForcingSFcnDF	  off
+  Object {
+    $PropName		    "DataLoggingOverride"
+    $ObjectID		    6
+    $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
+    model_		    "simulate_robot_and_controller"
+    Array {
+      Type		      "Cell"
+      Dimension		      1
+      Cell		      "simulate_robot_and_controller"
+      PropName		      "logAsSpecifiedByModels_"
+    }
+    Array {
+      Type		      "Cell"
+      Dimension		      1
+      Cell		      ""
+      PropName		      "logAsSpecifiedByModelsSSIDs_"
+    }
+  }
   RecordCoverage	  off
   CovPath		  "/"
   CovSaveName		  "covdata"
@@ -67,6 +131,7 @@ Model {
   CovNameIncrementing	  off
   CovHtmlReporting	  on
   CovForceBlockReductionOff on
+  CovEnableCumulative	  on
   covSaveCumulativeToWorkspaceVar on
   CovSaveSingleToWorkspaceVar on
   CovCumulativeVarName	  "covCumulativeData"
@@ -74,6 +139,12 @@ Model {
   CovReportOnPause	  on
   CovModelRefEnable	  "Off"
   CovExternalEMLEnable	  off
+  CovSFcnEnable		  on
+  CovBoundaryAbsTol	  0.000010
+  CovBoundaryRelTol	  0.010000
+  CovUseTimeInterval	  off
+  CovStartTime		  0
+  CovStopTime		  0
   ExtModeBatchMode	  off
   ExtModeEnableFloating	  on
   ExtModeTrigType	  "manual"
@@ -95,21 +166,20 @@ Model {
   ExtModeSkipDownloadWhenConnect off
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
-  BufferReuse		  on
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
   Array {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      1
-      Version		      "1.11.0"
+      $ObjectID		      7
+      Version		      "1.15.0"
       Array {
 	Type			"Handle"
 	Dimension		9
 	Simulink.SolverCC {
-	  $ObjectID		  2
-	  Version		  "1.11.0"
+	  $ObjectID		  8
+	  Version		  "1.15.0"
 	  StartTime		  "0.0"
 	  StopTime		  "0.15"
 	  AbsTol		  "auto"
@@ -127,6 +197,7 @@ Model {
 	  MaxConsecutiveMinStep	  "1"
 	  RelTol		  "1e-3"
 	  SolverMode		  "Auto"
+	  EnableConcurrentExecution off
 	  ConcurrentTasks	  off
 	  Solver		  "ode3"
 	  SolverName		  "ode3"
@@ -142,8 +213,8 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  3
-	  Version		  "1.11.0"
+	  $ObjectID		  9
+	  Version		  "1.15.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -161,6 +232,7 @@ Model {
 	  SignalLogging		  on
 	  DSMLogging		  on
 	  InspectSignalLogs	  off
+	  VisualizeSimOutput	  on
 	  SaveTime		  on
 	  ReturnWorkspaceOutputs  off
 	  StateSaveName		  "xout"
@@ -174,8 +246,8 @@ Model {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  4
-	  Version		  "1.11.0"
+	  $ObjectID		  10
+	  Version		  "1.15.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    6
@@ -191,12 +263,16 @@ Model {
 	  BooleanDataType	  on
 	  ConditionallyExecuteInputs on
 	  InlineParams		  off
-	  UseIntDivNetSlope	  off
+	  UseDivisionForNetSlopeComputation "off"
+	  UseFloatMulNetSlope	  off
+	  DefaultUnderspecifiedDataType	"double"
 	  UseSpecifiedMinMax	  off
 	  InlineInvariantSignals  off
 	  OptimizeBlockIOStorage  on
 	  BufferReuse		  on
 	  EnhancedBackFolding	  off
+	  CachingGlobalReferences off
+	  GlobalBufferReuse	  on
 	  StrengthReduction	  off
 	  ExpressionFolding	  on
 	  BooleansAsBitfields	  off
@@ -204,14 +280,13 @@ Model {
 	  EnableMemcpy		  on
 	  MemcpyThreshold	  64
 	  PassReuseOutputArgsAs	  "Structure reference"
+	  PassReuseOutputArgsThreshold 12
 	  ExpressionDepthLimit	  2147483647
-	  FoldNonRolledExpr	  on
 	  LocalBlockOutputs	  on
 	  RollThreshold		  5
-	  SystemCodeInlineAuto	  off
 	  StateBitsets		  off
 	  DataBitsets		  off
-	  UseTempVars		  off
+	  ActiveStateOutputEnumStorageType "Native Integer"
 	  ZeroExternalMemoryAtStartup on
 	  ZeroInternalMemoryAtStartup on
 	  InitFltsAndDblsToZero	  off
@@ -222,13 +297,12 @@ Model {
 	  LifeSpan		  "inf"
 	  MaxStackSize		  "Inherit from target"
 	  BufferReusableBoundary  on
-	  SimCompilerOptimization "Off"
+	  SimCompilerOptimization "off"
 	  AccelVerboseBuild	  off
-	  AccelParallelForEachSubsystem	on
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  5
-	  Version		  "1.11.0"
+	  $ObjectID		  11
+	  Version		  "1.15.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
@@ -277,22 +351,21 @@ Model {
 	  UnnecessaryDatatypeConvMsg "none"
 	  VectorMatrixConversionMsg "none"
 	  InvalidFcnCallConnMsg	  "error"
-	  FcnCallInpInsideContextMsg "Use local settings"
+	  FcnCallInpInsideContextMsg "UseLocalSettings"
 	  SignalLabelMismatchMsg  "none"
 	  UnconnectedInputMsg	  "warning"
 	  UnconnectedOutputMsg	  "warning"
 	  UnconnectedLineMsg	  "warning"
 	  SFcnCompatibilityMsg	  "none"
+	  FrameProcessingCompatibilityMsg "error"
 	  UniqueDataStoreMsg	  "none"
 	  BusObjectLabelMismatch  "warning"
 	  RootOutportRequireBusObject "warning"
 	  AssertControl		  "UseLocalSettings"
-	  EnableOverflowDetection off
 	  ModelReferenceIOMsg	  "none"
 	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
 	  ModelReferenceVersionMismatchMessage "none"
 	  ModelReferenceIOMismatchMessage "none"
-	  ModelReferenceCSMismatchMessage "none"
 	  UnknownTsInhSupMsg	  "warning"
 	  ModelReferenceDataLoggingMessage "warning"
 	  ModelReferenceSymbolNameMessage "warning"
@@ -301,24 +374,29 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "Warning"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
-	  LoggingUnavailableSignals "error"
 	  BlockIODiagnostic	  "none"
 	  SFUnusedDataAndEventsDiag "warning"
 	  SFUnexpectedBacktrackingDiag "warning"
 	  SFInvalidInputDataAccessInChartInitDiag "warning"
 	  SFNoUnconditionalDefaultTransitionDiag "warning"
 	  SFTransitionOutsideNaturalParentDiag "warning"
+	  SFUnconditionalTransitionShadowingDiag "warning"
+	  SFUndirectedBroadcastEventsDiag "warning"
+	  SFTransitionActionBeforeConditionDiag	"warning"
+	  SFOutputUsedAsStateInMooreChartDiag "error"
+	  IntegerSaturationMsg	  "warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  6
-	  Version		  "1.11.0"
+	  $ObjectID		  12
+	  Version		  "1.15.0"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
 	  ProdBitPerLong	  32
+	  ProdBitPerLongLong	  64
 	  ProdBitPerFloat	  32
 	  ProdBitPerDouble	  64
 	  ProdBitPerPointer	  32
@@ -328,21 +406,23 @@ Model {
 	  ProdEndianess		  "Unspecified"
 	  ProdWordSize		  32
 	  ProdShiftRightIntArith  on
+	  ProdLongLongMode	  off
 	  ProdHWDeviceType	  "32-bit Generic"
 	  TargetBitPerChar	  8
 	  TargetBitPerShort	  16
 	  TargetBitPerInt	  32
 	  TargetBitPerLong	  32
+	  TargetBitPerLongLong	  64
 	  TargetBitPerFloat	  32
 	  TargetBitPerDouble	  64
 	  TargetBitPerPointer	  32
 	  TargetLargestAtomicInteger "Char"
 	  TargetLargestAtomicFloat "None"
 	  TargetShiftRightIntArith on
+	  TargetLongLongMode	  off
 	  TargetIntDivRoundTo	  "Undefined"
 	  TargetEndianess	  "Unspecified"
 	  TargetWordSize	  32
-	  TargetTypeEmulationWarnSuppressLevel 0
 	  TargetPreprocMaxBitsSint 32
 	  TargetPreprocMaxBitsUint 32
 	  TargetHWDeviceType	  "Specified"
@@ -350,8 +430,8 @@ Model {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  7
-	  Version		  "1.11.0"
+	  $ObjectID		  13
+	  Version		  "1.15.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
 	  EnableParallelModelReferenceBuilds off
@@ -365,23 +445,21 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  8
-	  Version		  "1.11.0"
-	  SFSimEnableDebug	  on
+	  $ObjectID		  14
+	  Version		  "1.15.0"
 	  SFSimOverflowDetection  on
 	  SFSimEcho		  on
-	  SimBlas		  on
 	  SimCtrlC		  on
-	  SimExtrinsic		  on
 	  SimIntegrity		  on
 	  SimUseLocalCustomCode	  off
 	  SimParseCustomCode	  on
 	  SimBuildMode		  "sf_incremental_build"
+	  SimGenImportedTypeDefs  off
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  9
-	  Version		  "1.11.0"
+	  $ObjectID		  15
+	  Version		  "1.15.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    6
@@ -394,10 +472,15 @@ Model {
 	    PropName		    "DisabledProps"
 	  }
 	  SystemTargetFile	  "grt.tlc"
+	  TLCOptions		  ""
 	  GenCodeOnly		  off
 	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
+	  PackageGeneratedCodeAndArtifacts off
+	  PackageName		  ""
 	  TemplateMakefile	  "grt_default_tmf"
+	  PostCodeGenCommand	  ""
+	  Description		  ""
 	  GenerateReport	  off
 	  SaveLog		  off
 	  RTWVerbose		  on
@@ -406,33 +489,47 @@ Model {
 	  TLCDebug		  off
 	  TLCCoverage		  off
 	  TLCAssert		  off
-	  ProcessScriptMode	  "Default"
-	  ConfigurationMode	  "Optimized"
-	  ConfigAtBuild		  off
 	  RTWUseLocalCustomCode	  off
 	  RTWUseSimCustomCode	  off
+	  CustomSourceCode	  ""
+	  CustomHeaderCode	  ""
+	  CustomInclude		  ""
+	  CustomSource		  ""
+	  CustomLibrary		  ""
+	  CustomInitializer	  ""
+	  CustomTerminator	  ""
+	  Toolchain		  "Automatically locate an installed toolchain"
+	  BuildConfiguration	  "Faster Builds"
 	  IncludeHyperlinkInReport off
 	  LaunchReport		  off
+	  PortableWordSizes	  off
+	  CreateSILPILBlock	  "None"
+	  CodeExecutionProfiling  off
+	  CodeExecutionProfileVariable "executionProfile"
+	  CodeProfilingSaveOptions "SummaryOnly"
+	  CodeProfilingInstrumentation off
+	  SILDebugging		  off
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
-	  IncludeERTFirstTime	  off
 	  GenerateTraceInfo	  off
 	  GenerateTraceReport	  off
 	  GenerateTraceReportSl	  off
 	  GenerateTraceReportSf	  off
 	  GenerateTraceReportEml  off
-	  GenerateCodeInfo	  off
-	  GenerateSLWebview	  off
+	  GenerateWebview	  off
 	  GenerateCodeMetricsReport off
-	  RTWCompilerOptimization "Off"
+	  GenerateCodeReplacementReport	off
+	  GenerateMissedCodeReplacementReport off
+	  RTWCompilerOptimization "off"
+	  RTWCustomCompilerOptimizations ""
 	  CheckMdlBeforeBuild	  "Off"
-	  CustomRebuildMode	  "OnUpdate"
+	  SharedConstantsCachingThreshold 1024
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      10
-	      Version		      "1.11.0"
+	      $ObjectID		      16
+	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
 		Dimension		17
@@ -457,6 +554,7 @@ Model {
 	      }
 	      ForceParamTrailComments off
 	      GenerateComments	      on
+	      CommentStyle	      "Auto"
 	      IgnoreCustomStorageClasses on
 	      IgnoreTestpoints	      off
 	      IncHierarchyInIds	      off
@@ -464,6 +562,7 @@ Model {
 	      PreserveName	      off
 	      PreserveNameWithParent  off
 	      ShowEliminatedStatement off
+	      OperatorAnnotations     off
 	      IncAutoGenComments      off
 	      SimulinkDataObjDesc     off
 	      SFDataObjDesc	      off
@@ -471,13 +570,14 @@ Model {
 	      IncDataTypeInIds	      off
 	      MangleLength	      1
 	      CustomSymbolStrGlobalVar "$R$N$M"
-	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrType     "$N$R$M_T"
 	      CustomSymbolStrField    "$N$M"
 	      CustomSymbolStrFcn      "$R$N$M$F"
 	      CustomSymbolStrFcnArg   "rt$I$N$M"
 	      CustomSymbolStrBlkIO    "rtb_$N$M"
 	      CustomSymbolStrTmpVar   "$N$M"
 	      CustomSymbolStrMacro    "$R$N$M"
+	      CustomSymbolStrUtil     "$N$C"
 	      DefineNamingRule	      "None"
 	      ParamNamingRule	      "None"
 	      SignalNamingRule	      "None"
@@ -486,52 +586,52 @@ Model {
 	      SimulinkBlockComments   on
 	      MATLABSourceComments    off
 	      EnableCustomComments    off
+	      InternalIdentifier      "Shortened"
 	      InlinedPrmAccess	      "Literals"
 	      ReqsInCode	      off
 	      UseSimReservedNames     off
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      11
-	      Version		      "1.11.0"
+	      $ObjectID		      17
+	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		15
+		Dimension		14
 		Cell			"IncludeMdlTerminateFcn"
-		Cell			"CombineOutputUpdateFcns"
+		Cell			"GenerateAllocFcn"
 		Cell			"SuppressErrorStatus"
 		Cell			"ERTCustomFileBanners"
 		Cell			"GenerateSampleERTMain"
 		Cell			"GenerateTestInterfaces"
 		Cell			"ModelStepFunctionPrototypeControlCompliant"
 		Cell			"CPPClassGenCompliant"
-		Cell			"MultiInstanceERTCode"
+		Cell			"SupportNonInlinedSFcns"
 		Cell			"PurelyIntegerCode"
 		Cell			"PortableWordSizes"
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"SupportNonInlinedSFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
 	      TargetLibSuffix	      ""
 	      TargetPreCompLibLocation ""
-	      TargetFunctionLibrary   "ANSI_C"
+	      GenFloatMathFcnCalls    "NOT IN USE"
+	      TargetLangStandard      "C89/C90 (ANSI)"
+	      CodeReplacementLibrary  "None"
 	      UtilityFuncGeneration   "Auto"
 	      ERTMultiwordTypeDef     "System defined"
-	      FunctionExecutionProfile off
-	      CodeExecutionProfiling  off
-	      ERTCodeCoverageTool     "None"
 	      ERTMultiwordLength      256
 	      MultiwordLength	      2048
 	      GenerateFullHeader      on
+	      InferredTypesCompatibility off
 	      GenerateSampleERTMain   off
 	      GenerateTestInterfaces  off
-	      IsPILTarget	      off
 	      ModelReferenceCompliant on
 	      ParMdlRefBuildCompliant on
 	      CompOptLevelCompliant   on
+	      ConcurrentExecutionCompliant on
 	      IncludeMdlTerminateFcn  on
 	      GeneratePreprocessorConditionals "Disable all"
 	      CombineOutputUpdateFcns off
@@ -544,18 +644,22 @@ Model {
 	      LogVarNameModifier      "rt_"
 	      MatFileLogging	      on
 	      MultiInstanceERTCode    off
+	      CodeInterfacePackaging  "Nonreusable function"
 	      SupportNonFinite	      on
 	      SupportComplex	      on
 	      PurelyIntegerCode	      off
 	      SupportContinuousTime   on
 	      SupportNonInlinedSFcns  on
 	      SupportVariableSizeSignals off
-	      EnableShiftOperators    on
 	      ParenthesesLevel	      "Nominal"
-	      PortableWordSizes	      off
+	      CastingMode	      "Nominal"
+	      MATLABClassNameForMDSCustomization "Simulink.SoftwareTarget.GRTCustomization"
 	      ModelStepFunctionPrototypeControlCompliant off
-	      CPPClassGenCompliant    off
+	      CPPClassGenCompliant    on
 	      AutosarCompliant	      off
+	      GRTInterface	      on
+	      GenerateAllocFcn	      off
+	      GenerateSharedConstants on
 	      UseMalloc		      off
 	      ExtMode		      off
 	      ExtModeStaticAlloc      off
@@ -569,15 +673,23 @@ Model {
 	      RTWCAPIStates	      off
 	      RTWCAPIRootIO	      off
 	      GenerateASAP2	      off
+	      MultiInstanceErrorCode  "Error"
 	    }
 	    PropName		    "Components"
 	  }
 	}
 	hdlcoderui.hdlcc {
-	  $ObjectID		  12
-	  Version		  "1.11.0"
+	  $ObjectID		  18
+	  Version		  "1.15.0"
 	  Description		  "HDL Coder custom configuration component"
 	  Name			  "HDL Coder"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    " "
+	    PropName		    "HDLConfigFile"
+	  }
+	  HDLCActiveTab		  "0"
 	}
 	PropName		"Components"
       }
@@ -589,8 +701,19 @@ Model {
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    1
+    $ObjectID		    7
   }
+  Object {
+    $PropName		    "DataTransfer"
+    $ObjectID		    19
+    $ClassName		    "Simulink.GlobalDataTransfer"
+    DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
+    DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
+    DefaultTransitionBetweenContTasks "Ensure deterministic transfer (minimum delay)"
+    DefaultExtrapolationMethodBetweenContTasks "None"
+    AutoInsertRateTranBlk   [0]
+  }
+  ExplicitPartitioning	  off
   BlockDefaults {
     ForegroundColor	    "black"
     BackgroundColor	    "white"
@@ -622,6 +745,25 @@ Model {
     FontWeight		    "normal"
     FontAngle		    "normal"
   }
+  MaskDefaults {
+    SelfModifiable	    "off"
+    IconFrame		    "on"
+    IconOpaque		    "on"
+    RunInitForIconRedraw    "off"
+    IconRotate		    "none"
+    PortRotate		    "default"
+    IconUnits		    "autoscale"
+  }
+  MaskParameterDefaults {
+    Evaluate		    "on"
+    Tunable		    "on"
+    NeverSave		    "off"
+    Internal		    "off"
+    ReadOnly		    "off"
+    Enabled		    "on"
+    Visible		    "on"
+    ToolTip		    "on"
+  }
   BlockParameterDefaults {
     Block {
       BlockType		      Demux
@@ -631,11 +773,17 @@ Model {
     }
     Block {
       BlockType		      DiscreteTransferFcn
+      NumeratorSource	      "Dialog"
       Numerator		      "[1]"
+      DenominatorSource	      "Dialog"
       Denominator	      "[1 0.5]"
-      InputProcessing	      "Elements as channels (sample based)"
+      InitialStatesSource     "Dialog"
       InitialStates	      "0"
-      SampleTime	      "1"
+      InputProcessing	      "Elements as channels (sample based)"
+      ExternalReset	      "None"
+      InitialDenominatorStates "0"
+      FilterStructure	      "Direct form II"
+      SampleTime	      "-1"
       a0EqualsOne	      off
       NumCoefMin	      "[]"
       NumCoefMax	      "[]"
@@ -644,6 +792,7 @@ Model {
       OutMin		      "[]"
       OutMax		      "[]"
       StateDataTypeStr	      "Inherit: Same as input"
+      MultiplicandDataTypeStr "Inherit: Same as input"
       NumCoefDataTypeStr      "Inherit: Inherit via internal rule"
       DenCoefDataTypeStr      "Inherit: Inherit via internal rule"
       NumProductDataTypeStr   "Inherit: Inherit via internal rule"
@@ -698,6 +847,9 @@ Model {
       LimitOutput	      off
       UpperSaturationLimit    "inf"
       LowerSaturationLimit    "-inf"
+      WrapState		      off
+      WrappedStateUpperValue  "pi"
+      WrappedStateLowerValue  "-pi"
       ShowSaturationPort      off
       ShowStatePort	      off
       AbsoluteTolerance	      "auto"
@@ -759,16 +911,19 @@ Model {
       TickLabels	      "OneTimeTick"
       ZoomMode		      "on"
       Grid		      "on"
+      ShowLegends	      off
       TimeRange		      "auto"
       YMin		      "-5"
       YMax		      "5"
       SaveToWorkspace	      off
       SaveName		      "ScopeData"
+      DataFormat	      "Array"
       LimitDataPoints	      on
       MaxDataPoints	      "5000"
       Decimation	      "1"
       SampleInput	      off
       SampleTime	      "-1"
+      ScrollMode	      off
     }
     Block {
       BlockType		      Step
@@ -785,10 +940,15 @@ Model {
       Permissions	      "ReadWrite"
       PermitHierarchicalResolution "All"
       TreatAsAtomicUnit	      off
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
       CheckFcnCallInpInsideContextMsg off
       SystemSampleTime	      "-1"
+      RTWSystemCode	      "Auto"
       RTWFcnNameOpts	      "Auto"
       RTWFileNameOpts	      "Auto"
+      FunctionInterfaceSpec   "void_void"
+      FunctionWithSeparateData off
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -798,8 +958,13 @@ Model {
       DataTypeOverride	      "UseLocalSettings"
       DataTypeOverrideAppliesTo	"AllNumericTypes"
       MinMaxOverflowLogging   "UseLocalSettings"
+      Opaque		      off
+      MaskHideContents	      off
+      SFBlockType	      "NONE"
       Variant		      off
       GeneratePreprocessorConditionals off
+      ContentPreviewEnabled   off
+      IsWebBlock	      off
     }
     Block {
       BlockType		      Sum
@@ -822,9 +987,11 @@ Model {
       VariableName	      "simulink_output"
       MaxDataPoints	      "1000"
       Decimation	      "1"
-      SampleTime	      "0"
+      SaveFormat	      "Array"
+      Save2DSignal	      "Inherit from input (this choice will be removed - see release notes)"
       FixptAsFi		      off
       NumInputs		      "1"
+      SampleTime	      "0"
     }
     Block {
       BlockType		      TransferFcn
@@ -841,7 +1008,7 @@ Model {
   }
   System {
     Name		    "simulate_robot_and_controller"
-    Location		    [331, 388, 2113, 1193]
+    Location		    [151, 214, 1973, 1197]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -855,30 +1022,25 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "179"
+    SIDHighWatermark	    "202"
     Block {
       BlockType		      SubSystem
       Name		      "ROBOT"
       SID		      "1"
       Ports		      [1, 1]
       Position		      [875, 20, 1240, 440]
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
+      ZOrder		      -1
       RequestExecContextInheritance off
-      MaskHideContents	      off
-      MaskDisplay	      "port_label('output', 1, 'Joint positions (rad)')\nport_label('input', 1, 'Control actions (Vo"
-      "lts)')\nimage(imread('images/robot.png'))"
-      MaskIconFrame	      on
-      MaskIconOpaque	      on
-      MaskIconRotate	      "none"
-      MaskPortRotate	      "default"
-      MaskIconUnits	      "autoscale"
+      Object {
+	$PropName		"MaskObject"
+	$ObjectID		20
+	$ClassName		"Simulink.Mask"
+	Display			"port_label('output', 1, 'Joint positions (rad)')\nport_label('input', 1, 'Control actions (Volts)')\nimage"
+	"(imread('images/robot.png'))"
+      }
       System {
 	Name			"ROBOT"
-	Location		[164, 275, 1863, 1411]
+	Location		[151, 214, 1973, 1197]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -896,6 +1058,7 @@ Model {
 	  Name			  "In1"
 	  SID			  "2"
 	  Position		  [75, 373, 105, 387]
+	  ZOrder		  -1
 	  IconDisplay		  "Port number"
 	}
 	Block {
@@ -904,6 +1067,7 @@ Model {
 	  SID			  "3"
 	  Ports			  [1, 1]
 	  Position		  [1280, 408, 1360, 452]
+	  ZOrder		  -2
 	  BackgroundColor	  "lightBlue"
 	  MATLABFcn		  "call_direct_dynamics(u)"
 	  OutputDimensions	  "6"
@@ -914,6 +1078,7 @@ Model {
 	  SID			  "4"
 	  Ports			  [1, 6]
 	  Position		  [250, 84, 255, 676]
+	  ZOrder		  -3
 	  ShowName		  off
 	  Outputs		  "6"
 	  DisplayOption		  "bar"
@@ -924,6 +1089,7 @@ Model {
 	  SID			  "5"
 	  Ports			  [1, 6]
 	  Position		  [850, 501, 855, 789]
+	  ZOrder		  -4
 	  BlockMirror		  on
 	  NamePlacement		  "alternate"
 	  ShowName		  off
@@ -936,35 +1102,31 @@ Model {
 	  SID			  "6"
 	  Ports			  [3, 3]
 	  Position		  [945, 383, 1110, 477]
+	  ZOrder		  -5
 	  BackgroundColor	  "orange"
 	  NamePlacement		  "alternate"
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Set [1 1 1 1 1 1] to enable all motors and controls. Set [1 0 0 0 0 0] to enable just joint 1 c"
-	  "ontrol, [0 1 0 0 0 0] to enable 2, and so on:"
-	  MaskStyleString	  "edit"
-	  MaskVariables		  "on_off_vector=@1;"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskDisplay		  "port_label('input', 1, 'input_torque')\nport_label('output', 1, 'output_torque')\nport_label('input"
-	  "', 2, 'input_pos')\nport_label('output', 2, 'output_pos')\nport_label('input', 3, 'input_vel')\nport_label('output'"
-	  ", 3, 'output_vel')"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "[1 1 1 1 1 1]"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    21
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "port_label('input', 1, 'input_torque')\nport_label('output', 1, 'output_torque')\nport_label('input"
+	    "', 2, 'input_pos')\nport_label('output', 2, 'output_pos')\nport_label('input', 3, 'input_vel')\nport_label('outpu"
+	    "t', 3, 'output_vel')"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      22
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "on_off_vector"
+	      Prompt		      "Set [1 1 1 1 1 1] to enable all motors and controls. Set [1 0 0 0 0 0] to enable just joint 1 co"
+	      "ntrol, [0 1 0 0 0 0] to enable 2, and so on:"
+	      Value		      "[1 1 1 1 1 1]"
+	    }
+	  }
 	  System {
 	    Name		    "ENABLE/DISABLE CONTROLS"
-	    Location		    [324, 768, 921, 1366]
+	    Location		    [286, 648, 923, 1424]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -982,6 +1144,7 @@ Model {
 	      Name		      "In1"
 	      SID		      "7"
 	      Position		      [100, 53, 130, 67]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -989,6 +1152,7 @@ Model {
 	      Name		      "In2"
 	      SID		      "8"
 	      Position		      [100, 173, 130, 187]
+	      ZOrder		      -2
 	      NamePlacement	      "alternate"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -998,6 +1162,7 @@ Model {
 	      Name		      "In3"
 	      SID		      "9"
 	      Position		      [100, 283, 130, 297]
+	      ZOrder		      -3
 	      NamePlacement	      "alternate"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
@@ -1007,6 +1172,7 @@ Model {
 	      Name		      "ENABLE/DISABLE POSITIONS"
 	      SID		      "10"
 	      Position		      [205, 165, 235, 195]
+	      ZOrder		      -4
 	      Gain		      "on_off_vector"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -1017,6 +1183,7 @@ Model {
 	      Name		      "ENABLE/DISABLE SPEEDS"
 	      SID		      "11"
 	      Position		      [205, 275, 235, 305]
+	      ZOrder		      -5
 	      Gain		      "on_off_vector"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -1027,6 +1194,7 @@ Model {
 	      Name		      "ENABLE/DISABLE TORQUES"
 	      SID		      "12"
 	      Position		      [205, 45, 235, 75]
+	      ZOrder		      -6
 	      Gain		      "on_off_vector"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -1037,6 +1205,7 @@ Model {
 	      Name		      "Out1"
 	      SID		      "13"
 	      Position		      [340, 53, 370, 67]
+	      ZOrder		      -7
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -1044,6 +1213,7 @@ Model {
 	      Name		      "Out2"
 	      SID		      "14"
 	      Position		      [340, 173, 370, 187]
+	      ZOrder		      -8
 	      NamePlacement	      "alternate"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -1053,41 +1223,48 @@ Model {
 	      Name		      "Out3"
 	      SID		      "15"
 	      Position		      [340, 283, 370, 297]
+	      ZOrder		      -9
 	      NamePlacement	      "alternate"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "In2"
 	      SrcPort		      1
 	      DstBlock		      "ENABLE/DISABLE POSITIONS"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      2
 	      SrcBlock		      "In1"
 	      SrcPort		      1
 	      DstBlock		      "ENABLE/DISABLE TORQUES"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      3
 	      SrcBlock		      "ENABLE/DISABLE TORQUES"
 	      SrcPort		      1
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      4
 	      SrcBlock		      "In3"
 	      SrcPort		      1
 	      DstBlock		      "ENABLE/DISABLE SPEEDS"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      5
 	      SrcBlock		      "ENABLE/DISABLE SPEEDS"
 	      SrcPort		      1
 	      DstBlock		      "Out3"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "ENABLE/DISABLE POSITIONS"
 	      SrcPort		      1
 	      DstBlock		      "Out2"
@@ -1101,6 +1278,7 @@ Model {
 	  SID			  "16"
 	  Ports			  [1, 1]
 	  Position		  [1415, 420, 1435, 440]
+	  ZOrder		  -6
 	  InitialCondition	  "[0 0 0 0 0 0]"
 	}
 	Block {
@@ -1109,6 +1287,7 @@ Model {
 	  SID			  "17"
 	  Ports			  [1, 1]
 	  Position		  [1520, 420, 1540, 440]
+	  ZOrder		  -7
 	  InitialCondition	  "[0 0 0 0 0 0]"
 	}
 	Block {
@@ -1117,31 +1296,27 @@ Model {
 	  SID			  "18"
 	  Ports			  [2, 1]
 	  Position		  [390, 112, 465, 183]
+	  ZOrder		  -8
 	  BackgroundColor	  "yellow"
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Select motor index"
-	  MaskStyleString	  "edit"
-	  MaskVariables		  "index=@1;"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "1"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    23
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "image(imread('images/brushless_dc.jpg'))"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      24
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "index"
+	      Prompt		      "Select motor index"
+	      Value		      "1"
+	    }
+	  }
 	  System {
 	    Name		    "Motoreducer 1"
-	    Location		    [669, 675, 1426, 1051]
+	    Location		    [151, 214, 1973, 1197]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1159,6 +1334,7 @@ Model {
 	      Name		      "Input (Volts)"
 	      SID		      "19"
 	      Position		      [90, 103, 120, 117]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -1166,6 +1342,7 @@ Model {
 	      Name		      "Speed"
 	      SID		      "20"
 	      Position		      [570, 203, 600, 217]
+	      ZOrder		      -2
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Port		      "2"
@@ -1176,6 +1353,7 @@ Model {
 	      Name		      "Back EMF"
 	      SID		      "21"
 	      Position		      [290, 192, 345, 228]
+	      ZOrder		      -3
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.constants(index,4)"
@@ -1185,6 +1363,7 @@ Model {
 	      Name		      "Gear ratio"
 	      SID		      "22"
 	      Position		      [495, 99, 530, 141]
+	      ZOrder		      -4
 	      Gain		      "robot.motors.G(index)"
 	    }
 	    Block {
@@ -1192,6 +1371,7 @@ Model {
 	      Name		      "Gear ratio 1"
 	      SID		      "23"
 	      Position		      [450, 186, 500, 234]
+	      ZOrder		      -5
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.G(index)"
@@ -1202,6 +1382,7 @@ Model {
 	      SID		      "24"
 	      Ports		      [1, 1]
 	      Position		      [330, 105, 360, 135]
+	      ZOrder		      -6
 	      InputPortMap	      "u0"
 	      UpperLimit	      "robot.motors.constants(index,5)"
 	      LowerLimit	      "-robot.motors.constants(index,5)"
@@ -1212,6 +1393,7 @@ Model {
 	      SID		      "174"
 	      Ports		      [1, 1]
 	      Position		      [390, 195, 420, 225]
+	      ZOrder		      -7
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      InputPortMap	      "u0"
@@ -1224,6 +1406,7 @@ Model {
 	      SID		      "25"
 	      Ports		      [2, 1]
 	      Position		      [180, 102, 200, 133]
+	      ZOrder		      -8
 	      Inputs		      "+-"
 	    }
 	    Block {
@@ -1231,6 +1414,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "26"
 	      Position		      [410, 104, 450, 136]
+	      ZOrder		      -9
 	      Gain		      "robot.motors.constants(index,4)"
 	    }
 	    Block {
@@ -1238,6 +1422,7 @@ Model {
 	      Name		      "motor= 1/(Ls + R)"
 	      SID		      "27"
 	      Position		      [230, 101, 290, 139]
+	      ZOrder		      -10
 	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
 	    }
 	    Block {
@@ -1245,46 +1430,54 @@ Model {
 	      Name		      "Output Torque"
 	      SID		      "28"
 	      Position		      [570, 113, 600, 127]
+	      ZOrder		      -11
 	      IconDisplay	      "Port number"
 	      InitialOutput	      "0"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "Saturation"
 	      SrcPort		      1
 	      DstBlock		      "Torque constant"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      2
 	      SrcBlock		      "motor= 1/(Ls + R)"
 	      SrcPort		      1
 	      DstBlock		      "Saturation"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      3
 	      SrcBlock		      "Torque constant"
 	      SrcPort		      1
 	      DstBlock		      "Gear ratio"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      4
 	      SrcBlock		      "Gear ratio"
 	      SrcPort		      1
 	      DstBlock		      "Output Torque"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      5
 	      SrcBlock		      "Sum1"
 	      SrcPort		      1
 	      DstBlock		      "motor= 1/(Ls + R)"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Gear ratio 1"
 	      SrcPort		      1
 	      DstBlock		      "Saturation1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Back EMF"
 	      SrcPort		      1
 	      Points		      [-120, 0]
@@ -1292,12 +1485,14 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Input (Volts)"
 	      SrcPort		      1
 	      DstBlock		      "Sum1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      Labels		      [0, 0]
 	      SrcBlock		      "Speed"
 	      SrcPort		      1
@@ -1305,14 +1500,20 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Saturation1"
 	      SrcPort		      1
 	      DstBlock		      "Back EMF"
 	      DstPort		      1
 	    }
 	    Annotation {
+	      SID		      "180"
 	      Name		      "max and minimum motor speed"
-	      Position		      [401, 239]
+	      Position		      [401, 239, 542, 251]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -1
 	    }
 	  }
 	}
@@ -1322,31 +1523,27 @@ Model {
 	  SID			  "29"
 	  Ports			  [2, 1]
 	  Position		  [390, 212, 465, 283]
+	  ZOrder		  -9
 	  BackgroundColor	  "yellow"
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Select motor index"
-	  MaskStyleString	  "edit"
-	  MaskVariables		  "index=@1;"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "2"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    25
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "image(imread('images/brushless_dc.jpg'))"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      26
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "index"
+	      Prompt		      "Select motor index"
+	      Value		      "2"
+	    }
+	  }
 	  System {
 	    Name		    "Motoreducer 2"
-	    Location		    [679, 689, 1311, 966]
+	    Location		    [641, 569, 1313, 1024]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1364,6 +1561,7 @@ Model {
 	      Name		      "Input (Volts)"
 	      SID		      "30"
 	      Position		      [25, 33, 55, 47]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -1371,6 +1569,7 @@ Model {
 	      Name		      "Speed"
 	      SID		      "31"
 	      Position		      [490, 133, 520, 147]
+	      ZOrder		      -2
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Port		      "2"
@@ -1381,6 +1580,7 @@ Model {
 	      Name		      "Gear ratio"
 	      SID		      "32"
 	      Position		      [430, 29, 465, 71]
+	      ZOrder		      -3
 	      Gain		      "robot.motors.G(index)"
 	    }
 	    Block {
@@ -1388,6 +1588,7 @@ Model {
 	      Name		      "Gear ratio 1"
 	      SID		      "33"
 	      Position		      [400, 119, 440, 161]
+	      ZOrder		      -4
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.G(index)"
@@ -1397,6 +1598,7 @@ Model {
 	      Name		      "Kv"
 	      SID		      "34"
 	      Position		      [225, 122, 280, 158]
+	      ZOrder		      -5
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.constants(index,4)"
@@ -1407,6 +1609,7 @@ Model {
 	      SID		      "35"
 	      Ports		      [1, 1]
 	      Position		      [265, 35, 295, 65]
+	      ZOrder		      -6
 	      InputPortMap	      "u0"
 	      UpperLimit	      "robot.motors.constants(index,5)"
 	      LowerLimit	      "-robot.motors.constants(index,5)"
@@ -1417,6 +1620,7 @@ Model {
 	      SID		      "175"
 	      Ports		      [1, 1]
 	      Position		      [330, 125, 360, 155]
+	      ZOrder		      -7
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      InputPortMap	      "u0"
@@ -1429,6 +1633,7 @@ Model {
 	      SID		      "36"
 	      Ports		      [2, 1]
 	      Position		      [115, 32, 135, 63]
+	      ZOrder		      -8
 	      Inputs		      "+-"
 	    }
 	    Block {
@@ -1436,6 +1641,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "37"
 	      Position		      [345, 34, 385, 66]
+	      ZOrder		      -9
 	      Gain		      "robot.motors.constants(index,4)"
 	    }
 	    Block {
@@ -1443,6 +1649,7 @@ Model {
 	      Name		      "motor"
 	      SID		      "38"
 	      Position		      [165, 31, 225, 69]
+	      ZOrder		      -10
 	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
 	    }
 	    Block {
@@ -1450,46 +1657,54 @@ Model {
 	      Name		      "Output Torque"
 	      SID		      "39"
 	      Position		      [490, 43, 520, 57]
+	      ZOrder		      -11
 	      IconDisplay	      "Port number"
 	      InitialOutput	      "0"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "Max/min current"
 	      SrcPort		      1
 	      DstBlock		      "Torque constant"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      2
 	      SrcBlock		      "motor"
 	      SrcPort		      1
 	      DstBlock		      "Max/min current"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      3
 	      SrcBlock		      "Torque constant"
 	      SrcPort		      1
 	      DstBlock		      "Gear ratio"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      4
 	      SrcBlock		      "Gear ratio"
 	      SrcPort		      1
 	      DstBlock		      "Output Torque"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      5
 	      SrcBlock		      "Sum1"
 	      SrcPort		      1
 	      DstBlock		      "motor"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Gear ratio 1"
 	      SrcPort		      1
 	      DstBlock		      "Saturation1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Kv"
 	      SrcPort		      1
 	      Points		      [-120, 0]
@@ -1497,12 +1712,14 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Input (Volts)"
 	      SrcPort		      1
 	      DstBlock		      "Sum1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      Labels		      [0, 0]
 	      SrcBlock		      "Speed"
 	      SrcPort		      1
@@ -1510,6 +1727,7 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Saturation1"
 	      SrcPort		      1
 	      DstBlock		      "Kv"
@@ -1523,30 +1741,26 @@ Model {
 	  SID			  "40"
 	  Ports			  [2, 1]
 	  Position		  [390, 312, 465, 383]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -10
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Select motor index"
-	  MaskStyleString	  "edit"
-	  MaskVariables		  "index=@1;"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "3"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    27
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "image(imread('images/brushless_dc.jpg'))"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      28
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "index"
+	      Prompt		      "Select motor index"
+	      Value		      "3"
+	    }
+	  }
 	  System {
 	    Name		    "Motoreducer 3"
-	    Location		    [977, 815, 1633, 1096]
+	    Location		    [939, 695, 1635, 1154]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1564,6 +1778,7 @@ Model {
 	      Name		      "Input (Volts)"
 	      SID		      "41"
 	      Position		      [25, 33, 55, 47]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -1571,6 +1786,7 @@ Model {
 	      Name		      "Speed"
 	      SID		      "42"
 	      Position		      [490, 133, 520, 147]
+	      ZOrder		      -2
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Port		      "2"
@@ -1581,6 +1797,7 @@ Model {
 	      Name		      "Gear ratio"
 	      SID		      "43"
 	      Position		      [430, 29, 465, 71]
+	      ZOrder		      -3
 	      Gain		      "robot.motors.G(index)"
 	    }
 	    Block {
@@ -1588,6 +1805,7 @@ Model {
 	      Name		      "Gear ratio 1"
 	      SID		      "44"
 	      Position		      [395, 119, 435, 161]
+	      ZOrder		      -4
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.G(index)"
@@ -1597,6 +1815,7 @@ Model {
 	      Name		      "Kv"
 	      SID		      "45"
 	      Position		      [225, 122, 280, 158]
+	      ZOrder		      -5
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.constants(index,4)"
@@ -1607,6 +1826,7 @@ Model {
 	      SID		      "46"
 	      Ports		      [1, 1]
 	      Position		      [265, 35, 295, 65]
+	      ZOrder		      -6
 	      InputPortMap	      "u0"
 	      UpperLimit	      "robot.motors.constants(index,5)"
 	      LowerLimit	      "-robot.motors.constants(index,5)"
@@ -1617,6 +1837,7 @@ Model {
 	      SID		      "176"
 	      Ports		      [1, 1]
 	      Position		      [335, 125, 365, 155]
+	      ZOrder		      -7
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      InputPortMap	      "u0"
@@ -1629,6 +1850,7 @@ Model {
 	      SID		      "47"
 	      Ports		      [2, 1]
 	      Position		      [115, 32, 135, 63]
+	      ZOrder		      -8
 	      Inputs		      "+-"
 	    }
 	    Block {
@@ -1636,6 +1858,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "48"
 	      Position		      [345, 34, 385, 66]
+	      ZOrder		      -9
 	      Gain		      "robot.motors.constants(index,4)"
 	    }
 	    Block {
@@ -1643,6 +1866,7 @@ Model {
 	      Name		      "motor: 1/(Ls+R)"
 	      SID		      "49"
 	      Position		      [165, 31, 225, 69]
+	      ZOrder		      -10
 	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
 	    }
 	    Block {
@@ -1650,46 +1874,54 @@ Model {
 	      Name		      "Output Torque"
 	      SID		      "50"
 	      Position		      [490, 43, 520, 57]
+	      ZOrder		      -11
 	      IconDisplay	      "Port number"
 	      InitialOutput	      "0"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "Saturation"
 	      SrcPort		      1
 	      DstBlock		      "Torque constant"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      2
 	      SrcBlock		      "motor: 1/(Ls+R)"
 	      SrcPort		      1
 	      DstBlock		      "Saturation"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      3
 	      SrcBlock		      "Torque constant"
 	      SrcPort		      1
 	      DstBlock		      "Gear ratio"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      4
 	      SrcBlock		      "Gear ratio"
 	      SrcPort		      1
 	      DstBlock		      "Output Torque"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      5
 	      SrcBlock		      "Sum1"
 	      SrcPort		      1
 	      DstBlock		      "motor: 1/(Ls+R)"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Gear ratio 1"
 	      SrcPort		      1
 	      DstBlock		      "Saturation1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Kv"
 	      SrcPort		      1
 	      Points		      [-120, 0]
@@ -1697,12 +1929,14 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Input (Volts)"
 	      SrcPort		      1
 	      DstBlock		      "Sum1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      Labels		      [0, 0]
 	      SrcBlock		      "Speed"
 	      SrcPort		      1
@@ -1710,6 +1944,7 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Saturation1"
 	      SrcPort		      1
 	      DstBlock		      "Kv"
@@ -1723,30 +1958,26 @@ Model {
 	  SID			  "51"
 	  Ports			  [2, 1]
 	  Position		  [390, 412, 465, 483]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -11
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Select motor index"
-	  MaskStyleString	  "edit"
-	  MaskVariables		  "index=@1;"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "4"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    29
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "image(imread('images/brushless_dc.jpg'))"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      30
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "index"
+	      Prompt		      "Select motor index"
+	      Value		      "4"
+	    }
+	  }
 	  System {
 	    Name		    "Motoreducer 4"
-	    Location		    [1132, 852, 1777, 1120]
+	    Location		    [1094, 732, 1779, 1178]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1764,6 +1995,7 @@ Model {
 	      Name		      "Input (Volts)"
 	      SID		      "52"
 	      Position		      [25, 33, 55, 47]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -1771,6 +2003,7 @@ Model {
 	      Name		      "Speed"
 	      SID		      "53"
 	      Position		      [490, 133, 520, 147]
+	      ZOrder		      -2
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Port		      "2"
@@ -1781,6 +2014,7 @@ Model {
 	      Name		      "Gear ratio"
 	      SID		      "54"
 	      Position		      [430, 29, 465, 71]
+	      ZOrder		      -3
 	      Gain		      "robot.motors.G(index)"
 	    }
 	    Block {
@@ -1788,6 +2022,7 @@ Model {
 	      Name		      "Gear ratio 1"
 	      SID		      "55"
 	      Position		      [395, 119, 435, 161]
+	      ZOrder		      -4
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.G(index)"
@@ -1797,6 +2032,7 @@ Model {
 	      Name		      "Kv"
 	      SID		      "56"
 	      Position		      [225, 122, 280, 158]
+	      ZOrder		      -5
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.constants(index,4)"
@@ -1807,6 +2043,7 @@ Model {
 	      SID		      "57"
 	      Ports		      [1, 1]
 	      Position		      [265, 35, 295, 65]
+	      ZOrder		      -6
 	      InputPortMap	      "u0"
 	      UpperLimit	      "robot.motors.constants(index,5)"
 	      LowerLimit	      "-robot.motors.constants(index,5)"
@@ -1817,6 +2054,7 @@ Model {
 	      SID		      "177"
 	      Ports		      [1, 1]
 	      Position		      [330, 125, 360, 155]
+	      ZOrder		      -7
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      InputPortMap	      "u0"
@@ -1829,6 +2067,7 @@ Model {
 	      SID		      "58"
 	      Ports		      [2, 1]
 	      Position		      [115, 32, 135, 63]
+	      ZOrder		      -8
 	      Inputs		      "+-"
 	    }
 	    Block {
@@ -1836,6 +2075,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "59"
 	      Position		      [345, 34, 385, 66]
+	      ZOrder		      -9
 	      Gain		      "robot.motors.constants(index,4)"
 	    }
 	    Block {
@@ -1843,6 +2083,7 @@ Model {
 	      Name		      "motor"
 	      SID		      "60"
 	      Position		      [165, 31, 225, 69]
+	      ZOrder		      -10
 	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
 	    }
 	    Block {
@@ -1850,46 +2091,54 @@ Model {
 	      Name		      "Output Torque"
 	      SID		      "61"
 	      Position		      [490, 43, 520, 57]
+	      ZOrder		      -11
 	      IconDisplay	      "Port number"
 	      InitialOutput	      "0"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "Saturation"
 	      SrcPort		      1
 	      DstBlock		      "Torque constant"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      2
 	      SrcBlock		      "motor"
 	      SrcPort		      1
 	      DstBlock		      "Saturation"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      3
 	      SrcBlock		      "Torque constant"
 	      SrcPort		      1
 	      DstBlock		      "Gear ratio"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      4
 	      SrcBlock		      "Gear ratio"
 	      SrcPort		      1
 	      DstBlock		      "Output Torque"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      5
 	      SrcBlock		      "Sum1"
 	      SrcPort		      1
 	      DstBlock		      "motor"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Gear ratio 1"
 	      SrcPort		      1
 	      DstBlock		      "Saturation1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Kv"
 	      SrcPort		      1
 	      Points		      [-120, 0]
@@ -1897,12 +2146,14 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Input (Volts)"
 	      SrcPort		      1
 	      DstBlock		      "Sum1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      Labels		      [0, 0]
 	      SrcBlock		      "Speed"
 	      SrcPort		      1
@@ -1910,6 +2161,7 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Saturation1"
 	      SrcPort		      1
 	      DstBlock		      "Kv"
@@ -1923,30 +2175,26 @@ Model {
 	  SID			  "62"
 	  Ports			  [2, 1]
 	  Position		  [390, 512, 465, 583]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -12
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Select motor index"
-	  MaskStyleString	  "edit"
-	  MaskVariables		  "index=@1;"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "5"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    31
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "image(imread('images/brushless_dc.jpg'))"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      32
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "index"
+	      Prompt		      "Select motor index"
+	      Value		      "5"
+	    }
+	  }
 	  System {
 	    Name		    "Motoreducer 5"
-	    Location		    [860, 862, 1486, 1195]
+	    Location		    [822, 742, 1488, 1253]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1964,6 +2212,7 @@ Model {
 	      Name		      "Input (Volts)"
 	      SID		      "63"
 	      Position		      [25, 33, 55, 47]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -1971,6 +2220,7 @@ Model {
 	      Name		      "Speed"
 	      SID		      "64"
 	      Position		      [490, 133, 520, 147]
+	      ZOrder		      -2
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Port		      "2"
@@ -1981,6 +2231,7 @@ Model {
 	      Name		      "Gear ratio"
 	      SID		      "65"
 	      Position		      [430, 29, 465, 71]
+	      ZOrder		      -3
 	      Gain		      "robot.motors.G(index)"
 	    }
 	    Block {
@@ -1988,6 +2239,7 @@ Model {
 	      Name		      "Gear ratio 1"
 	      SID		      "66"
 	      Position		      [405, 119, 445, 161]
+	      ZOrder		      -4
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.G(index)"
@@ -1997,6 +2249,7 @@ Model {
 	      Name		      "Kv"
 	      SID		      "67"
 	      Position		      [225, 122, 280, 158]
+	      ZOrder		      -5
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.constants(index,4)"
@@ -2007,6 +2260,7 @@ Model {
 	      SID		      "68"
 	      Ports		      [1, 1]
 	      Position		      [265, 35, 295, 65]
+	      ZOrder		      -6
 	      InputPortMap	      "u0"
 	      UpperLimit	      "robot.motors.constants(index,5)"
 	      LowerLimit	      "-robot.motors.constants(index,5)"
@@ -2017,6 +2271,7 @@ Model {
 	      SID		      "178"
 	      Ports		      [1, 1]
 	      Position		      [345, 125, 375, 155]
+	      ZOrder		      -7
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      InputPortMap	      "u0"
@@ -2029,6 +2284,7 @@ Model {
 	      SID		      "69"
 	      Ports		      [2, 1]
 	      Position		      [115, 32, 135, 63]
+	      ZOrder		      -8
 	      Inputs		      "+-"
 	    }
 	    Block {
@@ -2036,6 +2292,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "70"
 	      Position		      [345, 34, 385, 66]
+	      ZOrder		      -9
 	      Gain		      "robot.motors.constants(index,4)"
 	    }
 	    Block {
@@ -2043,6 +2300,7 @@ Model {
 	      Name		      "motor"
 	      SID		      "71"
 	      Position		      [165, 31, 225, 69]
+	      ZOrder		      -10
 	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
 	    }
 	    Block {
@@ -2050,46 +2308,54 @@ Model {
 	      Name		      "Output Torque"
 	      SID		      "72"
 	      Position		      [490, 43, 520, 57]
+	      ZOrder		      -11
 	      IconDisplay	      "Port number"
 	      InitialOutput	      "0"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "Saturation"
 	      SrcPort		      1
 	      DstBlock		      "Torque constant"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      2
 	      SrcBlock		      "motor"
 	      SrcPort		      1
 	      DstBlock		      "Saturation"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      3
 	      SrcBlock		      "Torque constant"
 	      SrcPort		      1
 	      DstBlock		      "Gear ratio"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      4
 	      SrcBlock		      "Gear ratio"
 	      SrcPort		      1
 	      DstBlock		      "Output Torque"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      5
 	      SrcBlock		      "Sum1"
 	      SrcPort		      1
 	      DstBlock		      "motor"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Gear ratio 1"
 	      SrcPort		      1
 	      DstBlock		      "Saturation1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Kv"
 	      SrcPort		      1
 	      Points		      [-120, 0]
@@ -2097,12 +2363,14 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Input (Volts)"
 	      SrcPort		      1
 	      DstBlock		      "Sum1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      Labels		      [0, 0]
 	      SrcBlock		      "Speed"
 	      SrcPort		      1
@@ -2110,6 +2378,7 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Saturation1"
 	      SrcPort		      1
 	      DstBlock		      "Kv"
@@ -2123,30 +2392,26 @@ Model {
 	  SID			  "73"
 	  Ports			  [2, 1]
 	  Position		  [390, 612, 465, 683]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -13
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Select motor index"
-	  MaskStyleString	  "edit"
-	  MaskVariables		  "index=@1;"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskDisplay		  "image(imread('images/brushless_dc.jpg'))"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "6"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    33
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "image(imread('images/brushless_dc.jpg'))"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      34
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "index"
+	      Prompt		      "Select motor index"
+	      Value		      "6"
+	    }
+	  }
 	  System {
 	    Name		    "Motoreducer 6"
-	    Location		    [1086, 857, 1723, 1158]
+	    Location		    [1048, 737, 1725, 1216]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2164,6 +2429,7 @@ Model {
 	      Name		      "Input (Volts)"
 	      SID		      "74"
 	      Position		      [25, 33, 55, 47]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -2171,6 +2437,7 @@ Model {
 	      Name		      "Speed"
 	      SID		      "75"
 	      Position		      [490, 133, 520, 147]
+	      ZOrder		      -2
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Port		      "2"
@@ -2181,6 +2448,7 @@ Model {
 	      Name		      "Gear ratio"
 	      SID		      "76"
 	      Position		      [430, 29, 465, 71]
+	      ZOrder		      -3
 	      Gain		      "robot.motors.G(index)"
 	    }
 	    Block {
@@ -2188,6 +2456,7 @@ Model {
 	      Name		      "Gear ratio 1"
 	      SID		      "77"
 	      Position		      [415, 119, 455, 161]
+	      ZOrder		      -4
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.G(index)"
@@ -2197,6 +2466,7 @@ Model {
 	      Name		      "Kv"
 	      SID		      "78"
 	      Position		      [225, 122, 280, 158]
+	      ZOrder		      -5
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      Gain		      "robot.motors.constants(index,4)"
@@ -2207,6 +2477,7 @@ Model {
 	      SID		      "79"
 	      Ports		      [1, 1]
 	      Position		      [265, 35, 295, 65]
+	      ZOrder		      -6
 	      InputPortMap	      "u0"
 	      UpperLimit	      "robot.motors.constants(index,5)"
 	      LowerLimit	      "-robot.motors.constants(index,5)"
@@ -2217,6 +2488,7 @@ Model {
 	      SID		      "179"
 	      Ports		      [1, 1]
 	      Position		      [340, 125, 370, 155]
+	      ZOrder		      -7
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      InputPortMap	      "u0"
@@ -2229,6 +2501,7 @@ Model {
 	      SID		      "80"
 	      Ports		      [2, 1]
 	      Position		      [115, 32, 135, 63]
+	      ZOrder		      -8
 	      Inputs		      "+-"
 	    }
 	    Block {
@@ -2236,6 +2509,7 @@ Model {
 	      Name		      "Torque constant"
 	      SID		      "81"
 	      Position		      [345, 34, 385, 66]
+	      ZOrder		      -9
 	      Gain		      "robot.motors.constants(index,4)"
 	    }
 	    Block {
@@ -2243,6 +2517,7 @@ Model {
 	      Name		      "motor"
 	      SID		      "82"
 	      Position		      [165, 31, 225, 69]
+	      ZOrder		      -10
 	      Denominator	      "[robot.motors.constants(index,2) robot.motors.constants(index,1)]"
 	    }
 	    Block {
@@ -2250,46 +2525,54 @@ Model {
 	      Name		      "Output Torque"
 	      SID		      "83"
 	      Position		      [490, 43, 520, 57]
+	      ZOrder		      -11
 	      IconDisplay	      "Port number"
 	      InitialOutput	      "0"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "Saturation"
 	      SrcPort		      1
 	      DstBlock		      "Torque constant"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      2
 	      SrcBlock		      "motor"
 	      SrcPort		      1
 	      DstBlock		      "Saturation"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      3
 	      SrcBlock		      "Torque constant"
 	      SrcPort		      1
 	      DstBlock		      "Gear ratio"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      4
 	      SrcBlock		      "Gear ratio"
 	      SrcPort		      1
 	      DstBlock		      "Output Torque"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      5
 	      SrcBlock		      "Sum1"
 	      SrcPort		      1
 	      DstBlock		      "motor"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Gear ratio 1"
 	      SrcPort		      1
 	      DstBlock		      "Saturation1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Kv"
 	      SrcPort		      1
 	      Points		      [-120, 0]
@@ -2297,12 +2580,14 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Input (Volts)"
 	      SrcPort		      1
 	      DstBlock		      "Sum1"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      Labels		      [0, 0]
 	      SrcBlock		      "Speed"
 	      SrcPort		      1
@@ -2310,6 +2595,7 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Saturation1"
 	      SrcPort		      1
 	      DstBlock		      "Kv"
@@ -2323,6 +2609,7 @@ Model {
 	  SID			  "84"
 	  Ports			  [6, 1]
 	  Position		  [725, 103, 730, 697]
+	  ZOrder		  -14
 	  ShowName		  off
 	  Inputs		  "6"
 	  DisplayOption		  "bar"
@@ -2333,6 +2620,7 @@ Model {
 	  SID			  "85"
 	  Ports			  [3, 1]
 	  Position		  [1230, 385, 1235, 475]
+	  ZOrder		  -15
 	  Inputs		  "3"
 	  DisplayOption		  "bar"
 	}
@@ -2342,10 +2630,10 @@ Model {
 	  SID			  "86"
 	  Ports			  [1]
 	  Position		  [1155, 140, 1270, 170]
+	  ZOrder		  -16
 	  VariableName		  "joint_torques"
 	  MaxDataPoints		  "inf"
 	  SampleTime		  "-1"
-	  SaveFormat		  "Array"
 	}
 	Block {
 	  BlockType		  ToWorkspace
@@ -2353,10 +2641,10 @@ Model {
 	  SID			  "87"
 	  Ports			  [1]
 	  Position		  [205, 30, 320, 60]
+	  ZOrder		  -17
 	  VariableName		  "control_actions"
 	  MaxDataPoints		  "inf"
 	  SampleTime		  "-1"
-	  SaveFormat		  "Array"
 	}
 	Block {
 	  BlockType		  ToWorkspace
@@ -2364,49 +2652,56 @@ Model {
 	  SID			  "88"
 	  Ports			  [1]
 	  Position		  [1155, 85, 1270, 115]
+	  ZOrder		  -18
 	  VariableName		  "joint_positions"
 	  MaxDataPoints		  "inf"
 	  SampleTime		  "-1"
-	  SaveFormat		  "Array"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Out1"
 	  SID			  "89"
 	  Position		  [1155, 498, 1185, 512]
+	  ZOrder		  -19
 	  IconDisplay		  "Port number"
 	}
 	Line {
+	  ZOrder		  1
 	  SrcBlock		  "Demux"
 	  SrcPort		  1
 	  DstBlock		  "Motoreducer 1"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  2
 	  SrcBlock		  "Demux"
 	  SrcPort		  2
 	  DstBlock		  "Motoreducer 2"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  3
 	  SrcBlock		  "Demux"
 	  SrcPort		  3
 	  DstBlock		  "Motoreducer 3"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  4
 	  SrcBlock		  "Demux"
 	  SrcPort		  5
 	  DstBlock		  "Motoreducer 5"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  5
 	  SrcBlock		  "Demux"
 	  SrcPort		  6
 	  DstBlock		  "Motoreducer 6"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  6
 	  Labels		  [1, 0]
 	  SrcBlock		  "Mux1"
 	  SrcPort		  1
@@ -2414,28 +2709,34 @@ Model {
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  7
 	  SrcBlock		  "6 DOF ROBOT"
 	  SrcPort		  1
 	  DstBlock		  "Integrator"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  8
 	  SrcBlock		  "Integrator"
 	  SrcPort		  1
 	  Points		  [35, 0]
 	  Branch {
+	    ZOrder		    9
 	    DstBlock		    "Integrator1"
 	    DstPort		    1
 	  }
 	  Branch {
+	    ZOrder		    10
 	    Points		    [0, 105]
 	    Branch {
+	      ZOrder		      11
 	      Labels		      [1, 0]
 	      Points		      [-545, 0]
 	      DstBlock		      "ENABLE/DISABLE CONTROLS"
 	      DstPort		      3
 	    }
 	    Branch {
+	      ZOrder		      12
 	      Points		      [0, 110]
 	      DstBlock		      "Demux1"
 	      DstPort		      1
@@ -2443,18 +2744,21 @@ Model {
 	  }
 	}
 	Line {
+	  ZOrder		  13
 	  SrcBlock		  "Mux"
 	  SrcPort		  1
 	  DstBlock		  "ENABLE/DISABLE CONTROLS"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  14
 	  SrcBlock		  "Motoreducer 1"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  15
 	  SrcBlock		  "Demux1"
 	  SrcPort		  1
 	  Points		  [-180, 0; 0, -315; -290, 0]
@@ -2462,18 +2766,21 @@ Model {
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  16
 	  SrcBlock		  "Motoreducer 2"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  17
 	  SrcBlock		  "Motoreducer 3"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  3
 	}
 	Line {
+	  ZOrder		  18
 	  Labels		  [4, 0]
 	  SrcBlock		  "Demux1"
 	  SrcPort		  2
@@ -2482,6 +2789,7 @@ Model {
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  19
 	  SrcBlock		  "Demux1"
 	  SrcPort		  3
 	  Points		  [-220, 0; 0, -215; -250, 0]
@@ -2489,6 +2797,7 @@ Model {
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  20
 	  SrcBlock		  "Demux1"
 	  SrcPort		  4
 	  Points		  [-240, 0; 0, -165; -230, 0]
@@ -2496,6 +2805,7 @@ Model {
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  21
 	  SrcBlock		  "Demux1"
 	  SrcPort		  5
 	  Points		  [-260, 0; 0, -115; -210, 0]
@@ -2503,6 +2813,7 @@ Model {
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  22
 	  SrcBlock		  "Demux1"
 	  SrcPort		  6
 	  Points		  [-470, 0]
@@ -2510,57 +2821,68 @@ Model {
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  23
 	  SrcBlock		  "Motoreducer 4"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  4
 	}
 	Line {
+	  ZOrder		  24
 	  SrcBlock		  "Motoreducer 5"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  5
 	}
 	Line {
+	  ZOrder		  25
 	  SrcBlock		  "Motoreducer 6"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  6
 	}
 	Line {
+	  ZOrder		  26
 	  SrcBlock		  "In1"
 	  SrcPort		  1
 	  Points		  [65, 0]
 	  Branch {
+	    ZOrder		    27
 	    DstBlock		    "Demux"
 	    DstPort		    1
 	  }
 	  Branch {
+	    ZOrder		    28
 	    Points		    [0, -335]
 	    DstBlock		    "To Workspace1"
 	    DstPort		    1
 	  }
 	}
 	Line {
+	  ZOrder		  29
 	  SrcBlock		  "ENABLE/DISABLE CONTROLS"
 	  SrcPort		  1
 	  Points		  [25, 0]
 	  Branch {
+	    ZOrder		    30
 	    DstBlock		    "Mux1"
 	    DstPort		    1
 	  }
 	  Branch {
+	    ZOrder		    31
 	    DstBlock		    "To Workspace"
 	    DstPort		    1
 	  }
 	}
 	Line {
+	  ZOrder		  32
 	  SrcBlock		  "Demux"
 	  SrcPort		  4
 	  DstBlock		  "Motoreducer 4"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  33
 	  SrcBlock		  "Integrator1"
 	  SrcPort		  1
 	  Points		  [90, 0; 0, 145; -730, 0; 0, -145]
@@ -2568,65 +2890,101 @@ Model {
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  34
 	  SrcBlock		  "ENABLE/DISABLE CONTROLS"
 	  SrcPort		  2
 	  Points		  [5, 0]
 	  Branch {
+	    ZOrder		    35
 	    Points		    [10, 0]
 	    Branch {
+	      ZOrder		      36
 	      DstBlock		      "Mux1"
 	      DstPort		      2
 	    }
 	    Branch {
+	      ZOrder		      37
 	      Points		      [0, 75]
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	  }
 	  Branch {
+	    ZOrder		    38
 	    Points		    [0, -330]
 	    DstBlock		    "To Workspace2"
 	    DstPort		    1
 	  }
 	}
 	Line {
+	  ZOrder		  39
 	  SrcBlock		  "ENABLE/DISABLE CONTROLS"
 	  SrcPort		  3
 	  DstBlock		  "Mux1"
 	  DstPort		  3
 	}
 	Annotation {
+	  SID			  "181"
 	  Name			  "accel"
-	  Position		  [1385, 415]
+	  Position		  [1385, 415, 1410, 427]
+	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
+	  ZOrder		  -1
 	}
 	Annotation {
+	  SID			  "182"
 	  Name			  "speed"
-	  Position		  [1475, 418]
+	  Position		  [1475, 418, 1504, 430]
+	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
+	  ZOrder		  -2
 	}
 	Annotation {
+	  SID			  "183"
 	  Name			  "position"
-	  Position		  [1582, 417]
+	  Position		  [1582, 417, 1618, 429]
+	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
+	  ZOrder		  -3
 	}
 	Annotation {
+	  SID			  "184"
 	  Name			  "The MATLAB Function calls the direct dynamics of the robot: \nReceives as input a 1x18 vector containing "
 	  "the \ntorques, position and joint\nspeeds for each of the joints. As a result, the joint \nacceleration of each joi"
 	  "nt is computed. \nAfter integration, the speed and position of each joint \nis computed and sent back to the contro"
 	  "ller"
-	  Position		  [1376, 285]
+	  Position		  [1376, 285, 1648, 357]
+	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
 	  BackgroundColor	  "lightBlue"
 	  DropShadow		  on
+	  ZOrder		  -4
 	}
 	Annotation {
+	  SID			  "185"
 	  Name			  "call direct dynamics\n function"
-	  Position		  [1326, 491]
+	  Position		  [1326, 491, 1415, 513]
+	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
+	  ZOrder		  -5
 	}
 	Annotation {
+	  SID			  "186"
 	  Name			  "The Motoreducer block models a brushed DC \nelectric motor coupled with a gear. \nThe block receives the "
 	  "index of the motor, \nas defined in the parameters.m file of the robot."
-	  Position		  [381, 68]
+	  Position		  [381, 68, 592, 110]
+	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
 	  HorizontalAlignment	  "left"
 	  BackgroundColor	  "yellow"
 	  DropShadow		  on
+	  ZOrder		  -6
 	}
       }
     }
@@ -2637,23 +2995,18 @@ Model {
       Description	      "ROBOT CONTROLLER"
       Ports		      [1, 1]
       Position		      [250, 86, 585, 374]
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
+      ZOrder		      -2
       RequestExecContextInheritance off
-      MaskHideContents	      off
-      MaskDisplay	      "port_label('output', 1, 'Control Actions')\nport_label('input', 1, 'Joint Positions')\nimage("
-      "imread('images/robot-controller.jpg'))"
-      MaskIconFrame	      on
-      MaskIconOpaque	      on
-      MaskIconRotate	      "none"
-      MaskPortRotate	      "default"
-      MaskIconUnits	      "autoscale"
+      Object {
+	$PropName		"MaskObject"
+	$ObjectID		35
+	$ClassName		"Simulink.Mask"
+	Display			"port_label('output', 1, 'Control Actions')\nport_label('input', 1, 'Joint Positions')\nimage(imread('image"
+	"s/robot-controller.jpg'))"
+      }
       System {
 	Name			"ROBOT CONTROLLER"
-	Location		[705, 583, 1920, 1332]
+	Location		[151, 214, 1973, 1197]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2671,6 +3024,7 @@ Model {
 	  Name			  "Joint Positions"
 	  SID			  "91"
 	  Position		  [45, 353, 75, 367]
+	  ZOrder		  -1
 	  IconDisplay		  "Port number"
 	  PortDimensions	  "6"
 	}
@@ -2680,6 +3034,7 @@ Model {
 	  SID			  "92"
 	  Ports			  [2, 1]
 	  Position		  [390, 117, 420, 153]
+	  ZOrder		  -2
 	  Inputs		  "+-"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2691,6 +3046,7 @@ Model {
 	  SID			  "93"
 	  Ports			  [2, 1]
 	  Position		  [390, 202, 420, 238]
+	  ZOrder		  -3
 	  Inputs		  "+-"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2702,6 +3058,7 @@ Model {
 	  SID			  "94"
 	  Ports			  [2, 1]
 	  Position		  [390, 287, 420, 323]
+	  ZOrder		  -4
 	  Inputs		  "+-"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2713,6 +3070,7 @@ Model {
 	  SID			  "95"
 	  Ports			  [2, 1]
 	  Position		  [390, 372, 420, 408]
+	  ZOrder		  -5
 	  Inputs		  "+-"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2724,6 +3082,7 @@ Model {
 	  SID			  "96"
 	  Ports			  [2, 1]
 	  Position		  [390, 457, 420, 493]
+	  ZOrder		  -6
 	  Inputs		  "+-"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2735,6 +3094,7 @@ Model {
 	  SID			  "97"
 	  Ports			  [2, 1]
 	  Position		  [390, 542, 420, 578]
+	  ZOrder		  -7
 	  Inputs		  "+-"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2746,6 +3106,7 @@ Model {
 	  SID			  "98"
 	  Ports			  [1, 6]
 	  Position		  [140, 103, 150, 612]
+	  ZOrder		  -8
 	  ShowName		  off
 	  Outputs		  "6"
 	  DisplayOption		  "bar"
@@ -2756,31 +3117,50 @@ Model {
 	  SID			  "99"
 	  Ports			  [1, 1]
 	  Position		  [490, 110, 545, 160]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -9
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
-	  MaskStyleString	  "edit,edit,edit,edit"
-	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
-	  MaskTunableValueString  "on,on,on,on"
-	  MaskCallbackString	  "|||"
-	  MaskEnableString	  "on,on,on,on"
-	  MaskVisibilityString	  "on,on,on,on"
-	  MaskToolTipString	  "on,on,on,on"
-	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "600|6|0|0.001"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    36
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	    Array {
+	      Type		      "Simulink.MaskParameter"
+	      Dimension		      4
+	      Object {
+		$ObjectID		37
+		Type			"edit"
+		Name			"Kp"
+		Prompt			"Proportional gain:"
+		Value			"600"
+	      }
+	      Object {
+		$ObjectID		38
+		Type			"edit"
+		Name			"Kd"
+		Prompt			"Derivative gain:"
+		Value			"6"
+	      }
+	      Object {
+		$ObjectID		39
+		Type			"edit"
+		Name			"Ki"
+		Prompt			"Integral gain: "
+		Value			"0"
+	      }
+	      Object {
+		$ObjectID		40
+		Type			"edit"
+		Name			"Ts"
+		Prompt			"Sample time:"
+		Value			"0.001"
+	      }
+	      PropName		      "Parameters"
+	    }
+	  }
 	  System {
 	    Name		    "Discrete PID 1"
-	    Location		    [395, 170, 979, 547]
+	    Location		    [357, 50, 981, 605]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2798,6 +3178,7 @@ Model {
 	      Name		      "In1"
 	      SID		      "100"
 	      Position		      [125, 188, 155, 202]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -2806,6 +3187,7 @@ Model {
 	      SID		      "101"
 	      Ports		      [3, 1]
 	      Position		      [425, 180, 455, 210]
+	      ZOrder		      -2
 	      Inputs		      "+++"
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -2816,6 +3198,7 @@ Model {
 	      Name		      "Derivative gain"
 	      SID		      "102"
 	      Position		      [225, 294, 280, 336]
+	      ZOrder		      -3
 	      Gain		      "Kd/Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -2827,19 +3210,13 @@ Model {
 	      SID		      "103"
 	      Ports		      [1, 1]
 	      Position		      [315, 297, 375, 333]
-	      LibraryVersion	      "1.236"
+	      ZOrder		      -4
+	      LibraryVersion	      "1.356"
 	      SourceBlock	      "simulink/Discrete/Difference"
 	      SourceType	      "Difference"
-	      ShowPortLabels	      "FromPortIcon"
-	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
-	      RTWMemSecFuncInitTerm   "Inherit from model"
-	      RTWMemSecFuncExecute    "Inherit from model"
-	      RTWMemSecDataConstants  "Inherit from model"
-	      RTWMemSecDataInternal   "Inherit from model"
-	      RTWMemSecDataParameters "Inherit from model"
-	      GeneratePreprocessorConditionals off
+	      ContentPreviewEnabled   off
 	      ICPrevInput	      "0.0"
+	      InputProcessing	      "Inherited"
 	      OutMin		      "[]"
 	      OutMax		      "[]"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -2854,7 +3231,10 @@ Model {
 	      BlockType		      DiscreteTransferFcn
 	      Name		      "Discrete\nIntegrator"
 	      SID		      "104"
+	      Ports		      [1, 1]
 	      Position		      [315, 177, 375, 213]
+	      ZOrder		      -5
+	      InputPortMap	      "u0"
 	      Numerator		      " [1 0]"
 	      Denominator	      "[1 -1]"
 	      SampleTime	      "Ts"
@@ -2864,6 +3244,7 @@ Model {
 	      Name		      "Integral gain"
 	      SID		      "105"
 	      Position		      [225, 174, 285, 216]
+	      ZOrder		      -6
 	      Gain		      "Ki*Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -2874,6 +3255,7 @@ Model {
 	      Name		      "Proportional gain"
 	      SID		      "106"
 	      Position		      [265, 95, 300, 135]
+	      ZOrder		      -7
 	      Gain		      "Kp"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -2884,37 +3266,45 @@ Model {
 	      Name		      "Out1"
 	      SID		      "107"
 	      Position		      [480, 188, 510, 202]
+	      ZOrder		      -8
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "In1"
 	      SrcPort		      1
 	      Points		      [15, 0]
 	      Branch {
+		ZOrder			2
 		Points			[0, 0]
 		Branch {
+		  ZOrder		  3
 		  Points		  [0, 120]
 		  DstBlock		  "Derivative gain"
 		  DstPort		  1
 		}
 		Branch {
+		  ZOrder		  4
 		  Points		  [0, -80]
 		  DstBlock		  "Proportional gain"
 		  DstPort		  1
 		}
 	      }
 	      Branch {
+		ZOrder			5
 		DstBlock		"Integral gain"
 		DstPort			1
 	      }
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Discrete\nIntegrator"
 	      SrcPort		      1
 	      DstBlock		      "Add7"
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Difference"
 	      SrcPort		      1
 	      Points		      [30, 0]
@@ -2922,18 +3312,21 @@ Model {
 	      DstPort		      3
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Integral gain"
 	      SrcPort		      1
 	      DstBlock		      "Discrete\nIntegrator"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      SrcBlock		      "Derivative gain"
 	      SrcPort		      1
 	      DstBlock		      "Difference"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Proportional gain"
 	      SrcPort		      1
 	      Points		      [105, 0]
@@ -2941,18 +3334,29 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      11
 	      SrcBlock		      "Add7"
 	      SrcPort		      1
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	    Annotation {
+	      SID		      "187"
 	      Name		      "Implements a discretized PID controller."
-	      Position		      [285, 28]
+	      Position		      [285, 28, 462, 40]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -1
 	    }
 	    Annotation {
+	      SID		      "188"
 	      Name		      "ARTE: A Robotics Toolbox for Education"
-	      Position		      [281, 54]
+	      Position		      [281, 54, 460, 66]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -2
 	    }
 	  }
 	}
@@ -2962,31 +3366,50 @@ Model {
 	  SID			  "108"
 	  Ports			  [1, 1]
 	  Position		  [490, 193, 545, 247]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -10
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
-	  MaskStyleString	  "edit,edit,edit,edit"
-	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
-	  MaskTunableValueString  "on,on,on,on"
-	  MaskCallbackString	  "|||"
-	  MaskEnableString	  "on,on,on,on"
-	  MaskVisibilityString	  "on,on,on,on"
-	  MaskToolTipString	  "on,on,on,on"
-	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "1000|10|5|0.001"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    41
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	    Array {
+	      Type		      "Simulink.MaskParameter"
+	      Dimension		      4
+	      Object {
+		$ObjectID		42
+		Type			"edit"
+		Name			"Kp"
+		Prompt			"Proportional gain:"
+		Value			"1000"
+	      }
+	      Object {
+		$ObjectID		43
+		Type			"edit"
+		Name			"Kd"
+		Prompt			"Derivative gain:"
+		Value			"10"
+	      }
+	      Object {
+		$ObjectID		44
+		Type			"edit"
+		Name			"Ki"
+		Prompt			"Integral gain: "
+		Value			"5"
+	      }
+	      Object {
+		$ObjectID		45
+		Type			"edit"
+		Name			"Ts"
+		Prompt			"Sample time:"
+		Value			"0.001"
+	      }
+	      PropName		      "Parameters"
+	    }
+	  }
 	  System {
 	    Name		    "Discrete PID 2"
-	    Location		    [395, 170, 979, 547]
+	    Location		    [357, 50, 981, 605]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3004,6 +3427,7 @@ Model {
 	      Name		      "In1"
 	      SID		      "109"
 	      Position		      [125, 188, 155, 202]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -3012,6 +3436,7 @@ Model {
 	      SID		      "110"
 	      Ports		      [3, 1]
 	      Position		      [425, 180, 455, 210]
+	      ZOrder		      -2
 	      Inputs		      "+++"
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3022,6 +3447,7 @@ Model {
 	      Name		      "Derivative gain"
 	      SID		      "111"
 	      Position		      [225, 294, 280, 336]
+	      ZOrder		      -3
 	      Gain		      "Kd/Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3033,19 +3459,13 @@ Model {
 	      SID		      "112"
 	      Ports		      [1, 1]
 	      Position		      [315, 297, 375, 333]
-	      LibraryVersion	      "1.236"
+	      ZOrder		      -4
+	      LibraryVersion	      "1.356"
 	      SourceBlock	      "simulink/Discrete/Difference"
 	      SourceType	      "Difference"
-	      ShowPortLabels	      "FromPortIcon"
-	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
-	      RTWMemSecFuncInitTerm   "Inherit from model"
-	      RTWMemSecFuncExecute    "Inherit from model"
-	      RTWMemSecDataConstants  "Inherit from model"
-	      RTWMemSecDataInternal   "Inherit from model"
-	      RTWMemSecDataParameters "Inherit from model"
-	      GeneratePreprocessorConditionals off
+	      ContentPreviewEnabled   off
 	      ICPrevInput	      "0.0"
+	      InputProcessing	      "Inherited"
 	      OutMin		      "[]"
 	      OutMax		      "[]"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3060,7 +3480,10 @@ Model {
 	      BlockType		      DiscreteTransferFcn
 	      Name		      "Discrete\nIntegrator"
 	      SID		      "113"
+	      Ports		      [1, 1]
 	      Position		      [315, 177, 375, 213]
+	      ZOrder		      -5
+	      InputPortMap	      "u0"
 	      Numerator		      " [1 0]"
 	      Denominator	      "[1 -1]"
 	      SampleTime	      "Ts"
@@ -3070,6 +3493,7 @@ Model {
 	      Name		      "Integral gain"
 	      SID		      "114"
 	      Position		      [225, 174, 285, 216]
+	      ZOrder		      -6
 	      Gain		      "Ki*Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3080,6 +3504,7 @@ Model {
 	      Name		      "Proportional gain"
 	      SID		      "115"
 	      Position		      [265, 95, 300, 135]
+	      ZOrder		      -7
 	      Gain		      "Kp"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3090,37 +3515,45 @@ Model {
 	      Name		      "Out1"
 	      SID		      "116"
 	      Position		      [480, 188, 510, 202]
+	      ZOrder		      -8
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "In1"
 	      SrcPort		      1
 	      Points		      [15, 0]
 	      Branch {
+		ZOrder			2
 		Points			[0, 0]
 		Branch {
+		  ZOrder		  3
 		  Points		  [0, 120]
 		  DstBlock		  "Derivative gain"
 		  DstPort		  1
 		}
 		Branch {
+		  ZOrder		  4
 		  Points		  [0, -80]
 		  DstBlock		  "Proportional gain"
 		  DstPort		  1
 		}
 	      }
 	      Branch {
+		ZOrder			5
 		DstBlock		"Integral gain"
 		DstPort			1
 	      }
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Discrete\nIntegrator"
 	      SrcPort		      1
 	      DstBlock		      "Add7"
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Difference"
 	      SrcPort		      1
 	      Points		      [30, 0]
@@ -3128,18 +3561,21 @@ Model {
 	      DstPort		      3
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Integral gain"
 	      SrcPort		      1
 	      DstBlock		      "Discrete\nIntegrator"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      SrcBlock		      "Derivative gain"
 	      SrcPort		      1
 	      DstBlock		      "Difference"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Proportional gain"
 	      SrcPort		      1
 	      Points		      [105, 0]
@@ -3147,18 +3583,29 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      11
 	      SrcBlock		      "Add7"
 	      SrcPort		      1
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	    Annotation {
+	      SID		      "189"
 	      Name		      "Implements a discretized PID controller."
-	      Position		      [285, 28]
+	      Position		      [285, 28, 462, 40]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -1
 	    }
 	    Annotation {
+	      SID		      "190"
 	      Name		      "ARTE: A Robotics Toolbox for Education"
-	      Position		      [281, 54]
+	      Position		      [281, 54, 460, 66]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -2
 	    }
 	  }
 	}
@@ -3168,31 +3615,50 @@ Model {
 	  SID			  "117"
 	  Ports			  [1, 1]
 	  Position		  [490, 278, 545, 332]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -11
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
-	  MaskStyleString	  "edit,edit,edit,edit"
-	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
-	  MaskTunableValueString  "on,on,on,on"
-	  MaskCallbackString	  "|||"
-	  MaskEnableString	  "on,on,on,on"
-	  MaskVisibilityString	  "on,on,on,on"
-	  MaskToolTipString	  "on,on,on,on"
-	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "800|7|5|0.001"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    46
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	    Array {
+	      Type		      "Simulink.MaskParameter"
+	      Dimension		      4
+	      Object {
+		$ObjectID		47
+		Type			"edit"
+		Name			"Kp"
+		Prompt			"Proportional gain:"
+		Value			"800"
+	      }
+	      Object {
+		$ObjectID		48
+		Type			"edit"
+		Name			"Kd"
+		Prompt			"Derivative gain:"
+		Value			"7"
+	      }
+	      Object {
+		$ObjectID		49
+		Type			"edit"
+		Name			"Ki"
+		Prompt			"Integral gain: "
+		Value			"5"
+	      }
+	      Object {
+		$ObjectID		50
+		Type			"edit"
+		Name			"Ts"
+		Prompt			"Sample time:"
+		Value			"0.001"
+	      }
+	      PropName		      "Parameters"
+	    }
+	  }
 	  System {
 	    Name		    "Discrete PID 3"
-	    Location		    [395, 170, 979, 547]
+	    Location		    [357, 50, 981, 605]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3210,6 +3676,7 @@ Model {
 	      Name		      "In1"
 	      SID		      "118"
 	      Position		      [125, 188, 155, 202]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -3218,6 +3685,7 @@ Model {
 	      SID		      "119"
 	      Ports		      [3, 1]
 	      Position		      [425, 180, 455, 210]
+	      ZOrder		      -2
 	      Inputs		      "+++"
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3228,6 +3696,7 @@ Model {
 	      Name		      "Derivative gain"
 	      SID		      "120"
 	      Position		      [225, 294, 280, 336]
+	      ZOrder		      -3
 	      Gain		      "Kd/Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3239,19 +3708,13 @@ Model {
 	      SID		      "121"
 	      Ports		      [1, 1]
 	      Position		      [315, 297, 375, 333]
-	      LibraryVersion	      "1.236"
+	      ZOrder		      -4
+	      LibraryVersion	      "1.356"
 	      SourceBlock	      "simulink/Discrete/Difference"
 	      SourceType	      "Difference"
-	      ShowPortLabels	      "FromPortIcon"
-	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
-	      RTWMemSecFuncInitTerm   "Inherit from model"
-	      RTWMemSecFuncExecute    "Inherit from model"
-	      RTWMemSecDataConstants  "Inherit from model"
-	      RTWMemSecDataInternal   "Inherit from model"
-	      RTWMemSecDataParameters "Inherit from model"
-	      GeneratePreprocessorConditionals off
+	      ContentPreviewEnabled   off
 	      ICPrevInput	      "0.0"
+	      InputProcessing	      "Inherited"
 	      OutMin		      "[]"
 	      OutMax		      "[]"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3266,7 +3729,10 @@ Model {
 	      BlockType		      DiscreteTransferFcn
 	      Name		      "Discrete\nIntegrator"
 	      SID		      "122"
+	      Ports		      [1, 1]
 	      Position		      [315, 177, 375, 213]
+	      ZOrder		      -5
+	      InputPortMap	      "u0"
 	      Numerator		      " [1 0]"
 	      Denominator	      "[1 -1]"
 	      SampleTime	      "Ts"
@@ -3276,6 +3742,7 @@ Model {
 	      Name		      "Integral gain"
 	      SID		      "123"
 	      Position		      [225, 174, 285, 216]
+	      ZOrder		      -6
 	      Gain		      "Ki*Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3286,6 +3753,7 @@ Model {
 	      Name		      "Proportional gain"
 	      SID		      "124"
 	      Position		      [265, 95, 300, 135]
+	      ZOrder		      -7
 	      Gain		      "Kp"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3296,37 +3764,45 @@ Model {
 	      Name		      "Out1"
 	      SID		      "125"
 	      Position		      [480, 188, 510, 202]
+	      ZOrder		      -8
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "In1"
 	      SrcPort		      1
 	      Points		      [15, 0]
 	      Branch {
+		ZOrder			2
 		Points			[0, 0]
 		Branch {
+		  ZOrder		  3
 		  Points		  [0, 120]
 		  DstBlock		  "Derivative gain"
 		  DstPort		  1
 		}
 		Branch {
+		  ZOrder		  4
 		  Points		  [0, -80]
 		  DstBlock		  "Proportional gain"
 		  DstPort		  1
 		}
 	      }
 	      Branch {
+		ZOrder			5
 		DstBlock		"Integral gain"
 		DstPort			1
 	      }
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Discrete\nIntegrator"
 	      SrcPort		      1
 	      DstBlock		      "Add7"
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Difference"
 	      SrcPort		      1
 	      Points		      [30, 0]
@@ -3334,18 +3810,21 @@ Model {
 	      DstPort		      3
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Integral gain"
 	      SrcPort		      1
 	      DstBlock		      "Discrete\nIntegrator"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      SrcBlock		      "Derivative gain"
 	      SrcPort		      1
 	      DstBlock		      "Difference"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Proportional gain"
 	      SrcPort		      1
 	      Points		      [105, 0]
@@ -3353,18 +3832,29 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      11
 	      SrcBlock		      "Add7"
 	      SrcPort		      1
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	    Annotation {
+	      SID		      "191"
 	      Name		      "Implements a discretized PID controller."
-	      Position		      [285, 28]
+	      Position		      [285, 28, 462, 40]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -1
 	    }
 	    Annotation {
+	      SID		      "192"
 	      Name		      "ARTE: A Robotics Toolbox for Education"
-	      Position		      [281, 54]
+	      Position		      [281, 54, 460, 66]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -2
 	    }
 	  }
 	}
@@ -3374,31 +3864,50 @@ Model {
 	  SID			  "126"
 	  Ports			  [1, 1]
 	  Position		  [490, 363, 545, 417]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -12
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
-	  MaskStyleString	  "edit,edit,edit,edit"
-	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
-	  MaskTunableValueString  "on,on,on,on"
-	  MaskCallbackString	  "|||"
-	  MaskEnableString	  "on,on,on,on"
-	  MaskVisibilityString	  "on,on,on,on"
-	  MaskToolTipString	  "on,on,on,on"
-	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "2000|10|0|0.001"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    51
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	    Array {
+	      Type		      "Simulink.MaskParameter"
+	      Dimension		      4
+	      Object {
+		$ObjectID		52
+		Type			"edit"
+		Name			"Kp"
+		Prompt			"Proportional gain:"
+		Value			"2000"
+	      }
+	      Object {
+		$ObjectID		53
+		Type			"edit"
+		Name			"Kd"
+		Prompt			"Derivative gain:"
+		Value			"10"
+	      }
+	      Object {
+		$ObjectID		54
+		Type			"edit"
+		Name			"Ki"
+		Prompt			"Integral gain: "
+		Value			"0"
+	      }
+	      Object {
+		$ObjectID		55
+		Type			"edit"
+		Name			"Ts"
+		Prompt			"Sample time:"
+		Value			"0.001"
+	      }
+	      PropName		      "Parameters"
+	    }
+	  }
 	  System {
 	    Name		    "Discrete PID 4"
-	    Location		    [395, 170, 979, 547]
+	    Location		    [357, 50, 981, 605]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3416,6 +3925,7 @@ Model {
 	      Name		      "In1"
 	      SID		      "127"
 	      Position		      [125, 188, 155, 202]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -3424,6 +3934,7 @@ Model {
 	      SID		      "128"
 	      Ports		      [3, 1]
 	      Position		      [425, 180, 455, 210]
+	      ZOrder		      -2
 	      Inputs		      "+++"
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3434,6 +3945,7 @@ Model {
 	      Name		      "Derivative gain"
 	      SID		      "129"
 	      Position		      [225, 294, 280, 336]
+	      ZOrder		      -3
 	      Gain		      "Kd/Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3445,19 +3957,13 @@ Model {
 	      SID		      "130"
 	      Ports		      [1, 1]
 	      Position		      [315, 297, 375, 333]
-	      LibraryVersion	      "1.236"
+	      ZOrder		      -4
+	      LibraryVersion	      "1.356"
 	      SourceBlock	      "simulink/Discrete/Difference"
 	      SourceType	      "Difference"
-	      ShowPortLabels	      "FromPortIcon"
-	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
-	      RTWMemSecFuncInitTerm   "Inherit from model"
-	      RTWMemSecFuncExecute    "Inherit from model"
-	      RTWMemSecDataConstants  "Inherit from model"
-	      RTWMemSecDataInternal   "Inherit from model"
-	      RTWMemSecDataParameters "Inherit from model"
-	      GeneratePreprocessorConditionals off
+	      ContentPreviewEnabled   off
 	      ICPrevInput	      "0.0"
+	      InputProcessing	      "Inherited"
 	      OutMin		      "[]"
 	      OutMax		      "[]"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3472,7 +3978,10 @@ Model {
 	      BlockType		      DiscreteTransferFcn
 	      Name		      "Discrete\nIntegrator"
 	      SID		      "131"
+	      Ports		      [1, 1]
 	      Position		      [315, 177, 375, 213]
+	      ZOrder		      -5
+	      InputPortMap	      "u0"
 	      Numerator		      " [1 0]"
 	      Denominator	      "[1 -1]"
 	      SampleTime	      "Ts"
@@ -3482,6 +3991,7 @@ Model {
 	      Name		      "Integral gain"
 	      SID		      "132"
 	      Position		      [225, 174, 285, 216]
+	      ZOrder		      -6
 	      Gain		      "Ki*Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3492,6 +4002,7 @@ Model {
 	      Name		      "Proportional gain"
 	      SID		      "133"
 	      Position		      [265, 95, 300, 135]
+	      ZOrder		      -7
 	      Gain		      "Kp"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3502,37 +4013,45 @@ Model {
 	      Name		      "Out1"
 	      SID		      "134"
 	      Position		      [480, 188, 510, 202]
+	      ZOrder		      -8
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "In1"
 	      SrcPort		      1
 	      Points		      [15, 0]
 	      Branch {
+		ZOrder			2
 		Points			[0, 0]
 		Branch {
+		  ZOrder		  3
 		  Points		  [0, 120]
 		  DstBlock		  "Derivative gain"
 		  DstPort		  1
 		}
 		Branch {
+		  ZOrder		  4
 		  Points		  [0, -80]
 		  DstBlock		  "Proportional gain"
 		  DstPort		  1
 		}
 	      }
 	      Branch {
+		ZOrder			5
 		DstBlock		"Integral gain"
 		DstPort			1
 	      }
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Discrete\nIntegrator"
 	      SrcPort		      1
 	      DstBlock		      "Add7"
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Difference"
 	      SrcPort		      1
 	      Points		      [30, 0]
@@ -3540,18 +4059,21 @@ Model {
 	      DstPort		      3
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Integral gain"
 	      SrcPort		      1
 	      DstBlock		      "Discrete\nIntegrator"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      SrcBlock		      "Derivative gain"
 	      SrcPort		      1
 	      DstBlock		      "Difference"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Proportional gain"
 	      SrcPort		      1
 	      Points		      [105, 0]
@@ -3559,18 +4081,29 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      11
 	      SrcBlock		      "Add7"
 	      SrcPort		      1
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	    Annotation {
+	      SID		      "193"
 	      Name		      "Implements a discretized PID controller."
-	      Position		      [285, 28]
+	      Position		      [285, 28, 462, 40]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -1
 	    }
 	    Annotation {
+	      SID		      "194"
 	      Name		      "ARTE: A Robotics Toolbox for Education"
-	      Position		      [281, 54]
+	      Position		      [281, 54, 460, 66]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -2
 	    }
 	  }
 	}
@@ -3580,31 +4113,50 @@ Model {
 	  SID			  "135"
 	  Ports			  [1, 1]
 	  Position		  [490, 448, 545, 502]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -13
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
-	  MaskStyleString	  "edit,edit,edit,edit"
-	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
-	  MaskTunableValueString  "on,on,on,on"
-	  MaskCallbackString	  "|||"
-	  MaskEnableString	  "on,on,on,on"
-	  MaskVisibilityString	  "on,on,on,on"
-	  MaskToolTipString	  "on,on,on,on"
-	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "3000|7|3|0.001"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    56
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	    Array {
+	      Type		      "Simulink.MaskParameter"
+	      Dimension		      4
+	      Object {
+		$ObjectID		57
+		Type			"edit"
+		Name			"Kp"
+		Prompt			"Proportional gain:"
+		Value			"3000"
+	      }
+	      Object {
+		$ObjectID		58
+		Type			"edit"
+		Name			"Kd"
+		Prompt			"Derivative gain:"
+		Value			"7"
+	      }
+	      Object {
+		$ObjectID		59
+		Type			"edit"
+		Name			"Ki"
+		Prompt			"Integral gain: "
+		Value			"3"
+	      }
+	      Object {
+		$ObjectID		60
+		Type			"edit"
+		Name			"Ts"
+		Prompt			"Sample time:"
+		Value			"0.001"
+	      }
+	      PropName		      "Parameters"
+	    }
+	  }
 	  System {
 	    Name		    "Discrete PID 5"
-	    Location		    [395, 170, 979, 547]
+	    Location		    [357, 50, 981, 605]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3622,6 +4174,7 @@ Model {
 	      Name		      "In1"
 	      SID		      "136"
 	      Position		      [125, 188, 155, 202]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -3630,6 +4183,7 @@ Model {
 	      SID		      "137"
 	      Ports		      [3, 1]
 	      Position		      [425, 180, 455, 210]
+	      ZOrder		      -2
 	      Inputs		      "+++"
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3640,6 +4194,7 @@ Model {
 	      Name		      "Derivative gain"
 	      SID		      "138"
 	      Position		      [225, 294, 280, 336]
+	      ZOrder		      -3
 	      Gain		      "Kd/Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3651,19 +4206,13 @@ Model {
 	      SID		      "139"
 	      Ports		      [1, 1]
 	      Position		      [315, 297, 375, 333]
-	      LibraryVersion	      "1.236"
+	      ZOrder		      -4
+	      LibraryVersion	      "1.356"
 	      SourceBlock	      "simulink/Discrete/Difference"
 	      SourceType	      "Difference"
-	      ShowPortLabels	      "FromPortIcon"
-	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
-	      RTWMemSecFuncInitTerm   "Inherit from model"
-	      RTWMemSecFuncExecute    "Inherit from model"
-	      RTWMemSecDataConstants  "Inherit from model"
-	      RTWMemSecDataInternal   "Inherit from model"
-	      RTWMemSecDataParameters "Inherit from model"
-	      GeneratePreprocessorConditionals off
+	      ContentPreviewEnabled   off
 	      ICPrevInput	      "0.0"
+	      InputProcessing	      "Inherited"
 	      OutMin		      "[]"
 	      OutMax		      "[]"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3678,7 +4227,10 @@ Model {
 	      BlockType		      DiscreteTransferFcn
 	      Name		      "Discrete\nIntegrator"
 	      SID		      "140"
+	      Ports		      [1, 1]
 	      Position		      [315, 177, 375, 213]
+	      ZOrder		      -5
+	      InputPortMap	      "u0"
 	      Numerator		      " [1 0]"
 	      Denominator	      "[1 -1]"
 	      SampleTime	      "Ts"
@@ -3688,6 +4240,7 @@ Model {
 	      Name		      "Integral gain"
 	      SID		      "141"
 	      Position		      [225, 174, 285, 216]
+	      ZOrder		      -6
 	      Gain		      "Ki*Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3698,6 +4251,7 @@ Model {
 	      Name		      "Proportional gain"
 	      SID		      "142"
 	      Position		      [265, 95, 300, 135]
+	      ZOrder		      -7
 	      Gain		      "Kp"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3708,37 +4262,45 @@ Model {
 	      Name		      "Out1"
 	      SID		      "143"
 	      Position		      [480, 188, 510, 202]
+	      ZOrder		      -8
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "In1"
 	      SrcPort		      1
 	      Points		      [15, 0]
 	      Branch {
+		ZOrder			2
 		Points			[0, 0]
 		Branch {
+		  ZOrder		  3
 		  Points		  [0, 120]
 		  DstBlock		  "Derivative gain"
 		  DstPort		  1
 		}
 		Branch {
+		  ZOrder		  4
 		  Points		  [0, -80]
 		  DstBlock		  "Proportional gain"
 		  DstPort		  1
 		}
 	      }
 	      Branch {
+		ZOrder			5
 		DstBlock		"Integral gain"
 		DstPort			1
 	      }
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Discrete\nIntegrator"
 	      SrcPort		      1
 	      DstBlock		      "Add7"
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Difference"
 	      SrcPort		      1
 	      Points		      [30, 0]
@@ -3746,18 +4308,21 @@ Model {
 	      DstPort		      3
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Integral gain"
 	      SrcPort		      1
 	      DstBlock		      "Discrete\nIntegrator"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      SrcBlock		      "Derivative gain"
 	      SrcPort		      1
 	      DstBlock		      "Difference"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Proportional gain"
 	      SrcPort		      1
 	      Points		      [105, 0]
@@ -3765,18 +4330,29 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      11
 	      SrcBlock		      "Add7"
 	      SrcPort		      1
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	    Annotation {
+	      SID		      "195"
 	      Name		      "Implements a discretized PID controller."
-	      Position		      [285, 28]
+	      Position		      [285, 28, 462, 40]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -1
 	    }
 	    Annotation {
+	      SID		      "196"
 	      Name		      "ARTE: A Robotics Toolbox for Education"
-	      Position		      [281, 54]
+	      Position		      [281, 54, 460, 66]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -2
 	    }
 	  }
 	}
@@ -3786,31 +4362,50 @@ Model {
 	  SID			  "144"
 	  Ports			  [1, 1]
 	  Position		  [490, 533, 545, 587]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
+	  ZOrder		  -14
 	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskPromptString	  "Proportional gain:|Derivative gain:|Integral gain: |Sample time:"
-	  MaskStyleString	  "edit,edit,edit,edit"
-	  MaskVariables		  "Kp=@1;Kd=@2;Ki=@3;Ts=@4;"
-	  MaskTunableValueString  "on,on,on,on"
-	  MaskCallbackString	  "|||"
-	  MaskEnableString	  "on,on,on,on"
-	  MaskVisibilityString	  "on,on,on,on"
-	  MaskToolTipString	  "on,on,on,on"
-	  MaskDisplay		  "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "3000|5|0|0.001"
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    61
+	    $ClassName		    "Simulink.Mask"
+	    Display		    "port_label('input',1,'e(k)')\nport_label('output',1,'u(k)')\n\n"
+	    Array {
+	      Type		      "Simulink.MaskParameter"
+	      Dimension		      4
+	      Object {
+		$ObjectID		62
+		Type			"edit"
+		Name			"Kp"
+		Prompt			"Proportional gain:"
+		Value			"3000"
+	      }
+	      Object {
+		$ObjectID		63
+		Type			"edit"
+		Name			"Kd"
+		Prompt			"Derivative gain:"
+		Value			"5"
+	      }
+	      Object {
+		$ObjectID		64
+		Type			"edit"
+		Name			"Ki"
+		Prompt			"Integral gain: "
+		Value			"0"
+	      }
+	      Object {
+		$ObjectID		65
+		Type			"edit"
+		Name			"Ts"
+		Prompt			"Sample time:"
+		Value			"0.001"
+	      }
+	      PropName		      "Parameters"
+	    }
+	  }
 	  System {
 	    Name		    "Discrete PID 6"
-	    Location		    [395, 170, 979, 547]
+	    Location		    [357, 50, 981, 605]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3828,6 +4423,7 @@ Model {
 	      Name		      "In1"
 	      SID		      "145"
 	      Position		      [125, 188, 155, 202]
+	      ZOrder		      -1
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -3836,6 +4432,7 @@ Model {
 	      SID		      "146"
 	      Ports		      [3, 1]
 	      Position		      [425, 180, 455, 210]
+	      ZOrder		      -2
 	      Inputs		      "+++"
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3846,6 +4443,7 @@ Model {
 	      Name		      "Derivative gain"
 	      SID		      "147"
 	      Position		      [225, 294, 280, 336]
+	      ZOrder		      -3
 	      Gain		      "Kd/Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3857,19 +4455,13 @@ Model {
 	      SID		      "148"
 	      Ports		      [1, 1]
 	      Position		      [315, 297, 375, 333]
-	      LibraryVersion	      "1.236"
+	      ZOrder		      -4
+	      LibraryVersion	      "1.356"
 	      SourceBlock	      "simulink/Discrete/Difference"
 	      SourceType	      "Difference"
-	      ShowPortLabels	      "FromPortIcon"
-	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
-	      RTWMemSecFuncInitTerm   "Inherit from model"
-	      RTWMemSecFuncExecute    "Inherit from model"
-	      RTWMemSecDataConstants  "Inherit from model"
-	      RTWMemSecDataInternal   "Inherit from model"
-	      RTWMemSecDataParameters "Inherit from model"
-	      GeneratePreprocessorConditionals off
+	      ContentPreviewEnabled   off
 	      ICPrevInput	      "0.0"
+	      InputProcessing	      "Inherited"
 	      OutMin		      "[]"
 	      OutMax		      "[]"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3884,7 +4476,10 @@ Model {
 	      BlockType		      DiscreteTransferFcn
 	      Name		      "Discrete\nIntegrator"
 	      SID		      "149"
+	      Ports		      [1, 1]
 	      Position		      [315, 177, 375, 213]
+	      ZOrder		      -5
+	      InputPortMap	      "u0"
 	      Numerator		      " [1 0]"
 	      Denominator	      "[1 -1]"
 	      SampleTime	      "Ts"
@@ -3894,6 +4489,7 @@ Model {
 	      Name		      "Integral gain"
 	      SID		      "150"
 	      Position		      [225, 174, 285, 216]
+	      ZOrder		      -6
 	      Gain		      "Ki*Ts"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3904,6 +4500,7 @@ Model {
 	      Name		      "Proportional gain"
 	      SID		      "151"
 	      Position		      [265, 95, 300, 135]
+	      ZOrder		      -7
 	      Gain		      "Kp"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3914,37 +4511,45 @@ Model {
 	      Name		      "Out1"
 	      SID		      "152"
 	      Position		      [480, 188, 510, 202]
+	      ZOrder		      -8
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      ZOrder		      1
 	      SrcBlock		      "In1"
 	      SrcPort		      1
 	      Points		      [15, 0]
 	      Branch {
+		ZOrder			2
 		Points			[0, 0]
 		Branch {
+		  ZOrder		  3
 		  Points		  [0, 120]
 		  DstBlock		  "Derivative gain"
 		  DstPort		  1
 		}
 		Branch {
+		  ZOrder		  4
 		  Points		  [0, -80]
 		  DstBlock		  "Proportional gain"
 		  DstPort		  1
 		}
 	      }
 	      Branch {
+		ZOrder			5
 		DstBlock		"Integral gain"
 		DstPort			1
 	      }
 	    }
 	    Line {
+	      ZOrder		      6
 	      SrcBlock		      "Discrete\nIntegrator"
 	      SrcPort		      1
 	      DstBlock		      "Add7"
 	      DstPort		      2
 	    }
 	    Line {
+	      ZOrder		      7
 	      SrcBlock		      "Difference"
 	      SrcPort		      1
 	      Points		      [30, 0]
@@ -3952,18 +4557,21 @@ Model {
 	      DstPort		      3
 	    }
 	    Line {
+	      ZOrder		      8
 	      SrcBlock		      "Integral gain"
 	      SrcPort		      1
 	      DstBlock		      "Discrete\nIntegrator"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      9
 	      SrcBlock		      "Derivative gain"
 	      SrcPort		      1
 	      DstBlock		      "Difference"
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      10
 	      SrcBlock		      "Proportional gain"
 	      SrcPort		      1
 	      Points		      [105, 0]
@@ -3971,18 +4579,29 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
+	      ZOrder		      11
 	      SrcBlock		      "Add7"
 	      SrcPort		      1
 	      DstBlock		      "Out1"
 	      DstPort		      1
 	    }
 	    Annotation {
+	      SID		      "197"
 	      Name		      "Implements a discretized PID controller."
-	      Position		      [285, 28]
+	      Position		      [285, 28, 462, 40]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -1
 	    }
 	    Annotation {
+	      SID		      "198"
 	      Name		      "ARTE: A Robotics Toolbox for Education"
-	      Position		      [281, 54]
+	      Position		      [281, 54, 460, 66]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      off
+	      FixedWidth	      off
+	      ZOrder		      -2
 	    }
 	  }
 	}
@@ -3991,6 +4610,7 @@ Model {
 	  Name			  "Gain"
 	  SID			  "153"
 	  Position		  [745, 117, 795, 153]
+	  ZOrder		  -15
 	  Gain			  "4.8"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -4001,6 +4621,7 @@ Model {
 	  Name			  "Gain1"
 	  SID			  "154"
 	  Position		  [745, 201, 795, 239]
+	  ZOrder		  -16
 	  Gain			  "4.8"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -4011,6 +4632,7 @@ Model {
 	  Name			  "Gain2"
 	  SID			  "155"
 	  Position		  [745, 287, 795, 323]
+	  ZOrder		  -17
 	  Gain			  "4.8"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -4021,6 +4643,7 @@ Model {
 	  Name			  "Gain3"
 	  SID			  "156"
 	  Position		  [745, 373, 800, 407]
+	  ZOrder		  -18
 	  Gain			  "4.8"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -4031,6 +4654,7 @@ Model {
 	  Name			  "Gain4"
 	  SID			  "157"
 	  Position		  [745, 458, 795, 492]
+	  ZOrder		  -19
 	  Gain			  "4.8"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -4041,6 +4665,7 @@ Model {
 	  Name			  "Gain5"
 	  SID			  "158"
 	  Position		  [745, 543, 795, 577]
+	  ZOrder		  -20
 	  Gain			  "4.8"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -4052,6 +4677,7 @@ Model {
 	  SID			  "159"
 	  Ports			  [6, 1]
 	  Position		  [915, 85, 925, 610]
+	  ZOrder		  -21
 	  ShowName		  off
 	  Inputs		  "6"
 	  DisplayOption		  "bar"
@@ -4062,6 +4688,7 @@ Model {
 	  SID			  "160"
 	  Ports			  [1, 1]
 	  Position		  [620, 120, 650, 150]
+	  ZOrder		  -22
 	  InputPortMap		  "u0"
 	  UpperLimit		  "10"
 	  LowerLimit		  "-10"
@@ -4072,6 +4699,7 @@ Model {
 	  SID			  "161"
 	  Ports			  [1, 1]
 	  Position		  [620, 205, 650, 235]
+	  ZOrder		  -23
 	  InputPortMap		  "u0"
 	  UpperLimit		  "10"
 	  LowerLimit		  "-10"
@@ -4082,6 +4710,7 @@ Model {
 	  SID			  "162"
 	  Ports			  [1, 1]
 	  Position		  [620, 290, 650, 320]
+	  ZOrder		  -24
 	  InputPortMap		  "u0"
 	  UpperLimit		  "10"
 	  LowerLimit		  "-10"
@@ -4092,6 +4721,7 @@ Model {
 	  SID			  "163"
 	  Ports			  [1, 1]
 	  Position		  [620, 375, 650, 405]
+	  ZOrder		  -25
 	  InputPortMap		  "u0"
 	  UpperLimit		  "10"
 	  LowerLimit		  "-10"
@@ -4102,6 +4732,7 @@ Model {
 	  SID			  "164"
 	  Ports			  [1, 1]
 	  Position		  [620, 460, 650, 490]
+	  ZOrder		  -26
 	  InputPortMap		  "u0"
 	  UpperLimit		  "10"
 	  LowerLimit		  "-10"
@@ -4112,6 +4743,7 @@ Model {
 	  SID			  "165"
 	  Ports			  [1, 1]
 	  Position		  [620, 545, 650, 575]
+	  ZOrder		  -27
 	  InputPortMap		  "u0"
 	  UpperLimit		  "10"
 	  LowerLimit		  "-10"
@@ -4121,8 +4753,9 @@ Model {
 	  Name			  "Step"
 	  SID			  "166"
 	  Position		  [45, 35, 75, 65]
+	  ZOrder		  -28
 	  Time			  "0"
-	  After			  "0.08"
+	  After			  "0.1"
 	  SampleTime		  "0"
 	}
 	Block {
@@ -4131,16 +4764,17 @@ Model {
 	  SID			  "173"
 	  Ports			  [1]
 	  Position		  [345, 20, 460, 50]
+	  ZOrder		  -29
 	  VariableName		  "reference"
 	  MaxDataPoints		  "inf"
 	  SampleTime		  "-1"
-	  SaveFormat		  "Array"
 	}
 	Block {
 	  BlockType		  ZeroOrderHold
 	  Name			  "Zero-Order\nHold"
 	  SID			  "167"
 	  Position		  [985, 335, 1020, 365]
+	  ZOrder		  -30
 	  SampleTime		  "0.001"
 	}
 	Block {
@@ -4148,151 +4782,182 @@ Model {
 	  Name			  "Control Actions (Volts)"
 	  SID			  "168"
 	  Position		  [1110, 343, 1140, 357]
+	  ZOrder		  -31
 	  IconDisplay		  "Port number"
 	}
 	Line {
+	  ZOrder		  1
 	  SrcBlock		  "Gain5"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  6
 	}
 	Line {
+	  ZOrder		  2
 	  SrcBlock		  "Gain4"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  5
 	}
 	Line {
+	  ZOrder		  3
 	  SrcBlock		  "Gain3"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  4
 	}
 	Line {
+	  ZOrder		  4
 	  SrcBlock		  "Gain2"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  3
 	}
 	Line {
+	  ZOrder		  5
 	  SrcBlock		  "Gain1"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  6
 	  SrcBlock		  "Gain"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  7
 	  SrcBlock		  "Saturation5"
 	  SrcPort		  1
 	  DstBlock		  "Gain5"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  8
 	  SrcBlock		  "Saturation4"
 	  SrcPort		  1
 	  DstBlock		  "Gain4"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  9
 	  SrcBlock		  "Saturation3"
 	  SrcPort		  1
 	  DstBlock		  "Gain3"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  10
 	  SrcBlock		  "Saturation2"
 	  SrcPort		  1
 	  DstBlock		  "Gain2"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  11
 	  SrcBlock		  "Saturation1"
 	  SrcPort		  1
 	  DstBlock		  "Gain1"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  12
 	  SrcBlock		  "Saturation"
 	  SrcPort		  1
 	  DstBlock		  "Gain"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  13
 	  SrcBlock		  "Add6"
 	  SrcPort		  1
 	  DstBlock		  "Discrete PID 6"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  14
 	  SrcBlock		  "Add5"
 	  SrcPort		  1
 	  DstBlock		  "Discrete PID 5"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  15
 	  SrcBlock		  "Add4"
 	  SrcPort		  1
 	  DstBlock		  "Discrete PID 4"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  16
 	  SrcBlock		  "Add3"
 	  SrcPort		  1
 	  DstBlock		  "Discrete PID 3"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  17
 	  SrcBlock		  "Add2"
 	  SrcPort		  1
 	  DstBlock		  "Discrete PID 2"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  18
 	  SrcBlock		  "Mux"
 	  SrcPort		  1
 	  DstBlock		  "Zero-Order\nHold"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  19
 	  SrcBlock		  "Step"
 	  SrcPort		  1
 	  Points		  [180, 0]
 	  Branch {
+	    ZOrder		    20
 	    Points		    [40, 0; 0, 75]
 	    Branch {
+	      ZOrder		      21
 	      DstBlock		      "Add1"
 	      DstPort		      1
 	    }
 	    Branch {
+	      ZOrder		      22
 	      Points		      [0, 85]
 	      Branch {
+		ZOrder			23
 		DstBlock		"Add2"
 		DstPort			1
 	      }
 	      Branch {
+		ZOrder			24
 		Points			[0, 85]
 		Branch {
+		  ZOrder		  25
 		  DstBlock		  "Add3"
 		  DstPort		  1
 		}
 		Branch {
+		  ZOrder		  26
 		  Points		  [0, 85]
 		  Branch {
+		    ZOrder		    27
 		    DstBlock		    "Add4"
 		    DstPort		    1
 		  }
 		  Branch {
+		    ZOrder		    28
 		    Points		    [0, 85]
 		    Branch {
+		    ZOrder		    29
 		    DstBlock		    "Add5"
 		    DstPort		    1
 		    }
 		    Branch {
+		    ZOrder		    30
 		    Points		    [0, 85]
 		    DstBlock		    "Add6"
 		    DstPort		    1
@@ -4303,66 +4968,77 @@ Model {
 	    }
 	  }
 	  Branch {
+	    ZOrder		    31
 	    Points		    [0, -15]
 	    DstBlock		    "To Workspace2"
 	    DstPort		    1
 	  }
 	}
 	Line {
+	  ZOrder		  32
 	  SrcBlock		  "Joint Positions"
 	  SrcPort		  1
 	  DstBlock		  "Demux1"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  33
 	  SrcBlock		  "Demux1"
 	  SrcPort		  1
 	  DstBlock		  "Add1"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  34
 	  SrcBlock		  "Demux1"
 	  SrcPort		  2
 	  DstBlock		  "Add2"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  35
 	  SrcBlock		  "Demux1"
 	  SrcPort		  3
 	  DstBlock		  "Add3"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  36
 	  SrcBlock		  "Demux1"
 	  SrcPort		  4
 	  DstBlock		  "Add4"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  37
 	  SrcBlock		  "Demux1"
 	  SrcPort		  5
 	  DstBlock		  "Add5"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  38
 	  SrcBlock		  "Demux1"
 	  SrcPort		  6
 	  DstBlock		  "Add6"
 	  DstPort		  2
 	}
 	Line {
+	  ZOrder		  39
 	  SrcBlock		  "Zero-Order\nHold"
 	  SrcPort		  1
 	  DstBlock		  "Control Actions (Volts)"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  40
 	  SrcBlock		  "Discrete PID 1"
 	  SrcPort		  1
 	  DstBlock		  "Saturation"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  41
 	  Labels		  [0, 0]
 	  SrcBlock		  "Add1"
 	  SrcPort		  1
@@ -4370,38 +5046,48 @@ Model {
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  42
 	  SrcBlock		  "Discrete PID 2"
 	  SrcPort		  1
 	  DstBlock		  "Saturation1"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  43
 	  SrcBlock		  "Discrete PID 3"
 	  SrcPort		  1
 	  DstBlock		  "Saturation2"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  44
 	  SrcBlock		  "Discrete PID 4"
 	  SrcPort		  1
 	  DstBlock		  "Saturation3"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  45
 	  SrcBlock		  "Discrete PID 5"
 	  SrcPort		  1
 	  DstBlock		  "Saturation4"
 	  DstPort		  1
 	}
 	Line {
+	  ZOrder		  46
 	  SrcBlock		  "Discrete PID 6"
 	  SrcPort		  1
 	  DstBlock		  "Saturation5"
 	  DstPort		  1
 	}
 	Annotation {
+	  SID			  "199"
 	  Name			  "Reference"
-	  Position		  [80, 25]
+	  Position		  [80, 25, 128, 37]
+	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
+	  ZOrder		  -1
 	}
       }
     }
@@ -4411,13 +5097,24 @@ Model {
       SID		      "169"
       Ports		      [1]
       Position		      [1525, 214, 1555, 246]
+      ZOrder		      -3
       Floating		      off
-      Location		      [67, 301, 1280, 794]
+      Location		      [67, 301, 1705, 1141]
       Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
       }
       YMin		      "-32.5"
       YMax		      "25"
@@ -4430,6 +5127,7 @@ Model {
       SID		      "170"
       Ports		      [1]
       Position		      [750, 84, 780, 116]
+      ZOrder		      -4
       Floating		      off
       Location		      [67, 241, 1280, 734]
       Open		      off
@@ -4445,44 +5143,64 @@ Model {
       SampleTime	      "0"
     }
     Line {
+      ZOrder		      1
       SrcBlock		      "ROBOT CONTROLLER"
       SrcPort		      1
       Points		      [145, 0]
       Branch {
+	ZOrder			2
 	DstBlock		"ROBOT"
 	DstPort			1
       }
       Branch {
-	Points			[0, -25]
+	ZOrder			3
 	DstBlock		"Scope4"
 	DstPort			1
       }
     }
     Line {
+      ZOrder		      4
       SrcBlock		      "ROBOT"
       SrcPort		      1
       Points		      [180, 0]
       Branch {
+	ZOrder			5
 	Points			[0, 445; -1300, 0; 0, -445]
 	DstBlock		"ROBOT CONTROLLER"
 	DstPort			1
       }
       Branch {
+	ZOrder			6
 	DstBlock		"Scope"
 	DstPort			1
       }
     }
     Annotation {
+      SID		      "200"
       Name		      "control actions"
-      Position		      [662, 204]
+      Position		      [662, 204, 728, 216]
+      InternalMargins	      [0, 0, 0, 0]
+      FixedHeight	      off
+      FixedWidth	      off
+      ZOrder		      -1
     }
     Annotation {
+      SID		      "201"
       Name		      "feedback: joint positions"
-      Position		      [157, 206]
+      Position		      [157, 206, 265, 218]
+      InternalMargins	      [0, 0, 0, 0]
+      FixedHeight	      off
+      FixedWidth	      off
+      ZOrder		      -2
     }
     Annotation {
+      SID		      "202"
       Name		      "joint positions"
-      Position		      [1324, 199]
+      Position		      [1324, 199, 1386, 211]
+      InternalMargins	      [0, 0, 0, 0]
+      FixedHeight	      off
+      FixedWidth	      off
+      ZOrder		      -3
     }
   }
 }

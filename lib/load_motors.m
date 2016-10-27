@@ -166,28 +166,4 @@ end
  motors.Viscous=Viscous;
  motors.Coulomb = Coulomb;
         
-% %Actuator rotor inertia
-% motors.Inertia=[200e-6 200e-6 200e-6 33e-6 33e-6 33e-6];
-%         
-% %Speed reductor at each joint
-% %motors.G=[300 300 300 300 300 300];
-% %Obtained from motor catalog under practicals/inverse_dynamics
-% %                        R(Ohm)  L(H)      Kv (V/rad/s):speed constant     Kp (Nm/A):torque constant        Max_current (A) 
-% motors.constants=[0.345  0.273e-3       2.3474e-05               84.9e-3                 139; %these correspond to Maxon, 167132;
-%     ];
-% 
-% %Viscous friction referred to the 
-% motors.Viscous = [0 0 0 0 0 0];
-% 
-% %Coulomb friction factors, motor referred
-% %Tc+, Tc-
-% motors.Coulomb = [0	0;
-%             0	0;
-%             0	0;
-%             0   0;
-%             0   0;
-%             0   0];
-% 
-% 
-%     end
 
