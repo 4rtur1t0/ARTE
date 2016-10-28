@@ -1,5 +1,28 @@
 function varargout = coord_change(varargin)
 % COORD_CHANGE MATLAB code for coord_change.fig
+%       COORD_CHANGE is a graphical assistant that helps you define each
+%       stl file in coordinates of its own reference system.
+%
+%       a) Start by selecting a .stl file, for example belonging to link0 in terms 
+%       of the base reference system. 
+%       b) To change units from mm to meters. Input this T:
+%               T = [1 0 0 0;
+%                    0 1 0 0;
+%                    0 0 1 0;
+%                    0 0 0 1000]
+%       c) After defining T click on "Transform by T". Next click on "View
+%       link".
+%       d) Change T so that the axis with respect to the link are
+%       coincident with the D-H reference system attached to the current
+%       link.
+%       e) When you are finished, just save the current link as link0.stl,
+%       link1.stl, link2.stl, depending on the link you are working on.
+%       f) Whenever the 6 links have been processed, you can load the robot
+%       with "Load Robot" and draw it with "Draw robot".
+%
+%
+%
+%
 %      COORD_CHANGE, by itself, creates a new COORD_CHANGE or raises the existing
 %      singleton*.
 %
@@ -22,7 +45,7 @@ function varargout = coord_change(varargin)
 
 % Edit the above text to modify the response to help coord_change
 
-% Last Modified by GUIDE v2.5 27-Oct-2016 17:09:00
+% Last Modified by GUIDE v2.5 27-Oct-2016 17:32:06
 global robot 
 global current_link
 global fout_global
@@ -535,3 +558,12 @@ set(handles.edit_px, 'String', num2str(T(1,4), '%.3f'));
 set(handles.edit_py, 'String', num2str(T(2,4), '%.3f'));
 set(handles.edit_pz, 'String', num2str(T(3,4), '%.3f'));
 set(handles.edit_T_scale, 'String', num2str(T(4,4), '%.3f'));
+
+
+% --- Executes on button press in pushbutton8.
+function pushbutton8_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+help coord_change
