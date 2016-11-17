@@ -66,8 +66,7 @@ for i=1:length(x),
     T(2,1)=sin(th(i))
     
     q=inversekinematic(robot, T);
-    
-    
+        
     drawrobot3d(robot, q(:,1), 1) %noclear activated
     drawrobot3d(robot, q(:,1)) %noclear deactivated
 end

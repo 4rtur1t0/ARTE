@@ -31,29 +31,19 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function [theta, thetap, thetapp, poly] = single_joint_spline(thetaini, thetafinal, velini, velfinal, time_vector)
-
 tfinal = time_vector(end);
-
 A=[1 0 0 0;
    1 tfinal tfinal^2 tfinal^3;
    0 1 0 0;
    0 1 2*tfinal 3*tfinal^2];
 
 b = [thetaini thetafinal velini velfinal]';
-
 x = inv(A)*b;
-
 poly = x;
-
 t=time_vector(:); %0:0.001:tacel;
 
 theta = x(1) + x(2)*t + x(3)*t.^2+ x(4)*t.^3;
-
 thetap = x(2)+2*x(3)*t+3*x(4)*t.^2;
-
 thetapp = 2*x(3)+6*x(4)*t;
 
-%close all
-% figure, plot(t, theta)
-% figure, plot(t, thetap)
-% figure, plot(t, thetapp)
+
