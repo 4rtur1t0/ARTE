@@ -2629,8 +2629,9 @@ conf = compute_configuration(robot, robot.q);
 %precision. This may cause discrepancies in the cf1, cf4 or cf6 variables
 %(the configuration in RAPID). Thus, the points are first rounded, next,
 %the inversekinematic is computed for the rounded points the closest
-%solution
-tp=round_4_digits(T, Q, conf);
+%solution%
+%tp=round_4_digits(T, Q, conf);
+tp = [[T(1,4),T(2,4),T(3,4)],[Q(1), Q(2), Q(3), Q(4)], [conf(1), conf(2), conf(3), conf(4)], [9E9,9E9,9E9,9E9,9E9,9E9]];
 
 fprintf('\n\ntp:=[[%.4f,%.4f,%.4f],[%.4f,%.4f,%.4f,%.4f],[%d,%d,%d,%d],[9E9,9E9,9E9,9E9,9E9,9E9]];\n\n',tp(1),tp(2),tp(3),tp(4),tp(5),tp(6),tp(7),tp(8),tp(9),tp(10),tp(11));
 

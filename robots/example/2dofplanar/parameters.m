@@ -1,10 +1,10 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   example 2 DOF planar robot.
 %
-%   Author: Arturo Gil. Universidad Miguel Hern�ndez de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernandez de Elche. 
 %   email: arturo.gil@umh.es date:   03/03/2012
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
 %
@@ -49,8 +49,6 @@ robot.J=['[-a(1)*sin(q(1))-a(2)*sin(q(1)+q(2))  -a(2)*sin(q(1)+q(2));' ...
           '               0                                  0;' ...
           '               0                                  0;' ...
           '               1                                  1]'];
-%robot.J=[];
-
 %Function name to compute inverse kinematic
 robot.inversekinematic_fn = 'inversekinematic_2dofplanar(robot, T)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
@@ -105,11 +103,8 @@ robot.q_vector=[];
 robot.qd_vector=[];
 robot.qdd_vector=[];
 
-
 robot.last_target=directkinematic(robot, robot.q);
 robot.last_zone_data = 'fine';
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DYNAMIC PARAMETERS
@@ -120,7 +115,7 @@ robot.has_dynamics=1;
 robot.dynamics.friction=0;
 
 %link masses (kg)
-robot.dynamics.masses=[0.5 0.5];
+robot.dynamics.masses=[2 2];
 
 %COM of each link with respect to own reference system
 robot.dynamics.r_com=[-0.5      0         0; %(rx, ry, rz) link 1, w/r to reference system 1
@@ -138,8 +133,8 @@ L2 = a(2);
 
 %Inertia matrices of each link
 % Ixx	Iyy	Izz	Ixy	Iyz	Ixz, or each row
-robot.dynamics.Inertia=[0   m1*L1^2/3   m1*L1^2/3    0	0	0;
-                        0   m2*L2^2/3   m2*L2^2/3    0	0	0];
+robot.dynamics.Inertia=[0   m1*L1^2/12   m1*L1^2/12    0	0	0;
+                        0   m2*L2^2/12   m2*L2^2/12    0	0	0];
 
 
 %Inertia of the rotor
@@ -153,7 +148,7 @@ robot.motors.Viscous = [0  0];
 %Coulomb friction of the motor
 %Tc+, Tc-
 robot.motors.Coulomb = [0	0;
-            0	0];
+                        0	0];
         
 %Obtained from motor catalog under practicals/inverse_dynamics
 %                        R(Ohm)  L(H)      Kv (V/rad/s):speed constant     Kp (Nm/A):torque constant        Max_current (A) 

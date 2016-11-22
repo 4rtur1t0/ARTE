@@ -152,14 +152,3 @@ Nablath = [-2*(px-x1)*dx1 - 2*(py-y1)*dy1-2*(pz-z1)*dz1        0 0;
 %Now compute the generalized torques at each joint
 tau = L - Nablath*Lambda;
 
-
-
-% function plot_line(p0, p1, color, w)
-% x0 = p0(1);
-% y0 = p0(2);
-% z0 = p0(3);
-% x1 = p1(1);
-% y1 = p1(2);
-% z1 = p1(3);
-% % Draw a line between p0 and p1
-% plot3([x0;x1],[y0;y1],[z0;z1], color, 'LineWidth',w);   

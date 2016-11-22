@@ -27,7 +27,7 @@ function robot = parameters()
 robot.name= 'puma_560';
 
 robot.DH.theta = '[q(1) q(2) q(3) q(4) q(5) q(6)]';
-robot.DH.d='[0  0   0.15005  0.4318     0    0.04]';
+robot.DH.d='[0  0   0.15005  0.4318     0    0.0]';
 robot.DH.a='[0 0.4318  0.0203      0       0    0]';
 robot.DH.alpha= '[pi/2  0   -pi/2  pi/2   -pi/2 0]';
 robot.J=[];
@@ -101,20 +101,20 @@ robot.dynamics.masses=[0 17.4 4.8 0.82 0.34 0.09];
 
 %COM of each link with respect to own reference system
 robot.dynamics.r_com=[0       0          0; %(rx, ry, rz) link 1
-    -0.3638	 0.006	 0.2275; %(rx, ry, rz) link 2
-    -0.0203	-0.0141	 0.070;  %(rx, ry, rz) link 3
-    0       0.019       0;%(rx, ry, rz) link 4
-    0       0           0;%(rx, ry, rz) link 5
-   0         0         -0.008];%(rx, ry, rz) link 6
+                    -0.3638	 0.006	 0.2275; %(rx, ry, rz) link 2
+                     -0.0203	-0.0141	 0.070;  %(rx, ry, rz) link 3
+                     0       0.019       0;%(rx, ry, rz) link 4
+                     0       0           0;%(rx, ry, rz) link 5
+                    0         0         0.0320];%(rx, ry, rz) link 6
 
 %Inertia matrices of each link with respect to its D-H reference system.
 % Ixx	Iyy	Izz	Ixy	Iyz	Ixz, for each row
 robot.dynamics.Inertia=[0      0.35	0   	0	0	0;
-    0.13    0.524	0.539	0	0	0;
-    0.066	0.086	0.0125	0	0	0;
-    1.8e-3	1.3e-3	1.8e-3	0	0	0;
-    0.3e-3	0.4e-3	0.3e-3	0	0	0;
-    0.15e-3	0.15e-3	0.04e-3	0	0	0];
+                        0.13    0.524	0.539	0	0	0;
+                        0.066	0.086	0.0125	0	0	0;
+                        0.0018	0.0013	0.0018	0	0	0;
+                        3e-4	4e-4	3e-4	0	0	0;
+                        1.5e-4	1.5e-4	4e-5	0	0	0];
 
 
 %Please note that we are simulating the motors as presented in MAXON

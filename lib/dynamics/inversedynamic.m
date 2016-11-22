@@ -1,32 +1,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  TAU = INVERSEDYNAMIC(Q, QD, QDD, GRAV, FEXT)
+%
 %  TAU= INVERSEDYNAMIC: Compute inverse dynamics via recursive Newton-Euler
 %  formulation. 
 %  TAU = INVERSEDYNAMIC(Q, QD, QDD, GRAV, FEXT) computes the
 %  required torques (Nm) and forces (N) required to instantaneously bring
 %  the arm to the specified state given by positions Q, speed QD,
 %  acceleration QDD. The gravity is expressed in the base coordinate
-%  system, typically defined as GRAV = [0 0 9.81]'. In addition, FEXT
+%  system, typically defined as GRAV = [0 0 -9.81]'. In addition, FEXT
 %  is a 6-vector [Fx Fy Fz Mx My Mz] defining the forces and moments
 %  externally applied to the end-effector (in coordinates of the end effector's n-th DH
 %  system).
 %
 %   Example of use:
-%   q=[0 0 0 0 0 0]
-%   qd=[0 0 0 0 0 0]
-%   qdd = [0 0 0 0 0 0]
-%   g=[0 0 9.81]';
+%   q=[0 0]
+%   qd=[0 0]
+%   qdd = [0 0]
+%   g=[0 -9.81 0]';
 %   fext = [0 0 0 0 0 0]';
-%   puma560=load_robot('puma', '560');
-%	tau = inversedynamic(puma560, q, qd, qdd, g, fext)
+%   planar=load_robot('example', '2dofplanar');
+%	tau = inversedynamic(planar, q, qd, qdd, g, fext)
+%
+%   tau =
+%     -39.2400
+%     -9.8100
+%   
+%   returns the torques at each joint in N·m
 %   where: q is the position of the arm, qd the joint velocities and qdd
-%   the accelerations. The vector g defines the gravity in the base reference 
+%   the joint accelerations. The vector g defines the gravity in the base reference 
 %   system, whereas the vector fext = [fx fy fz Mx My Mz] defines the
 %   forces and moments acting on the end effector's reference system.
 %
 %   Author: Arturo Gil Aparicio, arturo.gil@umh.es
 %   
-%   Bibliography: The algorithm has been implemented as is "ROBOT ANALYSIS. The mechanics of Serial and Parallel
+%   References: The algorithm has been implemented as described in
+%       "ROBOT ANALYSIS. The mechanics of Serial and Parallel
 %        manipulators". Lung Weng Tsai. John Wiley and Sons, inc. ISBN:
 %        0-471-32593-7. pages: 386--391.
 %            
@@ -93,9 +101,8 @@ N_com = zeros(3,n);
 % to the last link
 for j=1:n,
     A=dh(theta(j), d(j), a(j), alfa(j));
-    %Note: compute the inverse by transpose.
-    %this implies a transformation from the {i-1}th system to the ith
-    %system.
+    %Note: compute the inverse by transpose. This implies a transformation 
+    %from the {i-1}th system to the ith system.
     R = A(1:3,1:3)'; 
     %position vector of the origin of the ith link frame with respect to
     %the (i-i)th link frame
@@ -111,42 +118,46 @@ for j=1:n,
         wi = R*wi;        
         vdi = R*(vdi + z0*qdd(j)) + cross(wdi,ri) + cross(wi, cross(wi,ri)) + 2*cross(wi,R*z0*qd(j));
     end
+    %acceleration of the center of mass of link i
+    vd_comi = vdi + cross(wdi, r_com(j,:)') + cross(wi, cross(wi,r_com(j,:)'));
     
     %Inertia matrix
     J = [robot.dynamics.Inertia(j,1) robot.dynamics.Inertia(j,4) robot.dynamics.Inertia(j,6);
         robot.dynamics.Inertia(j,4) robot.dynamics.Inertia(j,2) robot.dynamics.Inertia(j,5);
         robot.dynamics.Inertia(j,6) robot.dynamics.Inertia(j,5) robot.dynamics.Inertia(j,3)	];
-    %acceleration of the center of mass of link i
-    v_comi = vdi + cross(wdi,r_com(j,:)') + cross(wi,cross(wi,r_com(j,:)'));
     % Force as Newton's law F=m*a of COM
-    F = m(j)*v_comi;
-    N = J*wdi + cross(wi,J*wi);
+    F =  -m(j)*vd_comi;
+    N =  -J*wdi - cross(wi, J*wi);
     %Finally, store the force and moment to use it in the backward's
     %computation loop, next
     F_com(:,j) = F;
     N_com(:,j) = N;
 end
 
+T=directkinematic(robot, q);
+R = T(1:3,1:3);
 %assure fext is a column vector
 fext=fext(:);
 %  backward computations
-ifi = fext(1:3);		% forces expressed in the last reference system
-ini = fext(4:6);     % moments at the last reference system.
+%ifi = fext(1:3);		% forces expressed in the last reference system
+%ini = fext(4:6);        % moments at the last reference system.
 
-T=directkinematic(robot, q);
+ifi = R'*fext(1:3);		% forces expressed in the last reference system
+ini = R'*fext(4:6);
+
+
 %vector g, expressed in the last reference system
-gj=T(1:3,1:3)\grav;
+gj=R\grav;
 
 for j=n:-1:1,
     ri = [a(j); d(j)*sin(alfa(j)); d(j)*cos(alfa(j))];
     
     %compute resultant force on the i-1 (minus) link
-    ifim = F_com(:,j) - m(j)*gj + ifi;
+    ifim = ifi - m(j)*gj - F_com(:,j);
     
     %compute resultant moment on i-1
-    inim = N_com(:,j) + cross(ri+r_com(j,:)',ifim) - cross(r_com(j,:)', ifi) + ini ;
-    
-    
+    inim = ini + cross(ri+r_com(j,:)',ifim) - cross(r_com(j,:)', ifi) - N_com(:,j);
+        
     %Transform the resultant forces and moments to the previous reference system, 
     %so that the recursive equations are always to be added on the
     %same reference system.
@@ -168,3 +179,4 @@ for j=n:-1:1,
         tau(j) = tau(j) + friction(robot, qd, j);
     end
 end 
+
