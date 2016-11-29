@@ -30,7 +30,7 @@ total_simulation_time = 20;
 
 %initial position and joint speed
 q0 = [0]';
-qd0 = [10]';
+qd0 = [0]';
 
 drawrobot3d(robot, q0);
 adjust_view(robot);
@@ -58,20 +58,11 @@ adjust_view(robot);
 %you may redefine the gravity vector
 %in this case you may one of the next two lines, that define
 %the gravity acting along the Y axis or the Z axis, respectively.
-%g=[0  -9.81 0]'; %y0 axis
+g=[0  -9.81 0]'; %y0 axis
 
-
-g=[0  0 -9.81]'; %Z0 axis
-
+%g=[0  0 -9.81]'; %Z0 axis
 
 tau = [0]';%no torques applied
-%Next, try this. Compute the torques needed to reach a particular motion
-%state, such as q=[0 0], qd=[0 0] and qdd=[0 0]. That is, the arm is fully
-%deployed. Note that, if we apply these torques, the acceleration computed
-%by the inverse dynamic function should be zero, thus, the arm should not
-%move.
-%tau = inversedynamic(robot, [0 0], [0 0], [0 0], [0 -9.81 0]' ,[0 0 0 0 0 0]);
-
 %select friction or not
 robot.dynamics.friction = 1;
 

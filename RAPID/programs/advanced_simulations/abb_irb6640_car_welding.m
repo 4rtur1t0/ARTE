@@ -28,7 +28,7 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function IRB6640_car_welding
+function abb_irb6640_car_welding
 global robot
 robot = load_robot('abb','irb6640');
 robot.equipment{1} = load_robot('equipment','conveyor_belt');
@@ -44,7 +44,7 @@ end
 function car_welding()
 global TD_tool0 RT_tp1 RT_tp2 RT_tp3 RT_tp4 RT_tp5 JV_q0
 
-TD_tool0=[1,[[0,0,0],[1,0,0,0]],[0,[0,0,0],[1,0,0,0],0,0,0]];
+TD_tool0=[1,[[0,0,0.4],[1,0,0,0]],[0,[0,0,0],[1,0,0,0],0,0,0]];
 
 %initial position
 JV_q0=[0 0 0 0 0 0]';

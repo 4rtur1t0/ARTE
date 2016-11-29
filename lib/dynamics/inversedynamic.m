@@ -5,12 +5,11 @@
 %  formulation. 
 %  TAU = INVERSEDYNAMIC(Q, QD, QDD, GRAV, FEXT) computes the
 %  required torques (Nm) and forces (N) required to instantaneously bring
-%  the arm to the specified state given by positions Q, speed QD,
-%  acceleration QDD. The gravity is expressed in the base coordinate
+%  the arm to the specified state given by joint positions Q, joint speeds QD,
+%  and joint accelerations QDD. The gravity is expressed in the base coordinate
 %  system, typically defined as GRAV = [0 0 -9.81]'. In addition, FEXT
 %  is a 6-vector [Fx Fy Fz Mx My Mz] defining the forces and moments
-%  externally applied to the end-effector (in coordinates of the end effector's n-th DH
-%  system).
+%  externally applied to the end-effector (in coordinates of the base reference system).
 %
 %   Example of use:
 %   q=[0 0]
@@ -22,14 +21,20 @@
 %	tau = inversedynamic(planar, q, qd, qdd, g, fext)
 %
 %   tau =
-%     -39.2400
-%     -9.8100
+%     39.2400
+%     9.8100
 %   
 %   returns the torques at each joint in N·m
 %   where: q is the position of the arm, qd the joint velocities and qdd
 %   the joint accelerations. The vector g defines the gravity in the base reference 
 %   system, whereas the vector fext = [fx fy fz Mx My Mz] defines the
-%   forces and moments acting on the end effector's reference system.
+%   forces and moments acting on the end effector's. Forces and moments are
+%   expressed in the base reference frame. For example, in the above
+%   example, if the robot carries a 2kg payload at the end effector, we can
+%   write:
+%
+%   fext = [m*g' 0 0 0]';       
+%   tau = inversedynamic(planar, q, qd, qdd, g, fext)
 %
 %   Author: Arturo Gil Aparicio, arturo.gil@umh.es
 %   
@@ -134,17 +139,18 @@ for j=1:n,
     N_com(:,j) = N;
 end
 
+%Compute the whole transformation
 T=directkinematic(robot, q);
 R = T(1:3,1:3);
-%assure fext is a column vector
+
+%assure fext is a column vector.
 fext=fext(:);
-%  backward computations
-%ifi = fext(1:3);		% forces expressed in the last reference system
-%ini = fext(4:6);        % moments at the last reference system.
-
-ifi = R'*fext(1:3);		% forces expressed in the last reference system
-ini = R'*fext(4:6);
-
+%  backward computations. 
+% Change sign, since these are the forces applied
+%  on the last link. Also. Forces and moments are expressed in the global
+%  reference frame. Express them in last link's reference frame.
+ifi = -R'*fext(1:3);		
+ini = -R'*fext(4:6);        
 
 %vector g, expressed in the last reference system
 gj=R\grav;
@@ -176,7 +182,7 @@ for j=n:-1:1,
     %add viscous friction in this case
     if robot.dynamics.friction
         %Note: we account for two types of friction: viscous and coulomb
-        tau(j) = tau(j) + friction(robot, qd, j);
+        tau(j) = tau(j) - friction(robot, qd, j);
     end
 end 
 

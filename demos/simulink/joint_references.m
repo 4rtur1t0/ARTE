@@ -68,7 +68,7 @@ point = initial_point + speed*time*v;
 
 Ttotal = quaternion2T(Qm, point(1:3));
 qinv = inversekinematic(robot, Ttotal);
-q = select_closest_joint_coordinates(robot, qinv, robot.q);
+q = select_closest_joint_coordinates(qinv, robot.q);
 
 %update current robot joints
 robot.q=q;

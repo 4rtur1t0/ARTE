@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.62"
+    ComputedModelVersion    "1.64"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [151.0, 214.0, 1822.0, 983.0]
+      Location		      [251.0, 175.0, 1822.0, 983.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -38,7 +38,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -51,11 +51,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"1"
 	Extents			[1788.0, 810.0]
 	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	Offset			[0.0, -24.687713384628296]
       }
     }
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "arturogilaparicio"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Oct 17 12:48:44 2016"
-  RTWModifiedTimeStamp	  398609282
-  ModelVersionFormat	  "1.%<AutoIncrement:62>"
+  LastModifiedDate	  "Tue Nov 29 17:09:43 2016"
+  RTWModifiedTimeStamp	  402337970
+  ModelVersionFormat	  "1.%<AutoIncrement:64>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1008,8 +1008,8 @@ Model {
   }
   System {
     Name		    "simulate_robot_and_controller"
-    Location		    [151, 214, 1973, 1197]
-    Open		    on
+    Location		    [312, 370, 2134, 1353]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1040,8 +1040,8 @@ Model {
       }
       System {
 	Name			"ROBOT"
-	Location		[151, 214, 1973, 1197]
-	Open			off
+	Location		[251, 175, 2073, 1158]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1121,7 +1121,7 @@ Model {
 	      Name		      "on_off_vector"
 	      Prompt		      "Set [1 1 1 1 1 1] to enable all motors and controls. Set [1 0 0 0 0 0] to enable just joint 1 co"
 	      "ntrol, [0 1 0 0 0 0] to enable 2, and so on:"
-	      Value		      "[1 1 1 1 1 1]"
+	      Value		      "[1 0 0 0 0 0]"
 	    }
 	  }
 	  System {
@@ -1311,7 +1311,7 @@ Model {
 	      Type		      "edit"
 	      Name		      "index"
 	      Prompt		      "Select motor index"
-	      Value		      "1"
+	      Value		      "5"
 	    }
 	  }
 	  System {
@@ -2975,9 +2975,10 @@ Model {
 	}
 	Annotation {
 	  SID			  "186"
-	  Name			  "The Motoreducer block models a brushed DC \nelectric motor coupled with a gear. \nThe block receives the "
-	  "index of the motor, \nas defined in the parameters.m file of the robot."
-	  Position		  [381, 68, 592, 110]
+	  Name			  "The Motoreducer block models a brushed DC \nelectric motor coupled with a gear. \n\nThe block receives as"
+	  " input the index number of the motor, \nas defined in the parameters.m file of the robot.\n\nThese indices are defi"
+	  "ned in arte/lib/load_motors.m where different motors are \ndefined by a set of constants."
+	  Position		  [381, 68, 731, 150]
 	  InternalMargins	  [0, 0, 0, 0]
 	  FixedHeight		  off
 	  FixedWidth		  off
@@ -5099,7 +5100,7 @@ Model {
       Position		      [1525, 214, 1555, 246]
       ZOrder		      -3
       Floating		      off
-      Location		      [67, 301, 1705, 1141]
+      Location		      [307, 394, 1945, 1234]
       Open		      off
       NumInputPorts	      "1"
       List {

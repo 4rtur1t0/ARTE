@@ -86,9 +86,9 @@ robot = read_graphics(robot);
 
 %INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION
 %position, velocity and acceleration
-robot.q=[0 ]';
-robot.qd=[0 ]';
-robot.qdd=[0 ]';
+robot.q=[0]';
+robot.qd=[0]';
+robot.qdd=[0]';
 robot.time = [];
 
 robot.q_vector=[];
@@ -99,8 +99,6 @@ robot.qdd_vector=[];
 robot.last_target=directkinematic(robot, robot.q);
 robot.last_zone_data = 'fine';
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DYNAMIC PARAMETERS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,7 +108,7 @@ robot.has_dynamics=1;
 robot.dynamics.friction=0;
 
 %link masses (kg)
-robot.dynamics.masses=[1];
+robot.dynamics.masses=[2];
 
 %COM of each link with respect to own reference system
 robot.dynamics.r_com=[-0.5      0         0 ];%(rx, ry, rz) link 2
@@ -122,7 +120,7 @@ L1 = a(1);
 
 %Inertia matrices of each link
 % Ixx	Iyy	Izz	Ixy	Iyz	Ixz, or each row
-robot.dynamics.Inertia=[0   0   m1*L1^2/3    0	0	0];
+robot.dynamics.Inertia=[0   0   m1*L1^2/12    0	0	0];
 
 
 %Inertia of the rotor
@@ -132,10 +130,10 @@ robot.motors.G=[1];
 
 
 %Viscous friction factor of the motor
-robot.motors.Viscous = [0.3 ];
+robot.motors.Viscous = [0.3];
 %Coulomb friction of the motor
 %Tc+, Tc-
-robot.motors.Coulomb = [0	0  ];
+robot.motors.Coulomb = [0	0 ];
         
 %Obtained from motor catalog under practicals/inverse_dynamics
 %                        R(Ohm)  L(H)      Kv (V/rad/s):speed constant     Kp (Nm/A):torque constant        Max_current (A) 
@@ -143,9 +141,6 @@ robot.motors.constants=[0.345  0.273e-3       2.3474e-05               84.9e-3  
 
 
 %robot.motors=load_motors([5 5 5 4 4 4]);
-%Speed reductor at each joint
-%robot.motors.G=[300 300 300 300 300 300];
 
-        
         
 

@@ -112,7 +112,7 @@ robot.last_zone_data = 'fine';
 robot.has_dynamics=1;
 
 %consider friction or not
-robot.dynamics.friction=0;
+robot.dynamics.friction=1;
 
 %link masses (kg)
 robot.dynamics.masses=[2 2];
@@ -144,7 +144,7 @@ robot.motors.G=[1  1];
 
 
 %Viscous friction factor of the motor
-robot.motors.Viscous = [0  0];
+robot.motors.Viscous = [0.9  0.9];
 %Coulomb friction of the motor
 %Tc+, Tc-
 robot.motors.Coulomb = [0	0;

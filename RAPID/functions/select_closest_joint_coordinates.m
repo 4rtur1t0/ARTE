@@ -28,8 +28,8 @@
 function q=select_closest_joint_coordinates(qinv, q_current)
 
 a = qinv-repmat(q_current(:), 1, size(qinv,2));
-a=sum(abs(a));
-[val,i]=min(a);
+a = sum(abs(a));
+[val, i] = min(a);
 
 q=qinv(:,i); 
 

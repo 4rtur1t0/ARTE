@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Inverse dynamics for the 2dof planar robot
+% Inverse dynamics for the 2dof planar robot
 %
-%   tau = inversedynamics_2dofplanar(robot, q, qd, qdd, gc, fext)
+%   tau = exercise_lagrange_2dofplanar(robot, q, qd, qdd, fext)
 %   
 %   Where robot stores the kinematic and dynamic parameters for this robot.
 %   q: joint positions.
@@ -36,12 +36,12 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function tau = inversedynamics_2dofplanar(robot, q, qd, qdd, gc, fext)
+function tau = exercise_lagrange_2dofplanar(robot, q, qd, qdd, gc, fext)
 a = eval(robot.DH.a);
 a1=a(1);
 a2=a(2);
 
-%gc=abs(gc);
+gc=abs(gc);
 m1=robot.dynamics.masses(1);
 m2=robot.dynamics.masses(2);
 
@@ -59,21 +59,22 @@ G = [(1/2)*m1*gc*a1*cos(q(1))+ m2*gc*a1*cos(q(1)) + (1/2)*m2*gc*a2*cos(q(1)+q(2)
 
 %assure fext is a column vector
 fext=fext(:);
+%Compute the end rotation matrix
+T = directkinematic(robot, q);
+R = T(1:3,1:3);
 
 %External forces are propagated to every joint by using the manipulators
 %Jacobian
 J = jacobian(robot, q);   
 
+%Caution: Rotate fext to compute the forces in the base reference system.
+% fext must be a 6x1 column vector with forces/moments
+%fext = [R*fext(1:3); R*fext(4:6)];
+
 %Finally use the general equation to compute the torques, considering the
 %external forces.
 tau = M*qdd + V + G - J'*fext;
 
-%Account for friction by substracting in tau.
-if robot.dynamics.friction
-    for j=1:robot.DOF,
-        tau(j) = tau(j) - friction(robot, qd, j);
-    end
-end
 
 
 

@@ -29,19 +29,18 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function [t, q, qd] = forwarddynamic(robot, time_end, q0, qd0, tau, g, torqfun, varargin)
+function [t, q, qd] = forwarddynamic(robot, time_end, q0, qd0, tau, g, varargin)
+n = robot.DOF;
 
-	n = robot.DOF;
-
-    % concatenate q and qd into the initial state vector
-    q0 = [q0(:); qd0(:)];
+% concatenate q and qd into the initial state vector
+q0 = [q0(:); qd0(:)];
 		
-	[t,y] = ode45(@fdyn_private, [0 time_end], q0, [], tau, g, robot, torqfun, varargin{:});
+[t, y] = ode45(@fdyn_private, [0 time_end], q0, [], tau, g, robot, varargin{:});
 
-    q = y(:,1:n)';
-	qd = y(:,n+1:2*n)';
+q = y(:,1:n)';
+qd = y(:,n+1:2*n)';
 
-end
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   FDYN_PRIVATE  private function called by FORWARDDYNAMIC
@@ -54,22 +53,14 @@ end
 %   X = [Q QD] is the state vector
 %   TAU is a vector of contant torques applied at each joint 
 % 
-%   TORQUEFUN is the string name of the function to compute joint torques and called as
-%
-%       TAU = TORQUEFUN(T, X)
-%
 % if not given zero joint torques are assumed.
 %
 % The function returns XDD = [QD QDD].
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function xd = fdyn_private(time, x, tau, g, robot, torqfun, varargin)
+function xd = fdyn_private(time, x, tau, g, robot, varargin)
 time
 	n = robot.DOF;
 
-	q = x(1:n)';
-	qd = x(n+1:2*n)';
-    
-	
 	qdd = accel(robot, x(1:n,1), x(n+1:2*n,1), tau, g);
 	xd = [x(n+1:2*n,1); qdd];
-end
+

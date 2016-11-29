@@ -45,7 +45,6 @@ for i=1:robot.DOF,
     %cirshift([1 0 0 0 0 0], i-1) results in acceleration varying from
     % [1 0 0 0 0 0], [0 1 0 0 0 0], [0 0 1 0 0 0] etc
     t = inversedynamic(robot, q', zeros(1,n), circshift([1 zeros(1,n-1)]',i-1), [0  0  0]', [0 0 0 0 0 0]');
-    %t = inversedynamic(robot, q', zeros(1,n), circshift([1 0 0 0 0 0]',i-1), [0  0  0]', [0 0 0 0 0 0]');
     M = [M t];
 end
 
@@ -53,6 +52,4 @@ end
 % in the state defined by position q and velocity qd under
 % the action of gravity.
 tau = inversedynamic(robot, q', qd', zeros(1,n), g, [0 0 0 0 0 0]');
-
-
 qdd = inv(M)*(torque(:) - tau);

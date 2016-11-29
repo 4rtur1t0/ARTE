@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Inverse dynamics for the 2dof planar robot
+% Inverse dynamics for the 2dof planar robot
 %
 %   tau = inversedynamics_2dofplanar(robot, q, qd, qdd, gc, fext)
 %   
@@ -8,6 +8,8 @@
 %   qd: joint velocities.
 %   qdd: joint accelerations.
 %   fext: vector of external forces. Defined in the BASE reference system.
+%   let gc=9.81 m/s^2 if the force is acting on the -Y0 direction, or gc =
+%   -9.81 m/s^2 if acting on the opposite direction.
 %
 %   This function just executes the inverse dynamic model for this robot.
 %   The equations to compute this dynamic model can be found in:
@@ -20,7 +22,7 @@
 %   Date: 08/03/2014
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Copyright (C) 2012, by Arturo Gil Aparicio
+% Copyright (C) 2016, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
 % 
@@ -36,12 +38,11 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function tau = inversedynamics_2dofplanar(robot, q, qd, qdd, gc, fext)
+function qdd = forwarddynamics_2dofplanar(robot, q, qd, tau, gc, fext)
 a = eval(robot.DH.a);
 a1=a(1);
 a2=a(2);
 
-%gc=abs(gc);
 m1=robot.dynamics.masses(1);
 m2=robot.dynamics.masses(2);
 
@@ -64,16 +65,16 @@ fext=fext(:);
 %Jacobian
 J = jacobian(robot, q);   
 
-%Finally use the general equation to compute the torques, considering the
-%external forces.
-tau = M*qdd + V + G - J'*fext;
-
-%Account for friction by substracting in tau.
+% %Account for friction by summing in tau.
 if robot.dynamics.friction
     for j=1:robot.DOF,
         tau(j) = tau(j) - friction(robot, qd, j);
     end
 end
+
+%Finally use the general equation to compute the torques, considering the
+%external forces.
+qdd =  inv(M)*(tau - V - G - J'*fext);
 
 
 

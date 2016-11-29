@@ -60,15 +60,7 @@ adjust_view(robot);
 %the gravity acting along the Y axis or the Z axis, respectively.
 g=[0  -9.81 0]'; %y0 axis
 
-
 tau = [0 0]';%no torques applied
-%Next, try this. Compute the torques needed to reach a particular motion
-%state, such as q=[0 0], qd=[0 0] and qdd=[0 0]. That is, the arm is fully
-%deployed. Note that, if we apply these torques, the acceleration computed
-%by the inverse dynamic function should be zero, thus, the arm should not
-%move.
-%tau = inversedynamic(robot, [0 0], [0 0], [0 0], [0 -9.81 0]' ,[0 0 0 0 0 0]);
-
 %select friction or not
 robot.dynamics.friction = 0;
 
