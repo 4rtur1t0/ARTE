@@ -228,7 +228,7 @@ switch index
     case 41
         robot=load_robot('example', 'scara'); n_solutions = 2;
     case 42
-        disp('ONLY THE POSOTION AND NOT THE ORIENTATION SHOULD BE COMPARED IN THIS ROBOT')
+        disp('ONLY THE POSITION AND NOT THE ORIENTATION SHOULD BE COMPARED IN THIS ROBOT')
         robot=load_robot('example', '2dofplanar'); n_solutions = 2;
 
     case 43

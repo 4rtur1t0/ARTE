@@ -43,7 +43,7 @@ end
 %   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function Ji = jacobian_submatrix(robot, q, i)
-%CAution, the following functions are evaluated according to the values of q
+%Caution, the following functions are evaluated according to the values of q
 %compute direct kinematics for serial robotics
 theta = eval(robot.DH.theta);
 d = eval(robot.DH.d);
@@ -55,7 +55,7 @@ T = robot.T0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TODO: 
-%Compute Matrix until joint i-1 (note that no computation is performed for i=1)
+% Compute Matrix until joint i-1 (note that no computation is performed for i=1)
 % use the dh(theta(j), d(j), a(j), alfa(j)) function
 
 
@@ -64,11 +64,9 @@ T = robot.T0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % obtain z_{i-1}
-zi = T(1:3,3);
+zim = T(1:3,3);
 % obtain o_{i-1}
 oi = T(1:3,4);
-%a zero vector
-zero = zeros(3,1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,6 +88,6 @@ if robot.kind(i) == 'R'
     % TODO: Compute the submatrix for a rotational joint
     
 else %prismatic joint
-    Ji = [zi; zero];
+    Ji = [zim; zeros(3,1)];
 end
 

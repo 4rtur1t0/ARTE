@@ -26,13 +26,10 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function Jn = compute_jacobian(robot, q)
-
-%Initialize J
-Jn = [];
+Jn = []; %Initialize J
 for i=1:robot.DOF,
-   Ji = jacobian_submatrix(robot, q, i);
-   % Add submatrix
-   Jn = [Jn Ji];
+   Ji = jacobian_submatrix(robot, q, i);   
+   Jn = [Jn Ji]; % Add submatrix to J
 end
 
 
@@ -58,21 +55,20 @@ for j=1:i-1,
 end
 
 % obtain z_{i-1}
-zi = T(1:3,3);
+zim = T(1:3,3);
 % obtain o_{i-1}
-oi = T(1:3,4);
+oim = T(1:3,4);
 %a zero vector
 zero = zeros(3,1);
 
-%Compute the end effector position
+%Compute the end effector's position
 T = directkinematic(robot, q);
 on = T(1:3,4);
 
 %rotational joint
 if robot.kind(i) == 'R'
-    Ji = [cross(zi,(on-oi)); zi];
-%prismatic joint
-else 
-    Ji = [zi; zero];
+    Ji = [cross(zim,(on-oim)); zim];
+else %prismatic joint
+    Ji = [zim; zero];
 end
 

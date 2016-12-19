@@ -26,11 +26,10 @@ n_solutions = 8;
 
 %Try different configurations beware that, depending on the robot's topology
 %not all the eight possible solutions will be feasible for an antropomorphic 6R robot.
-q=[0.5 -0.5 pi/6 0.1 0.1 0.1]
-%q = [0.1 -pi/4 pi/4 0.1 0.1 0.1];
+q=[0.2 -0.2 -0.2 0.1 0.1 0.1]
 
 %load robot parameters. You can try different robots
-%robot=load_robot('ABB', 'IRB140'); n_solutions = 8;
+robot=load_robot('ABB', 'IRB140'); n_solutions = 8;
 %robot=load_robot('ABB', 'IRB120'); n_solutions = 8;
 %robot=load_robot('ABB', 'IRB1600_6_120'); n_solutions = 8;
 %robot=load_robot('ABB', 'IRB1600_X145_M2004'); n_solutions = 8;
@@ -41,7 +40,6 @@ adjust_view(robot)
 
 %there are just 2 solutions for these robots and 4 DOF
 %q = [pi/2 0.2 0.8 pi/4]
-%q = [-pi/4 pi/2 0.5 pi]
 %robot=load_robot('kuka', 'KR5_scara_R350_Z200'); n_solutions = 2;
 %robot=load_robot('example', 'scara'); n_solutions = 2;
 %robot=load_robot('example', '2dofplanar'); n_solutions = 2;
@@ -67,7 +65,7 @@ qinv = inversekinematic(robot, T);
 
 
 fprintf('\nNOW WE CAN REPRESENT THE DIFFERENT SOLUTIONS TO ACHIEVE THE SAME POSITION AND ORIENTATION\n')
-fprintf('\nNot that some solutions may not be feasible. Some joints may be out of range\n')
+fprintf('\nNote that some solutions may not be feasible since some joints may be out of range.\n')
 correct=zeros(1,n_solutions);
 %check that all of them are possible solutions!
 for i=1:size(qinv,2),
@@ -77,8 +75,7 @@ for i=1:size(qinv,2),
     % Note that all the solutions may not be feasible. Some of the joints may
     % be out of range. You can test this situation with test_joints
     test_joints(robot, qinv(:,i));
-    
-    
+        
     %now draw the robot to see the solution
     drawrobot3d(robot, qinv(:,i))
     
@@ -92,11 +89,14 @@ for i=1:size(qinv,2),
         fprintf('\nERROR: One of the solutions seems to be uncorrect. Sum of errors: %f', i, k);
     end
 end
+
+fprintf('\n************** RESULTS **************')
+
 %Display a message if any of the solutions is not correct
 if sum(correct)==n_solutions
-    fprintf('\nOK: Every solution in qinv yields the same position/orientation T');
+    fprintf('\nTEST 1--> OK: Every solution in qinv yields the same position/orientation T');
 else
-    fprintf('\nERROR: One or more of the solutions seems to be uncorrect.');
+    fprintf('\nTEST 1--> ERROR: One or more of the solutions seem to be uncorrect.');
 end
 
 %Now, test if any of the solutions in qinv matches q
@@ -104,10 +104,15 @@ end
 %delta is just a squared sum of errors at each of the columns of the matrix
 %which store the different solutions of qinv
 delta=(repmat(q',[1 n_solutions])-qinv).^2;
-i=find(sum(delta,1)<0.01);
+i=find(sum(delta,1) < 0.01);
 if ~isempty(i)
-    fprintf('\nOK!: Found a matching solution:\n');
-    qinv(:,i)
+    fprintf('\nTEST 2--> OK!: Found a matching solution for the initial q.\n');
+    solution=qinv(:,i)
 else
-    fprintf('\nERROR: Did not find a matching solution for the initial q');
+    error_test2=1
+    fprintf('\nTEST 2--> ERROR: Did not find a matching solution for the initial q.');
 end
+
+
+fprintf('\n************** ****** **************\n')
+

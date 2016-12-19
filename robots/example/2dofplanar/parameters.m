@@ -58,12 +58,13 @@ robot.maxangle =[deg2rad(-180) deg2rad(180); %Axis 1, minimum, maximum
                 deg2rad(-180) deg2rad(180)]; %Axis 2, minimum, maximum
                 
 %maximum absolute speed of each joint rad/s or m/s
-robot.velmax = []; %empty, not available
+robot.velmax = [deg2rad(100);
+                deg2rad(100)]; 
 
-robot.accelmax=robot.velmax/0.1; % 0.1 is here an acceleration time
+robot.accelmax=robot.velmax/3; % 0.1 is here an acceleration time
 
 % end effectors maximum velocity
-robot.linear_velmax = 0; %m/s, example, not available
+robot.linear_velmax = 0.5; %m/s, 
 
 
 %base reference system
@@ -75,7 +76,7 @@ robot=init_sim_variables(robot);
 robot.path = pwd;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%GRAPHICS
+% GRAPHICS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %read graphics files
 robot.graphical.has_graphics=1;
@@ -92,8 +93,8 @@ robot.axis = [-2.2 2.2 -2.2 2.2 0 2.2];
 robot = read_graphics(robot);
 
 
-%INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION
-%position, velocity and acceleration
+% INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION
+% position, velocity and acceleration
 robot.q=[0 0]';
 robot.qd=[0 0]';
 robot.qdd=[0 0]';
@@ -140,7 +141,7 @@ robot.dynamics.Inertia=[0   m1*L1^2/12   m1*L1^2/12    0	0	0;
 %Inertia of the rotor
 robot.motors.Inertia=[0 0];
 %Reduction ratio: motor_speed/joint speed
-robot.motors.G=[1  1];
+robot.motors.G=[300  300];
 
 
 %Viscous friction factor of the motor

@@ -51,11 +51,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"1"
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
 	Extents			[1788.0, 810.0]
 	ZoomFactor		[1.0]
-	Offset			[0.0, -24.687713384628296]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -65,7 +65,7 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "arturogilaparicio"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 29 17:09:43 2016"
+  LastModifiedDate	  "Mon Dec 05 14:16:31 2016"
   RTWModifiedTimeStamp	  402337970
   ModelVersionFormat	  "1.%<AutoIncrement:64>"
   ConfigurationManager	  "none"
@@ -1008,8 +1008,8 @@ Model {
   }
   System {
     Name		    "simulate_robot_and_controller"
-    Location		    [312, 370, 2134, 1353]
-    Open		    off
+    Location		    [251, 175, 2073, 1158]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1041,7 +1041,7 @@ Model {
       System {
 	Name			"ROBOT"
 	Location		[251, 175, 2073, 1158]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"

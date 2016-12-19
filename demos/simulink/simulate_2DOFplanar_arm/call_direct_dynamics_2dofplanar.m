@@ -24,18 +24,14 @@
 % 
 % You should have received a copy of the GNU Lesser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function qdd = call_direct_dynamics_2dofplanar_fast(input)
+function qdd = call_direct_dynamics_2dofplanar(input)
 
 global robot
-
-%set friction to zero
-%robot.friction = 0;
 
 torque = input(1:2);   % Input torque at each joint
 q   = input(3:4);	   % Joint positions
 qd  = input(5:6);	   % Joint speeds
-fe=[0 0]; %external forces applied
+fe=[0 0 0 0 0 0]'; %external forces applied
 
 % Compute acceleration
-qdd = directdynamics_2dofplanar_fast(robot, q, qd, torque,fe);
-
+qdd = forwarddynamics_2dofplanar(robot, q, qd, torque, 9.81, fe);

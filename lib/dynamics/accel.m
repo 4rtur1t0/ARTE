@@ -31,9 +31,8 @@
 function qdd = accel(robot, q, qd, torque, g)
 
 if ~exist('g','var')
-    g=[0  0  9.81]'; %default gravity
+    g=[0  0  -9.81]'; %default gravity
 end
-
 
 n = robot.DOF;
 
@@ -42,7 +41,7 @@ n = robot.DOF;
 %   each joint without gravity
 M=[];
 for i=1:robot.DOF,
-    %cirshift([1 0 0 0 0 0], i-1) results in acceleration varying from
+    % cirshift([1 0 0 0 0 0], i-1) results in acceleration varying from
     % [1 0 0 0 0 0], [0 1 0 0 0 0], [0 0 1 0 0 0] etc
     t = inversedynamic(robot, q', zeros(1,n), circshift([1 zeros(1,n-1)]',i-1), [0  0  0]', [0 0 0 0 0 0]');
     M = [M t];
