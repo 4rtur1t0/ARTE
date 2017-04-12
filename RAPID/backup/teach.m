@@ -1555,6 +1555,16 @@ function edit_nz_Callback(hObject, ~, handles)
 %        str2double(get(hObject,'String')) returns contents of edit_nz as a double
 
 
+
+%function edit_nz_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_nz (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_nz as text
+%        str2double(get(hObject,'String')) returns contents of edit_nz as a double
+
+
 % --- Executes during object creation, after setting all properties.
 function edit_nz_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to edit_nz (see GCBO)
@@ -2130,28 +2140,28 @@ function [T,Q,P]=get_TQ_from_dialog(handles)
 T = eye(4);
 
 %Update T
-T(1,1)=sscanf(get(handles.edit_nx, 'String'),'%f');
-T(2,1)=sscanf(get(handles.edit_ny, 'String'), '%f');
-T(3,1)=sscanf(get(handles.edit_nz, 'String'), '%f');
-T(1,2)=sscanf(get(handles.edit_ox, 'String'), '%f');
-T(2,2)=sscanf(get(handles.edit_oy, 'String'), '%f');
-T(3,2)=sscanf(get(handles.edit_oz, 'String'), '%f');
-T(1,3)=sscanf(get(handles.edit_ax, 'String'), '%f');
-T(2,3)=sscanf(get(handles.edit_ay, 'String'), '%f');
-T(3,3)=sscanf(get(handles.edit_az, 'String'), '%f');
-T(1,4)=sscanf(get(handles.edit_pxt, 'String'), '%f');
-T(2,4)=sscanf(get(handles.edit_pyt, 'String'), '%f');
-T(3,4)=sscanf(get(handles.edit_pzt, 'String'), '%f');
+T(1,1)=sscanf(get(handles.edit_nx(2), 'String'),'%f');
+T(2,1)=sscanf(get(handles.edit_ny(2), 'String'), '%f');
+T(3,1)=sscanf(get(handles.edit_nz(2), 'String'), '%f');
+T(1,2)=sscanf(get(handles.edit_ox(2), 'String'), '%f');
+T(2,2)=sscanf(get(handles.edit_oy(2), 'String'), '%f');
+T(3,2)=sscanf(get(handles.edit_oz(2), 'String'), '%f');
+T(1,3)=sscanf(get(handles.edit_ax(2), 'String'), '%f');
+T(2,3)=sscanf(get(handles.edit_ay(2), 'String'), '%f');
+T(3,3)=sscanf(get(handles.edit_az(2), 'String'), '%f');
+T(1,4)=sscanf(get(handles.edit_pxt(2), 'String'), '%f');
+T(2,4)=sscanf(get(handles.edit_pyt(2), 'String'), '%f');
+T(3,4)=sscanf(get(handles.edit_pzt(2), 'String'), '%f');
  
 Q = zeros(1,4);
-Q(1)=sscanf(get(handles.edit_Q0, 'String'),'%f');
-Q(2)=sscanf(get(handles.edit_Q1, 'String'),'%f');
-Q(3)=sscanf(get(handles.edit_Q2, 'String'),'%f');
-Q(4)=sscanf(get(handles.edit_Q3, 'String'),'%f');
+Q(1)=sscanf(get(handles.edit_Q0(2), 'String'),'%f');
+Q(2)=sscanf(get(handles.edit_Q1(2), 'String'),'%f');
+Q(3)=sscanf(get(handles.edit_Q2(2), 'String'),'%f');
+Q(4)=sscanf(get(handles.edit_Q3(2), 'String'),'%f');
 
-P(1)=sscanf(get(handles.edit_pxq, 'String'), '%f');
-P(2)=sscanf(get(handles.edit_pyq, 'String'), '%f');
-P(3)=sscanf(get(handles.edit_pzq, 'String'), '%f');
+P(1)=sscanf(get(handles.edit_pxq(2), 'String'), '%f');
+P(2)=sscanf(get(handles.edit_pyq(2), 'String'), '%f');
+P(3)=sscanf(get(handles.edit_pzq(2), 'String'), '%f');
 
 
 %update the position of the sliders as well as the edit boxes associated to
