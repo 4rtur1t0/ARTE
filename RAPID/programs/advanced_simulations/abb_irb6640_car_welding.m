@@ -29,7 +29,7 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function abb_irb6640_car_welding
-global robot
+global robot 
 robot = load_robot('abb','irb6640');
 robot.equipment{1} = load_robot('equipment','conveyor_belt');
 robot.tool= load_robot('equipment','end_tools/spot_welding');

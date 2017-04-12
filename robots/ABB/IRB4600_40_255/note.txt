@@ -1,0 +1,19 @@
+The ABB IRB 4600-40-255 robot.
+
+Application:
+- Machine tending
+- Material handling
+- Arc welding
+- Cutting
+- Dispensing
+- Assembly
+- Palletizing and packing
+
+
+Motor:
+                           Joint 1 -   Joint 2 -  Joint 3 -  Joint 4  - Joint 5 - Joint 6: 
+Peak Torque (N�m):        12.965     157.894     63.406     0.002      0.910    0.000 
+Nominal Torque (N�m):     12.464     23.589      1.981      0.000      0.154    0.000  
+Max motor speed (r.p.m.):   286.5      286.5       382.0      477.5      477.5    477.5 
+
+Election motors ABB:        MU 200     MU 300      MU 100     MU 100     MU 100   MU 100
