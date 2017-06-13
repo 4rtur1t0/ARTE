@@ -27,7 +27,7 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function adjust_view(robot)
 
-if exists('robot', 'var')
+if exist('robot', 'var')
     drawrobot3d(robot, robot.q);
 end
 fprintf('\n\nADJUST YOUR VIEW AS DESIRED. \nPress any key to continue...\n');
