@@ -25,7 +25,7 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function Jn = compute_jacobian(robot, q)
+function Jn = compute_jacobian_exercise(robot, q)
 
 %Initialize J
 Jn = [];

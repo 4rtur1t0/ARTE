@@ -23,7 +23,7 @@ fprintf('\nThe demo shows how to compute the end effectors speed as a function o
 
 robot =  load_robot('example','scara');
 
-T=1; %Tiempo que dura el movimiento
+T=1; %seconds. Tiempo que dura el movimiento
 
 q1=0:0.01:pi/2;
 q2=0:0.01:pi/2;
@@ -31,7 +31,8 @@ q2=0:0.01:pi/2;
 q_v=pi/2/T; %rad/s
 V=zeros(3, length(q1));
 for i=1:length(q1),
-   V(:,i) = compute_end_velocity(robot, [q1(i) -q2(i) 0 0], [q_v q_v 0 0]);
+   v = compute_end_velocity(robot, [q1(i) -q2(i) 0 0], [q_v q_v 0 0]);
+   V(:,i) = v(1:3);
 end
 
 figure, hold

@@ -33,5 +33,5 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function V = compute_end_velocity(robot, q, qd)
 
-J = compute_jacobian(robot, q);
+J = manipulator_jacobian(robot, q);
 V = J*qd';

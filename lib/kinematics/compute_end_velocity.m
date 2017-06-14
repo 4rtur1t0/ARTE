@@ -72,7 +72,7 @@ else%computing J from D-H parameters
         disp('\n:compute_end_velocity: Computing conventional Jacobian');
     end
     %J1 = compute_jacobian(robot, q)
-    J = compute_conventional_jacobian(robot, q);
+    J = manipulator_jacobian(robot, q);
     
     % now V = [vn wn]' is the desired linear and angular speed
     % Now compute speed (linear and angular) using J
