@@ -52,8 +52,7 @@ else%computing J from D-H parameters
         fprintf('\nComputing end effector speed for the %s robot with %d DOFs', robot.name, n);
         disp('\n:lib/kinematics/compute_joint_velocity: Computing conventional Jacobian');
     end
-    J = compute_conventional_jacobian(robot, q, qd);
-  
+    J = manipulator_jacobian(robot, q, qd);  
 end
 
 %Solve inverse kinematic problem with the inversion of J
