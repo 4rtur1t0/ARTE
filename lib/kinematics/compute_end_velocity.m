@@ -21,7 +21,7 @@
 %
 %   being qd the joint speeds (rotational or translational) of each joint.   
 %
-%   See also COMPUTE_CONVENTIONAL_JACOBIAN.
+%   See also MANIPULATOR_JACOBIAN.
 %
 %   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
 %   email: arturo.gil@umh.es date:   26/04/2012
@@ -70,8 +70,7 @@ if ~isempty(robot.J)
 else%computing J from D-H parameters
     if robot.debug
         disp('\n:compute_end_velocity: Computing conventional Jacobian');
-    end
-    %J1 = compute_jacobian(robot, q)
+    end    
     J = manipulator_jacobian(robot, q);
     
     % now V = [vn wn]' is the desired linear and angular speed

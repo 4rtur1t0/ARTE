@@ -9,7 +9,7 @@
 %   is computed instead. The resulting joint speeds is computed as
 %   qd = inv(J)*V, where V is the velocity vector expressed in the base reference frame.
 %
-%   See also COMPUTE_JACOBIAN.
+%   See also MANIPULATOR_JACOBIAN.
 %
 %   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
 %   email: arturo.gil@umh.es date:   26/04/2012
@@ -52,8 +52,9 @@ else%computing J from D-H parameters
         fprintf('\nComputing end effector speed for the %s robot with %d DOFs', robot.name, n);
         disp('\n:lib/kinematics/compute_joint_velocity: Computing conventional Jacobian');
     end
-    J = manipulator_jacobian(robot, q, qd);  
+    J = manipulator_jacobian(robot, q);  
 end
-
+%assure V is a column vector
+V = V(:);
 %Solve inverse kinematic problem with the inversion of J
-vq = J\V';%inv(J)*V';
+vq = J\V;%inv(J)*V';

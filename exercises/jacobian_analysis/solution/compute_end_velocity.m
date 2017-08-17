@@ -34,4 +34,6 @@
 function V = compute_end_velocity(robot, q, qd)
 
 J = manipulator_jacobian(robot, q);
-V = J*qd';
+%assure qd is a column vector
+qd = qd(:);
+V = J*qd;
