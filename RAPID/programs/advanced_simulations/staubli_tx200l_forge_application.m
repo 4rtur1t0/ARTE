@@ -49,7 +49,7 @@ function staubli_tx200l_forge_application
 global robot TD_gripper RT_initial RT_approach1 RT_grip RT_approach2 RT_approach3 RT_release
 
 %Comment the following lines to avoid loading the robot at every simulation
-robot = load_robot('staubli','tx200l');
+robot = load_robot('STAUBLI','tx200l');
 robot.equipment{1} = load_robot('equipment','oven');
 robot.tool= load_robot('equipment','end_tools/vacuum_1');
 robot.piece=load_robot('equipment','gear');

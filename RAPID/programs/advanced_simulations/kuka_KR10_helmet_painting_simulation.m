@@ -9,7 +9,7 @@ function kuka_KR10_helmet_painting_simulation
 global TD_pistola robot RT_tp1 RT_tp2 RT_tp3 RT_tp4 RT_tp5 RT_tp6 RT_tp7 RT_tp8 RT_tp9 
 
 
-robot = load_robot('kuka','kr10_r900');
+robot = load_robot('KUKA','KR10_R900');
 robot.equipment{1} = load_robot('equipment','tables/table_extended');
 robot.tool= load_robot('equipment','end_tools/paint_gun');
 robot.piece=load_robot('equipment','miscelanea/helmet');

@@ -9,7 +9,7 @@
 %   homogeneous transformation matrix as a function of the robot parameters
 %   robot.DH.theta, d, a, alpha the joint values q and the transformation i.
 %   For i = 1, the function returns the transformation matrix T01, for i=2,
-%   T02..., etc.
+%   T12 for i=6 the transformation T56..., etc.
 %
 %	See also DIRECTKINEMATIC.
 %

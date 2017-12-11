@@ -86,7 +86,7 @@ robot.motors.G = [100 100]
 
 
 %load robot parameters. Just uncomment this line
-%robot=load_robot('example', '2dofplanar');
+robot=load_robot('example', '2dofplanar');
 drawrobot3d(robot, q)
 
 

@@ -31,18 +31,18 @@ echo on
 %
 %  START BY LOADING LOAD A ROBOT BY MEANS OF THE LOAD_ROBOT FUNCTION'
 % 
-% >> robot=load_robot('abb', 'IRB140');
+% >> robot=load_robot('ABB', 'IRB140');
 %
 %  LOTS OF OTHER ROBOTS CAN BE LOADED, PLEASE TRY:
 %
-%   robot=load_robot('abb', 'IRB6620'); 
-%   robot=load_robot('kuka', 'KR5_arc'); 
-%   robot=load_robot('kuka', 'KR5_sixx_R650');
+%   robot=load_robot('ABB', 'IRB6620'); 
+%   robot=load_robot('KUKA', 'KR5_arc'); 
+%   robot=load_robot('KUKA', 'KR5_sixx_R650');
 %   MORE ROBOTS AVAILABLE UNDER THE arte_lib3.x/robots DIRECTORY
 %
 %   Example:
 %
-% >> robot=load_robot('abb', 'IRB140');
+% >> robot=load_robot('ABB', 'IRB140');
 %
 % >> adjust_view(robot);
 %
@@ -63,7 +63,7 @@ echo off
 
 fprintf('\nLOAD A ROBOT:\n')
 
-robot=load_robot('abb', 'IRB140');
+robot=load_robot('ABB', 'IRB140');
 
 
 fprintf('\nNOW DRAW THE ROBOT')

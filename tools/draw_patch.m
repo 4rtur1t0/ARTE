@@ -32,6 +32,7 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function draw_patch(F, V, C, transparent)
+global configuration
 
 if nargin==2
     %default color
@@ -60,9 +61,12 @@ end
 
 set(p, 'EdgeColor','none');         
 
-light;                               
+%avoid creating more than 8 ligths. Delete any previous lights
+delete(findall(gcf,'Type','light'))
+light;
+
 %change material properties
-material( [0.5 0.1 0.01]);
+material( [0.5 0.5 0.01]);
 daspect([1 1 1])                    % Setting the aspect ratio
 
 xlabel('X (m)'),ylabel('Y (m)'),zlabel('Z (m)')

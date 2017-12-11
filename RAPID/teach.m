@@ -40,7 +40,7 @@ function varargout = teach(varargin)
 
 % Edit the above text to modify the response to help teach
 
-% Last Modified by GUIDE v2.5 23-May-2016 19:32:54
+% Last Modified by GUIDE v2.5 11-Dec-2017 12:38:07
 global configuration robot 
 global controls program
 
@@ -117,7 +117,9 @@ robot.time=[];
 %init teach parameters
 teachConfig.movementPrecision=0.01;
 teachConfig.interpolateMovement=0;
-
+teachConfig.draw_transparent=0;
+%by default draw DH reference system axes on the robot
+teachConfig.draw_axes=1;
 
 %update T and Q in the program
 update_T_Q(handles)
@@ -126,6 +128,7 @@ update_sliders();
 figure(configuration.figure.robot);
 
 disp('Select the desired view for your robot')
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
 drawrobot3d(robot, robot.q);
 
 % --- Outputs from this function are returned to the command line.
@@ -307,7 +310,7 @@ function slider_q1_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-global configuration robot controls
+global configuration robot controls teachConfig
 slider_value = get(hObject,'Value');
 set(controls.edit_q1, 'String', num2str(slider_value));
 %convert to rads and store
@@ -319,6 +322,8 @@ end
 
 update_T_Q(handles);
 figure(configuration.figure.robot);
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;
 drawrobot3d(robot, robot.q);
 draw_target_points();
 
@@ -344,8 +349,6 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
 end
 
 
-
-
 % --- Executes on slider movement.
 function slider_q2_Callback(hObject, eventdata, handles)
 % hObject    handle to slider_q2 (see GCBO)
@@ -354,7 +357,7 @@ function slider_q2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-global configuration robot controls
+global configuration robot controls teachConfig
 slider_value = get(hObject,'Value');
 set(controls.edit_q2, 'String', num2str(slider_value));
 
@@ -367,6 +370,8 @@ end
 
 update_T_Q(handles);
 figure(configuration.figure.robot);
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;
 drawrobot3d(robot, robot.q);
 draw_target_points();
 
@@ -405,7 +410,7 @@ function slider_q3_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-global configuration robot controls
+global configuration robot controls teachConfig
 slider_value = get(hObject,'Value');
 set(controls.edit_q3, 'String', num2str(slider_value));
 %convert to rads and store
@@ -416,6 +421,8 @@ else
 end
 figure(configuration.figure.robot);
 update_T_Q(handles);
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;
 drawrobot3d(robot, robot.q);
 draw_target_points();
 
@@ -453,7 +460,7 @@ function slider_q4_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-global configuration robot controls
+global configuration robot controls teachConfig
 slider_value = get(hObject,'Value');
 set(controls.edit_q4, 'String', num2str(slider_value));
 %convert to rads and store
@@ -465,6 +472,8 @@ end
 
 update_T_Q(handles);
 figure(configuration.figure.robot);
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;
 drawrobot3d(robot, robot.q);
 draw_target_points();
 
@@ -503,7 +512,7 @@ function slider_q5_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-global configuration robot controls
+global configuration robot controls teachConfig
 slider_value = get(hObject,'Value');
 set(controls.edit_q5, 'String', num2str(slider_value));
 %convert to rads and store
@@ -514,7 +523,8 @@ else
 end
 update_T_Q(handles);
 figure(configuration.figure.robot);
-drawrobot3d(robot, robot.q);
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;drawrobot3d(robot, robot.q);
 draw_target_points();
 
 % --- Executes during object creation, after setting all properties.
@@ -551,7 +561,7 @@ function slider_q6_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-global configuration robot controls
+global configuration robot controls teachConfig
 slider_value = get(hObject,'Value');
 set(controls.edit_q6, 'String', num2str(slider_value));
 %convert to rads and store
@@ -562,6 +572,8 @@ else
 end
 update_T_Q(handles);
 figure(configuration.figure.robot);
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;
 drawrobot3d(robot, robot.q);
 draw_target_points();
 
@@ -606,8 +618,6 @@ global robot controls teachConfig
 
 %FIND RESOLUTION OF MOVEMENT
 delta = teachConfig.movementPrecision;
-
-
 
 T = directkinematic(robot, robot.q);
 P_ini=T(1:3,4);
@@ -1691,6 +1701,8 @@ end
 
 %do not move if current and final coordinates are the same
 for i=startIndex:size(path,2),
+   robot.graphical.draw_transparent=teachConfig.draw_transparent;
+   robot.graphical.draw_axes=teachConfig.draw_axes;
    drawrobot3d(robot, path(:,i)); 
    pause(configuration.time_delay);  
 end
@@ -1877,7 +1889,7 @@ function pushbutton_moveQ_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-global robot controls configuration
+global robot controls configuration teachConfig
 
 %get values of T from dialog
 [T,Q,P]=get_TQ_from_dialog(handles);
@@ -1896,8 +1908,6 @@ T(3,4)=P(3);
 if isfield(robot, 'tool')
     T=T*inv(robot.tool.TCP); 
 end
-
-
 
 %several solutions are provided
 qinv = inversekinematic(robot, T);
@@ -1919,6 +1929,9 @@ test_joint_limits(robot);
 
 %do not move if current and final coordinates are the same
 for i=1:size(path,2),
+    robot.graphical.draw_transparent=teachConfig.draw_transparent;
+    robot.graphical.draw_axes=teachConfig.draw_axes;
+
     drawrobot3d(robot, path(:,i)); 
     pause(configuration.time_delay);  
 end
@@ -2268,7 +2281,8 @@ for i=startIndex:size(path,2),
 	
 	%Test whether there are joints outside mechanical limits
 	error = test_joints(robot, robot.q);
-	
+	robot.graphical.draw_transparent=teachConfig.draw_transparent;
+    robot.graphical.draw_axes=teachConfig.draw_axes;
 	drawrobot3d(robot, robot.q);
 	
 	%current_conf = compute_configuration(robot, robot.q);  
@@ -2716,12 +2730,13 @@ function pushbutton_reset_all_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-global configuration robot controls
+global configuration robot controls teachConfig
 
 update_T_Q(handles);
 figure(configuration.figure.robot);
 
-
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;
 drawrobot3d(robot, robot.q);
 
 final_joints = zeros(1,robot.DOF);
@@ -2743,12 +2758,6 @@ function pushbutton_save_target_point_KeyPressFcn(hObject, eventdata, handles)
 %	Character: character interpretation of the key(s) that was pressed
 %	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
 % handles    structure with handles and user data (see GUIDATA)
-
-
-
-
-
-
 
 
 function index=find_closest(q,qi)
@@ -2891,11 +2900,14 @@ function pushbutton_refresh_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_refresh (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global robot
+global robot teachConfig
 
 update_T_Q(handles);
 update_sliders();
 draw_target_points();
+%copy info from techConfig to the robot parameters
+robot.graphical.draw_transparent=teachConfig.draw_transparent;
+robot.graphical.draw_axes=teachConfig.draw_axes;
 drawrobot3d(robot, robot.q)
 
 % --- Executes on key press with focus on pushbutton_refresh and none of its controls.
@@ -2978,4 +2990,52 @@ function checkbox_animateMovement_CreateFcn(hObject, eventdata, handles)
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in checkbox_transparent.
+function checkbox_transparent_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox_transparent (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox_transparent
+% Hints: get(hObject,'String') returns contents of edit_movementPrecision as text
+%        str2double(get(hObject,'String')) returns contents of edit_movementPrecision as a double
+global teachConfig
+if get(hObject, 'Value')==1	
+	teachConfig.draw_transparent=1;
+else
+	teachConfig.draw_transparent=0;
+end
+
+
+% --- Executes on button press in draw_axes_checkbox.
+function draw_axes_checkbox_Callback(hObject, eventdata, handles)
+% hObject    handle to draw_axes_checkbox (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of draw_axes_checkbox
+global teachConfig
+if get(hObject, 'Value')==1	
+	teachConfig.draw_axes=1;
+else
+	teachConfig.draw_axes=0;
+end
+
+
+% --- Executes on button press in pushbutton_disco_light.
+function pushbutton_disco_light_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_disco_light (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+%Just add a moving ligth to see the robot better!
+global robot
+drawrobot3d(robot, robot.q)
+axis vis3d
+h = light;
+for az = -50:5:50
+   lightangle(h,az,30)
+   pause(.2)
 end

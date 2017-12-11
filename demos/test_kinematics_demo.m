@@ -32,7 +32,9 @@ q=[0.2 -0.4 -0.2 0.1 0.1 0.1]
 
 %load robot parameters. You can try different robots
 %robot=load_robot('KUKA', 'KR60_3'); n_solutions = 8;
-robot=load_robot('ABB', 'IRB120'); n_solutions = 8;
+%robot=load_robot('ABB', 'IRB120'); n_solutions = 8;
+robot=load_robot('MOTOMAN', 'MH12'); n_solutions = 8;
+
 
 %adjust 3D view as desired
 adjust_view(robot)
@@ -54,7 +56,7 @@ T = directkinematic(robot, q)
 robot.graphical.draw_transparent=0;
 
 %Set to one if you want to see the DH axes
-%abb.graphical.draw_axes=1;
+%robot.graphical.draw_axes=1;
 
 %Call the inversekinematic for this robot. All the possible solutions are
 %stored at qinv. At least, one of the possible solutions should match q

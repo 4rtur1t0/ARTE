@@ -21,7 +21,7 @@ close all;
 
 fprintf('\nThe demo shows how to compute the end effectors speed as a function of the joint speeds and viceversa')
 
-robot=load_robot('abb','IRB140');
+robot=load_robot('ABB','IRB140');
 
 %First compute the linear and angular speeds of the end effector given the
 %joint speeds qd = [1 1 1 1 1 1] rad/s.

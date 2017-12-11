@@ -2,9 +2,8 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   TX90XL.
 %
-%   Authors: GUILLERMO MAZON SADEJ
-%            LAURA RODRIGUEZ GOMIS
-%            EMILIO GOMEZ MANSILLA         
+%   Authors: David José Roldán. Master de Robótica de la Universidad 
+%            Miguel Hernández de Elche        
 %                      
 %   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,7 +32,7 @@ robot.name= 'TX90XL';
 robot.path = 'robots/staubli/TX90XL';
 
 robot.DH.theta= '[q(1) q(2)-pi/2 q(3)+pi/2 q(4) q(5) q(6)]';
-robot.DH.d='[0.478 0.29 -0.239 0.650 0 0.1]';
+robot.DH.d='[0.478 0.05 0 0.650 0 0.1]';
 robot.DH.a='[0.05 0.65 0 0 0 0]';
 robot.DH.alpha= '[-pi/2 0 pi/2 -pi/2 pi/2 0]';
 robot.J=[];

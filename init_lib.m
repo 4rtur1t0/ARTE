@@ -103,5 +103,8 @@ configuration.figure.q=2;
 configuration.figure.qd=3;
 configuration.figure.qdd=4;
 
+%no lights created!
+configuration.graphical.light= 0;
+
 %Add folders and subfolders starting from the current path
 addpath(genpath(configuration.libpath))

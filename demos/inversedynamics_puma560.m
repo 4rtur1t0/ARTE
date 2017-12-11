@@ -44,7 +44,7 @@ q3 = [0 0 -pi/2 0 0 0];
 
 
 %load robot parameters
-robot=load_robot('unimate', 'puma560');
+robot=load_robot('UNIMATE', 'PUMA560');
 
 adjust_view(robot)
 robot.dynamics.friction=1;

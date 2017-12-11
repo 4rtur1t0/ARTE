@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Q = INVERSEKINEMATIC_RX160L(robot, T)	
+%   Q = INVERSEKINEMATIC_tx90xl(robot, T)	
 %   Solves the inverse kinematic problem for the STAUBLI RX160L robot
 %   where:
 %   robot stores the robot parameters.
@@ -9,6 +9,8 @@
 %   A call to Q=INVERSEKINEMATIC_RX160L returns 8 possible solutions, thus,
 %   Q is a 6x8 matrix where each column stores 6 feasible joint values.
 %
+%   Authors: David José Roldán. Master de Robótica de la Universidad 
+%            Miguel Hernández de Elche 
 %   
 %   Example code:
 %
@@ -75,32 +77,28 @@ W = T(1:3,3);
 Pm = [Px Py Pz]' - L6*W; 
 
 %first joint, two possible solutions admited: 
-% if q(1) is a solution, then q(1) + pi is also a solution
-disp('Pmx=')
-disp(Pm(1))
-disp('Pmx^2=')
-disp(Pm(1)^2)
-disp('Pmy=')
-disp(Pm(2))
-disp('Pmy^2=')
-disp(Pm(2)^2)
-at=atan2(Pm(2),Pm(1));
-disp('at=')
-disp(at)
-ac=acos(0.05/(sqrt(Pm(2)^2+Pm(1)^2)))
-disp('ac=')
-disp(ac)
-q1=atan2(Pm(2), Pm(1))%+ acos(0.05/(sqrt(Pm(2)^2+Pm(1)^2)))-pi;
-disp('q1=')
-disp(q1)
+% if q(1) is a solution, then q(1) + pi +2*betaq1 is also a solution
+% r : line between origen of frame zero and the projection of the wrist Pm on
+% the plane x0-y0
+% gammaq1: angle between x0 and projection of x1 on plane x0-y0
+% betaq1 : angle between  projection of x1 on plane x0-y0, and r.
+
+r=sqrt(Pm(1)^2 + Pm(2)^2);
+betaq1 = asin(0.05/r);
+gammaq1=atan2(Pm(2),Pm(1));
+q1 = gammaq1 - betaq1
+
+
+
+
 %
 %solve for q2
 q2_1=solve_for_theta2(robot, [q1 0 0 0 0 0 0], Pm);
-q2_2=solve_for_theta2(robot, [q1+pi 0 0 0 0 0 0], Pm);
+q2_2=solve_for_theta2(robot, [q1+pi+2*betaq1 0 0 0 0 0 0], Pm);
 
 %solve for q3
 q3_1=solve_for_theta3(robot, [q1 0 0 0 0 0 0], Pm);
-q3_2=solve_for_theta3(robot, [q1+pi 0 0 0 0 0 0], Pm);
+q3_2=solve_for_theta3(robot, [q1+pi+2*betaq1 0 0 0 0 0 0], Pm);
 
 
 %Arrange solutions, there are 8 possible solutions so far.
@@ -113,7 +111,7 @@ q3_2=solve_for_theta3(robot, [q1+pi 0 0 0 0 0 0], Pm);
 %the next matrix doubles each column. For each two columns, two different
 %configurations for theta4, theta5 and theta6 will be computed. These
 %configurations are generally referred as wrist up and wrist down solution
-q = [q1         q1         q1        q1       q1+pi   q1+pi   q1+pi   q1+pi;   
+q = [q1         q1         q1        q1       q1+pi+2*betaq1   q1+pi+2*betaq1   q1+pi+2*betaq1   q1+pi+betaq1;   
      q2_1(1)    q2_1(1)    q2_1(2)   q2_1(2)  q2_2(1) q2_2(1) q2_2(2) q2_2(2);
      q3_1(1)    q3_1(1)    q3_1(2)   q3_1(2)  q3_2(1) q3_2(1) q3_2(2) q3_2(2);
      0          0          0         0         0      0       0       0;

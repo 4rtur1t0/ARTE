@@ -18,7 +18,7 @@
 %Compute points in line
 close all
 
-robot =  load_robot('mitsubishi','pa-10');
+robot =  load_robot('MITSUBISHI','PA-10');
 % or load any other robot with:
 %robot =  load_robot
 
@@ -35,7 +35,7 @@ T2=[1 0 0 0.5;
     0 0 0  1]
 
 %distancia entre puntos consecutivos
-delta = 0.02;
+delta = 0.02; % (m)
 
 punto_inicial = T1(1:3,4);
 punto_final = T2(1:3,4);

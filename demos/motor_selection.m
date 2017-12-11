@@ -70,6 +70,12 @@ global robot
 %   to command changes in speed in any of their joints.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+echo on
+%LOAD ANY ROBOT YOU WOULD LIKE TO ANALYZE
+%EXPERIMENTA CAMBIANDO EL ROBOT Y VIENDO LOS RESULTADOS!
+robot = load_robot('ABB', 'IRB140');
+echo off
+
 % robot pose: experiment by changing the pose while observing the different
 %             torques at each joint
 q=[0 pi/2 -pi/2 0 0 0]; %rad
@@ -89,8 +95,8 @@ time_at_constant_speed=0.4; %seconds
 %robot=load_robot('ABB', 'IRB140');
 drawrobot3d(robot, q)
 
-%START BY COMPUTING TORQUES AT
-robot.motors.G = [100 1 1 1 1 1]
+%START BY COMPUTING TORQUES AT G
+robot.motors.G = [1 1 1 1 1 1]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  FIRST, COMPUTE TRAPEZOIDAL PROFILES

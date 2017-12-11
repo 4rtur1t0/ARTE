@@ -47,7 +47,7 @@ robot2.T0 = A;
 %draw the first robot
 drawrobot3d(robot1, q)
 
-%Draw the 2nd robot with the noclear option activated
+%Draw the 2nd robot with the NOCLEAR OPTION activated
 drawrobot3d(robot2, q, 1)
 
 

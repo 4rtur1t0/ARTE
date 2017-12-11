@@ -49,7 +49,7 @@ function practice_1_programming
 global robot TD_gripper RT_initial RT_approach1 RT_grip RT_approach2 RT_release
 
 %Comment the following lines to avoid loading the robot at every simulation
-robot = load_robot('abb','irb140');
+robot = load_robot('ABB','IRB140');
 robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
 robot.piece=load_robot('equipment','cylinders/cylinder_tiny');

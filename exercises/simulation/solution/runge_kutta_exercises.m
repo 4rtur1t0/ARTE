@@ -29,10 +29,10 @@ function runge_kutta_exercises()
 close all;
 
 %uncomment to execute each of the exercises
-%exerciseA()
+%exerciseA()%
 %exerciseB()
 %exerciseC()
-exerciseD()
+%exerciseD()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Integrate a simple time function. dy/dt = 2*t
@@ -40,11 +40,12 @@ exerciseD()
 function exerciseA()
 t0 = 0;
 tfinal = 10;
-[t, y] = runge_kutta(@line, 0, [t0 tfinal], 0.1);
+[t, y] = runge_kutta(@line, 0, [t0 tfinal], 0.01);
 
 %Compare with the integral of 2*t
-error = y-t.^2';
+error = y(:)-t(:).^2;
 mean(error)
+plot(t, y)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Use Runge-Kutta to integrate a second order equation of the form.
@@ -53,8 +54,10 @@ mean(error)
 function exerciseB()
 t0 = 0;
 tfinal = 10;
-[t, y] = runge_kutta(@second_order_system, [10 1], [t0 tfinal], 0.1);
+%                                          initial values
+[t, y] = runge_kutta(@second_order_system, [10 1], [t0 tfinal], 0.01);
 
+y = y(1:length(t)); 
 %plot results
 plot(t, y)
 
@@ -141,6 +144,7 @@ xd = [y(2); qdd];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Helper function to simulate the movement of a 2 DOF robot
 % Called from function exerciseD()
+% t is only used to plot time on screen during simulation.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function xd = forward_dynamic_robot2(t, y)
 global tau g robot

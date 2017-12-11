@@ -1,7 +1,7 @@
 In the programs directory you can find Matlab scripts that allow to simulate the robot.
 To do this, first load a robot:
 
->>robot=load_robot('abb', 'irb140')
+>>robot=load_robot('ABB', 'IRB140')
 
 The examples have been tested with the ABB IRB140 robot.
 

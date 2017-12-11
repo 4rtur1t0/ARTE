@@ -19,7 +19,7 @@
 fprintf('\nTHE SIMULATION PRESENTS THE ROBOT AT AN INITIAL POSITION WHEN NO TORQUES ARE APPLIED\n')
 
 %load robot parameters
-robot=load_robot('abb', 'irb140');
+robot=load_robot('ABB', 'IRB140');
 
 
 total_simulation_time = 0.5 %simulate for .5 second

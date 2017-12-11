@@ -32,6 +32,7 @@
 function drawrobot3d(robot, q, noclear)
 global configuration
 
+%ligth;
 
 %if q is not specified, then assume zero pose
 if ~exist('q', 'var')
@@ -191,5 +192,6 @@ if isfield(robot, 'piece')
         end
     end
 end
+
 
 

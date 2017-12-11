@@ -67,7 +67,7 @@ RT_pos_dej=[[0.470,-0.460,0.450],[0.07981,0.603204,0.792983,-0.030902],[0,0,0,0]
 
 %please: comment the following lines to avoid loading the robot and equipment in every simulation.
 %Feel free to load other robots/equipments... etc.
-robot = load_robot('abb','irb140');
+robot = load_robot('ABB','IRB140');
 %load static equipment, such as tables or 
 robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
