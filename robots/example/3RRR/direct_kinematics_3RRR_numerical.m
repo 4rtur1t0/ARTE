@@ -25,7 +25,10 @@
 %  
 % THE FUNCTION SHOWS HOW TO SOLVE THE DIRECT KINEMATICS OF THE 3RRR USING A
 % NUMERICAL METHOD. THIS METHOD MAY BE APPLIED TO ANY PARALELL ROBOT FOR WHICH YOU
-% MAY NOT FIND A CLOSED SOLUTION
+% MAY NOT FIND A CLOSED SOLUTION. OF COURSE, BE AWARE THAT A CLOSED
+% SOLUTION EXISTS FOR THE 3RRR PARALLEL ROBOT, HOWEVER, FOR SIMPLICITY, WE
+% APPLY THE METHOD TO A WELL-KNOWN, SIMPLE ROBOT.
+%
 % The solution uses a vanilla Newton-Raphson method, also known as a
 % Levenberg-Marquardt method with Lambda=1.
 % 
@@ -58,11 +61,11 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 
-function T=direct_kinematics_3RRR_numerical(robot, theta, threshold, max_iter)
+function T=direct_kinematics_3RRR_numerical(robot, theta, randomize, threshold, max_iter)
 
 global xQ yQ xR yR b1 b2 b3 a1 a2 a3 h
-
-L=2.5; % basic mechanism length
+close all
+L=3; % basic mechanism length
 %position of the fixed points xQ, yQ, xR, yR
 xQ=L; yQ=0; xR=L/2; yR=L;
 
@@ -80,6 +83,11 @@ if ~exist('max_iter','var')
     max_iter=50;
 end
 
+%randomize solutions
+if ~exist('randomize','var')
+    randomize=0;
+end
+
 
 %input parameters for the direct kinematics
 th1=theta(1);%1.9948;
@@ -91,7 +99,12 @@ theta = [th1 th2 th3];
 %initial beta, different solutions may be found, depending on the 
 %starting values for the parameters beta
 % beta = [xA yA Phi phi1 phi2 phi3]
-beta=[0.5 0.5 0 0 0 0]';
+beta=[0.0 0.0 -pi/4 0 0 0]';
+
+%randomize solution
+if randomize
+    beta = beta + randn(1,6)';
+end
 
 %the vector y is the vector of values that the Gamma equations should have
 %in this case, they should be all null
@@ -112,7 +125,7 @@ for i=1:max_iter,
     sumofsqes=(y-f)'*(y-f);
     fs=[fs sumofsqes];
     
-      if sumofsqes < threshold  
+    if sumofsqes < threshold  
         fprintf('\ndirect_kinematics_3RRR::Solution found in %d iterations',i);
         fprintf('\nPlease note that only ONE possible solution is returned');
         break;
@@ -123,6 +136,12 @@ end
 if i==max_iter
   fprintf('ERROR:: direct_kinematics_3RRR::Could not converge in %d iterations',i);
 end
+
+fprintf('FINAL VALUE of Gamma function');
+f
+
+fprintf('FINAL VALUE of sumof squares');
+sumofsqes
 
 %build solution from the beta parameters.
 T=eye(4);
@@ -140,6 +159,8 @@ q=[th1 beta(4) th2 beta(5) th3 beta(6)];
 drawrobot3d(robot, q), pause(2);
 
 figure, plot(fs), title('Sum of squares vs. iteration step')
+
+
 
 
 %compute the gamma functions, each function fi corresponds to a loop closing

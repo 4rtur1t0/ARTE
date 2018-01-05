@@ -49,7 +49,7 @@ robot.T0=eye(4);
 robot.h=0.5; %triangle side length
 
 %displacement along x in the second arm
-L=2.5; %m%this value can be edited 
+L=3; %m%this value can be edited 
 
 T=eye(4);
 T(1,4)=L; 

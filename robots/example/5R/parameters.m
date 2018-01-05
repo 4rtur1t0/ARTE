@@ -39,7 +39,7 @@ robot.robot2=robot2;
 robot.nserial=2; %number of serial links connecting base and end effector
 
 %displacement along x of the second arm
-robot.L=2.5; %m%this value can be edited 
+robot.L=2.2; %m%this value can be edited 
 
 T=eye(4);
 T(1,4)=robot.L; 
