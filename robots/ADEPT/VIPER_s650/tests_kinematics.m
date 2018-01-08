@@ -31,7 +31,7 @@ q = [pi/8 pi/4  -2*pi/3 0 pi/4 0];
 %q = [0.1 -pi/4 pi/4 0.1 0.1 0.1];
 
 
-robot=load_robot('ALUMNOS','VIPER_s650\VIPER_s650'); n_solutions=8;
+%robot=load_robot('ALUMNOS','VIPER_s650\VIPER_s650'); n_solutions=8;
 
 
 %adjust 3D view as desired

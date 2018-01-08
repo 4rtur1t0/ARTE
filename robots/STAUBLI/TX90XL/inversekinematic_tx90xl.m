@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Q = INVERSEKINEMATIC_tx90xl(robot, T)	
+%   Q = INVERSEKINEMATIC_RX160L(robot, T)	
 %   Solves the inverse kinematic problem for the STAUBLI RX160L robot
 %   where:
 %   robot stores the robot parameters.
@@ -9,8 +9,6 @@
 %   A call to Q=INVERSEKINEMATIC_RX160L returns 8 possible solutions, thus,
 %   Q is a 6x8 matrix where each column stores 6 feasible joint values.
 %
-%   Authors: David José Roldán. Master de Robótica de la Universidad 
-%            Miguel Hernández de Elche 
 %   
 %   Example code:
 %

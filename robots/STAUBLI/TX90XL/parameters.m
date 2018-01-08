@@ -2,8 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   TX90XL.
 %
-%   Authors: David José Roldán. Master de Robótica de la Universidad 
-%            Miguel Hernández de Elche        
+%   Authors: DAVID J. ROLDAN ROMAN       
 %                      
 %   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
