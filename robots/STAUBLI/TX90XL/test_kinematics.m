@@ -31,8 +31,8 @@ q=[0.5 -0.5 pi/6 0.1 0.1 0.1]
 %q=[0.2 0.8 -0.2 0.1 0.1 0.1]
 
 %load robot parameters. You can try different robots
-%robot=load_robot('KUKA', 'KR60_3'); n_solutions = 8;
-robot=load_robot('STAUBLI', 'TX90XL'); n_solutions = 8;
+%robot=load_robot('KUKA', 'KR60_3'); n_solutions = 8;%%
+%robot=load_robot('STAUBLI', 'TX90XL'); n_solutions = 8;
 
 %adjust 3D view as desired
 adjust_view(robot)

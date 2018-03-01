@@ -31,7 +31,7 @@ adjust_view(robot)
 T=eye(4);
 %Represent a final point in space that will be achieved by the end effector
 %P=[xA, yA]=[1.5 1.5]
-T(1,4)=1.0;
+T(1,4)=1.2;
 T(2,4)=1.0;
 %orientation
 phi=pi/3;

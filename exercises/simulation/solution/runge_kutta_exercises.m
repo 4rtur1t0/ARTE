@@ -30,12 +30,12 @@ close all;
 
 %uncomment to execute each of the exercises
 %exerciseA()%
-%exerciseB()
+exerciseB()
 %exerciseC()
 %exerciseD()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Integrate a simple time function. dy/dt = 2*t
+% Integrate a simple time function. dy/dt = 2*ts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function exerciseA()
 t0 = 0;
@@ -55,11 +55,12 @@ function exerciseB()
 t0 = 0;
 tfinal = 10;
 %                                          initial values
-[t, y] = runge_kutta(@second_order_system, [10 1], [t0 tfinal], 0.01);
+[t, y] = runge_kutta(@second_order_system, [10 1]', [t0 tfinal], 0.01);
 
-y = y(1:length(t)); 
+y = y(:, 1:length(t)); 
 %plot results
-plot(t, y)
+plot(t, y(1,:)), hold
+plot(t, y(2,:)), hold
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Now use Runge-kutta to integrate the movement of a 1 dof robot arm
@@ -127,6 +128,7 @@ function xd = second_order_system(t, y)
 % [dx1/dt; dx2/dt]
 xd(1) = y(2);
 xd(2) = 0 - 5*y(2)-4*y(1);
+xd = xd(:);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

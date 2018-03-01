@@ -62,11 +62,11 @@ fext=fext(:);
 
 %External forces are propagated to every joint by using the manipulators
 %Jacobian
-J = jacobian(robot, q);   
+J = manipulator_jacobian(robot, q);   
 
 %Finally use the general equation to compute the torques, considering the
 %external forces.
-tau = M*qdd + V + G - J'*fext;
+tau = M*qdd(:) + V + G - J'*fext(:);
 
 %Account for friction by substracting in tau.
 if robot.dynamics.friction

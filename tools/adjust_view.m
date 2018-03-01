@@ -30,7 +30,10 @@ function adjust_view(robot)
 if exist('robot', 'var')
     drawrobot3d(robot, robot.q);
 end
-fprintf('\n\nADJUST YOUR VIEW AS DESIRED. \nPress any key to continue...\n');
+fprintf('\n\nADJUST YOUR VIEW AS DESIRED.');
+fprintf(2, '\nPresiona cualquier tecla para continuar... ') ;
+fprintf(2, '\nPress any key to continue... ') ;
+
 pause
 %get adjusted view
 [az, el] = view;

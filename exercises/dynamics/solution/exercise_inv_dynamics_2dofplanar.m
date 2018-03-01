@@ -27,8 +27,8 @@ close all
 %Just load the robot once
 robot=load_robot('example', '2dofplanar');
 
-%TODO: uncommment as you solve the exercises
-%exercise1(robot)
+%TODO: uncommment as you solve the exercises%
+%exercise1(robot)%
 %exercise2(robot)
 exercise3(robot)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

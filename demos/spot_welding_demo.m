@@ -68,7 +68,7 @@ adjust_view(robot);
 
 
 fprintf('\nNOW LOAD AUXILIAR EQUIPMENT')
-robot.equipment{1}=load_robot('equipment', 'bodywork'); 
+robot.equipment{1}=load_robot('equipment', 'bodywork/aston_martin'); 
 
 fprintf('\nNOW LOAD A GRIPPER')
 robot.tool=load_robot('equipment/end_tools', 'spot_welding'); 

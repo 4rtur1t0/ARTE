@@ -24,7 +24,7 @@ k = 15; %N/m
 figure, 
 plot(t, x(1,:), 'r'), hold
 plot(t, x(2,:), 'b')
-legend('Position (m)', 'Speed (m/s)')
+legend('Position (m) RK4', 'Speed (m/s) RK4')
 
 %Use ode45 to solve
 [t,x]=ode45(@spring_mass_equation, [t0 tfinal], [x0 xd0]'); 
@@ -32,6 +32,7 @@ figure,
 plot(t, x(:,1), 'r'), hold
 plot(t, x(:,2), 'b')
 legend('Position (m) ODE45', 'Speed (m/s)  ODE45')
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -90,7 +90,7 @@ m = 2;          %kg
 g=[0 -9.81 0]'; % acting on the Y0 axis.
 
 %forces and moments are expressed in the base reference frame
-% TODO express the external force
+% TODO express the external forces and moments
 fext = [  ]';
 
 figure, drawrobot3d(robot, q)

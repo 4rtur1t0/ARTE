@@ -87,7 +87,7 @@ robot.graphical.draw_axes=1;
 %bigger robots
 robot.graphical.axes_scale=1;
 %adjust for a default view of the robot
-robot.axis=[-2 2 -2 2 0 1.2];
+robot.axis=[-2 2 -2 2 0 2.2];
 %read graphics files
 robot = read_graphics(robot);
 
@@ -99,8 +99,6 @@ robot = read_graphics(robot);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 robot.has_dynamics=1;
 
 %consider friction in the computations
@@ -110,7 +108,7 @@ robot.dynamics.friction=0;
 %Tenemos que repartir 250kg (peso total robot IRB1600ID entre los 6 eslabones)    
 %Utilizando como material Aluminio, los datos obtenidos del programa Inventor seran:
 
-robot.dynamics.masses=[0 109.440 28.242 31.079 6.936 1.430 0.249]
+robot.dynamics.masses=[0 109.440 28.242 31.079 6.936 1.430 0.249];
 %COM of each link with respect to own reference system
 robot.dynamics.r_com=[0.052       -0.012    0.343; %(rx, ry, rz) link 1
          0.150       0.791     -0.183;%(rx, ry, rz) link 2

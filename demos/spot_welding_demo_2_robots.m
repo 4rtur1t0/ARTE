@@ -26,7 +26,7 @@ robot1=load_robot('KUKA', 'KR5_2ARC_HW');
 q = [0 0 0 0 0 0];
 
 fprintf('\nNOW LOAD AUXILIAR EQUIPMENT')
-robot1.equipment{1}=load_robot('equipment', 'bodywork'); 
+robot1.equipment{1}=load_robot('equipment', 'bodywork/aston_martin'); 
 
 fprintf('\nNOW LOAD A GRIPPER')
 robot1.tool=load_robot('equipment/end_tools', 'spot_welding'); 

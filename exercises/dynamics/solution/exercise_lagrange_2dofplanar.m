@@ -65,7 +65,7 @@ R = T(1:3,1:3);
 
 %External forces are propagated to every joint by using the manipulators
 %Jacobian
-J = jacobian(robot, q);   
+J = manipulator_jacobian(robot, q);   
 
 %Caution: Rotate fext to compute the forces in the base reference system.
 % fext must be a 6x1 column vector with forces/moments
@@ -73,7 +73,7 @@ J = jacobian(robot, q);
 
 %Finally use the general equation to compute the torques, considering the
 %external forces.
-tau = M*qdd + V + G - J'*fext;
+tau = M*qdd(:) + V + G - J'*fext(:);
 
 
 

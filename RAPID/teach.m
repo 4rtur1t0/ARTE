@@ -40,7 +40,7 @@ function varargout = teach(varargin)
 
 % Edit the above text to modify the response to help teach
 
-% Last Modified by GUIDE v2.5 11-Dec-2017 12:38:07
+% Last Modified by GUIDE v2.5 12-Jan-2018 10:41:12
 global configuration robot 
 global controls program
 
@@ -3039,3 +3039,12 @@ for az = -50:5:50
    lightangle(h,az,30)
    pause(.2)
 end
+
+
+% --- Executes during object creation, after setting all properties.
+function draw_axes_checkbox_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to draw_axes_checkbox (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+set(hObject, 'Value', 1)

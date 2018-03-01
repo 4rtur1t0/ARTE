@@ -73,6 +73,7 @@ robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
 robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
 
+drawrobot3d(robot)
 
 %local function to init simulation variables
 init_simulation;
