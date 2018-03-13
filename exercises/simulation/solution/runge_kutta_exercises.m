@@ -29,8 +29,8 @@ function runge_kutta_exercises()
 close all;
 
 %uncomment to execute each of the exercises
-%exerciseA()%
-exerciseB()
+exerciseA()%
+%exerciseB()
 %exerciseC()
 %exerciseD()
 

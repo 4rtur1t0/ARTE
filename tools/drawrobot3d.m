@@ -69,8 +69,7 @@ if isfield(robot, 'parallel')
     return;
 end
 
-if isfield(robot, 'skip_graphics')
-   
+if isfield(robot, 'skip_graphics')   
     return;
 end
 
@@ -171,6 +170,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isfield(robot, 'piece')
     if isfield(robot.piece, 'graphical')
+
         if robot.piece.graphical.has_graphics
             if isfield(robot, 'tool')
                 if robot.tool.piece_gripped==1
@@ -190,6 +190,7 @@ if isfield(robot, 'piece')
         if robot.piece.graphical.draw_axes
             draw_axes(robot.piece.T0, sprintf('X_{piece%d}',0), sprintf('Y_{piece%d}',0), sprintf('Z_{piece%d}',0));
         end
+
     end
 end
 
