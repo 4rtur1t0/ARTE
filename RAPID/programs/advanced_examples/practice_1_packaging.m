@@ -71,8 +71,12 @@ robot = load_robot('ABB','IRB140');
 %load static equipment, such as tables or 
 robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
-robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
-
+robot.piece{1}=load_robot('equipment','cylinders/cylinder_tiny');
+robot.piece{2}=load_robot('equipment','cylinders/cylinder_tiny');
+robot.piece{3}=load_robot('equipment','cylinders/cylinder_tiny');
+for i=1:3;
+    robot.piece{i}.piece_gripped = 0;
+end
 drawrobot3d(robot)
 
 %local function to init simulation variables
@@ -174,18 +178,24 @@ end
 
 function init_simulation
 global robot
-robot.piece.T0=eye(4);
 robot.tool.Trel=eye(4);
 % Now open the tool
 simulation_open_tool; %Reset do1; 
-simulation_release_piece;
-%init the position of the piece at the beginning of the simulation
-robot.piece.T0(1:3,4)=[0.03 -0.68 0.26]';
+
+for i=1:3;
+    simulation_release_piece(i);
+    robot.piece{i}.T0=eye(4);
+
+    robot.piece{i}.piece_gripped = 0;
+    %init the position of the piece at the beginning of the simulation
+    robot.piece{i}.T0(1:3,4)=[0.03*i -0.68 0.26]';
+end
+
 th=-30*pi/180;
-u=[1 0 0;
-   0 cos(th) -sin(th);
-   0 sin(th) cos(th)];
-robot.piece.T0(1:3,1:3)=u;%eye(3);
+% u=[1 0 0;
+%    0 cos(th) -sin(th);
+%    0 sin(th) cos(th)];
+% robot.piece.T0(1:3,1:3)=u;%eye(3);
 %robot.tool.piece_gripped=0;
 drawrobot3d(robot, robot.q);
 

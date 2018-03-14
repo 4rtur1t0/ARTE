@@ -22,7 +22,7 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function simulation_release_piece 
+function simulation_release_piece(i) 
 
 global configuration robot
 
@@ -37,7 +37,7 @@ end
 robot.tool.piece_gripped=0;
 
 %save the last known pose
-robot.piece.T0=T07*(robot.tool.Trel);
+robot.piece{i}.T0=T07*(robot.tool.Trel);
 
 
 
