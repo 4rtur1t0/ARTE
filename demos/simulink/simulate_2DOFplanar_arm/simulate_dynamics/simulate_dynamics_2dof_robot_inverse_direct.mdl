@@ -1,5 +1,5 @@
 Model {
-  Name			  "simulate_2dof_robot"
+  Name			  "simulate_dynamics_2dof_robot_inverse_direct"
   Version		  8.5
   MdlSubVersion		  0
   SavedCharacterEncoding  "ISO-8859-1"
@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.70"
+    ComputedModelVersion    "1.71"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [517.0, 164.0, 1822.0, 983.0]
+      Location		      [464.0, 37.0, 1822.0, 829.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -38,7 +38,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -53,7 +53,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1788.0, 810.0]
+	Extents			[1788.0, 656.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "arturogilaparicio"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Oct 24 11:23:02 2016"
-  RTWModifiedTimeStamp	  399208261
-  ModelVersionFormat	  "1.%<AutoIncrement:70>"
+  LastModifiedDate	  "Wed Mar 21 15:36:15 2018"
+  RTWModifiedTimeStamp	  443547157
+  ModelVersionFormat	  "1.%<AutoIncrement:71>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -110,11 +110,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "simulate_2dof_robot"
+    model_		    "simulate_dynamics_2dof_robot_inverse_direct"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "simulate_2dof_robot"
+      Cell		      "simulate_dynamics_2dof_robot_inverse_direct"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -921,8 +921,8 @@ Model {
     }
   }
   System {
-    Name		    "simulate_2dof_robot"
-    Location		    [517, 164, 2339, 1147]
+    Name		    "simulate_dynamics_2dof_robot_inverse_direct"
+    Location		    [464, 37, 2286, 866]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -957,7 +957,7 @@ Model {
       Position		      [960, 388, 1040, 432]
       ZOrder		      -2
       BackgroundColor	      "lightBlue"
-      MATLABFcn		      "call_direct_dynamics_2dofplanar_fast(u)"
+      MATLABFcn		      "call_direct_dynamics_2dofplanar(u)"
       OutputDimensions	      "2"
     }
     Block {
@@ -1396,8 +1396,8 @@ Model {
       Position		      [1475, 394, 1505, 426]
       ZOrder		      -10
       Floating		      off
-      Location		      [-41, 168, 1095, 1120]
-      Open		      on
+      Location		      [54, 168, 1190, 1120]
+      Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -1413,8 +1413,8 @@ Model {
 	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
 	MarkerStyles		"none|none|none|none|none|none"
       }
-      YMin		      "0.11"
-      YMax		      "0.25"
+      YMin		      "-0.0015"
+      YMax		      "-0.0001"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
     }
@@ -1636,6 +1636,7 @@ Model {
       HorizontalAlignment     "left"
       VerticalAlignment	      "top"
       Interpreter	      "rich"
+      ZOrder		      -1
     }
     Annotation {
       SID		      "224"

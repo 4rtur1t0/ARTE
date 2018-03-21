@@ -62,16 +62,13 @@ g=[0  -9.81 0]'; %y0 axis
 
 tau = [0 0]';%no torques applied
 %select friction or not
-robot.dynamics.friction = 0;
+robot.dynamics.friction = 1;
 
 fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 
 %this may take a while, since it requires integration
 %of the acceleration at each time step
 [t q qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, g, []);
-
-%animate it!!
-animate(robot, q)
 
 figure, plot(t, q), grid, title('Position vs. time')
 xlabel('time (s)'), ylabel('Position (rad)')
@@ -80,3 +77,10 @@ legend('q_1', 'q_2', 'q_3', 'q_4', 'q_5', 'q_6');
 figure, plot(t, qd), grid, title('Speed vs. time')
 xlabel('time (s)'), ylabel('Speed (rad/s)')
 legend('qd_1', 'qd_2', 'qd_3', 'qd_4', 'qd_5', 'qd_6');
+
+%plot results faster in animate!
+qq = q(:,1:1000:end);
+
+%animate it!!
+animate(robot, qq)
+

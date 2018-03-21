@@ -34,12 +34,12 @@ drawrobot3d(robot, q0);
 adjust_view(robot);
 
 %try both
-%tau = [0 0 0 0 0 0]';%no torques applied
-tau = [0 200 1 1 1 1]';
+tau = [0 0 0 0 0 0]';%no torques applied%
+%tau = [0 200 1 1 1 1]';
 %tau = [20 20 21 21 21 21]';
 
 %no friction
-robot.friction = 0;
+robot.motors.friction = 1;
 
 fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 
@@ -49,9 +49,6 @@ fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
             %forwarddynamic(robot, time_end, q0, qd0, tau, g, torqfun, varargin)
 [t q qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, g, []);
 
-%animate it!!
-animate(robot, q)
-
 figure, plot(t, q), grid, title('Position vs. time')
 xlabel('time (s)'), ylabel('Position (rad)')
 legend('q_1', 'q_2', 'q_3', 'q_4', 'q_5', 'q_6');
@@ -59,3 +56,6 @@ legend('q_1', 'q_2', 'q_3', 'q_4', 'q_5', 'q_6');
 figure, plot(t, qd), grid, title('Speed vs. time')
 xlabel('time (s)'), ylabel('Speed (rad/s)')
 legend('qd_1', 'qd_2', 'qd_3', 'qd_4', 'qd_5', 'qd_6');
+
+%animate it!!
+animate(robot, q)

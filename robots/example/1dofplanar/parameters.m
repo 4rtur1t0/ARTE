@@ -105,7 +105,7 @@ robot.last_zone_data = 'fine';
 robot.has_dynamics=1;
 
 %consider friction or not
-robot.dynamics.friction=0;
+robot.dynamics.friction=1;
 
 %link masses (kg)
 robot.dynamics.masses=[2];
@@ -130,10 +130,10 @@ robot.motors.G=[1];
 
 
 %Viscous friction factor of the motor
-robot.motors.Viscous = [0.3];
+robot.motors.Viscous = [1.2];
 %Coulomb friction of the motor
 %Tc+, Tc-
-robot.motors.Coulomb = [0	0 ];
+robot.motors.Coulomb = [0	0];
         
 %Obtained from motor catalog under practicals/inverse_dynamics
 %                        R(Ohm)  L(H)      Kv (V/rad/s):speed constant     Kp (Nm/A):torque constant        Max_current (A) 

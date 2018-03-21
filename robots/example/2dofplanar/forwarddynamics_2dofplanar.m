@@ -63,7 +63,7 @@ fext=fext(:);
 
 %External forces are propagated to every joint by using the manipulators
 %Jacobian
-J = jacobian(robot, q);   
+J = manipulator_jacobian(robot, q);   
 
 % %Account for friction by summing in tau.
 if robot.dynamics.friction

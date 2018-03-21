@@ -182,7 +182,7 @@ for j=n:-1:1,
     %add viscous friction in this case
     if robot.dynamics.friction
         %Note: we account for two types of friction: viscous and coulomb
-        tau(j) = tau(j) - friction(robot, qd, j);
+        tau(j) = tau(j) + friction(robot, qd, j);
     end
 end 
 
