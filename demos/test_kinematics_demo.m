@@ -26,7 +26,7 @@ n_solutions = 8;
 
 %Try different configurations beware that, depending on the robot's topology
 %not all the eight possible solutions will be feasible for an antropomorphic 6R robot.
-q=[0.2 -0.4 -0.2 0.1 0.1 0.1]
+q=[0.5 -0.4 -0.2 0.1 0.1 0.1]
 
 %q=[0.2 0.8 -0.2 0.1 0.1 0.1]
 

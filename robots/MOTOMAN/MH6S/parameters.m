@@ -45,7 +45,7 @@ robot.kind=['R' 'R' 'R' 'R' 'R' 'R'];
 
 
 %minimum and maximum rotation angle in rad
-robot.maxangle =[deg2rad(-170) deg2rad(170); %Axis 1, minimum, maximum
+robot.maxangle =[-170 170; %Axis 1, minimum, maximum
                 deg2rad(-80) deg2rad(133); %Axis 2, minimum, maximum
                 deg2rad(-130) deg2rad(165); %Axis 3
                 deg2rad(-180) deg2rad(180); %Axis 4: Unlimited (400ï¿½ default)
@@ -96,9 +96,6 @@ robot = read_graphics(robot);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DYNAMIC PARAMETERS
-%   WARNING! These parameters do not correspond to the actual IRB 140
-%   robot. They have been introduced to demonstrate the necessity of 
-%   simulating the robot and should be used only for educational purposes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 robot.has_dynamics=1;
 
@@ -106,7 +103,7 @@ robot.has_dynamics=1;
 robot.dynamics.friction=0;
 
 %link masses (kg)
-robot.dynamics.masses=[8 7 5 4 2 1];
+robot.dynamics.masses=[38 31 22 17 9 3]; % masa total 120 Kg
 
 %COM of each link with respect to own reference system
 robot.dynamics.r_com=[0       0          0; %(rx, ry, rz) link 1
@@ -125,9 +122,27 @@ robot.dynamics.Inertia=[0      0.35	0   	0	0	0;
     .3e-3	.4e-3	.3e-3	0	0	0;
     .15e-3	.15e-3	.04e-3	0	0	0];
 
-
-
-robot.motors=load_motors([5 5 5 4 4 4]);
 %Speed reductor at each joint
-robot.motors.G=[300 300 300 300 300 300];
+robot.motors.G=[70 75 150 10 100 1];
+
+%Viscous friction factor of the motor
+robot.motors.Viscous = [0 0 0 0 0 0];
+%Coulomb friction of the motor
+robot.motors.Coulomb = [0	0;
+                        0	0;
+                        0	0;
+                        0	0;
+                        0	0;
+                        0	0];
+%Inertia of the rotor
+robot.motors.Inertia=[11.1e-4 11.1e-4 1.51e-4 0.57e-4 0.57e-4 0.57e-4];
+
+%these correspond to ABB servo motors 9C series
+%                      R(Ohm)         L(H)       Kv (V·s/rad)     Kp (Nm/A)     Max_current (A) 
+robot.motors.constants=[2.17        16.5e-3         1.03            1.79            19.9; % Joint 1: 9C4.3.30
+                        2.17        16.5e-3         1.03            1.79            19.9; % Joint 2: 9C4.3.30
+                        3.4         18e-3           0.41            0.7             17.3; % Joint 3: 9C1.3.60
+                        34.0        108.0e-3        0.66            1.15            4.5;  % Joint 4: 9C1.1.30
+                        34.0        108.0e-3        0.66            1.15            4.5;  % Joint 5: 9C1.1.30
+                        34.0        108.0e-3        0.66            1.15            4.5]; % Joint 6: 9C1.1.30
 
