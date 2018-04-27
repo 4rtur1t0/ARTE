@@ -26,7 +26,7 @@
 function robot = parameters()
 
 
-robot.name= 'KUKA_IIWA_14_R820_7DOF';
+robot.name= 'KUKA_IIWA_14_R820_7DOF_SD';
 
 robot.DH.theta= '[q(1) q(2) q(3) q(4) q(5) q(6) q(7)]';
 robot.DH.d='[0.360 0 0.420 0 0.400   0   0.126]';
@@ -74,7 +74,7 @@ robot.path = pwd;
 robot.graphical.has_graphics=1;
 robot.graphical.color = [204 51 0]./255;
 %for transparency
-robot.graphical.draw_transparent=1;
+robot.graphical.draw_transparent=0;
 %draw DH systems
 robot.graphical.draw_axes=1;
 %DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for

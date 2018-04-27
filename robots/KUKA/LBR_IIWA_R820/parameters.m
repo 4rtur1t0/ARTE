@@ -26,7 +26,7 @@
 function robot = parameters()
 
 
-robot.name= 'KUKA_IIWA_14_R820';
+robot.name= 'KUKA_IIWA_14_R820_SD';
 
 robot.DH.theta= '[q(1)   q(2)+pi/2   q(3)+pi/2   q(4)   q(5)   q(6)]';
 robot.DH.d='[0.360   0   0   0.400   0   0.126]';
@@ -35,7 +35,7 @@ robot.DH.alpha= '[pi/2   0   pi/2   pi/2   -pi/2   0]';
 robot.J=[];
 
 
-robot.inversekinematic_fn = 'inversekinematic_kuka_iiwa_r820(robot, T)';
+robot.inversekinematic_fn = 'inversekinematic_kuka_iiwa_r820_SD(robot, T)';
 
 %number of degrees of freedom
 robot.DOF = 6;
@@ -81,7 +81,7 @@ robot.graphical.draw_axes=1;
 %bigger robots
 robot.graphical.axes_scale=1;
 %adjust for a default view of the robot
-robot.axis=[-1.5 1.5 0 1.5 0 2];
+robot.axis=[-1.5 1.5 -1.5 1.5 0 2];
 %read graphics files
 robot = read_graphics(robot);
 
@@ -89,34 +89,34 @@ robot = read_graphics(robot);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DYNAMIC PARAMETERS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-robot.has_dynamics=0;
+robot.has_dynamics=1;
 
 %consider friction in the computations
 robot.dynamics.friction=0;
 
 %link masses (kg)
-robot.dynamics.masses=[4 6 3 2.5 1 0.5];
+robot.dynamics.masses=[8.5 5 9 5 2.5 1];
 
 %COM of each link with respect to own reference system [m]
-robot.dynamics.r_com=[  0	      0	       0;    %(rx, ry, rz) link 1
-                     -0.017	    0.005	  0.08;  %(rx, ry, rz) link 2
-                     -0.019	   -0.012	  0.05;  %(rx, ry, rz) link 3
-                        0       0.017      0;    %(rx, ry, rz) link 4
+robot.dynamics.r_com=[  0	     -0.05	   0.21;    %(rx, ry, rz) link 1
+                        0	      0.21	  -0.05;  %(rx, ry, rz) link 2
+                        0.1	      0	       0.05;  %(rx, ry, rz) link 3
+                        0         0.05     0.13;    %(rx, ry, rz) link 4
                         0         0        0;    %(rx, ry, rz) link 5
-                        0         0       0.04]; %(rx, ry, rz) link 6
+                        0         0        0.011]; %(rx, ry, rz) link 6
 
 %Inertia matrices of each link with respect to its D-H reference system.
 % Ixx	Iyy	Izz	Ixy	Iyz	Ixz, for each row [kg*m^2]
-robot.dynamics.Inertia=[0.024     0.018	   0.019   	0	0	0;
-                        0.063	  0.051	   0.022	0	0	0;
-                        0.005	  0.009	   0.009	0	0	0;
-                        0.005	  0.006    0.0082	0	0	0;
-                        .8e-3	  .0012    .0013	0	0	0;
-                        .17e-3    .09e-3   .09e-3	0	0	0];
+robot.dynamics.Inertia=[0.066     0.070	   0.036   	0	0	0;
+                        0.038	  0.048	   0.052	0	0	0;
+                        0.024	  0.023	   0.022	0	0	0;
+                        0.003	  0.003    0.002	0	0	0;
+                        0.0013	  0.0011   0.0007	0	0	0;
+                        0.0011    0.0011   0.0006	0	0	0];
 
 
 
-robot.motors=load_motors([5 5 5 4 4 4]);
+%robot.motors=load_motors([5 5 5 4 4 4]);
 %Speed reductor at each joint
-robot.motors.G=[300 300 300 300 300 300];
+robot.motors.G=[100 100 50 10 5 0];
 
