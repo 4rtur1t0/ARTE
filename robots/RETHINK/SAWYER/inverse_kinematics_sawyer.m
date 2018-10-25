@@ -11,15 +11,15 @@
 %   q0: starting initial solution
 %   Tf--> final position/orientation wanted as a homogeneous matrix
 function q = inverse_kinematics_sawyer(robot, Tf, q0)
-global parameters
+%global parameters
 % Obtain thea matriz de posición/orientación en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
 q=q0;
-step_time = parameters.step_time;
+step_time = robot.parameters.step_time;
 i=0;
 %this is a gradient descent solution based on moore-penrose inverse
-while i < parameters.stop_iterations
+while i < robot.parameters.stop_iterations
     Ti = directkinematic(robot, q);
     Qi = T2quaternion(Ti);
     Pi = Ti(1:3,4);
@@ -33,7 +33,7 @@ while i < parameters.stop_iterations
     %the restriction is the speed to reach the point
     %i
     Vref = [v0' w0']';
-    if eps1 < parameters.epsilonXYZ && eps2 < parameters.epsilonQ
+    if eps1 < robot.parameters.epsilonXYZ && eps2 < robot.parameters.epsilonQ
         fprintf('INVERSE KINEMATICS SUCCESS: REACHED epsilonXYZ AND epsilonQ\n')
         q = atan2(sin(q), cos(q));
         return;
@@ -81,11 +81,11 @@ w = w(:);
 % Compute angular speed w that moves Q0 into Q1 in time total_time.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function w = angular_w_between_quaternions(Q0, Q1, total_time)
-global parameters
+global robot
 %below this number, the axis is considered as [1 0 0]
 %this is to avoid numerical errors
 %this is the actual error allowed for w
-epsilon_len = parameters.epsilonQ;
+epsilon_len = robot.parameters.epsilonQ;
 %Let's first find quaternion q so q*q0=q1 it is q=q1/q0 
 %For unit length quaternions, you can use q=q1*Conj(q0)
 Q = qprod(Q1, qconj(Q0));

@@ -30,7 +30,7 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function q = inversekinematic(robot, T)
+function q = inversekinematic(robot, T, q)
 
 if robot.debug
     fprintf('\nComputing inverse kinematics for the %s robot\n', robot.name);

@@ -38,7 +38,7 @@ robot.DH.alpha= '[-pi/2        -pi/2               pi/2          -pi/2      pi/2
 robot.J=[];
 
 
-robot.inversekinematic_fn = 'inversekinematic_sawyer(robot, T)';
+robot.inversekinematic_fn = 'inverse_kinematics_sawyer(robot, T, q)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 
@@ -143,4 +143,12 @@ robot.dynamics.Inertia=[0      0.35	0   	0	0	0;
 robot.motors=load_motors([5 5 5 4 4 4]);
 %Speed reductor at each joint
 robot.motors.G=[300 300 300 300 300 300];
+
+%SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
+robot.parameters.step_time=0.1;
+%Error in XYZ to stop inverse kinematics
+robot.parameters.epsilonXYZ=0.01;
+%Error in Quaternion to stop inverse kinematics.
+robot.parameters.epsilonQ=0.01;
+robot.parameters.stop_iterations=500;
 
