@@ -2271,10 +2271,16 @@ end
 
 for i=startIndex:size(path,2),
 	T(1:3,4)=path(:,i);
-	%several solutions are provided
-	qinv = inversekinematic(robot, T); 
-	%choose the closest to current position
-   
+    %several solutions are provided
+    %try to use a closed solution for the inverse kinematic
+    %use a closed solution
+    if robot.DOF < 7	
+        qinv = inversekinematic(robot, T); 	
+    else
+        %or use a gradient descent method that needs a seed
+        qinv = inversekinematic(robot, T, robot.q);
+    end
+    %choose the closest to current position
 	q=select_closest_joint_coordinates(qinv, robot.q);
 	
 	robot.q = q;

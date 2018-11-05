@@ -25,15 +25,13 @@
 function robot = parameters()
 
 robot.name= 'UR10';
-
 robot.DH.theta= '[q(1) q(2)+pi/2 q(3) q(4)-pi/2 q(5) q(6)]';
 robot.DH.d='[0.128 0.176 -0.128 0.116 0.116 0.092]';
 robot.DH.a='[0 0.612 0.572 0 0 0]';
 robot.DH.alpha= '[pi/2 0 0 -pi/2 pi/2 0]';
 robot.J=[];
 
-
-robot.inversekinematic_fn = 'inversekinematic_UR10(robot, T)';
+robot.inversekinematic_fn = 'inverse_kinematics_ur10(robot, T, q)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 
@@ -129,4 +127,13 @@ robot.dynamics.Inertia=[0      0.35	0   	0	0	0;
 robot.motors=load_motors([5 5 5 4 4 4]);
 %Speed reductor at each joint
 robot.motors.G=[300 300 300 300 300 300];
+
+%SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
+robot.parameters.step_time=0.1;
+%Error in XYZ to stop inverse kinematics
+robot.parameters.epsilonXYZ=0.01;
+%Error in Quaternion to stop inverse kinematics.
+robot.parameters.epsilonQ=0.01;
+robot.parameters.stop_iterations=500;
+
 

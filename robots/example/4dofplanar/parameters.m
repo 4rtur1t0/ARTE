@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   PARAMETERS Returns a data structure containing the parameters of the
-%   example 3 DOF planar robot.
+%   example 4 DOF planar robot.
 %
 %   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
 %   email: arturo.gil@umh.es date:   05/03/2012
@@ -24,33 +24,25 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
 
-robot.name='Example 3DOF planar arm';
+robot.name='Example 4DOF planar arm';
 
-kinematic data DH parameters
-robot.DH.theta='[q(1) q(2) q(3)]';
-robot.DH.d='[0  0  0]';
-robot.DH.a='[1  1  1]';
-robot.DH.alpha='[0  0  0]';
+%kinematic data DH parameters
+robot.DH.theta='[q(1) q(2) q(3) q(4)]';
+robot.DH.d='[0  0  0  0]';
+robot.DH.a='[1  1  1  1]';
+robot.DH.alpha='[0  0  0  0]';
 
 %number of degrees of freedom
-robot.DOF = 3;
+robot.DOF = 4;
 
 %Jacobian matrix
 robot.J=[];
 
-robot.J=['[-a(1)*sin(q(1))-a(2)*sin(q(1)+q(2))-a(3)*sin(q(1)+q(2)+q(3))  -a(2)*sin(q(1)+q(2))-a(3)*sin(q(1)+q(2)+q(3)) -a(3)*sin(q(1)+q(2)+q(3));' ... 
-           'a(1)*cos(q(1))+a(2)*cos(q(1)+q(2))+a(3)*cos(q(1)+q(2)+q(3))  a(2)*cos(q(1)+q(2))+a(3)*cos(q(1)+q(2)+q(3))  a(3)*cos(q(1)+q(2)+q(3));' ...
-           '               0                                  0  0;' ...
-           '               0                                  0  0;' ...
-           '               0                                  0  0;' ...
-           '               1                                  1  1]'];
-
-
-robot.kind=['R' 'R' 'R'];
+robot.kind=['R' 'R' 'R' 'R'];
 
 
 %Function name to compute inverse kinematic
-robot.inversekinematic_fn = 'inversekinematic_3dofplanar(robot, T)';
+robot.inversekinematic_fn = 'inversekinematic_4dofplanar(robot, T)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 %minimum and maximum rotation angle in rad
@@ -141,4 +133,12 @@ robot.motors.Viscous = [10  10 10];
 robot.motors.Coulomb = [0 0;
             0 0;
             0 0];
+        
+%SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
+robot.parameters.step_time=0.1;
+%Error in XYZ to stop inverse kinematics
+robot.parameters.epsilonXYZ=0.01;
+%Error in Quaternion to stop inverse kinematics.
+robot.parameters.epsilonQ=0.01;
+robot.parameters.stop_iterations=500;
 

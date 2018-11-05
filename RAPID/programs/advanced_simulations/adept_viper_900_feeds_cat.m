@@ -27,12 +27,12 @@ robot.equipment{2}.T0(1:3,4)=[0.5 0.25 0]';
 robot.equipment{3} = load_robot('equipment','miscelanea/pink_cat');
 robot.equipment{3}.T0(1:3,4)=[1.3 0 0]';
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
-robot.piece=load_robot('equipment','miscelanea/cereal_box');
+robot.piece{1}=load_robot('equipment','miscelanea/cereal_box');
 
 %init the position of the piece at the beginning of the simulation
-robot.piece.T0(1:3,4)=[0.2 -0.3 0.2]';
+robot.piece{1}.T0(1:3,4)=[0.2 -0.3 0.2]';
 %%robot.equipment.cat.T0(1:3,4)=[1.3 0 0]';
-%robot.tool.piece_gripped=0;
+robot.piece{1}.piece_gripped=0;
 drawrobot3d(robot, robot.q);
 adjust_view(robot)
 %mover gato %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

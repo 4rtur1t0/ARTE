@@ -22,9 +22,13 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function simulation_release_piece(i) 
+function simulation_release_piece(piece_index) 
 
 global configuration robot
+
+if ~exist('piece_index', 'var')
+    piece_index=1;
+end
 
 %T07=directkinematic(robot, robot.q)*robot.tool.TCP;
 %robot.tool.Trel=inv(T07)*robot.piece.T0;
@@ -37,7 +41,7 @@ end
 robot.tool.piece_gripped=0;
 
 %save the last known pose
-robot.piece{i}.T0=T07*(robot.tool.Trel);
+robot.piece{piece_index}.T0=T07*(robot.tool.Trel);
 
 
 

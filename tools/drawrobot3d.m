@@ -175,7 +175,7 @@ if isfield(robot, 'piece')
 
         if pieza_dibujar.graphical.has_graphics
             if isfield(robot, 'tool')
-                if pieza_dibujar.piece_gripped==1
+                if robot.tool.piece_gripped==1
                     %update the last known position and orientation of the robot
                     %Trel is computed when the simulation_grip_piece function is
                     %executed. Trel is the relative position and orientation of

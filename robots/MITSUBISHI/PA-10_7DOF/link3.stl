@@ -1,0 +1,9 @@
+solid Created by surf2stl.m 02-Feb-2012 14:14:35
+facet normal 9.8768834E-01 1.5643447E-01 0.0000000E+00
+outer loop
+vertex 3.0000000E-02 0.0000000E+00 -5.0000000E-02
+vertex 2.8531695E-02 9.2705098E-03 -5.0000000E-02
+vertex 2.8531695E-02 9.2705098E-03 5.0000000E-02
+endloop
+endfacet
+endsolid Created by surf2stl.m 02-Feb-2012 17:09:29

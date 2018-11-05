@@ -22,14 +22,16 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function simulation_grip_piece %(variable)
+function simulation_grip_piece(piece_index)
 
 global configuration robot
 
-T07=directkinematic(robot, robot.q)*robot.tool.TCP;
-%robot.tool.Trel=inv(T07)*robot.piece.T0;
-robot.tool.Trel=(T07)\robot.piece.T0;
+if ~exist('piece_index', 'var')
+    piece_index=1;
+end
 
+T07=directkinematic(robot, robot.q)*robot.tool.TCP;
+robot.tool.Trel=(T07)\robot.piece{piece_index}.T0;
 robot.tool.piece_gripped=1;
 
 
