@@ -10,7 +10,7 @@
 % tfinal: final time.
 % h: time step for the calculations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function runge_kutta_exercises2()
+function inclined_plane()
 close all;
 
 %uncomment to execute each of the exercises

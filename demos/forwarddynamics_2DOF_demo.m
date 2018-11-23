@@ -26,7 +26,7 @@ robot=load_robot('example', '2dofplanar');
 
 %simulate for 10 seconds, change this depending on your computer speed and
 %the total time that you want to simulate
-total_simulation_time = 10; 
+total_simulation_time = 5; 
 
 %initial position and joint speed
 q0 = [0 0]';
@@ -68,7 +68,7 @@ fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 
 %this may take a while, since it requires integration
 %of the acceleration at each time step
-[t q qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, g, []);
+[t, q, qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, g, []);
 
 figure, plot(t, q), grid, title('Position vs. time')
 xlabel('time (s)'), ylabel('Position (rad)')

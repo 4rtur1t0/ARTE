@@ -18,23 +18,28 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-
+function draw_errors_monte_carlo
 close all
 
 M=1500; %number of particles
 
 %load arm parameters
-robot=load_robot('ABB', 'IRB140');
+%robot=load_robot('ABB', 'IRB140');
+robot=load_robot('example', '2dofplanar');
 
 %standard deviation AT EACH JOINT
 sigmaq=0.017;%rad
 
 %find errors around this pose
-q=[pi/2 -pi/2 0 0 0 0]';
+%q=[pi/2 -pi/2 0 0 0 0]';
+q=[pi/2 -pi/2]';
 
 puntos=[];
 for i=1:M,
-    qi = q + [normrnd(0, sigmaq, robot.DOF, 1)];
+    %normrnd is included in the Statistics and Machine Learning Toolbox
+    %change to the next line if this package is not included in your
+    %qi = q + [normrnd(0, sigmaq, robot.DOF, 1)];
+    qi = q + [mygaussian(0, sigmaq, robot.DOF, 1)];
     T=directkinematic(robot, qi);
     puntos=[puntos; T(1,4) T(2,4) T(3,4)];
 end
@@ -43,3 +48,26 @@ end
 adjust_view(robot)
 drawrobot3d(robot,q), hold on
 plot3(puntos(:,1),puntos(:,2), puntos(:,3),'r.')
+
+
+function R=mygaussian(mu, sigma, n, m)
+
+global z1
+global generate
+%close all
+
+%init randomizer
+z1 = rand();
+generate = 0;
+
+R=[];
+for i=1:n,
+    for j=1:m,
+        gauss = generate_gaussian(mu, sigma);
+        R(i,j)=gauss;
+    end
+end
+
+
+
+

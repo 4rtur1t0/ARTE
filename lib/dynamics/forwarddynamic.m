@@ -37,6 +37,7 @@ q0 = [q0(:); qd0(:)];
 		
 [t, y] = ode45(@fdyn_private, [0 time_end], q0, [], tau, g, robot, varargin{:});
 
+%rearrange output
 q = y(:,1:n)';
 qd = y(:,n+1:2*n)';
 
@@ -59,8 +60,9 @@ qd = y(:,n+1:2*n)';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function xd = fdyn_private(time, x, tau, g, robot, varargin)
 time
-	n = robot.DOF;
+n = robot.DOF;
 
-	qdd = accel(robot, x(1:n,1), x(n+1:2*n,1), tau, g);
-	xd = [x(n+1:2*n,1); qdd];
+qdd = accel(robot, x(1:n,1), x(n+1:2*n,1), tau, g);
+%return [joint_speed; joint_acceleration]
+xd = [x(n+1:2*n,1); qdd];
 

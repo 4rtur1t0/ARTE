@@ -42,7 +42,7 @@ robot.kind=['R' 'R' 'R' 'R'];
 
 
 %Function name to compute inverse kinematic
-robot.inversekinematic_fn = 'inversekinematic_4dofplanar(robot, T)';
+robot.inversekinematic_fn = 'inverse_kinematics_4dofplanar(robot, T, q)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 %minimum and maximum rotation angle in rad
@@ -69,6 +69,14 @@ robot.T0 = eye(4);
 %position, velocity and acceleration
 robot=init_sim_variables(robot);
 robot.path = pwd;
+
+%this is an ad hoc transformation between the piece and the robot's end
+%effector
+robot.Tcoupling=[-1 0 0  0;
+     0 1 0  0;
+     0 0 -1 0;
+     0 0 0 1];
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %GRAPHICS

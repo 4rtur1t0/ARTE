@@ -33,5 +33,5 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function V = compute_end_velocity_exercise(robot, q, qd)
 
-J = manipulator_jacobian(robot, q)
-V = J*qd';
+%TODO:
+%return V as a function of q and qd... use the manipulator Jacobian...
