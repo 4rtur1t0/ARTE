@@ -51,9 +51,7 @@ for j=1:size(q, 2);
     %draw robot in 3D 
     %robot=drawrobot3d_simulation(robot, qj);  
 
-    %robot=
     drawrobot3d(robot, qj);  
-
     
     %plot3(path(1,:),path(2,:),path(3,:),'k', 'LineWidth', 3);
     plot3(v(1,:),v(2,:),v(3,:),'k', 'LineWidth', 3);

@@ -29,10 +29,10 @@ function runge_kutta_exercises()
 close all;
 
 %uncomment to execute each of the exercises
-exerciseA()
+%exerciseA()
 %exerciseB()
 %exerciseC()
-%exerciseD()
+exerciseD()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Integrate a simple time function. dy/dt = 2*t
@@ -69,26 +69,27 @@ global robot tau g
 t0 = 0;
 tfinal = 10;
 robot = load_robot('example','1dofplanar')
-robot.dynamics.friction=1
+robot.dynamics.friction=0
 tau = [0];
 g = [0 -9.81 0]';
 [t, y] = runge_kutta(@forward_dynamic_robot1, [0 0]', [t0 tfinal], 0.01);
 
 % Animate the movement. Change speed from 1-30-100-200
-speed = 50
-animate(robot,[y(1,1:speed:length(y)); y(3,1:speed:length(y))])
+speed = 10
+animate(robot,[y(1,1:speed:length(y))])
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Now use Runge-Kutta to simulate the movement of a 2 DOF robot arm.
 function exerciseD()
 global robot tau g
-
+t0 = 0;
+tfinal = 10;
 robot = load_robot('example','2dofplanar')
 robot.dynamics.friction=1
 tau = [0 0];
 g = [0 -9.81 0]';
-[t, y] = runge_kutta(@forward_dynamic_robot2, [0 0 0 0]', [t0 2], 0.001);
+[t, y] = runge_kutta(@forward_dynamic_robot2, [0 0 0 0]', [t0 tfinal], 0.001);
 %speed, change to 10, 30, 50, 100
 speed = 50
 animate(robot,[y(1,1:speed:length(y)); y(2,1:speed:length(y))])
@@ -138,7 +139,7 @@ global tau g robot
 %we must return the solution of
 % [dx1/dt; dx2/dt]
 t
-qdd=forwarddynamics_2dofplanar(robot, y(1:2,1), y(3:4,1), tau', -9.81, [0 0 0 0 0 0]);
+qdd=forwarddynamics_2dofplanar(robot, y(1:2,1), y(3:4,1), tau', 9.81, [0 0 0 0 0 0]);
 %return qd, qdd
 xd = [y(3:4,1); qdd];
 
