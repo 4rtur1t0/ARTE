@@ -43,8 +43,8 @@ while i < robot.parameters.stop_iterations
     %actually move the robot.
     q = q + qd*step_time;
     %normalize to -pi/pi
-    %q = atan2(sin(q), cos(q));
     %drawrobot3d(robot, q)
+    %pause(0.1)
     i=i+1;
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')

@@ -29,7 +29,7 @@ T = [1 0 0  0.3;
 %try this initial seed for the inverse kinematic
 %different seeds do allow to obtain different solutions
 q = [0.1 0.1 0.1 0.2 0.2 0.2]';
-drawrobot3d(robot, qinv)
+drawrobot3d(robot, q)
 adjust_view(robot)
 
 qinv = inverse_kinematics_ur10(robot, T, q)

@@ -41,8 +41,8 @@ while i < robot.parameters.stop_iterations
     qd = inverse_kinematic_moore_penrose(robot, q, Vref);
     %actually move the robot.
     q = q + qd*step_time;
-%     drawrobot3d(robot, q)
-%     pause(0.01);   
+    %drawrobot3d(robot, q)
+    %pause(0.01);   
     i=i+1;
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
