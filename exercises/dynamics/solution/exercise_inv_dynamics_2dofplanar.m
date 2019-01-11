@@ -79,7 +79,7 @@ function exercise2(robot)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %TODO: CHANGE q to find the "worst" pose
-q=[0 0]';
+q=[0 pi/2]';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 qd=[0 0]'; %speed --> does it make any difference?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

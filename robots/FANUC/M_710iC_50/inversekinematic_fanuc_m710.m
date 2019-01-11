@@ -1,31 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Q = INVERSEKINEMATIC_Prosix_C4_A60(robot, T)	
-%   Solves the inverse kinematic problem for the EPSON Prosix_C4_A60 robot
+%
+%   Authors: Carlos Carrazoni Perez, Juan Jose Perez Hernandez & David
+%   Martinez Pascual
+%   Q = INVERSEKINEMATIC_fanuc_m710(robot, T)	
+%   Solves the inverse kinematic problem for the FANUC M/710iC-50 robot
 %   where:
 %   robot stores the robot parameters.
 %   T is an homogeneous transform that specifies the position/orientation
 %   of the end effector.
 %
-%   A call to Q=INVERSEKINEMATIC__Prosix_C4_A60 returns 8 possible solutions, thus,
+%   A call to Q=INVERSEKINEMATIC_m710 returns 8 possible solutions, thus,
 %   Q is a 6x8 matrix where each column stores 6 feasible joint values.
-%
-%   
-%   Example code:
-%
-%   epson=load_robot('EPSON', 'Prosix_C4_A60');
-%   q = [0 0 0 0 0 0];	
-%   T = directkinematic(epson, q);
-%   %Call the inversekinematic for this robot
-%   qinv = inversekinematic(robot, T);
-%   check that all of them are feasible solutions!
-%   and every Ti equals T
-%   for i=1:8,
-%        Ti = directkinematic(robot, qinv(:,i))
-%   end
-%	See also DIRECTKINEMATIC.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Copyright (C) 2012, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
 % 
@@ -41,15 +26,19 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function q = inversekinematic_epson_c4_a60(robot, T)
+function q = inversekinematic_fanuc_m710(robot, T)
 
+%initialize q,
+%eight possible solutions are generally feasible
+q=zeros(6,8);
 
 %Evaluate the parameters
 d = eval(robot.DH.d);
-a = eval(robot.DH.a);
 
 %See geometry at the reference for this robot
 L6=d(6);
+
+%A1 = a(1);
 
 %T= [ nx ox ax Px;
 %     ny oy ay Py;
@@ -66,7 +55,7 @@ Pm = [Px Py Pz]' - L6*W;
 
 %first joint, two possible solutions admited: 
 % if q(1) is a solution, then q(1) + pi is also a solution
-q1=atan2(Pm(2), Pm(1));
+q1=atan2(-Pm(1), Pm(2));
 
 
 %solve for q2
@@ -100,43 +89,23 @@ q = [q1         q1         q1        q1       q1+pi   q1+pi   q1+pi   q1+pi;
 %leave only the real part of the solutions
 q=real(q);
 
-%Note that in this robot, the joint q3 has a non-simmetrical range. In this
-%case, the joint ranges from 60 deg to -219 deg, thus, the typical normalizing
-%step is avoided in this angle (the next line is commented). When solving
-%for the orientation, the solutions are normalized to the [-pi, pi] range
-%only for the theta4, theta5 and theta6 joints.
 
 %normalize q to [-pi, pi]
 q(1,:) = normalize(q(1,:));
 q(2,:) = normalize(q(2,:));
-
 % solve for the last three joints
 % for any of the possible combinations (theta1, theta2, theta3)
 for i=1:2:size(q,2),
-    % use solve_spherical_wrist2 for the particular orientation
-    % of the systems in this ABB robot
-    % use either the geometric or algebraic method.
-    % the function solve_spherical_wrist2 is used due to the relative
-    % orientation of the last three DH reference systems.
-    
-    %This robot uses a different function to compute the last three angles,
-    %since the relative orientation of the systems S4, S5 and S6 differs
-    %from that of the rest of the robots
-    qtemp = solve_spherical_wrist_Prosix(robot, q(:,i), T, 1); %wrist up
+    qtemp = solve_spherical_wrist(robot, q(:,i), T, 1,'geometric'); %wrist up
     qtemp(4:6)=normalize(qtemp(4:6));
     q(:,i)=qtemp;
-    
-    qtemp = solve_spherical_wrist_Prosix(robot, q(:,i), T, -1); %wrist down
-       
+        
+    qtemp = solve_spherical_wrist(robot, q(:,i), T, -1, 'geometric'); %wrist down
     qtemp(4:6)=normalize(qtemp(4:6));
     q(:,i+1)=qtemp;
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% solve for second joint theta2, two different
-% solutions are returned, corresponding
-% to elbow up and down solution
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function q2 = solve_for_theta2(robot, q, Pm)
 
 %Evaluate the parameters
@@ -144,8 +113,10 @@ d = eval(robot.DH.d);
 a = eval(robot.DH.a);
 
 %See geometry
-L2=a(2);
-L3=d(4);
+L2=a(2); %870mm
+L3=a(3); %170mm
+L4=d(4); %1016mm
+L_aux=sqrt(L3^2+L4^2);
 
 %given q1 is known, compute first DH transformation
 T01=dh(robot, q, 1);
@@ -155,20 +126,21 @@ p1 = inv(T01)*[Pm; 1];
 
 r = sqrt(p1(1)^2 + p1(2)^2);
 
-beta = atan2(-p1(2), p1(1));
-gamma = (acos((L2^2+r^2-L3^2)/(2*r*L2)));
+beta = atan2(p1(2), p1(1));
+gamma = (acos((L2^2 + r^2 - L_aux^2)/(2*r*L2)));
 
 if ~isreal(gamma)
-    %disp('WARNING:inversekinematic_Prosix_C3_A601C: the point is not reachable for this configuration, imaginary solutions'); 
-    gamma = real(gamma);
+    disp('WARNING:inversekinematic_fanuc_m710: the point is not reachable for this configuration, imaginary solutions'); 
+    %gamma = real(gamma);
 end
 
 %return two possible solutions
 %elbow up and elbow down
 %the order here is important and is coordinated with the function
 %solve_for_theta3
-q2(1) = pi/2 - beta - gamma; %elbow up
-q2(2) = pi/2 - beta + gamma; %elbow down
+q2(1) = -pi/2 + beta + gamma; %elbow up
+q2(2) = -pi/2 + beta - gamma; %elbow down
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -183,8 +155,10 @@ d = eval(robot.DH.d);
 a = eval(robot.DH.a);
 
 %See geometry
-L2=a(2);
-L3=d(4);
+L2=a(2); %870mm
+L3=a(3); %170mm
+L4=d(4); %1016mm
+L_aux=sqrt(L3^2 + L4^2);
 
 %given q1 is known, compute first DH transformation
 T01=dh(robot, q, 1);
@@ -192,86 +166,25 @@ T01=dh(robot, q, 1);
 %Express Pm in the reference system 1, for convenience
 p1 = inv(T01)*[Pm; 1];
 
+
 r = sqrt(p1(1)^2 + p1(2)^2);
 
-eta = (acos((L2^2 + L3^2 - r^2)/(2*L2*L3)));
+eta = (acos((L2^2 + L_aux^2 - r^2)/(2*L2*L_aux)));
+
+delta=atan2(L3,L4);
+
+alfa=pi/2 - delta;
 
 if ~isreal(eta)
-   %disp('WARNING:inversekinematic_Prosix_C3_A601C: the point is not reachable for this configuration, imaginary solutions'); 
-   eta = real(eta);
+   disp('WARNING:inversekinematic_fanuc_m710: the point is not reachable for this configuration, imaginary solutions'); 
+   %eta = real(eta);
 end
 
 %return two possible solutions
 %elbow up and elbow down solutions
 %the order here is important
-q3(1) = -(pi/2 - eta);
-q3(2) = -(eta - 3*pi/2);
-
-
-% Solve the special case of this spherical wrist
-% For wrists that whose reference systems have been placed as in the
-% ABB IRB 140--> use solve_spherical_wrist2
-% For wrists with the same orientation as in the KUKA KR30_jet
-%--> use solve_spherical_wrist
-function q = solve_spherical_wrist_Prosix(robot, q, T, wrist)
-
-
-% T is the noa matrix defining the position/orientation of the end
-% effector's reference system
-vx6=T(1:3,1);
-vz5=T(1:3,3); % The vector a z6=T(1:3,3) is coincident with z5
-
-% Obtain the position and orientation of the system 3
-% using the already computed joints q1, q2 and q3
-T01=dh(robot, q, 1);
-T12=dh(robot, q, 2);
-T23=dh(robot, q, 3);
-T03=T01*T12*T23;
-
-vx3=T03(1:3,1);
-vy3=T03(1:3,2);
-vz3=T03(1:3,3);
-
-% find z4 normal to the plane formed by z3 and a
-vz4=cross(vz3, vz5);	% end effector's vector a: T(1:3,3)
-
-% in case of degenerate solution,
-% when vz3 and vz6 are parallel--> then z4=0 0 0, choose q(4)=0 as solution
-if norm(vz4) <= 0.00000001
-    if wrist == 1 %wrist up
-        q(4)=0;
-    else
-        q(4)=-pi; %wrist down
-    end
-else
-    %this is the normal and most frequent solution
-    cosq4=wrist*dot(vy3,vz4);
-    sinq4=wrist*dot(-vx3,vz4);
-    q(4)=atan2(sinq4, cosq4);
-end
-%propagate the value of q(4) to compute the system 4
-T34=dh(robot, q, 4);
-T04=T03*T34;
-vx4=T04(1:3,1);
-vy4=T04(1:3,2);
-
-% solve for q5
-cosq5=dot(-vy4,vz5);
-sinq5=dot(vx4,vz5);
-q(5)=atan2(sinq5, cosq5);
-
-%propagate now q(5) to compute T05
-T45=dh(robot, q, 5);
-T05=T04*T45;
-vx5=T05(1:3,1);
-vy5=T05(1:3,2);
-
-% solve for q6
-cosq6=dot(vx6,vx5);
-sinq6=dot(vx6,vy5);
-q(6)=atan2(sinq6, cosq6);
-
-
+q3(1) = eta + alfa -pi;
+q3(2) = -eta + alfa +pi;
 
 
 
