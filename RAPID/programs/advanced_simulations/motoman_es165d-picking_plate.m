@@ -51,7 +51,7 @@ global robot TD_vacuum RT_initial RT_approach1 RT_vacuum_catch RT_approach2 RT_v
 robot = load_robot('MOTOMAN','ES165D_100');
 robot.equipment{1} = load_robot('equipment','conveyor_belt1');
 robot.tool= load_robot('equipment','end_tools/vacuum_1');
-robot.piece=load_robot('equipment','aluminum_plate1');
+robot.piece{1}=load_robot('equipment','aluminum_plate1');
 
 
 adjust_view(robot);

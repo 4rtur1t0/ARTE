@@ -52,11 +52,11 @@ global robot TD_gripper RT_initial RT_approach1 RT_grip RT_approach2 RT_release
 robot = load_robot('ABB','IRB140');
 robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
-robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
-
+robot.piece{1}=load_robot('equipment','cylinders/cylinder_tiny');
 
 %init the position of the piece at the beginning of the simulation
-robot.piece.T0(1:3,4)=[-0.1 -0.5 0.2]';
+robot.piece{1}.T0(1:3,4)=[-0.1 -0.5 0.2]';
+
 %robot.tool.piece_gripped=0;
 drawrobot3d(robot, robot.q);
 

@@ -6,10 +6,10 @@ robot = load_robot('kuka','KR10_R1100_sixx');
 robot.equipment{1} = load_robot('equipment','tables/table_extended');
 robot.equipment{2} = load_robot('equipment/objects','fruit_box');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
-robot.piece=load_robot('equipment/objects','water_bottle');
+robot.piece{1}=load_robot('equipment/objects','water_bottle');
  
 %init the position of the piece at the beginning of the simulation
-robot.piece.T0(1:3,4)=[0.75 -0.55 0.2]';
+robot.piece{1}.T0(1:3,4)=[0.75 -0.55 0.2]';
 
 %robot.tool.piece_gripped=0;
 drawrobot3d(robot, robot.q);

@@ -35,11 +35,11 @@ robot.equipment{3}.T0 = [1 0 0 0; 0 1 0 -2.4; 0 0 1 0; 0 0 0 1];
 robot.equipment{4} = load_robot('equipment/tables','palletizing');
 robot.equipment{4}.T0 = [-1 0 0 2.5; 0 -1 0 0; 0 0 1 0; 0 0 0 1];
 robot.equipment{4}.graphical.draw_axes=0;
-robot.piece = load_robot('equipment/objects','loaded_pallet');
-robot.piece.T0 = [0 -1 0 1;1 0 0 2.2;0 0 1 1.23;0 0 0 1];
-robot.piece.graphical.draw_axes=0;
-robot.piece.graphical.color = [90 70 10]./255;
-robot.piece.graphical.draw_transparent=0;
+robot.piece{1} = load_robot('equipment/objects','loaded_pallet');
+robot.piece{1}.T0 = [0 -1 0 1;1 0 0 2.2;0 0 1 1.23;0 0 0 1];
+robot.piece{1}.graphical.draw_axes=0;
+robot.piece{1}.graphical.color = [90 70 10]./255;
+robot.piece{1}.graphical.draw_transparent=0;
 drawrobot3d(robot);
 
 

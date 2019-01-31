@@ -29,9 +29,9 @@ function runge_kutta_exercises()
 close all;
 
 %uncomment to execute each of the exercises
-exerciseA()%
+%exerciseA()%
 %exerciseB()
-%exerciseC()
+exerciseC()
 %exerciseD()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,8 +78,8 @@ g = [0 -9.81 0]';
 [t, y] = runge_kutta(@forward_dynamic_robot1, [0 0]', [t0 tfinal], 0.01);
 
 % Animate the movement. Change speed from 1-30-100-200
-speed = 50
-animate(robot,[y(1,1:speed:length(y)); y(3,1:speed:length(y))])
+speed = 5
+animate(robot,[y(1,1:speed:length(y)); y(2,1:speed:length(y))])
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,7 +96,7 @@ robot.dynamics.friction=0
 [t, y] = runge_kutta(@forward_dynamic_robot2, [0 0 0 0]', [t0 tfinal], 0.01);
 
 %speed, change to 10, 30, 50, 100
-speed = 15
+speed = 5
 animate(robot,[y(1,1:speed:length(y)); y(2,1:speed:length(y))])
 
 

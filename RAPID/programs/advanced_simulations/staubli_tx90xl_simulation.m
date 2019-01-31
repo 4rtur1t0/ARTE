@@ -11,7 +11,7 @@ global robot
 robot = load_robot('STAUBLI','TX90XL')
 robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
-robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
+robot.piece{1}=load_robot('equipment','cylinders/cylinder_tiny');
 
 RT_tp1=[[0.8, 0, 0.215],[0.0177, 0.9946, -0.1019, -0.0007], [0, -1, 1, 0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 RT_tp2=[[0.7903, 0.1533, 0.6155],[0.0007, 0.1019, 0.9946, 0.0177], [0, 0, -1, 0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -26,7 +26,7 @@ RT_tpi=[[0.0123, 0.0854, 1.8779],[0.0000, 0.0000, -0.0000, 1.0000], [0, 0, 0, 3]
 RT_tp2i=[[1.1241, -0.7430, 0.4831],[0.1704, 0.8046, -0.2754, 0.4977], [-1, -1, 1, 0], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 tool0=[1,[[0,0,0],[1,0,0,0]],[0,[0,0,0],[1,0,0,0],0,0,0]];
 
-robot.piece.T0= [1 0 0 -0.1;
+robot.piece{1}.T0= [1 0 0 -0.1;
                         0 1 0 -0.5;
                         0 0 1 0.2;
                         0 0 0 1]; 

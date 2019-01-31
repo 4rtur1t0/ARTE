@@ -16,7 +16,7 @@
 %   Vicente Tormo Moragues
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function viper_900_feeds_cat
+function adept_viper_900_feeds_cat
 global robot TD_gripper Pinic Pprec1 PCcaja Pcaja PPcaja Pn1 Pi1 Pi2 PCcuenco Pcuenco PSgato PCgato Pgato1 Pgato2 Pgato3 Pgato4
 
 %Comment the following lines to avoid loading the robot at every simulation

@@ -15,12 +15,12 @@
 %   C) NOW, LOAD AN END TOOL
 %       >> robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
 %   D) FINALLY, LOAD A PIECE TO GRAB BY THE ROBOT
-%       >> robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
+%       >> robot.piece{1}=load_robot('equipment','cylinders/cylinder_tiny');
 %
 %   E) IF NECESSARY, CHANGE THE POSITION AND ORIENTATION OF THE piece,
 %   relative to the robot's base reference system.
 %
-%       >> robot.piece.T0= [1 0 0 -0.1; 0 1 0 -0.5;0 0 1 0.2;0 0 0 1]; 
+%       >> robot.piece{1}.T0= [1 0 0 -0.1; 0 1 0 -0.5;0 0 1 0.2;0 0 0 1]; 
 %
 %   The A, B, C, D and E steps can be performed usint the 'teach' application
 %   by clicking on the Load equipment, load end tool, and load piece
@@ -70,7 +70,7 @@ robot = load_robot('ABB','IRB140');
 %load static equipment, such as tables or 
 robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
-robot.piece=load_robot('equipment','objects/bolt');
+robot.piece{1}=load_robot('equipment','objects/bolt');
 
 
 %local function to init simulation variables
@@ -84,10 +84,6 @@ VAR_pieza=0;
 main
 end
 
-A = [1.0000         0         0    0.0300;
-         0    1    0   -0.6800;
-         0  0    1    0.2600;
-         0         0         0    1.0000];
 
 
 function main()
@@ -177,18 +173,18 @@ end
 
 function init_simulation
 global robot
-robot.piece.T0=eye(4);
+robot.piece{1}.T0=eye(4);
 robot.tool.Trel=eye(4);
 % Now open the tool
 simulation_open_tool; %Reset do1; 
 simulation_release_piece;
 %init the position of the piece at the beginning of the simulation
-robot.piece.T0(1:3,4)=[0.03 -0.68 0.26]';
+robot.piece{1}.T0(1:3,4)=[0.03 -0.68 0.26]';
 th=-30*pi/180;
 u=[1 0 0;
    0 cos(th) -sin(th);
    0 sin(th) cos(th)];
-robot.piece.T0(1:3,1:3)=u;%eye(3);
+robot.piece{1}.T0(1:3,1:3)=u;%eye(3);
 %robot.tool.piece_gripped=0;
 drawrobot3d(robot, robot.q);
 

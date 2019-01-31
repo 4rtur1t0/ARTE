@@ -8,11 +8,11 @@
 %   C) NOW, LOAD AN END TOOL
 %       robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
 %   D) FINALLY, LOAD A PIECE TO GRAB BY THE ROBOT
-%       robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
+%       robot.piece{1}=load_robot('equipment','cylinders/cylinder_tiny');
 %
 %   E) IF NECESSARY, CHANGE THE POSITION AND ORIENTATION OF THE ROBOT'S
 %   BASE
-%       robot.piece.T0= [1 0 0 -0.35;
+%       robot.piece{1}.T0= [1 0 0 -0.35;
 %                        0 1 0 -0.55;
 %                        0 0 1 0.2;
 %                        0 0 0 1]; 
