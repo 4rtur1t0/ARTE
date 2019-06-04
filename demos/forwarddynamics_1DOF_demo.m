@@ -59,12 +59,11 @@ adjust_view(robot);
 %in this case you may one of the next two lines, that define
 %the gravity acting along the Y axis or the Z axis, respectively.
 g=[0  -9.81 0]'; %y0 axis
-
 %g=[0  0 -9.81]'; %Z0 axis
 
 tau = [0]';%no torques applied
 %select friction or not
-robot.dynamics.friction = 1;
+robot.dynamics.friction = 0;
 
 fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 

@@ -29,8 +29,8 @@ robot.name='Example 3DOF planar arm';
 %kinematic data DH parameters
 robot.DH.theta='[q(1) q(2) q(3)]';
 robot.DH.d='[0  0  0]';
-%robot.DH.a='[1  1  1]';
-robot.DH.a='[3  1  0.5]';
+robot.DH.a='[1  1  1]';
+%robot.DH.a='[3  1  0.5]';
 robot.DH.alpha='[0  0  0]';
 
 %number of degrees of freedom
