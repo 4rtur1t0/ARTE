@@ -113,7 +113,7 @@ robot.last_zone_data = 'fine';
 robot.has_dynamics=1;
 
 %consider friction or not
-robot.dynamics.friction=1;
+robot.dynamics.friction=0;
 
 %link masses (kg)
 robot.dynamics.masses=[2 2];
@@ -141,7 +141,11 @@ robot.dynamics.Inertia=[0   m1*L1^2/12   m1*L1^2/12    0	0	0;
 %Inertia of the rotor
 robot.motors.Inertia=[0 0];
 %Reduction ratio: motor_speed/joint speed
+<<<<<<< HEAD
+robot.motors.G=[1  1];
+=======
 robot.motors.G=[100  100];
+>>>>>>> develop_new_simulations
 
 
 %Viscous friction factor of the motor

@@ -45,17 +45,25 @@ function exercise1(robot)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %TODO: CHANGE q to find the "worst" pose
+<<<<<<< HEAD
+q=[pi/2 0]';
+=======
 q=[0 pi/2]';
+>>>>>>> develop_new_simulations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 qd=[0 0]'; %speed --> does it make any difference?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TODO: CHANGE qdd [-3 3] to find whether higher torques are achieved.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<<<<<< HEAD
+qdd = [0 0]'; %--> max acceleration
+=======
 qdd = [1 1]'; %--> max acceleration
+>>>>>>> develop_new_simulations
 
 g=[0 -9.81 0]'; % acting on the Y0 axis.
-fext = [0 0 0 0 0 0]';
+fext = [0 0 0 0 0 0]'; %[fx fy fz nx ny nz]
 figure, drawrobot3d(robot, q)
 
 %Compute the torques

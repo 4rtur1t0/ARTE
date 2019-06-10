@@ -57,37 +57,45 @@ T = robot.T0;
 % TODO: 
 % Compute Matrix until joint i-1 (note that no computation is performed for i=1)
 % use the dh(theta(j), d(j), a(j), alfa(j)) function
+if i==1
+   z0=[0 0 1]';
+   o0 = [0 0 0]';
+   T=directkinematic(robot, q);
+   on = T(1:3,4);
 
-
-% store the result in variable T
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% obtain z_{i-1}
-zim = T(1:3,3);
-% obtain o_{i-1}
-oi = T(1:3,4);
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TODO: 
-
-%Compute the end effector's position. Use the directkinematic(robot, q)
-
-% store the result in variable T
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%the position of the end effectors expressed in system 0
-on = T(1:3,4);
-
-% Now compute the sub-jacobian matrix for joint i.
-%rotational joint
-if robot.kind(i) == 'R'
-    
-    % TODO: Compute the submatrix for a rotational joint
-    
-else %prismatic joint
-    Ji = [zim; zeros(3,1)];
+    Ji=[cross(z0,on-o0); 
+    z0];
 end
+
+if i==2
+    A01 = dh(theta(1),d(1),a(1), alfa(1))
+    z1 = A01(1:3,3);
+    T=directkinematic(robot, q);
+    on = T(1:3,4);
+    o1= A01(1:3,4);
+    
+    Ji=[cross(z1,on-o1); 
+    z1];
+end
+
+if i==3
+    A01 = dh(theta(1),d(1),a(1), alfa(1))
+    A12 = dh(theta(2),d(2),a(2), alfa(2))
+    A02 = A01*A12;
+    z2 = A02(1:3,3);
+    T=directkinematic(robot, q);
+    on = T(1:3,4);
+    o2= A02(1:3,4);
+    
+    Ji=[cross(z2,on-o2); 
+    z2];
+end
+
+
+%
+
+% store the result in variable T
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
