@@ -1,5 +1,7 @@
 function q = inversekinematic_6700_150_320(robot, T)
 %Por comodidad, pasamos los datos de T a valores:
+% Author: Carlos Hernandez Iglesias, 2019. Universidad Miguel Hernandez de
+% Elche
 r11=T(1,1);
 r12=T(1,2);
 r13=T(1,3);
