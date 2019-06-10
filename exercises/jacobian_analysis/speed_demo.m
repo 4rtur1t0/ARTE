@@ -15,13 +15,20 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function speed_demo
-
+global robot
 %joint position
-q = [0.1 0.1 0.1 0 0.5 0]'
+q = [0.0 0.0 0.0 0 0.0 0]'
 %joint speed
-qd = [1 1 1 1 1 1]'
+qd = [5 1 0 0 1 1]'
+%robot = load_robot
 
-robot = load_robot
+%J = compute_jacobian_exercise(robot, q);
+J = manipulator_jacobian(robot, q);
+
+Ve=J*qd;
+
+qd = inv(J)*Ve;
+
 V = compute_end_velocity(robot, q, qd)
 
 %plot speed

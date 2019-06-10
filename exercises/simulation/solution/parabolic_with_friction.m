@@ -15,7 +15,7 @@ close all;
 t0 = 0;
 tfinal = 150;
 v=800; % m/s initial speed
-theta0 = pi/8; %initial angle
+theta0 = pi/4; %initial angle
 x0 = 0;
 y0 = 0;
 vx0 = v*cos(theta0);

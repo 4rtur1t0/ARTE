@@ -28,7 +28,7 @@ close all
 robot=load_robot('example', '2dofplanar');
 
 %TODO: uncommment as you solve the exercises
-%exercise1(robot)
+exercise1(robot)
 %exercise2(robot)
 %exercise3(robot)
 
@@ -45,17 +45,17 @@ function exercise1(robot)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %TODO: CHANGE q to find the "worst" pose
-q=[pi/2 pi/2]';
+q=[pi/2 0]';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-qd=[2 2]'; %speed --> does it make any difference?
+qd=[0 0]'; %speed --> does it make any difference?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TODO: CHANGE qdd [-3 3] to find whether higher torques are achieved.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-qdd = [3 3]'; %--> max acceleration
+qdd = [0 0]'; %--> max acceleration
 
 g=[0 -9.81 0]'; % acting on the Y0 axis.
-fext = [0 0 0 0 0 0]';
+fext = [0 0 0 0 0 0]'; %[fx fy fz nx ny nz]
 figure, drawrobot3d(robot, q)
 
 %Compute the torques

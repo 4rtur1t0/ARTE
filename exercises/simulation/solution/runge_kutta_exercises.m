@@ -29,10 +29,10 @@ function runge_kutta_exercises()
 close all;
 
 %uncomment to execute each of the exercises
-exerciseA()%
+%exerciseA()%
 %exerciseB()
 %exerciseC()
-%exerciseD()
+exerciseD()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Integrate a simple time function. dy/dt = 2*ts
@@ -40,7 +40,7 @@ exerciseA()%
 function exerciseA()
 t0 = 0;
 tfinal = 10;
-[t, y] = runge_kutta(@line, 0, [t0 tfinal], 0.01);
+[t, y] = runge_kutta(@line, 0, [t0 tfinal], 1);
 
 %Compare with the integral of 2*t
 error = y(:)-t(:).^2;
@@ -72,14 +72,15 @@ global robot tau g
 t0 = 0;
 tfinal = 10;
 robot = load_robot('example','1dofplanar')
-robot.dynamics.friction=1
+robot.dynamics.friction=0
 tau = [0];
 g = [0 -9.81 0]';
 [t, y] = runge_kutta(@forward_dynamic_robot1, [0 0]', [t0 tfinal], 0.01);
 
+figure, plot(y')
 % Animate the movement. Change speed from 1-30-100-200
-speed = 50
-animate(robot,[y(1,1:speed:length(y)); y(3,1:speed:length(y))])
+speed = 1
+animate(robot,[y(1,1:speed:length(y)); y(2,1:speed:length(y))])
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,12 +92,12 @@ tfinal = 10;
 tau = [0 0];
 g = [0 -9.81 0]';
 robot = load_robot('example','2dofplanar')
-robot.dynamics.friction=0
+robot.dynamics.friction=1
 
 [t, y] = runge_kutta(@forward_dynamic_robot2, [0 0 0 0]', [t0 tfinal], 0.01);
 
 %speed, change to 10, 30, 50, 100
-speed = 15
+speed = 5
 animate(robot,[y(1,1:speed:length(y)); y(2,1:speed:length(y))])
 
 

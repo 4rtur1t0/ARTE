@@ -23,7 +23,7 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
-%global robot
+global robot
 
 
 %For this special case, the mechanism is divided into three different serial
@@ -85,16 +85,16 @@ robot.q=zeros(1, robot.DOF);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %GRAPHICS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%read graphics files
-robot.graphical.has_graphics=1;
-robot.graphical.color = [25 20 40];
-%for transparency
-robot.graphical.draw_transparent=0;
-%draw DH systems
-robot.graphical.draw_axes=1;
-%DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for
-%bigger robots
-robot.graphical.axes_scale=1;
-%adjust for a default view of the robot
-robot.axis=[-2.2 2.2 -2.2 2.2 0 2.2]
+% read graphics files
+% robot.graphical.has_graphics=1;
+% robot.graphical.color = [25 20 40];
+% for transparency
+% robot.graphical.draw_transparent=0;
+% draw DH systems
+% robot.graphical.draw_axes=1;
+% DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for
+% bigger robots
+% robot.graphical.axes_scale=1;
+% adjust for a default view of the robot
+% robot.axis=[-2.2 2.2 -2.2 2.2 0 2.2]
 
