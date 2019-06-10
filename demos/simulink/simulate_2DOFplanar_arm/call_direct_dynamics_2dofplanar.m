@@ -32,6 +32,7 @@ torque = input(1:2);   % Input torque at each joint
 q   = input(3:4);	   % Joint positions
 qd  = input(5:6);	   % Joint speeds
 fe=[0 0 0 0 0 0]'; %external forces applied
+torque
 
 % Compute acceleration
-qdd = forwarddynamics_2dofplanar(robot, q, qd, torque, 9.81, fe);
+qdd = forwarddynamics_2dofplanar(robot, q, qd, torque, 9.81, fe)

@@ -12,8 +12,8 @@ global TD_pistola robot RT_tp1 RT_tp2 RT_tp3 RT_tp4 RT_tp5 RT_tp6 RT_tp7 RT_tp8 
 robot = load_robot('KUKA','KR10_R900');
 robot.equipment{1} = load_robot('equipment','tables/table_extended');
 robot.tool= load_robot('equipment','end_tools/paint_gun');
-robot.piece=load_robot('equipment','miscelanea/helmet');
-robot.piece.T0=[1 0 0 -0.4;
+robot.piece{1}=load_robot('equipment','miscelanea/helmet');
+robot.piece{1}.T0=[1 0 0 -0.4;
                 0 1 0 -0.4;
                 0 0 1 0.2;
                 0 0 0 1];
@@ -45,7 +45,7 @@ adjust_view(robot)
 % move helmet to paint position
 for i=1:8,
     %just update the X position in the T0 matrix corresponding to the piece
-     robot.piece.T0(1,4)=robot.piece.T0(1,4)+i*0.01
+     robot.piece{1}.T0(1,4)=robot.piece{1}.T0(1,4)+i*0.01
      drawrobot3d(robot, robot.q);
      pause(0.2);
 end
@@ -60,7 +60,7 @@ MoveL(RT_tp6, 'vmax' , 'fine' , TD_pistola, 'wobj0');
 MoveJ(RT_tp7, 'vmax' , 'fine' , TD_pistola, 'wobj0');
 MoveJ(RT_tp8, 'vmax' , 'fine' , TD_pistola, 'wobj0');
 
-robot.piece.graphical.color = [40 45 40]./255;
+robot.piece{1}.graphical.color = [40 45 40]./255;
 drawrobot3d(robot, robot.q);
 
 MoveJ(RT_tp9, 'vmax' , 'fine' , TD_pistola, 'wobj0');
@@ -69,7 +69,7 @@ MoveJ(RT_tp9, 'vmax' , 'fine' , TD_pistola, 'wobj0');
 
 %the helmet resumes its movement along the conveyor belt    
 for i=1:8   
-     robot.piece.T0(1,4)=robot.piece.T0(1,4)+i*0.05
+     robot.piece{1}.T0(1,4)=robot.piece{1}.T0(1,4)+i*0.05
      drawrobot3d(robot, robot.q)
      pause(0.2);    
 end

@@ -72,6 +72,11 @@ if robot.dynamics.friction
     end
 end
 
+inv(M)
+tau
+V
+G
+J'*fext
 %Finally use the general equation to compute the torques, considering the
 %external forces.
 qdd =  inv(M)*(tau - V - G - J'*fext);

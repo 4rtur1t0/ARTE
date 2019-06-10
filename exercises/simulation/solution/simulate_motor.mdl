@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.74"
+    ComputedModelVersion    "1.75"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [345.0, 705.0, 1502.0, 695.0]
+      Location		      [628.0, 422.0, 1581.0, 895.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -53,9 +53,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1468.0, 522.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	Extents			[1547.0, 722.0]
+	ZoomFactor		[0.8]
+	Offset			[-143.41666666666674, -155.66666666666686]
       }
     }
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "arturogilaparicio"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 30 13:14:44 2016"
-  RTWModifiedTimeStamp	  402412482
-  ModelVersionFormat	  "1.%<AutoIncrement:74>"
+  LastModifiedDate	  "Mon Feb 11 12:59:41 2019"
+  RTWModifiedTimeStamp	  471790779
+  ModelVersionFormat	  "1.%<AutoIncrement:75>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -859,7 +859,7 @@ Model {
   }
   System {
     Name		    "simulate_motor"
-    Location		    [345, 705, 1847, 1400]
+    Location		    [628, 422, 2209, 1317]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -871,16 +871,16 @@ Model {
     TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "223"
+    SIDHighWatermark	    "232"
     Block {
       BlockType		      Constant
       Name		      "Constant"
       SID		      "211"
       Position		      [740, 150, 770, 180]
       ZOrder		      9
-      Value		      "0.1"
+      Value		      "2"
     }
     Block {
       BlockType		      Gain
@@ -987,7 +987,7 @@ Model {
       ZOrder		      15
       Floating		      off
       Location		      [188, 365, 1075, 861]
-      Open		      off
+      Open		      on
       NumInputPorts	      "1"
       ZoomMode		      "yonly"
       List {
@@ -1013,8 +1013,8 @@ Model {
       Position		      [1330, 139, 1360, 171]
       ZOrder		      18
       Floating		      off
-      Location		      [188, 365, 1075, 861]
-      Open		      on
+      Location		      [893, 233, 1780, 729]
+      Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -1063,13 +1063,69 @@ Model {
       LimitDataPoints	      off
     }
     Block {
+      BlockType		      Scope
+      Name		      "Scope3"
+      SID		      "224"
+      Ports		      [1]
+      Position		      [890, 84, 920, 116]
+      ZOrder		      20
+      Floating		      off
+      Location		      [346, 272, 1505, 877]
+      Open		      on
+      NumInputPorts	      "1"
+      ZoomMode		      "yonly"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
+      SaveName		      "ScopeData3"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope4"
+      SID		      "225"
+      Ports		      [1]
+      Position		      [1090, 79, 1120, 111]
+      ZOrder		      21
+      Floating		      off
+      Location		      [188, 365, 1075, 861]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.501960784313725 0.501960784313725 0.501960784313725]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
+      SaveName		      "ScopeData4"
+      LimitDataPoints	      off
+    }
+    Block {
       BlockType		      Step
       Name		      "Step"
       SID		      "203"
       Position		      [160, 255, 190, 285]
       ZOrder		      1
       Time		      "0"
-      After		      "5"
+      After		      "48"
       SampleTime	      "0"
     }
     Block {
@@ -1156,9 +1212,18 @@ Model {
       Points		      [31, 0]
       Branch {
 	ZOrder			13
-	Points			[34, 0]
-	DstBlock		"Gain2"
-	DstPort			1
+	Points			[25, 0]
+	Branch {
+	  ZOrder		  43
+	  Points		  [0, -170]
+	  DstBlock		  "Scope3"
+	  DstPort		  1
+	}
+	Branch {
+	  ZOrder		  42
+	  DstBlock		  "Gain2"
+	  DstPort		  1
+	}
       }
       Branch {
 	ZOrder			12
@@ -1194,8 +1259,18 @@ Model {
       ZOrder		      18
       SrcBlock		      "Gain4"
       SrcPort		      1
-      DstBlock		      "Integrator1"
-      DstPort		      1
+      Points		      [14, 0]
+      Branch {
+	ZOrder			45
+	Points			[0, -170]
+	DstBlock		"Scope4"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			44
+	DstBlock		"Integrator1"
+	DstPort			1
+      }
     }
     Line {
       ZOrder		      19
@@ -1275,17 +1350,19 @@ Model {
       FixedWidth	      off
       HorizontalAlignment     "left"
       VerticalAlignment	      "top"
+      ZOrder		      -1
     }
     Annotation {
       SID		      "218"
       Name		      "Define the following constants in the Matlab prompt, for example:\nKb=1/(183*(pi/30))\nR = 0.566\nL"
       " = 0.147e-3\nKm = 52.2/1000\nJm = 150e-3\nBm = 0.2\n"
-      Position		      [186, 61, 474, 143]
+      Position		      [236, 76, 524, 158]
       InternalMargins	      [0, 0, 0, 0]
       FixedHeight	      off
       FixedWidth	      off
       HorizontalAlignment     "left"
       VerticalAlignment	      "top"
+      ZOrder		      -2
     }
   }
 }

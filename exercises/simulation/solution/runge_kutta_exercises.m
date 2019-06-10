@@ -31,8 +31,13 @@ close all;
 %uncomment to execute each of the exercises
 %exerciseA()%
 %exerciseB()
+<<<<<<< HEAD
 %exerciseC()
 exerciseD()
+=======
+exerciseC()
+%exerciseD()
+>>>>>>> develop_new_simulations
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Integrate a simple time function. dy/dt = 2*ts
@@ -79,7 +84,11 @@ g = [0 -9.81 0]';
 
 figure, plot(y')
 % Animate the movement. Change speed from 1-30-100-200
+<<<<<<< HEAD
 speed = 1
+=======
+speed = 5
+>>>>>>> develop_new_simulations
 animate(robot,[y(1,1:speed:length(y)); y(2,1:speed:length(y))])
 
 

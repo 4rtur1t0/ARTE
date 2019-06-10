@@ -41,7 +41,7 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function q = inversekinematic_Prosix_C4_A60(robot, T)
+function q = inversekinematic_epson_c4_a60(robot, T)
 
 
 %Evaluate the parameters

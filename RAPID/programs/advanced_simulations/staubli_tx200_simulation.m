@@ -11,9 +11,9 @@ global robot TD_gripper RT_init RT_aprox1 RT_cog1 RT_aprox2 RT_cog2 RT_aprox11 R
 robot = load_robot('STAUBLI','TX200');
 robot.tool= load_robot('equipment','end_tools/vacuum_1');
 robot.equipment{1}=load_robot('equipment','pallet');
-robot.piece = load_robot('equipment','box_big');
+robot.piece{1} = load_robot('equipment','box_big');
 robot.graphical.draw_axes=0;
-robot.piece.graphical.draw_axes=0;
+robot.piece{1}.graphical.draw_axes=0;
 robot.equipment{1}.graphical.draw_axes=0;
 robot.tool.graphical.draw_axes=0;
 robot.graphical.draw_transparent=0;
@@ -28,7 +28,7 @@ RT_aprox2=[[2, 0, .8],[0.707, 0, 0.707, 0], [1, -2, -1, 5], [9E+09,9E+09,9E+09,9
 RT_cog2=[[2.1031, -0.0000, 0.6488],[0.707, 0, 0.707, 0], [2, -2, -1, 6], [9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 
 robot.equipment{1}.T0(1:3,4)=[2.6 0 0]';
-robot.piece.T0(1:3,4)=[-3 -.5 0]';
+robot.piece{1}.T0(1:3,4)=[-3 -.5 0]';
 
 TD_gripper=[1,[[0,0,0.425],[1,0,0,0]],[0.1,[0,0,0.100],[1,0,0,0],0,0,0]];
 

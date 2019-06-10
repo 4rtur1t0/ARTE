@@ -30,6 +30,7 @@ robot.name='Example 3DOF planar arm';
 robot.DH.theta='[q(1) q(2) q(3)]';
 robot.DH.d='[0  0  0]';
 robot.DH.a='[1  1  1]';
+%robot.DH.a='[3  1  0.5]';
 robot.DH.alpha='[0  0  0]';
 
 %number of degrees of freedom
@@ -58,10 +59,7 @@ robot.maxangle =[deg2rad(-180) deg2rad(180); %Axis 1, minimum, maximum
                 deg2rad(-180) deg2rad(180);
                 deg2rad(-180) deg2rad(180)]; %Axis 2, minimum, maximum
           
-            %minimum and maximum rotation angle in rad
-robot.maxangle =[deg2rad(-90) deg2rad(90); %Axis 1, minimum, maximum
-                deg2rad(-90) deg2rad(90);
-                deg2rad(-180) deg2rad(180)]; %Axis 2, minimum, maximum
+            
             
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = []; %empty, not available

@@ -4,7 +4,7 @@ global robot
 robot = load_robot('KUKA','KR30_3')
 robot.equipment{1} = load_robot('equipment','transportadoras');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_1');
-robot.piece=load_robot('equipment','regalo');
+robot.piece{1}=load_robot('equipment','regalo');
 
 
 adjust_view(robot);
@@ -33,7 +33,7 @@ RT_tp9=[[-0.0260, -1.4600, 1.8100],[0.0000, 0.7071, 0.0000, 0.7071], [-1, -2, 1,
 
 
     for i=-2.9:0.2:-0.3
-    robot.piece.T0 = [1 0 0 1.3;
+    robot.piece{1}.T0 = [1 0 0 1.3;
              0 1 0 i;
              0 0 1 0.45;
              0 0 0 1];
@@ -63,7 +63,7 @@ MoveJ(RT_tpini, 'vmax' , 'fine' , tool0, 'wobj0');
 
 
     for i=-0.5860:0.2:2.8
-    robot.piece.T0 = [1 0 0 -1.65;
+    robot.piece{1}.T0 = [1 0 0 -1.65;
              0 1 0 i;
              0 0 1 0.45;
              0 0 0 1];

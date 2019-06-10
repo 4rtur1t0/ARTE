@@ -52,11 +52,11 @@ global robot TD_gripper RT_initial RT_approach1 RT_grip RT_approach2 RT_approach
 robot = load_robot('STAUBLI','tx200l');
 robot.equipment{1} = load_robot('equipment','oven');
 robot.tool= load_robot('equipment','end_tools/vacuum_1');
-robot.piece=load_robot('equipment','gear');
+robot.piece{1}=load_robot('equipment','gear');
 
 
 %init the position of the piece at the beginning of the simulation
-robot.piece.T0(1:3,4)=[2 1 0.2]';
+robot.piece{1}.T0(1:3,4)=[2 1 0.2]';
 %robot.tool.piece_gripped=0;
 drawrobot3d(robot, robot.q);
 

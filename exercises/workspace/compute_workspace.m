@@ -5,6 +5,9 @@ global robot
 close all
 M = 10000;
 work = [];
+robot.maxangle =[deg2rad(-90) deg2rad(90); %Axis 1, minimum, maximum
+                deg2rad(-90) deg2rad(90);
+                deg2rad(-180) deg2rad(180)]; %Axis 2, minimum, maximum
 for i=1:M,
     i
     q = randInRange();

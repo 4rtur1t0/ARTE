@@ -69,6 +69,7 @@ for i=1:length(x),
         
     drawrobot3d(robot, q(:,1), 1) %noclear activated
     drawrobot3d(robot, q(:,1)) %noclear deactivated
+    pause(0.1)
 end
 
 

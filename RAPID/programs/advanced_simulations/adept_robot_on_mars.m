@@ -15,12 +15,12 @@
 %   C) NOW, LOAD AN END TOOL
 %       robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
 %   D) FINALLY, LOAD A PIECE TO GRAB BY THE ROBOT
-%       robot.piece=load_robot('equipment','cylinders/cylinder_tiny');
+%       robot.piece{1}=load_robot('equipment','cylinders/cylinder_tiny');
 %
 %   E) IF NECESSARY, CHANGE THE POSITION AND ORIENTATION OF THE piece,
 %   relative to the robot's base reference system.
 %
-%       robot.piece.T0= [1 0 0 -0.1;
+%       robot.piece{1}.T0= [1 0 0 -0.1;
 %                        0 1 0 -0.5;
 %                        0 0 1 0.2;
 %                        0 0 0 1]; 
@@ -70,8 +70,8 @@ robot.equipment{2}.T0(1:3,4)=[6 0 -0.15]';
 robot.equipment{3}.T0(1:3,4)=[-0.2 0 -0.15]';
 robot.equipment{4}.T0(1:3,4)=[0.6 0.5 -0.15]';
 robot.T0(1:3,4)=[0 0 0]';
-robot.piece= load_robot('equipment/objects','roca');
-robot.piece.T0(1:3,4)=[0.6 0.4 0.25]';
+robot.piece{1}= load_robot('equipment/objects','roca');
+robot.piece{1}.T0(1:3,4)=[0.6 0.4 0.25]';
 
 
 %init the position of the piece at the beginning of the simulation
@@ -141,7 +141,7 @@ end
 %Despegue cohete
 for i = 0:0.3:6
     robot.equipment{2}.T0(1:3,4)=[6 0 (-0.15+i)]'
-    robot.piece.T0(1:3,4)=[6 0 +i]
+    robot.piece{1}.T0(1:3,4)=[6 0 +i]
     drawrobot3d(robot, robot.q);
 end
 %MoveL(RT_posicion2_robot, 'vmax' , 'fine' , robot, 'wobj0');

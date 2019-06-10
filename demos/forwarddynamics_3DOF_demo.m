@@ -71,7 +71,7 @@ fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 
 %this may take a while, since it requires integration
 %of the acceleration at each time step
-[t q qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, g, []);
+[t, q, qd] = forwarddynamic(robot, total_simulation_time, q0, qd0, tau, g, []);
 
 %animate it!!
 animate(robot, q)

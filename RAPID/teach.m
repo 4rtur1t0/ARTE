@@ -2936,7 +2936,7 @@ function pushbutton_load_piece_Callback(hObject, eventdata, handles)
 
 global robot
 
-robot.piece=load_robot();%('equipment/cylinders/cylinder_tiny');
+robot.piece{1}=load_robot();%('equipment/cylinders/cylinder_tiny');
 %robot.piece.T0(1:3,4)=[0 -0.45 0.2]';
 
 

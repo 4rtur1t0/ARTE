@@ -33,7 +33,7 @@ global robot
 robot = load_robot('ABB','IRB6640');
 robot.equipment{1} = load_robot('equipment','conveyor_belt');
 robot.tool= load_robot('equipment','end_tools/spot_welding');
-robot.piece=load_robot('equipment','bodywork2');
+robot.piece{1}=load_robot('equipment','bodywork2');
 
 
 car_welding()
@@ -63,7 +63,7 @@ function main()
 global TD_tool0 RT_tp1 RT_tp2 RT_tp3 RT_tp4 RT_tp5 JV_q0 robot
 
 for i=-7:0.5:2
-robot.piece.T0 = [1 0 0 0;
+robot.piece{1}.T0 = [1 0 0 0;
              0 1 0 i;
              0 0 1 0;
              0 0 0 1];
@@ -86,7 +86,7 @@ simulation_open_tool
  MoveAbsJ(JV_q0, 'vmax' , 'fine' , TD_tool0, 'wobj0');
 
  for i=2:0.5:5
-    robot.piece.T0 = [1 0 0 0;
+    robot.piece{1}.T0 = [1 0 0 0;
              0 1 0 i;
              0 0 1 0;
              0 0 0 1];
@@ -100,7 +100,7 @@ simulation_open_tool
 MoveAbsJ(JV_q0, 'vmax' , 'fine' , TD_tool0, 'wobj0');
 
 for i=5:0.5:13
-robot.piece.T0 = [1 0 0 0;
+robot.piece{1}.T0 = [1 0 0 0;
              0 1 0 i;
              0 0 1 0;
              0 0 0 1];

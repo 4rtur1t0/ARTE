@@ -26,13 +26,13 @@ init_lib;
 %Cargamos el robot y los elementos necesarios
 robot = load_robot('ADEPT','VIPER_s650');
 robot.tool= load_robot('equipment','end_tools/paint_gun');
-robot.piece=load_robot('equipment','miscelanea/cat_bowl');
+robot.piece{1}=load_robot('equipment','miscelanea/cat_bowl');
 robot.equipment{1} = load_robot('equipment','tables/table_extended');
 %Colocamos en sus posiciones iniciales la cinta transportadora y el objeto
 %a pintar
 
 robot.equipment{1}.T0(1:3,4)=[-1 -0.7 0]';
-robot.piece.T0(1:3,4)=[0 -0.4 0.2]';
+robot.piece{1}.T0(1:3,4)=[0 -0.4 0.2]';
 
 %Dibujamos
  
