@@ -45,7 +45,7 @@ end
 %get adjusted view
 [az,el] = view;
 for j=1:size(q, 2);
-    clf(h);
+    %clf(h);
     qj=q(:,j);  
     view(az,el);
     %draw robot in 3D 
