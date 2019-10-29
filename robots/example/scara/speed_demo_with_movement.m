@@ -14,30 +14,35 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function speed_demo
-global robot
+function speed_demo_with_movement
+close all
+robot = load_robot('example', 'scara')
+
+% DIRECT JACOBIAN
 %joint position
-q = [0.0 0.0 0.0 0 -pi/2 0]'
+q = [0 0 0 0]';
 %joint speed
-qd = [0 0 0 0 0 5]'
-%robot = load_robot
+qd = [pi/2 pi/2 0.5 0]';
 
-%J = compute_jacobian_exercise(robot, q);
-J = manipulator_jacobian(robot, q);
+qs = [];
+vs = [];
+for i=1:30,
+     a = eval(robot.DH.a);
+     J = eval(robot.J);
+    %J = manipulator_jacobian(robot, q)
+    v = J*qd(1:3);
+    q = q + qd*0.1;
+    qs = [qs q];
+    vs = [vs v];
+end
 
-Ve=J*qd;
+figure, plot(qs(1,:),'rs'), hold
+plot(qs(2,:),'g*')
+plot(qs(3,:),'bd')
+legend('q1 (rad)', 'q2 (rad)', 'q3 (rad)')
 
-qd = inv(J)*Ve;
+figure, plot(vs(1,:),'rs'), hold
+plot(vs(2,:),'g*')
+plot(vs(3,:),'bd')
+legend('vx m/s', 'vy m/s', 'vz m/s')
 
-V = compute_end_velocity(robot, q, qd)
-
-%plot speed
-T = directkinematic(robot, q)
-p0 = T(1:3,4)
-drawrobot3d(robot, q)
-draw_vector(V(1:3), p0, 'linear speed V', 2)
-draw_vector(V(4:6), p0, 'angular speed W', 1)
-
-%find joint speeds
-%caution! you may be at a singular point, modify q accordingly
-qd=compute_joint_velocity(robot, q, V)

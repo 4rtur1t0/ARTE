@@ -34,5 +34,5 @@ if ~exist('scale', 'var')
     scale=0.8;
 end
 p1 = p0(:) + 0.1*scale*V;
-vect_arrow(p0, p1, 'r', scale*3) %standard WIDTH for arrows is 3
-text(p1(1)+0.01, p1(2)-0.01, p1(3)+0.01, text_label, 'FontWeight', 'bold', 'HorizontalAlignment', 'Center', 'FontSize', round(24*scale)); 
+vect_arrow(p0, p1, 'k', scale*3) %standard WIDTH for arrows is 3
+text(p1(1)+0.05, p1(2)-0.05, p1(3)+0.05, text_label, 'FontWeight', 'bold', 'HorizontalAlignment', 'Center', 'FontSize', round(5*scale)); 
