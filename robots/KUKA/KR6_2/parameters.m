@@ -35,7 +35,7 @@ robot.DH.a='     [ 0.26    0.68        -0.035      0       0       0   ]';
 robot.DH.alpha= '[ -pi/2   0           pi/2      -pi/2    pi/2     pi  ]';
 
 
-%robot.J=[];
+robot.J=[];
 robot.name= 'KR6_2';
 
 robot.inversekinematic_fn = 'inversekinematic_kuka_kr6_2(robot, T)';
