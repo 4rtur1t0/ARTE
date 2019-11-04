@@ -21,21 +21,22 @@
 function draw_errors_monte_carlo
 close all
 
-M=1500; %number of particles
+M=3000; %number of particles
 
 %load arm parameters
-%robot=load_robot('ABB', 'IRB140');
-robot=load_robot('example', '2dofplanar');
+robot=load_robot('ABB', 'IRB140');
+%robot=load_robot('example', '2dofplanar');
+robot.graphical.draw_transparent=1;
 
 %standard deviation AT EACH JOINT
-sigmaq=0.017;%rad
+sigmaq=0.17;%rad
 
 %find errors around this pose
-%q=[pi/2 -pi/2 0 0 0 0]';
-q=[pi/2 -pi/2]';
+q=[pi/4 pi/2 -pi/2 0 0 0]';
+%q=[pi/2 -pi/2]';
 
 puntos=[];
-for i=1:M,
+for i=1:M
     %normrnd is included in the Statistics and Machine Learning Toolbox
     %change to the next line if this package is not included in your
     %qi = q + [normrnd(0, sigmaq, robot.DOF, 1)];
@@ -61,8 +62,8 @@ z1 = rand();
 generate = 0;
 
 R=[];
-for i=1:n,
-    for j=1:m,
+for i=1:n
+    for j=1:m
         gauss = generate_gaussian(mu, sigma);
         R(i,j)=gauss;
     end

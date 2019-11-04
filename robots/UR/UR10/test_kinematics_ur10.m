@@ -20,19 +20,24 @@
 close all
 
 fprintf('\nSimple test: try to reach T')
+% 
+% T = [1 0 0  0.5; 
+%      0 1 0  1.1;
+%      0 0 1  0.5;
+%      0 0 0   1];
+q = [pi/2 pi/4 -pi/4 0.4 0.5 -pi/4]';
 
+%Plot manipulatiliby ellipse
+drawrobot3d(robot, q)
+T = directkinematic(robot, q)
 
-T = [1 0 0  0.3; 
-     0 1 0  0.3;
-     0 0 1  0.5;
-     0 0 0   1];
 %try this initial seed for the inverse kinematic
 %different seeds do allow to obtain different solutions
-q = [0.1 0.1 0.1 0.2 0.2 0.2]';
-drawrobot3d(robot, q)
+q0 = [0.1 0.1 0.1 0.1 0.1 0.1]';
+drawrobot3d(robot, q0)
 adjust_view(robot)
 
-qinv = inverse_kinematics_ur10(robot, T, q)
+qinv = inverse_kinematics_ur10(robot, T, q0)
 
 drawrobot3d(robot, qinv)
 
@@ -65,10 +70,10 @@ T = directkinematic(robot, q)
 robot.graphical.draw_transparent=0;
 
 %try to look for a different solution
-q = [0.1 0.1 0.1 0.1 0.1 0.1]';
+q0 = [0.1 0.1 0.1 0.1 0.1 0.1]';
 %Call the inversekinematic for this robot. All the possible solutions are
 %stored at qinv. At least, one of the possible solutions should match q
-qinv = inversekinematic(robot, T, q)
+qinv = inversekinematic(robot, T, q0)
 
 
 T_reach = directkinematic(robot, qinv)

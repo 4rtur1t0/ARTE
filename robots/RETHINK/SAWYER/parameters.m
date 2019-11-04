@@ -145,10 +145,10 @@ robot.motors=load_motors([5 5 5 4 4 4]);
 robot.motors.G=[300 300 300 300 300 300];
 
 %SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
-robot.parameters.step_time=0.1;
+robot.parameters.step_time=0.01;
 %Error in XYZ to stop inverse kinematics
 robot.parameters.epsilonXYZ=0.01;
 %Error in Quaternion to stop inverse kinematics.
-robot.parameters.epsilonQ=0.01;
+robot.parameters.epsilonQ=0.005;
 robot.parameters.stop_iterations=500;
 

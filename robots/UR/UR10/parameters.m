@@ -78,7 +78,7 @@ robot.path = pwd;
 robot.graphical.has_graphics=1;
 robot.graphical.color = [255 102 51]./255;
 %for transparency
-robot.graphical.draw_transparent=1;
+robot.graphical.draw_transparent=0;
 %draw DH systems
 robot.graphical.draw_axes=1;
 %DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for
@@ -131,9 +131,9 @@ robot.motors.G=[300 300 300 300 300 300];
 %SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
 robot.parameters.step_time=0.1;
 %Error in XYZ to stop inverse kinematics
-robot.parameters.epsilonXYZ=0.01;
+robot.parameters.epsilonXYZ=0.005;
 %Error in Quaternion to stop inverse kinematics.
-robot.parameters.epsilonQ=0.01;
+robot.parameters.epsilonQ=0.005;
 robot.parameters.stop_iterations=500;
 
 

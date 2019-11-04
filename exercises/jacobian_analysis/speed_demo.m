@@ -17,9 +17,9 @@
 function speed_demo
 global robot
 %joint position
-q = [0.0 0.0 0.0 0 -pi/2 0]'
+q = [pi/4 pi/4 pi/4 0 -pi/2 0]'
 %joint speed
-qd = [0 0 0 0 0 5]'
+qd = [1 1 1 0 0 5]'
 %robot = load_robot
 
 %J = compute_jacobian_exercise(robot, q);

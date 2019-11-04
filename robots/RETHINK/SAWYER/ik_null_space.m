@@ -11,7 +11,7 @@ global robot
 M = 1500;
 step_time = 0.5;
 
-height1 = 2; %m
+height1 = 1.2; %m
 x1 = -1;
 
 %the orientation needed
@@ -20,9 +20,15 @@ p0 = [x1 height1 0]';
 T0 = build_T(p0, phi);
 signo = 1;
 a=1;
+
+q = [pi/4 -pi/4 pi/8 -pi/2 pi/4 pi/4 pi/4];
+drawrobot3d(robot, q)
+T0 = directkinematic(robot, q);
+
 %initial pose and manipulability
 qq = [];
-q0 = [0 0 0 0 0 0 0]';
+q0 = [0.2 0.2 0.2 0.2 0.2 0.2 0.2]';
+
 q = inversekinematic(robot, T0, q0);
 %hold
 for i=1:M
@@ -30,7 +36,7 @@ for i=1:M
     qd = null_space_7dof(robot, q);
     q = q + signo*qd*step_time;
     drawrobot3d(robot, q)
-    pause(0.1)
+    %pause(0.1)
     draw_axes(T0, 'Xpiece', 'Ypiece', 'Zpiece', 1.2);
     qq = [qq q];
     

@@ -12,6 +12,9 @@
 %   Tf--> final position/orientation wanted as a homogeneous matrix
 function q = inverse_kinematics_sawyer(robot, Tf, q0)
 %global parameters
+% try to maximize manipulabiity while moving the arm
+maximize_manipulability = 1;
+
 % Obtain thea matriz de posición/orientación en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
@@ -31,7 +34,6 @@ while i < robot.parameters.stop_iterations
     v0 = compute_high_level_action_kinematic_v(Pf, Pi); %1m/s 
     w0 = compute_high_level_action_kinematic_w(Qf, Qi); %1rad/s
     %the restriction is the speed to reach the point
-    %i
     Vref = [v0' w0']';
     if eps1 < robot.parameters.epsilonXYZ && eps2 < robot.parameters.epsilonQ
         fprintf('INVERSE KINEMATICS SUCCESS: REACHED epsilonXYZ AND epsilonQ\n')
@@ -40,12 +42,18 @@ while i < robot.parameters.stop_iterations
     end
     qd = inverse_kinematic_moore_penrose(robot, q, Vref);
     
+    % add a null movement to maximize manipulability
+    if maximize_manipulability        
+        qdm = max_manipulability_simple(robot, q, +1);
+        qd = qd + 10*qdm;
+    end
     %actually move the robot.
     q = q + qd*step_time;
-    %normalize to -pi/pi
-    %drawrobot3d(robot, q)
+    drawrobot3d(robot, q)
     %pause(0.1)
     i=i+1;
+    eps1
+    eps2
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
 
@@ -123,3 +131,48 @@ function qd = inverse_kinematic_moore_penrose(robot, q, Vref)
 J = manipulator_jacobian(robot, q);
 Jp = pinv(J);
 qd = Jp*Vref;
+
+
+
+function [x] = max_manipulability_simple(robot, q, sign_max)
+%compute nil-space!!
+J = manipulator_jacobian(robot, q);
+I = eye(7);
+Jp = pinv(J);
+%null space projector
+qd = [0 0 1 0 0 0 0]';
+%q2 está calculado a través de un proyector (I-Jp*J),
+%, de tal manera que q2 pertenece al null space de J
+qd_null = (I-Jp*J)*qd;
+%normalize qd_null
+qd_null = qd_null/norm(qd_null);
+
+% in manipulability
+delta_manip = compute_delta_manip(robot, q, qd_null, 0.01);
+
+%but, add a constant for the step,
+% add a sign for maximization/minimization
+% the constant is based on the rate of delta_manip also
+x = sign_max*sign(delta_manip)*qd_null;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Computes a gradient so as to let the manipulability be improved
+% q is the current joint position
+% qd is the instantaneous speed that lies in the null space
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function delta_manip = compute_delta_manip(robot, q, qd, delta)
+%compute initial Jacobian
+J = manipulator_jacobian(robot, q);
+%compute first manipulability index
+m0 = det(J*J');
+%move differentially along the null space.
+q = q + delta*qd;
+%compute another 
+Jd = manipulator_jacobian(robot, q);
+%compute second manipulability index
+m1 = det(Jd*Jd');
+%delta_manip = trace(inv(J*J')*(Jd*J'+J*Jd'));
+%return difference
+delta_manip=(m1-m0)/delta;

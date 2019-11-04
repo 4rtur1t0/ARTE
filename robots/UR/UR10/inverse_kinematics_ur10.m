@@ -18,6 +18,8 @@ Pf = Tf(1:3,4);
 q=q0;
 step_time = robot.parameters.step_time;
 i=0;
+eps = [];
+mplabilitys = [];
 %this is a gradient descent solution based on moore-penrose inverse
 while i < robot.parameters.stop_iterations
     Ti = directkinematic(robot, q);
@@ -31,7 +33,6 @@ while i < robot.parameters.stop_iterations
     v0 = compute_high_level_action_kinematic_v(Pf, Pi); %1m/s 
     w0 = compute_high_level_action_kinematic_w(Qf, Qi); %1rad/s
     %the restriction is the speed to reach the point
-    %i
     Vref = [v0' w0']';
     if eps1 < robot.parameters.epsilonXYZ && eps2 < robot.parameters.epsilonQ
         fprintf('INVERSE KINEMATICS SUCCESS: REACHED epsilonXYZ AND epsilonQ\n')
@@ -44,6 +45,12 @@ while i < robot.parameters.stop_iterations
     %drawrobot3d(robot, q)
     %pause(0.01);   
     i=i+1;
+%     J = manipulator_jacobian(robot, q);
+%     mplability = det(J*J');    
+%     eps = [eps [eps1 eps2]'];
+%     mplabilitys = [mplabilitys mplability];
+%     eps1
+%     eps2
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
 
