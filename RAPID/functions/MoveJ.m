@@ -43,7 +43,7 @@ Ttotal = transform_to_homogeneous(robtarget);
 T = Ttotal/Ttool;
 
 %Obtain solutions from inversekinematic function
-q_final=inversekinematic(robot, T);
+q_final=inversekinematic(robot, T, robot.q);
 
 %select one of the solutions of the inverse kinematic problem
 % solution according to configuration and language.

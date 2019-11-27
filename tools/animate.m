@@ -31,29 +31,23 @@
 function animate(robot, q, line)
 global configuration 
 
-h=figure(configuration.figure.robot);, hold on,
+h=figure(configuration.figure.robot); hold on,
 %adjust 3D view as desired
-%adjust_view(robot)
 v=zeros(3,3);
 if exist('line', 'var')
     T1=directkinematic(robot, q(:,1));
     T2=directkinematic(robot, q(:,end));
-
     v=[T1(1:3,4) T2(1:3,4)];
 end
 
 %get adjusted view
 [az,el] = view;
-for j=1:size(q, 2);
-    %clf(h);
+for j=1:size(q, 2)
     qj=q(:,j);  
     view(az,el);
+    % axis(robot.axis)
     %draw robot in 3D 
-    %robot=drawrobot3d_simulation(robot, qj);  
-
     drawrobot3d(robot, qj);  
-    
-    %plot3(path(1,:),path(2,:),path(3,:),'k', 'LineWidth', 3);
     plot3(v(1,:),v(2,:),v(3,:),'k', 'LineWidth', 3);
     
     %pause to get a nice view

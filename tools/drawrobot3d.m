@@ -77,7 +77,7 @@ end
 V=[];
 
 T = robot.T0;
-for i=1:robot.DOF+1,
+for i=1:robot.DOF+1
     
     if robot.graphical.has_graphics
         draw_link(robot, i, T);        
@@ -117,7 +117,7 @@ if isfield(robot, 'tool')
         q_tool=zeros(1,robot.tool.DOF);
     end
     robot.tool.T0=T;
-    for i=1:robot.tool.DOF+1,
+    for i=1:robot.tool.DOF+1
         if robot.tool.graphical.has_graphics
             draw_link(robot.tool, i, T);
         else
@@ -169,32 +169,30 @@ end
 % robot.tool_activated==0 maintains the last known location for the pieced
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isfield(robot, 'piece')
-    for i=1:size(robot.piece,2),
+    for i=1:size(robot.piece,2)
         pieza_dibujar = robot.piece{i};
-    if isfield(pieza_dibujar, 'graphical')
-
-        if pieza_dibujar.graphical.has_graphics
-            if isfield(robot, 'tool')
-                if robot.tool.piece_gripped==1
-                    %update the last known position and orientation of the robot
-                    %Trel is computed when the simulation_grip_piece function is
-                    %executed. Trel is the relative position and orientation of
-                    %the tool and the piece that assures that the piece is
-                    %picked at a constant and visually effective orientation.
-                    draw_link(pieza_dibujar, 1, T07*(robot.tool.Trel));
+        if isfield(pieza_dibujar, 'graphical')
+            if pieza_dibujar.graphical.has_graphics
+                if isfield(robot, 'tool')
+                    if robot.tool.piece_gripped==1
+                        %update the last known position and orientation of the robot
+                        %Trel is computed when the simulation_grip_piece function is
+                        %executed. Trel is the relative position and orientation of
+                        %the tool and the piece that assures that the piece is
+                        %picked at a constant and visually effective orientation.
+                        draw_link(pieza_dibujar, 1, T07*(robot.tool.Trel));
+                    end
                 else
                     draw_link(pieza_dibujar, 1, pieza_dibujar.T0);
                 end
             end
-        else
-            draw_link(pieza_dibujar, 1, pieza_dibujar.T0);
         end
         if pieza_dibujar.graphical.draw_axes
             draw_axes(pieza_dibujar.T0, sprintf('X_{piece%d}',0), sprintf('Y_{piece%d}',0), sprintf('Z_{piece%d}',0));
         end
-
     end
-    end
+end
+    
 end
 
 

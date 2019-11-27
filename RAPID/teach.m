@@ -2275,7 +2275,7 @@ for i=startIndex:size(path,2),
     %try to use a closed solution for the inverse kinematic
     %use a closed solution
     if robot.DOF < 7	
-        qinv = inversekinematic(robot, T); 	
+        qinv = inversekinematic(robot, T, robot.q); 	
     else
         %or use a gradient descent method that needs a seed
         qinv = inversekinematic(robot, T, robot.q);

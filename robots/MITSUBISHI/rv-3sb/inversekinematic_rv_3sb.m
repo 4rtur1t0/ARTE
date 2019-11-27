@@ -1,18 +1,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Q = INVERSEKINEMATIC_RV_6S_6DOF(robot, T)	
-%   Solves the inverse kinematic problem for the MITSUBISHI RV-6S robot
+%   Q = INVERSEKINEMATIC_RV_3SB_6DOF(robot, T)	
+%   Solves the inverse kinematic problem for the MITSUBISHI RV-3SB robot
 %   where:
 %   robot stores the robot parameters.
 %   T is an homogeneous transform that specifies the position/orientation
 %   of the end effector.
 %
-%   A call to Q=INVERSEKINEMATIC_RV_6S_6DOF returns 8 possible solutions, thus,
+%   A call to Q=INVERSEKINEMATIC_RV_3SB returns 8 possible solutions, thus,
 %   Q is a 6x8 matrix where each column stores 6 feasible joint values.
 %
 %   
 %   Example code:
 %
-%   robot=load_robot('mitsubishi', 'rv-6s');
+%   robot=load_robot('mitsubishi', 'rv-3sb');
 %   q = [0 0 0 0 0 0];	
 %   T = directkinematic( robot, q);
 %   %Call the inversekinematic for this robot
@@ -23,6 +23,9 @@
 %        Ti = directkinematic( robot, qinv(:,i))
 %   end
 %	See also DIRECTKINEMATIC.
+%
+%   Author: Héctor Rubén Carías Juárez
+%           Universidad Don Bosco de El Salvador
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
@@ -41,8 +44,7 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-
-function q = inversekinematic_rv_6s(robot, T)
+function q = inversekinematic_rv_3sb(robot, T)
 
 %initialize q,
 %eight possible solutions are generally feasible
@@ -105,7 +107,6 @@ q(2,:) = normalize(q(2,:));
 
 % solve for the last three joints
 % for any of the possible combinations (theta1, theta2, theta3)
-
 for i=1:2:size(q,2),
     qtemp = solve_spherical_wrist(robot, q(:,i), T, 1,'geometric'); %wrist up
     qtemp(4:6)=normalize(qtemp(4:6));

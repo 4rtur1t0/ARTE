@@ -141,7 +141,7 @@ robot.dynamics.Inertia=[0   m1*L1^2/12   m1*L1^2/12    0	0	0;
 %Inertia of the rotor
 robot.motors.Inertia=[0 0];
 %Reduction ratio: motor_speed/joint speed
-robot.motors.G=[1  1];
+robot.motors.G=[10  10];
 
 
 %Viscous friction factor of the motor

@@ -26,7 +26,7 @@ robot=load_robot('example', '2dofplanar');
 
 %simulate for 10 seconds, change this depending on your computer speed and
 %the total time that you want to simulate
-total_simulation_time = 5; 
+total_simulation_time = 10; 
 
 %initial position and joint speed
 q0 = [0 0]';
@@ -60,7 +60,7 @@ adjust_view(robot);
 %the gravity acting along the Y axis or the Z axis, respectively.
 g=[0  -9.81 0]'; %y0 axis
 
-tau = [0 0]';%no torques applied
+tau = [20 20]';%no torques applied
 %select friction or not
 robot.dynamics.friction = 1;
 
@@ -79,7 +79,7 @@ xlabel('time (s)'), ylabel('Speed (rad/s)')
 legend('qd_1', 'qd_2', 'qd_3', 'qd_4', 'qd_5', 'qd_6');
 
 %plot results faster in animate!
-qq = q(:,1:1000:end);
+qq = q(:,1:2:end);
 
 %animate it!!
 animate(robot, qq)

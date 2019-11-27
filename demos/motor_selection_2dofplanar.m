@@ -82,13 +82,13 @@ maximum_accels=[pi/4 pi/4]; %rad/second^2
 % time of the trapezoidal profile that the joint moves at maximum speed
 time_at_constant_speed=2; %seconds
 
-robot.motors.G = [100 100]
-
 
 %load robot parameters. Just uncomment this line
 robot=load_robot('example', '2dofplanar');
 drawrobot3d(robot, q)
 
+% CUIDADO: los resultados se calculan con estas ratios.
+robot.motors.G = [1 1]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

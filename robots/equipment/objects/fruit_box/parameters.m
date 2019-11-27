@@ -53,9 +53,9 @@ robot.velmax = [];%Axis 6, rad/s
 robot.linear_velmax = 0; %m/s
 
 %base reference system
-robot.T0 = [1 0 0 -0.2;
-            0 0 -1 -0.45;
-            0 1 0 0.2;
+robot.T0 = [1 0 0 0.4;
+            0 0 -1 0.4;
+            0 1 0 0.0;
             0 0 0 1];
 %definition of the tool center point with respect to the last reference
 %system.
