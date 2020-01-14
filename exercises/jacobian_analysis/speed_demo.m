@@ -15,7 +15,8 @@
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function speed_demo
-global robot
+robot = load_robot('KUKA', 'KR6_2');
+
 %joint position
 q = [pi/4 pi/4 pi/4 0 -pi/2 0]'
 %joint speed

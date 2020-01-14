@@ -13,14 +13,21 @@
 function q = inverse_kinematics_sawyer(robot, Tf, q0)
 %global parameters
 % try to maximize manipulabiity while moving the arm
-maximize_manipulability = 1;
+if robot.maximize_manipulability == 1
+    maximize_manipulability = 1;
+elseif robot.maximize_manipulability == -1
+    maximize_manipulability = -1;
+else
+    maximize_manipulability = 0;
+end
 
 % Obtain thea matriz de posición/orientación en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
-q=q0;
+q=q0(:);
 step_time = robot.parameters.step_time;
 i=0;
+
 %this is a gradient descent solution based on moore-penrose inverse
 while i < robot.parameters.stop_iterations
     Ti = directkinematic(robot, q);
@@ -40,17 +47,26 @@ while i < robot.parameters.stop_iterations
         q = atan2(sin(q), cos(q));
         return;
     end
-    qd = inverse_kinematic_moore_penrose(robot, q, Vref);
-    
+    %qd = inverse_kinematic_moore_penrose(robot, q, Vref);
+    J = manipulator_jacobian(robot, q);
+    iJ = inverse_jacobian(J, 'dampedmoore');
+    qd = iJ*Vref;
+    % yes, normalize speed to avoid inconsistencies
+    % qd is normalize so as to have higher Vref
+    qd = normalize_qd(qd, norm(Vref));
+
     % add a null movement to maximize manipulability
-    if maximize_manipulability        
-        qdm = max_manipulability_simple(robot, q, +1);
-        qd = qd + 10*qdm;
+    if maximize_manipulability==1 ||  maximize_manipulability==-1  
+        % caution, if maximize_manipulability = +1--> maximizes manip.
+        % else if maximize_manipulability = -1 it is minimized
+        qdm = max_manipulability_simple(robot, q, maximize_manipulability);
+        qdm = qdm/sum(abs(qdm));
+        qd = 0.5*qd + 0.5*qdm;
     end
     %actually move the robot.
     q = q + qd*step_time;
-    drawrobot3d(robot, q)
-    %pause(0.1)
+    % drawrobot3d(robot, q)
+    % pause(0.1)
     i=i+1;
     eps1
     eps2
@@ -89,11 +105,12 @@ w = w(:);
 % Compute angular speed w that moves Q0 into Q1 in time total_time.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function w = angular_w_between_quaternions(Q0, Q1, total_time)
-global robot
+%global robot
 %below this number, the axis is considered as [1 0 0]
 %this is to avoid numerical errors
 %this is the actual error allowed for w
-epsilon_len = robot.parameters.epsilonQ;
+%epsilon_len = robot.parameters.epsilonQ;
+epsilon_len = 0.0001;
 %Let's first find quaternion q so q*q0=q1 it is q=q1/q0 
 %For unit length quaternions, you can use q=q1*Conj(q0)
 Q = qprod(Q1, qconj(Q0));
@@ -110,6 +127,19 @@ else
     axis=[1 0 0];
 end
 w=axis*angle/total_time;
+
+%
+% Normalize qd based on the current error in position and orientation.
+%
+function qd = normalize_qd(qd, e)
+% qdmax = max(abs(qd));
+%normalize to unit vector
+qd = qd/abs(sum(qd));
+x = [0.001 0.01 0.1 0.5 1 2 3 5];
+v = [0.001 1  5 10 20 20 20 20];
+kp = interp1(x,v,e);
+% finally scale
+qd = kp*qd;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -141,11 +171,13 @@ I = eye(7);
 Jp = pinv(J);
 %null space projector
 qd = [0 0 1 0 0 0 0]';
+qd = q; % [0 0 1 0 0 0 0]';
+
 %q2 está calculado a través de un proyector (I-Jp*J),
 %, de tal manera que q2 pertenece al null space de J
 qd_null = (I-Jp*J)*qd;
 %normalize qd_null
-qd_null = qd_null/norm(qd_null);
+qd_null = qd_null/sum(abs(qd_null)); %norm(qd_null);
 
 % in manipulability
 delta_manip = compute_delta_manip(robot, q, qd_null, 0.01);

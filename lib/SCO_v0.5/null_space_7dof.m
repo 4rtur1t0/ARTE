@@ -8,7 +8,8 @@ Jp=pinv(J);
 %n_space_projector = (I-Jp*J);
 %for an arbitrary vector
 %do not use [1 1 1 1]
-qd3 = [0 0 1 0 0 0 0]';
+%qd3 = [0 0 1 0 0 0 0]';
+qd3 = q;
 qd_null = project(J, Jp, I, qd3);
 
 function qd_null = project(J, Jp, I, qd)

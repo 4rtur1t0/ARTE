@@ -25,12 +25,6 @@
 function robot = parameters()
 robot.name= 'SAWYER';
 
-% robot.DH.theta= '[q(1)     q(2)+pi/2            q(3)+pi         (-)q(4)      q(5)+pi       q(6)    q(7)-pi/2-0.1741]';
-% robot.DH.d='[0.317-0.0011   0.1925               0.4             -0.1685   0.4           0.1363     0.13375]';
-% robot.DH.a='[0.081          0.0                  0.0              0         0             0           0]';
-% robot.DH.alpha= '[-pi/2     pi/2                 pi/2           -pi/2      -pi/2         pi/2         0]';
-
-
 robot.DH.theta= '[q(1)       q(2)-pi/2            q(3)            q(4)      q(5)       q(6)             q(7)]';
 robot.DH.d='[    0.317        0.1925               0.4           -0.1685     0.4       0.1363        0.13375]';
 robot.DH.a='[    0.081          0.0                0.0             0.0        0.0        0.0           0.0]';
@@ -38,7 +32,9 @@ robot.DH.alpha= '[-pi/2        -pi/2               pi/2          -pi/2      pi/2
 robot.J=[];
 
 
-robot.inversekinematic_fn = 'inverse_kinematics_sawyer(robot, T, q)';
+%robot.inversekinematic_fn = 'inverse_kinematics_sawyer2(robot, T, q)';
+robot.inversekinematic_fn = 'inverse_kinematics_jacobian_moore(robot, T, q)';
+robot.inversekinematic_fn = 'inverse_kinematics_jacobian_transpose(robot, T, q)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 
@@ -71,7 +67,10 @@ robot.accelmax=robot.velmax/0.1; % 0.1 is here an acceleration time
 % end effectors maximum velocity
 robot.linear_velmax = 2.5; %m/s
 
-
+% +1 to maximize manipulability (locally) during inverse kinematics
+% -1 to minimize manipulability (locally) during inverse kinematics
+% 0 to standard inverse kinematics solution
+robot.maximize_manipulability = 0;
 
 %base reference system
 robot.T0 = eye(4);
@@ -147,7 +146,7 @@ robot.motors.G=[300 300 300 300 300 300];
 %SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
 robot.parameters.step_time=0.01;
 %Error in XYZ to stop inverse kinematics
-robot.parameters.epsilonXYZ=0.01;
+robot.parameters.epsilonXYZ=0.005;
 %Error in Quaternion to stop inverse kinematics.
 robot.parameters.epsilonQ=0.005;
 robot.parameters.stop_iterations=500;

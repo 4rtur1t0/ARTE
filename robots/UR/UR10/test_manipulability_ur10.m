@@ -19,6 +19,8 @@
 close all
 fprintf('\nView manipulability ellipse and forces ellipse at q')
 
+robot = load_robot('UR', 'UR10')
+
 q = [pi/2 pi/4 -pi/4 0.4 0.5 -pi/4]';
 
 %Plot manipulatiliby ellipse

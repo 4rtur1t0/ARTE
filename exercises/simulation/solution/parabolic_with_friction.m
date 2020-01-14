@@ -11,54 +11,64 @@
 % h: time step for the calculations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function parabolic_with_friction()
+global g k m
 close all;
+g = 9.81; %m/s^ 2. gravity at equator
+% datos de ajustados a 1000 m de https://en.wikipedia.org/wiki/Ballistic_table#/media/File:Ballistic_table_for_7.62x51_mm_NATO_(mil_and_moa).png
+% 7.62x51 mm NATO ammunition
+theta0 = 0; %initial angle
+k = 0.0000005; % N*s/m friction coefficient
+m=9.7/1000; %mass of the bullet kg
+v=860; % m/s initial speed
+
+theta0 = 0; %initial angle
+k = 0.0000005; % N*s/m friction coefficient
+m=0.47; %mass of the bullet kg
+v=609; % m/s initial speed
+ % 914
+
+
 t0 = 0;
-tfinal = 150;
-v=800; % m/s initial speed
-theta0 = pi/4; %initial angle
+tfinal = 2.2;
 x0 = 0;
 y0 = 0;
 vx0 = v*cos(theta0);
 vy0 = v*sin(theta0);
 
-[t, y] = runge_kutta(@parabolic, [x0 y0 vx0 vy0]', [t0 tfinal], 0.01);
-y = y(:, 1:length(t)); 
-plot(t, y(1,:), 'r'), hold
-plot(t, y(2,:), 'g')
-plot(t, y(3,:), 'b')
-plot(t, y(4,:), 'c')
+[t, x] = runge_kutta(@parabolic_friction_square, [x0 y0 vx0 vy0]', [t0 tfinal], 0.01);
+x = x(:, 1:length(t)); 
+plot(t, x(1,:), 'r'), hold
+plot(t, x(2,:), 'g')
+plot(t, x(3,:), 'b')
+plot(t, x(4,:), 'c')
 legend('Position X (m) RK4', 'Position Y (m) RK4', 'Speed X (m/s) RK4', 'Speed Y (m/s) RK4')
 
 figure, 
-plot(y(1,:), y(2,:), 'r') 
+plot(x(1,:), x(2,:), 'r') 
 xlabel('X Position (m)')
 ylabel('Y Position (m)')
+
+x(2,end)
+
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Helper function to solve a constant acceleration on x axis on a ramp.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function xd = parabolic(t, y)
+function xd = parabolic_friction_square(t, x)
+global k g m
 % We must return the solution of
 % [dx1/dt; dx2/dt; dx3/dt dx4/dt]
-g = 9.81; %m/s^ 2. gravity at equator
-b = 0.01; % N*s/m a silly friction coefficient
-m=10/1000; %mass of the bullet
-
-vx = y(3);
-vy = y(4);
-theta = atan2(vy, vx);
-V = sqrt(vx^2+vy^2);
+vx = x(3);
+vy = x(4);
 
 %forces in both axes
-Fx = -b*vx;
-Fy = -m*g-b*vy;
-
-xd(1) = y(3);
-xd(2) = y(4);
-xd(3) = Fx/m;
-xd(4) = Fy/m; %-g-V*b*sin(theta);
+sq = sqrt(vx^2+vy^2);
+xd(1) = vx;
+xd(2) = vy;
+xd(3) = -(k/m)*vx*sq;
+xd(4) = -(k/m)*vy*sq - g;
 xd = xd(:);
 
 

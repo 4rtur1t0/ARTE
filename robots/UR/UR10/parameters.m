@@ -31,7 +31,8 @@ robot.DH.a='[0 0.612 0.572 0 0 0]';
 robot.DH.alpha= '[pi/2 0 0 -pi/2 pi/2 0]';
 robot.J=[];
 
-robot.inversekinematic_fn = 'inverse_kinematics_ur10(robot, T, q)';
+% robot.inversekinematic_fn = 'inverse_kinematics_ur10(robot, T, q)';
+robot.inversekinematic_fn = 'inverse_kinematics_jacobian_transpose(robot, T, q)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 
@@ -129,11 +130,18 @@ robot.motors=load_motors([5 5 5 4 4 4]);
 robot.motors.G=[300 300 300 300 300 300];
 
 %SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
-robot.parameters.step_time=0.1;
+robot.parameters.step_time=0.01;
 %Error in XYZ to stop inverse kinematics
 robot.parameters.epsilonXYZ=0.005;
 %Error in Quaternion to stop inverse kinematics.
 robot.parameters.epsilonQ=0.005;
 robot.parameters.stop_iterations=500;
+
+% 1: maximize manipulability.
+% 0: standard.
+% -1: minimize manipulability.
+robot.maximize_manipulability = 0;
+
+
 
 

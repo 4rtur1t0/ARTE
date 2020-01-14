@@ -26,10 +26,11 @@ qd = [pi/2 pi/2 0.5 0]';
 
 qs = [];
 vs = [];
-for i=1:30,
-     a = eval(robot.DH.a);
-     J = eval(robot.J);
-    %J = manipulator_jacobian(robot, q)
+for i=1:30
+    % caution: a must be defined in order to eval(robot.J)
+    a = eval(robot.DH.a);
+    J = eval(robot.J);
+    % J = manipulator_jacobian(robot, q)
     v = J*qd(1:3);
     q = q + qd*0.1;
     qs = [qs q];

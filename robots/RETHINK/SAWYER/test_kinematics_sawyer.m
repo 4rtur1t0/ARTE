@@ -1,4 +1,6 @@
-% SCRIPT TEST FOR THE KINEMATIC PROBLEM FOR SERIAL ROBOTS
+% SCRIPT TEST FOR THE KINEMATIC PROBLEM FOR THE SAWYER ROBOT
+% LOAD THE SAWYER ROBOT. SIMILAR RESULTS CAN BE ACHIEVED WITH OTHER
+% REDUNDANT ROBOTS
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
 %
@@ -18,19 +20,25 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 
 close all
+fprintf('\nSimple test: try to reach T with the Sawyer robot')
 
-fprintf('\nSimple test: try to reach T')
+robot = load_robot('RETHINK', 'SAWYER');
+%adjust 3D view as desired
+adjust_view(robot)
 
-
-T = [1 0 0 0.3; 
-    0   1  0  0.3;
-    0 0 1    0.5;
-    0  0  0   1];
+T = [1   0  0  0.5; 
+     0   1  0  0.5;
+     0   0  1  0.5;
+     0   0  0   1];
 %try this initial seed for the inverse kinematic
 %different seeds do allow to obtain different solutions
-q = [0 0 0 0 0 0 0]';
-qinv = inverse_kinematics_sawyer(robot, T, q)
+q = [0.2 -0.2 -0.4 -0.4 -0.2 -0.2 -0.2]';
+% q=[-0.5 -0.9 0.8 0.5 0.1 0.1 0.1]';
 
+q=[0.0 0.0 0.0 0.0 0.0 0.0 0.0]';
+
+drawrobot3d(robot, q)
+qinv = inversekinematic(robot, T, q)
 T_reach = directkinematic(robot, qinv)
 
 %this difference should be low, since both matrices should represent the
@@ -43,32 +51,35 @@ T_reach = directkinematic(robot, qinv)
 T-T_reach
 
 
-%these algorithms just return a single solution
-n_solutions = 1;
-
-%Try different configurations beware that, depending on the robot's topology
-%not all the eight possible solutions will be feasible for an antropomorphic 6R robot.
-q=[0.5 -0.4 -0.2 0.1 0.1 0.1 0.1]';
-
-%draw the robot
-drawrobot3d(robot, q)
-
-%Now compute direct kinematics for this position q
-T = directkinematic(robot, q)
-
-%Set to zero if you want to see the robot transparent
-robot.graphical.draw_transparent=0;
-
-%try to look for a different solution
-q = [0.1 0.1 0.1 0.1 0.1 0.1 0.1]';
-%Call the inversekinematic for this robot. All the possible solutions are
-%stored at qinv. At least, one of the possible solutions should match q
-qinv = inversekinematic(robot, T, q)
-
-
-T_reach = directkinematic(robot, qinv)
-
-%
-'diff T-Treach'
-T-T_reach
+% %these algorithms just return a single solution
+% n_solutions = 1;
+% 
+% %Try different configurations beware that, depending on the robot's topology
+% %not all the eight possible solutions will be feasible for an antropomorphic 6R robot.
+% q=[0.5 0.8 0.8 -0.1 0.1 0.1 0.1]';
+% 
+% %draw the robot
+% drawrobot3d(robot, q)
+% 
+% %Now compute direct kinematics for this position q
+% %T = directkinematic(robot, q)
+% 
+% %Set to zero if you want to see the robot transparent
+% robot.graphical.draw_transparent=0;
+% 
+% %try to look for a different solution
+% q = [0.1 0.1 0.1 0.1 0.1 0.1 0.1]';
+% %Call the inversekinematic for this robot. All the possible solutions are
+% %stored at qinv. At least, one of the possible solutions should match q
+% qinv = inversekinematic(robot, T, q)
+% 
+% 
+% T_reach = directkinematic(robot, qinv)
+% 
+% %
+% 'diff T-Treach'
+% T-T_reach
+% 
+% 'MANIPULABILIDAD INICIAL Y FINAL'
+% manip = compute_manip(robot, [q, qinv])
 

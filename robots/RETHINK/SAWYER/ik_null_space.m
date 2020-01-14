@@ -34,6 +34,7 @@ q = inversekinematic(robot, T0, q0);
 for i=1:M
     fprintf('Move %d out of %d\n', i, M)  
     qd = null_space_7dof(robot, q);
+    qd = qd/sum(abs(qd))
     q = q + signo*qd*step_time;
     drawrobot3d(robot, q)
     %pause(0.1)
