@@ -75,9 +75,9 @@ robot.dynamics.friction = 1
 %             torques at each joint
 q=[0 0]; %rad
 %maximum speeds at for each joint
-maximum_speeds=[pi pi];%rad/second
+maximum_speeds=[-pi pi];%rad/second
 %maximum acceleration/deceleration for each joint
-maximum_accels=[pi/4 pi/4]; %rad/second^2
+maximum_accels=[-pi/4 pi/4]; %rad/second^2
 
 % time of the trapezoidal profile that the joint moves at maximum speed
 time_at_constant_speed=2; %seconds
@@ -128,7 +128,7 @@ ndof = robot.DOF
 input_speeds = [zeros(ndof,1) maximum_speeds' maximum_speeds' maximum_speeds' zeros(ndof,1) ];
 input_accels = [maximum_accels' maximum_accels' zeros(ndof,1) -maximum_accels' -maximum_accels' ];
 
-compute_inverse_dynamics(q, input_speeds, input_accels, [1:5]);
+%compute_inverse_dynamics(q, input_speeds, input_accels, [1:5]);
 
 
 
@@ -191,7 +191,7 @@ global robot
 
 %adjust_view(robot)
 torques=[];
-for j=1:length(time), 
+for j=1:length(time) 
     fprintf('\nComputing time %d out of %d', j, length(time));
     % compute the torque to bring the robot instantaneously to this motion
     % state. change M=1  to add the effects of a 1kg mass load at the end effector
