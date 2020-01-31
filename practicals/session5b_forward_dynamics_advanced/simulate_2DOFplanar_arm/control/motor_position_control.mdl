@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.2"
+    ComputedModelVersion    "1.5"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -47,7 +47,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [994.0, 411.0, 800.0, 593.0]
+      Location		      [922.0, 546.0, 948.0, 682.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -71,7 +71,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[762.0, 417.0]
+	Extents			[910.0, 506.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -93,10 +93,10 @@ Model {
       "AAAAAAA+wAAABYARABvAGMAawBXAGkAZABnAGUAdAA0AAAAAAD/////AAAAAAAAAAD7AAAAUgBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0Ac"
       "ABvAG4AZQBuAHQALwBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0AcABvAG4AZQBuAHQAAAAAAP////8AAAByAP///wAAAAEAAAAAAAAAAPwCA"
       "AAAAfsAAABUAEcATABVAEUAMgA6AFAAcgBvAHAAZQByAHQAeQBJAG4AcwBwAGUAYwB0AG8AcgAvAFAAcgBvAHAAZQByAHQAeQAgAEkAbgBzAHAAZ"
-      "QBjAHQAbwByAAAAAAD/////AAAALgD///8AAAMgAAAB3AAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
+      "QBjAHQAbwByAAAAAAD/////AAAALgD///8AAAO0AAACNQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAACE/////wAAAAAAAAAA/////wEAAAD2/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAF6/////wAAAAAAAAAA/"
-      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAALx/////wAAAAAAAAAA/"
+      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAOF/////wAAAAAAAAAA/"
       "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA"
     }
   }
@@ -107,9 +107,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "arturogilaparicio"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 29 15:58:12 2020"
-  RTWModifiedTimeStamp	  502214255
-  ModelVersionFormat	  "1.%<AutoIncrement:2>"
+  LastModifiedDate	  "Thu Jan 30 17:49:39 2020"
+  RTWModifiedTimeStamp	  502307290
+  ModelVersionFormat	  "1.%<AutoIncrement:5>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -1045,6 +1045,17 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      ToWorkspace
+      VariableName	      "simulink_output"
+      MaxDataPoints	      "1000"
+      Decimation	      "1"
+      SaveFormat	      "Array"
+      Save2DSignal	      "Inherit from input (this choice will be removed - see release notes)"
+      FixptAsFi		      off
+      NumInputs		      "1"
+      SampleTime	      "0"
+    }
+    Block {
       BlockType		      TransferFcn
       Numerator		      "[1]"
       Denominator	      "[1 2 1]"
@@ -1055,7 +1066,7 @@ Model {
   }
   System {
     Name		    "motor_position_control"
-    Location		    [994, 411, 1794, 1004]
+    Location		    [922, 546, 1870, 1228]
     Open		    on
     PortBlocksUseCompactNotation off
     SetDomainSpec	    off
@@ -1072,7 +1083,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "11"
+    SIDHighWatermark	    "12"
     Block {
       BlockType		      Derivative
       Name		      "Derivative"
@@ -1086,7 +1097,6 @@ Model {
       SID		      "4"
       Position		      [355, 155, 385, 185]
       ZOrder		      4
-      Gain		      "0.1"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
@@ -1097,7 +1107,7 @@ Model {
       SID		      "7"
       Position		      [355, 210, 385, 240]
       ZOrder		      7
-      Gain		      ".01"
+      Gain		      "0"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
@@ -1106,7 +1116,7 @@ Model {
       BlockType		      Gain
       Name		      "Gain2"
       SID		      "8"
-      Position		      [285, 105, 315, 135]
+      Position		      [315, 105, 345, 135]
       ZOrder		      8
       Gain		      "10"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -1132,21 +1142,21 @@ Model {
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true,'DataLoggingLimitDataPoints',true,'DataLoggingSaveFormat','Array','DataLoggingDecim"
       "ation','1','DataLoggingDecimateData',true),extmgr.Configuration('Visuals','Time Domain',true,'SerializedDisplays"
-      "',{struct('MinYLimReal','-0.78151','MaxYLimReal','7.0336','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','7"
-      ".0336','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColo"
-      "r',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.07450980392156"
-      "86 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.07450980392156"
-      "86;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title',"
-      "'%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',1,'LineNames',{{'Transfer "
-      "Fcn'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLimReal','-0.78151','MaxYLimReal"
-      "','7.0336','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','7.0336','LegendVisibility','off','XGrid',true,'Y"
-      "Grid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.68627"
-      "4509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16"
-      "078431372549;0.392156862745098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588"
-      "235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'Us"
-      "erDefinedChannelNames',{{}},'NumLines',0,'LineNames',{{[]}},'ShowContent',true,'Placement',1)),extmgr.Configurat"
-      "ion('Tools','Plot Navigation',true),extmgr.Configuration('Tools','Measurements',true,'Version','2018a')),'Versio"
-      "n','2018a','Location',[188 365 897 878],'VisibleAtModelOpen','on')"
+      "',{struct('MinYLimReal','-0.62571','MaxYLimReal','5.63139','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','"
+      "5.63139','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickCo"
+      "lor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.074509803921"
+      "5686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.074509803921"
+      "5686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title"
+      "','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',1,'LineNames',{{'Transfe"
+      "r Fcn'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLimReal','-0.62571','MaxYLimRe"
+      "al','5.63139','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','5.63139','LegendVisibility','off','XGrid',tru"
+      "e,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.6"
+      "86274509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 "
+      "0.16078431372549;0.392156862745098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0."
+      "0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}}"
+      ",'UserDefinedChannelNames',{{}},'NumLines',0,'LineNames',{{[]}},'ShowContent',true,'Placement',1)),extmgr.Config"
+      "uration('Tools','Plot Navigation',true),extmgr.Configuration('Tools','Measurements',true,'Version','2018a')),'Ve"
+      "rsion','2018a','Location',[188 365 1038 944])"
       NumInputPorts	      "1"
       Floating		      off
     }
@@ -1171,6 +1181,17 @@ Model {
       InputSameDT	      off
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace2"
+      SID		      "12"
+      Ports		      [1]
+      Position		      [585, 40, 700, 70]
+      ZOrder		      12
+      VariableName	      "motor_position"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
     }
     Block {
       BlockType		      TransferFcn
@@ -1211,7 +1232,7 @@ Model {
       ZOrder		      3
       SrcBlock		      "Gain2"
       SrcPort		      1
-      Points		      [88, 0; 0, 40]
+      Points		      [58, 0; 0, 40]
       DstBlock		      "add"
       DstPort		      1
     }
@@ -1271,17 +1292,27 @@ Model {
       ZOrder		      7
       SrcBlock		      "Transfer Fcn"
       SrcPort		      1
-      Points		      [47, 0]
+      Points		      [15, 0]
       Branch {
-	ZOrder			21
-	DstBlock		"Scope"
+	ZOrder			24
+	Points			[0, -115]
+	DstBlock		"To Workspace2"
 	DstPort			1
       }
       Branch {
-	ZOrder			20
-	Points			[0, 130; -437, 0]
-	DstBlock		"Subtract"
-	DstPort			2
+	ZOrder			23
+	Points			[32, 0]
+	Branch {
+	  ZOrder		  21
+	  DstBlock		  "Scope"
+	  DstPort		  1
+	}
+	Branch {
+	  ZOrder		  20
+	  Points		  [0, 130; -437, 0]
+	  DstBlock		  "Subtract"
+	  DstPort		  2
+	}
       }
     }
   }
