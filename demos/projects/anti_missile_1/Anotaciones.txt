@@ -1,0 +1,3 @@
+El programa simulación final, agrupa todo el trabajo.
+El programa simulación proyectil, simula únicamente el proyectil impactando en el punto objetivo.
+El programa simulación robot, simula únicamente el robot apuntando con los ángulos necesarios para impactar en el punto objetivo.

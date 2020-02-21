@@ -1,0 +1,2 @@
+puntos=draw('UMH');
+

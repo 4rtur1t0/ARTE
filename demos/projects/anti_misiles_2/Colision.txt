@@ -1,0 +1,6 @@
+Impacto con disparo de tipo par con origen en [-8.970149e+03 8.259738e+03 0] y objetivo en [5 2 0]
+Logrado con los siguientes parámetros de disparo:
+	- Acimut: 2.383670e+00
+	- Elevación: 1.034366e+00
+	- Tiempo de disparo: 3.236595e+01
+	- Distancia de colision: 2.274062e-01
