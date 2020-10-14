@@ -73,11 +73,11 @@ fprintf('\nCOMPUTING FORWARD DYNAMICS (this may take a while)')
 
 figure, plot(t, q), grid, title('Position vs. time')
 xlabel('time (s)'), ylabel('Position (rad)')
-legend('q_1', 'q_2', 'q_3', 'q_4', 'q_5', 'q_6');
+legend('q_1');
 
 figure, plot(t, qd), grid, title('Speed vs. time')
 xlabel('time (s)'), ylabel('Speed (rad/s)')
-legend('qd_1', 'qd_2', 'qd_3', 'qd_4', 'qd_5', 'qd_6');
+legend('qd_1');
 
 %animate it!!
 animate(robot, q)
