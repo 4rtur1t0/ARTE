@@ -1,15 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   DRAW_VECTOR(V, p0, text, scale) 
+%   Q=Rot(theta, axis)
+%   Compute a rotation matrix along the specified axis.
 %
-%   Draws a vector V at the point p0. Adds
-%   text
-%   SCALE: change the size of the text and vectors.
-%   the reference system associated is drawn with arrows X (red), Y (green), Z (blue)
-%
-%	See also DRAWROBOT3D, DRAW_AXES, ANIMATE
-%
-%   Author: Arturo Gil. Universidad Miguel Hern�ndez de Elche. 
-%   email: arturo.gil@umh.es date:   02/11/2018
+%   Author: Arturo Gil. Universidad Miguel Hernandez de Elche. email:
+%   arturo.gil@umh.es date:   02/10/2020
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
@@ -28,11 +22,22 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function draw_vector(V, p0, text_label, scale)
+function R = Rot(theta, axis)
 
-if ~exist('scale', 'var')
-    scale=0.8;
+switch lower(axis)
+    case {'x'}
+        R = [1        0          0;
+             0   cos(theta) -sin(theta);
+             0   sin(theta)  cos(theta)];
+    case {'y'}
+        R = [ cos(theta) 0  sin(theta);
+               0         1     0; 
+             -sin(theta) 0  cos(theta)];   
+   case {'z'}
+        R = [cos(theta) -sin(theta) 0;
+             sin(theta)  cos(theta) 0;
+                  0          0      1];     
+   otherwise
+            disp('Unknown axis. Please specify X, Y or Z.')
 end
-p1 = p0(:) + 0.1*scale*V(:);
-vect_arrow(p0, p1, 'k', scale*3) %standard WIDTH for arrows is 3
-text(p1(1)+0.05, p1(2)-0.05, p1(3)+0.05, text_label, 'FontWeight', 'bold', 'HorizontalAlignment', 'Center', 'FontSize', round(5*scale)); 
+
