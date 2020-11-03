@@ -2,7 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   UNIVERSAL ROBOTS UR10.
 %
-%   Author: David J. Roldán. Universidad Miguel Hernandez de Elche. 
+%   Author: David J. Roldï¿½n. Universidad Miguel Hernandez de Elche. 
 %   email: xxxx@umh.es date:   08/12/2017
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -132,9 +132,9 @@ robot.motors.G=[300 300 300 300 300 300];
 %SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
 robot.parameters.step_time=0.01;
 %Error in XYZ to stop inverse kinematics
-robot.parameters.epsilonXYZ=0.005;
+robot.parameters.epsilonXYZ=0.001;
 %Error in Quaternion to stop inverse kinematics.
-robot.parameters.epsilonQ=0.005;
+robot.parameters.epsilonQ=0.001;
 robot.parameters.stop_iterations=500;
 
 % 1: maximize manipulability.

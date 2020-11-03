@@ -1,56 +1,42 @@
 
-%   INVERSE KINEMATICS FOR THE SAWYER ROBOT
+%   INVERSE KINEMATICS using a Jacobian paradigm
 %
-%   Solves the inverse kinematic problem in various situation
-%   A Jacobian based method is used.
-%   The method tries to reach the given position/orientation while, at the 
-%   same time, maximizing/minimizing a secondary target.
-%
-%   e.g. reach position/orientation and maximize manipulability det(J'J)
-%   
-%   q0: starting initial solution
-%   Tf--> final position/orientation wanted as a homogeneous matrix
-function q = inverse_kinematics_ur10(robot, Tf, q0)
-%global parameters
-% Obtain thea matriz de posición/orientación en Quaternion representation
+function q = inverse_kinematics_jacobian(robot, Tf, q0)
+
+% Obtain thea matriz de posiciï¿½n/orientaciï¿½n en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
 q=q0;
 step_time = robot.parameters.step_time;
 i=0;
-eps = [];
-mplabilitys = [];
+
 %this is a gradient descent solution based on moore-penrose inverse
 while i < robot.parameters.stop_iterations
     Ti = directkinematic(robot, q);
     Qi = T2quaternion(Ti);
     Pi = Ti(1:3,4);
-   
-    eps1 = reached_position(Pf, Pi);
-    eps2 = reached_orientation(Qf, Qi);
     %compute linear speed and angular speed that are served as a high level
     %based on the current pose
     v0 = compute_high_level_action_kinematic_v(Pf, Pi); %1m/s 
     w0 = compute_high_level_action_kinematic_w(Qf, Qi); %1rad/s
     %the restriction is the speed to reach the point
     Vref = [v0' w0']';
-    if eps1 < robot.parameters.epsilonXYZ && eps2 < robot.parameters.epsilonQ
+    
+    fprintf('Iteration %d, error (v0, w0): (%f, %f)\n', i, norm(v0), norm(w0));
+    if norm(v0) < robot.parameters.epsilonXYZ && norm(w0) < robot.parameters.epsilonQ
         fprintf('INVERSE KINEMATICS SUCCESS: REACHED epsilonXYZ AND epsilonQ\n')
         q = atan2(sin(q), cos(q));
         return;
     end
     qd = inverse_kinematic_moore_penrose(robot, q, Vref);
+    K = 50*max([norm(v0) norm(w0)]);
+    % normalize to unit norm qd and some scaling based on the error
+    qd = K*qd/norm(qd);
     %actually move the robot.
     q = q + qd*step_time;
-    %drawrobot3d(robot, q)
-    %pause(0.01);   
+    drawrobot3d(robot, q)
+    pause(0.01);   
     i=i+1;
-%     J = manipulator_jacobian(robot, q);
-%     mplability = det(J*J');    
-%     eps = [eps [eps1 eps2]'];
-%     mplabilitys = [mplabilitys mplability];
-%     eps1
-%     eps2
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
 
@@ -58,7 +44,7 @@ fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido
@@ -69,7 +55,7 @@ v = (Pf-Pi);
 v = v(:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido
@@ -109,22 +95,19 @@ end
 w=axis*angle/total_time;
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% check whether orientation has been reached
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function reach = reached_orientation(Qf, Qi)
-Q = Qf-Qi;
-reach = sqrt(Q(1)^2 + Q(2)^2 + Q(3)^2 + Q(4)^2);
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % check whether orientation has been reached
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% function reach = reached_orientation(Qf, Qi)
+% Q = Qf-Qi;
+% reach = sqrt(Q(1)^2 + Q(2)^2 + Q(3)^2 + Q(4)^2);
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % check whether orientation has been reached
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% function reach = reached_position(Pf, Pi)
+% P = Pf-Pi;
+% reach = sqrt(P(1)^2 + P(2)^2 + P(3)^2);
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% check whether orientation has been reached
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function reach = reached_position(Pf, Pi)
-P = Pf-Pi;
-reach = sqrt(P(1)^2 + P(2)^2 + P(3)^2);
 
 
-function qd = inverse_kinematic_moore_penrose(robot, q, Vref)
-J = manipulator_jacobian(robot, q);
-Jp = pinv(J);
-qd = Jp*Vref;

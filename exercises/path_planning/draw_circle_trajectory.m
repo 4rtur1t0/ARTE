@@ -1,5 +1,5 @@
 
-function circle_trajectory
+function draw_circle_trajectory
 close all 
 figure
 % points belonging to trajectory p1-->p2-->p3     

@@ -15,7 +15,7 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function speed_demo3
+function speed_demo_line
 close all
 % velocidad lineal entre puntos consecutivos
 abs_linear_speed = 0.5; % (m/s)
@@ -39,9 +39,9 @@ T2=[1 0 0 0.5;
 
 punto_inicial = T1(1:3,4);
 punto_final = T2(1:3,4);
-% vector velocidad en la dirección de la trayectoria
+% vector velocidad en la direcciï¿½n de la trayectoria
 v = (punto_final-punto_inicial);
-v = abs_linear_speed*v/norm(v); %vector normalizado en la dirección de la recta
+v = abs_linear_speed*v/norm(v); %vector normalizado en la direcciï¿½n de la recta
 w = [0 0 0]';
 xd = [v; w];
 
@@ -55,5 +55,6 @@ for i=1:1000
    qd = inv(J)*xd;
    q = q + delta_time*qd;
    drawrobot3d(robot, q)
+   pause(0.1)
 end
 

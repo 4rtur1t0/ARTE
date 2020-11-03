@@ -23,6 +23,8 @@ close all
 fprintf('\nSimple test: try to reach T with the Sawyer robot')
 
 robot = load_robot('RETHINK', 'SAWYER');
+robot.inversekinematic_fn = 'inverse_kinematics_jacobian(robot, T, q)';
+
 %adjust 3D view as desired
 adjust_view(robot)
 

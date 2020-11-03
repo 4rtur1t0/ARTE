@@ -40,7 +40,7 @@ end
 figure, plot(qs(1,:),'rs'), hold
 plot(qs(2,:),'g*')
 plot(qs(3,:),'bd')
-legend('q1 (rad)', 'q2 (rad)', 'q3 (rad)')
+legend('q1 (rad)', 'q2 (rad)', 'q3 (m)')
 
 figure, plot(vs(1,:),'rs'), hold
 plot(vs(2,:),'g*')

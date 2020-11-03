@@ -20,8 +20,7 @@ robot = load_robot('KUKA', 'KR6_2');
 %joint position
 q = [pi/4 pi/4 pi/4 0 -pi/2 0]'
 %joint speed
-qd = [1 1 1 0 0 5]'
-%robot = load_robot
+qd = [1 1 1 0 0 2]'
 
 %J = compute_jacobian_exercise(robot, q);
 J = manipulator_jacobian(robot, q);
@@ -37,7 +36,7 @@ T = directkinematic(robot, q)
 p0 = T(1:3,4)
 drawrobot3d(robot, q)
 draw_vector(V(1:3), p0, 'linear speed V', 2)
-draw_vector(V(4:6), p0, 'angular speed W', 1)
+draw_vector(V(4:6), p0, 'angular speed W', 2)
 
 %find joint speeds
 %caution! you may be at a singular point, modify q accordingly

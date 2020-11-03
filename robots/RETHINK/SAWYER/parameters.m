@@ -33,8 +33,8 @@ robot.J=[];
 
 
 %robot.inversekinematic_fn = 'inverse_kinematics_sawyer2(robot, T, q)';
-robot.inversekinematic_fn = 'inverse_kinematics_jacobian_moore(robot, T, q)';
-robot.inversekinematic_fn = 'inverse_kinematics_jacobian_transpose(robot, T, q)';
+robot.inversekinematic_fn = 'inverse_kinematics_jacobian(robot, T, q)';
+%robot.inversekinematic_fn = 'inverse_kinematics_jacobian_transpose(robot, T, q)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 
@@ -146,8 +146,8 @@ robot.motors.G=[300 300 300 300 300 300];
 %SPECIAL PARAMETERS TO SOLVE THE INVERSE KINEMATICS
 robot.parameters.step_time=0.01;
 %Error in XYZ to stop inverse kinematics
-robot.parameters.epsilonXYZ=0.005;
+robot.parameters.epsilonXYZ=0.001;
 %Error in Quaternion to stop inverse kinematics.
-robot.parameters.epsilonQ=0.005;
+robot.parameters.epsilonQ=0.001;
 robot.parameters.stop_iterations=500;
 

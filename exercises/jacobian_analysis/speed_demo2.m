@@ -38,5 +38,6 @@ for i=1:30,
     draw_vector(V(1:3), p0, 'linear speed V', 3)
     draw_vector(V(4:6), p0, 'angular speed W', 2)
     q = q + qd*0.1;
+    pause(0.1)
 end
 
