@@ -24,7 +24,7 @@
 %     39.2400
 %     9.8100
 %   
-%   returns the torques at each joint in N·m
+%   returns the torques at each joint in Nï¿½m
 %   where: q is the position of the arm, qd the joint velocities and qdd
 %   the joint accelerations. The vector g defines the gravity in the base reference 
 %   system, whereas the vector fext = [fx fy fz Mx My Mz] defines the
@@ -74,6 +74,14 @@ if ~robot.has_dynamics
     return;
 end
 
+if ~exist('grav','var')
+    grav = [0 0 -9.81]';
+end
+if ~exist('fext','var')
+    fext = [0 0 0 0 0 0]';
+end
+
+
 %Each Z vector expressed in its own reference frame, just to make equations
 %readable
 z0 = [0;0;1];
@@ -104,7 +112,7 @@ N_com = zeros(3,n);
 
 %First compute motion forward from robot base
 % to the last link
-for j=1:n,
+for j=1:n
     A=dh(theta(j), d(j), a(j), alfa(j));
     %Note: compute the inverse by transpose. This implies a transformation 
     %from the {i-1}th system to the ith system.
@@ -113,7 +121,7 @@ for j=1:n,
     %the (i-i)th link frame
     ri = [a(j); d(j)*sin(alfa(j)); d(j)*cos(alfa(j))];
     
-    if robot.kind(j) == 'R', %rotational axis
+    if robot.kind(j) == 'R' %rotational axis
         %Note, should be computed in the specified order.
         wdi = R*(wdi + z0*qdd(j) + cross(wi,z0*qd(j)));
         wi = R*(wi + z0*qd(j));
@@ -155,7 +163,7 @@ ini = -R'*fext(4:6);
 %vector g, expressed in the last reference system
 gj=R\grav;
 
-for j=n:-1:1,
+for j=n:-1:1
     ri = [a(j); d(j)*sin(alfa(j)); d(j)*cos(alfa(j))];
     
     %compute resultant force on the i-1 (minus) link
@@ -174,7 +182,7 @@ for j=n:-1:1,
     gj = R*gj; % yes, now, change gj to the previous reference system
     
     %Now, project the moments to the z0 axes 
-    if robot.kind(j) == 'R', %rotational joint      
+    if robot.kind(j) == 'R' %rotational joint      
         tau(j) = ini'*z0;% + robot.motors.G(j)^2*robot.motors.Inertia(j)*qdd(j);
     else % prismatic joint        
         tau(j) = ifi'*z0;% + robot.motors.G(j)^2*robot.motors.Inertia(j)*qdd(j);

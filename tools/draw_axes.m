@@ -8,7 +8,7 @@
 %
 %	See also DRAWROBOT3D, ANIMATE
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   05/02/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -34,11 +34,16 @@ if ~exist('scale', 'var')
     scale=0.8;
 end
 
-%origin p0
-p0=T(1:3,4)';
-x = p0 + 0.1*scale*T(1:3,1)';
-y = p0 + 0.1*scale*T(1:3,2)';
-z = p0 + 0.1*scale*T(1:3,3)';
+[n, m]= size(T);
+if n==3 && m==3
+    p0=ones(3,1)';
+else
+    %origin p0
+    p0=T(1:3,4)';
+end
+x = p0 + 0.2*scale*T(1:3,1)';
+y = p0 + 0.2*scale*T(1:3,2)';
+z = p0 + 0.2*scale*T(1:3,3)';
 
 vect_arrow(p0, x, 'r', scale*3) %standard WIDTH for arrows is 3
 vect_arrow(p0, y, 'g', scale*3)

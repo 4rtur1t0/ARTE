@@ -52,7 +52,7 @@ robot.dynamics.friction=1;
 %Now compute torques at each pose
 fprintf('\nTorques at each joint given position q1, zero speed and acceleration, standard gravity acting on Z0')
 fprintf('\nComputing static torques at position q1 due to gravity [0 0 9.81]')
-tau = inversedynamic(robot, q1, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 0 0 0 0 0]')
+tau = inversedynamic(robot, q1, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 -9.81]', [0 0 0 0 0 0]')
 drawrobot3d(robot,q1)
 disp('press any key to continue')
 pause
@@ -61,7 +61,7 @@ pause
 fprintf('\nTorques at each joint given position q2, zero speed and acceleration, standard gravity acting on Z0')
 fprintf('\nComputing static torques at position q2 due to gravity [0 0 9.81]');
 fprintf('\nPLEASE note the differences with respect to torque tau_2 at q1');
-tau = inversedynamic(robot, q2, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 0 0 0 0 0]')
+tau = inversedynamic(robot, q2, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 -9.81]', [0 0 0 0 0 0]')
 drawrobot3d(robot,q2)
 disp('press any key to continue')
 pause
@@ -70,7 +70,7 @@ pause
 fprintf('\nTorques at each joint given position q3, zero speed and acceleration, standard gravity acting on Z0')
 fprintf('\nComputing static torques at position q3 due to gravity [0 0 9.81]');
 fprintf('\nPLEASE note the differences with respect to torque tau_2 at q1');
-tau = inversedynamic(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 0 0 0 0 0]')
+tau = inversedynamic(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 -9.81]', [0 0 0 0 0 0]')
 drawrobot3d(robot,q3)
 disp('press any key to continue')
 pause
@@ -80,7 +80,7 @@ fprintf('\nTorques at each joint given position q3, zero speed and acceleration,
 fprintf('\nComputing static torques at position q3 due to a 5 Kg load at end effector');
 fprintf('\nPLEASE note the differences with respect to torque tau_2 at q1');
 M = 5 %Kg
-tau = inversedynamic(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 M*9.81]', [0 0 0 0 0 0]')
+tau = inversedynamic(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 -9.81]', [0 0 M*9.81 0 0 0]')
 drawrobot3d(robot,q3)
 disp('press any key to continue')
 pause
@@ -90,7 +90,7 @@ pause
 fprintf('\nTorques at each joint given position q3, zero speed and acceleration, standard gravity acting on Z0')
 fprintf('\nComputing static torques at position q3 due to gravity and 1 Newton applied at Y6');
 fprintf('\nPLEASE compare the result with the previous case');
-tau = inversedynamic(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 9.81]', [0 1 0 0 0 0]')
+tau = inversedynamic(robot, q3, [0 0 0 0 0 0], [0 0 0 0 0 0], [0  0 -9.81]', [0 1 0 0 0 0]')
 disp('press any key to continue')
 pause
 
@@ -98,7 +98,7 @@ pause
 %NOW TEST THE DYNAMICS WITH A GENERAL CASE
 fprintf('\nTorques at each joint given position q3, general movement')
 fprintf('\nPLEASE compare the result with the previous cases');
-tau = inversedynamic(robot, q3, [1 1 1 1 1 1], [1 1 1 1 1 1], [0 0 9.81]', [1 1 1 1 1 1]')
+tau = inversedynamic(robot, q3, [1 1 1 1 1 1], [1 1 1 1 1 1], [0 0 -9.81]', [1 1 1 1 1 1]')
 disp('press any key to continue')
 pause
 
