@@ -22,11 +22,12 @@ fprintf('\nView manipulability ellipse and forces ellipse at q')
 robot = load_robot('UR', 'UR10')
 
 q = [pi/2 pi/4 -pi/4 0.4 0.5 -pi/4]';
+%q = [0.05 0.05 0.05 0.05 0.05 0.05]';
 
 %Plot manipulatiliby ellipse
 drawrobot3d(robot, q)
 hold on
 %draw manipulability ellipse
-plot_manipulability_ellipse(robot, q, 0.03)
+plot_manipulability_ellipse(robot, q, 1)
 %draw forces ellipse
-plot_forces_ellipse(robot, q, 0.03)
+plot_forces_ellipse(robot, q, 1)

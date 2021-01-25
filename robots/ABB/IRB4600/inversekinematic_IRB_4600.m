@@ -120,7 +120,7 @@ q(2,:) = normalize(q(2,:));
 
 % solve for the last three joints
 % for any of the possible combinations (theta1, theta2, theta3)
-for i=1:2:size(q,2),
+for i=1:2:size(q,2)
     % use solve_spherical_wrist2 for the particular orientation
     % of the systems in this ABB robot
     % use either the geometric or algebraic method.

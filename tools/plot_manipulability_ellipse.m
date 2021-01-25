@@ -5,7 +5,7 @@
 %   
 %	See also DRAW_CIRCLE, DRAWROBOT3D.
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   05/02/2018
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Modified from: Ellipse_Plot(A,C,N) 
@@ -43,7 +43,7 @@
 %  Updated: Feb 3, 2007
 function h = plot_manipulability_ellipse(robot, q, scale)
 %%%%%%%%%%%  start  %%%%%%%%%%%%%%%%%%%%%%%%%%%
-N = 20; % Default value for grid
+N = 30; % Default value for grid
 % scale = 0.05;
 T = directkinematic(robot, q);
 % center the ellipse at the end effector's point
@@ -56,7 +56,7 @@ A = A(1:3,1:3);
 A = inv(A);
 % "singular value decomposition" to extract the orientation and the
 % axes of the ellipsoid
-[U D V] = svd(A);
+[U, D, V] = svd(A);
 
     % generate the ellipsoid at (0,0,0)
     %----------------------------------
@@ -70,7 +70,7 @@ A = inv(A);
     XX = zeros(N+1,N+1);
     YY = zeros(N+1,N+1);
     ZZ = zeros(N+1,N+1);
-    for k = 1:length(X),
+    for k = 1:length(X)
         for j = 1:length(X),
             point = [X(k,j) Y(k,j) Z(k,j)]';
             P = V * point*scale;

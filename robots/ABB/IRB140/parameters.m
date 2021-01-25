@@ -25,7 +25,7 @@
 function robot = parameters()
 
 robot.name= 'ABB_IRB140_M2000';
-
+0.262525,0.622008,0.673812,-0.300276
 robot.DH.theta= '[q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)+pi]';
 robot.DH.d='[0.352 0 0 0.380 0 0.065]';
 robot.DH.a='[0.070 0.360 0 0 0 0]';
@@ -68,6 +68,10 @@ robot.linear_velmax = 2.5; %m/s
 
 %base reference system
 robot.T0 = eye(4);
+% robot.T0 = [1 0 0 0;
+%             0 -1 0 0;
+%             0 0 -1 1;
+%             0   0   0   1];
 
 
 %INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION

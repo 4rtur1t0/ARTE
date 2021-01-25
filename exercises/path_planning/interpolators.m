@@ -27,11 +27,12 @@
 function interpolators
 close all
 %Uncomment as you solve each exercise. 
-exercise1()
+%exercise1()
 %exercise2()
 %exercise3()
 %exercise4(0.001)
 %exercise5()
+exercise6()
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -152,6 +153,35 @@ delta_t=0.001;
 % A) USE THE first_order FUNCTION TO COMPUTE THE TRAJECTORY
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Exercise 4:
+%   fifth order interpolator.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function exercise4(qt)
+% Go from q1=0 to q2=1.5 rad
+q=[0 2.5];
+qd = [ 0 0]; % rad/s (CHANGE FROM 0 TO 2.3)
+qdd = [0 0]
+%Time vector
+t=[0 12];
+%the minimum difference in seconds between times to compute q(t) functions
+delta_t=0.001;
+
+% B)COMPLETE THE FUNCTION second_order DEFINED BELOW
+figure, xlabel('t (s)'), ylabel('q (rad), q_d (rad/s), q_{dd} (rad/s/s)'), title('FIFTH ORDER PLANNER'), hold on
+[q_t, qd_t, qdd_t, time, k]=fifth_order([q(1) q(2)], [qd(1) qd(2)], [qdd(1) qdd(2)], [t(1) t(2)], delta_t);
+plot(time, q_t, 'r'), plot(time, qd_t, 'g'), plot(time, qdd_t, 'b')
+legend('Position (rad)','Speed (rad/s)', 'Acceleration (rad/s/s)')
+
+%WRITE EQUATION
+disp('The equation computed can be written as:')
+fprintf('\n q(t)= k1 + k2*t + k3*t^2 + k4*t^3 + k5*t^4 + k6*t^5')
+fprintf('\n with k=')
+k
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -168,7 +198,7 @@ delta_t=0.001;
 %   C) PLOT AND ANALYZE THE RESULTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function qt = exercise4(delta_t)
+function qt = exercise6(delta_t)
 % Go from q1 to q2 rad q=[q1 q2 ];
 qini=0.1; %rad
 qfinal=pi/4; %rad (TRY ALSO WITH 0.8)
@@ -247,11 +277,11 @@ animate(robot, Qt)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [q_t, qd_t, time, k]=first_order(q, t, delta_t)
 % TODO: define the time matrix
-A = %;
+%A = ;
 %define vector b
-b = %;
+%b = %;
 % compute the coefficients of k for a first order planner
-k= %;
+%k= %;
 
 %define the time vector using delta_time
 time=t(1):delta_t:t(2);
@@ -362,5 +392,64 @@ time=t(1):delta_t:t(2);
 q_t = k(1) + k(2)*time + k(3)*time.^2 + k(4)*time.^3 + k(5)*time.^4;
 qd_t= k(2)*ones(1,length(time)) + 2*k(3)*time + 3*k(4)*time.^2 + 4*k(5)*time.^3;
 qdd_t=2*k(3)*ones(1,length(time)) + 6*k(4)*time + 12*k(5)*time.^2;
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fifth order interpolator.
+%   Given the:
+%       - start and end joint positions.
+%       - start and end speed.
+%       - start and end acceleration.
+%       - and start and end times,
+%       
+%   Computes a fifth order polynomial of the form:
+%   q(t) = k(1) + k(2)*t + k(3)*t^2 + k(4)*t^3 + k(5)*t^4 + k(6)*t^5
+%   
+%   Inputs:
+%       q: a joint vector of two inputs q = [q1 q2]
+%       qd: start and end speed qd = [qd1 qd2]
+%       qdd: start and end acceleration. qdd = [qdd1 qdd2]
+%       t: a time vector with t_i = [t1 t2]  
+%       
+%
+%   Returns:
+%       q_t: the values of q(t) as a function of the time vector used.
+%       the speed qd(t) as a function of the time vector 
+%       the acceleration qdd(t) as a functiono f time.
+%       time: the time vector used.
+%       ki: the polynomial coefficients k that allow to compute q(t) as:
+%       q(t) = k(1) + k(2)*t + k(3)*t^2 + k(4)*t^3 + k(5)*t^4 + k(6)*t^5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [q_t, qd_t, qdd_t, time, k]=fifth_order(q, qd, qdd, t, delta_t)
+%   quinto orden
+%A=[% ...];
+% la ecuacion es:
+% A*k = b
+% donde b es un vector de las condiciones de contorno
+% posicion inicial y final
+% velocidad inicial y final
+% aceleraciones inicial y final
+b(1) = q(1);
+b(2) = q(2);
+b(3) = qd(1);
+b(4) = qd(2);
+b(5) = qdd(1);
+b(6) = qdd(2);
+
+%k = [k(1) k(2) k(3) k(4) k(5) k(6)];
+k = inv(A)*b(:);
+
+% ecuaci�n: q(t) = k1+k2*t+k3*t^2+k4*t^3+k5*t^4+k6*t^5
+%           qd(t) = k2 + 2*k3*t + 3*k4*t^2 + 4*k5*t^3 + 5*k6*t^4
+%           qdd(t) = 2*k3 + 6*k4*t + 12*k5*t^2 + 20*k6*t^3
+time = t(1):delta_t:t(2);
+q_t = k(1) + k(2)*time + k(3)*time.^2 + k(4)*time.^3 + k(5)*time.^4 + k(6)*time.^5;
+qd_t= k(2) + 2*k(3)*time + 3*k(4)*time.^2 + 4*k(5)*time.^3 + 5*k(6)*time.^4;
+qdd_t=2*k(3) + 6*k(4)*time + 12*k(5)*time.^2 + 20*k(6)*time.^3;
+
+
 
 

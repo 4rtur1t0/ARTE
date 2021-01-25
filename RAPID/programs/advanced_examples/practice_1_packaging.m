@@ -65,16 +65,17 @@ RT_pos_rec=[[0.0345,-0.629,0.337],[0.261833,0.652321,0.67413,-0.226869],[-1,0,-1
 RT_aprox_dej=[[0.470,-0.460,0.500],[0.07981,0.603204,0.792983,-0.030902],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 RT_pos_dej=[[0.470,-0.460,0.450],[0.07981,0.603204,0.792983,-0.030902],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 
+ 
 %please: comment the following lines to avoid loading the robot and equipment in every simulation.
 %Feel free to load other robots/equipments... etc.
 robot = load_robot('ABB','IRB140');
 %load static equipment, such as tables or 
 robot.equipment{1} = load_robot('equipment','tables/table_two_areas');
 robot.tool= load_robot('equipment','end_tools/parallel_gripper_0');
-robot.piece{1}=load_robot('equipment','cylinders/cylinder_tiny');
+robot.piece{1}=load_robot('equipment','cylinders/cylindery_tiny');
 robot.piece{2}=load_robot('equipment','cylinders/cylinder_tiny');
 robot.piece{3}=load_robot('equipment','cylinders/cylinder_tiny');
-for i=1:3;
+for i=1:3
     robot.piece{i}.piece_gripped = 0;
 end
 drawrobot3d(robot)
@@ -93,7 +94,7 @@ end
 
 function main()
 
-global RJ_ini TD_gripper VAR_pieza
+global RJ_ini TD_gripper VAR_pieza 
 
 %inicializar pieza
 VAR_pieza=0;
@@ -102,7 +103,7 @@ MoveAbsJ(RJ_ini,'vmax','z100',TD_gripper, 'wobj0');
 
 %MoveJ(RT_pos_ini,'vmax','z100',TD_gripper, 'wobj0');
 
-for i=1:4,
+for i=1:4
     ASIR_DEJAR();
     VAR_pieza=VAR_pieza +1;
     %local function to init simulation variables
@@ -182,7 +183,7 @@ robot.tool.Trel=eye(4);
 % Now open the tool
 simulation_open_tool; %Reset do1; 
 
-for i=1:3;
+for i=1:3
     simulation_release_piece(i);
     robot.piece{i}.T0=eye(4);
 

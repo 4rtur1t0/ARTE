@@ -11,7 +11,7 @@
 %   q0: starting initial solution
 %   Tf--> final position/orientation wanted as a homogeneous matrix
 function q = inverse_kinematics_ur10_practical(robot, Tf, q0)
-% Obtain thea matriz de posición/orientación en Quaternion representation
+% Obtain thea matriz de posiciï¿½n/orientaciï¿½n en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
 q=q0(:);
@@ -39,17 +39,18 @@ while i < robot.parameters.stop_iterations
         q = atan2(sin(q), cos(q));
         return;
     end
-    % Calcule, a continuación, la JACOBIANA DEL ROBOT
+    % Calcule, a continuaciï¿½n, la JACOBIANA DEL ROBOT
     J = manipulator_jacobian(robot, q);
-    % EN BASE A LA JACOBIANA, CALCULE UNA ACCIÓN DE ACTUALIZACIÓN qd 
+    % EN BASE A LA JACOBIANA, CALCULE UNA ACCIï¿½N DE ACTUALIZACIï¿½N qd 
     % USANDO LA JACOBIANA INVERSA
     % USANDO LA JACOBIANA TRANSPUESTA
-
     
     
-    % CALCULE LA PRÓXIMA ITERACIÓN DEL ALGORITMO
+    
+    % CALCULE LA PRï¿½XIMA ITERACIï¿½N DEL ALGORITMO
     q = q + qd*step_time;
-    drawrobot3d(robot, q)
+    %drawrobot3d(robot, q)
+    %pause(0.01);
     i=i+1;
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
@@ -58,7 +59,7 @@ q = atan2(sin(q), cos(q));
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido
@@ -69,7 +70,7 @@ v = (Pf-Pi);
 v = v(:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido

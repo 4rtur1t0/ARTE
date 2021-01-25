@@ -10,18 +10,18 @@
 %   
 %   q0: starting initial solution
 %   Tf--> final position/orientation wanted as a homogeneous matrix
-function q = inverse_kinematics_jacobian_moore(robot, Tf, q0)
+function q = inverse_kinematics_ur10_practical(robot, Tf, q0)
 %global parameters
 % try to maximize manipulabiity while moving the arm
-if robot.maximize_manipulability == 1
-    maximize_manipulability = 1;
-elseif robot.maximize_manipulability == -1
-    maximize_manipulability = -1;
-else
-    maximize_manipulability = 0;
-end
+% if robot.maximize_manipulability == 1
+%     maximize_manipulability = 1;
+% elseif robot.maximize_manipulability == -1
+%     maximize_manipulability = -1;
+% else
+%     maximize_manipulability = 0;
+% end
 
-% Obtain thea matriz de posición/orientación en Quaternion representation
+% Obtain thea matriz de posiciï¿½n/orientaciï¿½n en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
 q=q0(:);
@@ -48,25 +48,34 @@ while i < robot.parameters.stop_iterations
         q = atan2(sin(q), cos(q));
         return;
     end
-    % Calcule, a continuación, la JACOBIANA DEL ROBOT
+    % Calcule, a continuaciï¿½n, la JACOBIANA DEL ROBOT
     J = manipulator_jacobian(robot, q);
-    % EN BASE A LA JACOBIANA, CALCULE UNA ACCIÓN DE ACTUALIZACIÓN qd 
+    % EN BASE A LA JACOBIANA, CALCULE UNA ACCIï¿½N DE ACTUALIZACIï¿½N qd 
     % USANDO LA JACOBIANA INVERSA
     % USANDO LA JACOBIANA TRANSPUESTA
-
-    
     qd = inv(J)*Vref;
+
     %qd = J'*Vref;
+    A = norm(qd);
+    if A > 0
+        qd = qd/norm(qd);
+    else
+        display('CAUTION: we are at a singular point');
+    end
     qd = qd/norm(qd);
-    qd = 100*qd*norm(Vref);
     
+    K = [2 0 0 0 0 0;
+         0 2 0 0 0 0;
+         0 0 2 0 0 0;
+         0 0 0 1 0 0;
+         0 0 0 0 1 0;
+         0 0 0 0 0 1];
     
-   
-    
-    
-    % CALCULE LA PRÓXIMA ITERACIÓN DEL ALGORITMO
-    q = q + qd*step_time;
-    drawrobot3d(robot, q)
+    % CALCULE LA PRï¿½XIMA ITERACIï¿½N DEL ALGORITMO
+    q = q + 10*K*qd*step_time*norm(Vref);
+
+    %drawrobot3d(robot, q)
+    %pause(0.01);
     i=i+1;
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
@@ -75,7 +84,7 @@ q = atan2(sin(q), cos(q));
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido
@@ -86,7 +95,7 @@ v = (Pf-Pi);
 v = v(:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido

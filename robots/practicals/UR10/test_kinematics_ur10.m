@@ -20,14 +20,14 @@ close all
 robot = load_robot('practicals', 'UR10');
 adjust_view(robot)
 
-% DESCOMENTE LA LÍNEA SIGUIENTE PARA PROBAR UN PUNTO SINGULAR
+% DESCOMENTE LA Lï¿½NEA SIGUIENTE PARA PROBAR UN PUNTO SINGULAR
 q0 = [0.1 -pi/2 pi/2 0.1 0.1 0.1]';
 %q0 = [0 0 0 0 0 0]';
 
 fprintf('\nSimple test: try to reach T')
 T1 = [-0.3390   -0.3390    0.8776    0.2447;
      0.8469    0.2962    0.4416   -0.4373;
-    -0.4096    0.8929    0.1867    1.2568;
+    -0.4096    0.8929    0.1867    0.2568;
          0         0         0    1.0000];
 
 T2 =[0.9018   -0.3860    0.1942   -0.1737;
@@ -39,17 +39,16 @@ T3 =[1.0000         0         0    0.0000;
          0    0.0000   -1.0000   -0.2560;
          0    1.0000    0.0000    1.4280;
          0         0         0    1.0000];
-
      
-T4 =[1.0000         0         0    0.0000;
-         0    0.0000   -1.0000   0.0;
-         0    1.0000    0.0000    1.4280;
+T4 =[1.0000         0         0    0.2000;
+         0    0.0000   -1.0000   0.4;
+         0    1.0000    0.0000    0.8;
          0         0         0    1.0000];
      
 % Intente llegar a T1, T2,  T3 o T4
-T = T4;
+T = T1;
 
-% Llame a la cinemática inversa 
+% Llame a la cinemï¿½tica inversa 
 qinv = inversekinematic(robot, T, q0)
 
 T_reach = directkinematic(robot, qinv)

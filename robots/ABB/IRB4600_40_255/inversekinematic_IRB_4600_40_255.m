@@ -23,9 +23,11 @@
 %        Ti = directkinematic(abb, qinv(:,i))
 %   end
 %	See also DIRECTKINEMATIC.
+%
+%   Author: Christian Querol Gomez
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Copyright (C) 2017, by Cristian Querol Gómez
+% Copyright (C) 2017, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
 % 

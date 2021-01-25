@@ -2,7 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the 
 %   ABB IRB_4600_40_255.
 %
-%   Author: Cristian Querol Gómez. Universidad Miguel Hernández de Elche. 
+%   Author: Cristian Querol Gomez. Universidad Miguel Hernandez de Elche. 
 %   email: cristianquerol@gmail.com date:   24/02/2017
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
