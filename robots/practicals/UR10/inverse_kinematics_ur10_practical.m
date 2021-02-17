@@ -10,16 +10,16 @@
 %   
 %   q0: starting initial solution
 %   Tf--> final position/orientation wanted as a homogeneous matrix
-function q = inverse_kinematics_ur10_practical(robot, Tf, q0)
+function [q] = inverse_kinematics_ur10_practical(robot, Tf, q0)
 % Obtain thea matriz de posici�n/orientaci�n en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
 q=q0(:);
-step_time = robot.parameters.step_time;
+step_time = 0.1; %robot.parameters.step_time;
 i=0;
-
+error = [];
 %this is a gradient descent solution based on moore-penrose inverse
-while i < robot.parameters.stop_iterations
+while i < 5000 %robot.parameters.stop_iterations
     fprintf('Iteration %f', i)
     % current homogeneous matrix T
     Ti = directkinematic(robot, q);
@@ -28,15 +28,19 @@ while i < robot.parameters.stop_iterations
     Pi = Ti(1:3,4);
     %compute linear speed and angular speed that are served as a high level
     %based on the current pose
-    v0 = compute_high_level_action_kinematic_v(Pf, Pi); %1m/s 
+    v0 = compute_high_level_action_kinematic_v(Pf, Pi); %1m/s Pf - Pi
     w0 = compute_high_level_action_kinematic_w(Qf, Qi); %1rad/s
     Vref = [v0' w0']';
     % Acciones de control de alto nivel
     nv0=norm(v0)
     nw0=norm(w0)
-    if norm(Vref) < 0.001
+
+    if norm(Vref) < 0.00001
         fprintf('INVERSE KINEMATICS SUCCESS: REACHED epsilonXYZ AND epsilonQ\n')
         q = atan2(sin(q), cos(q));
+        close all,
+        figure, 
+        plot(error)
         return;
     end
     % Calcule, a continuaci�n, la JACOBIANA DEL ROBOT
@@ -44,19 +48,40 @@ while i < robot.parameters.stop_iterations
     % EN BASE A LA JACOBIANA, CALCULE UNA ACCI�N DE ACTUALIZACI�N qd 
     % USANDO LA JACOBIANA INVERSA
     % USANDO LA JACOBIANA TRANSPUESTA
+    if abs(det(J)) < 0.00001
+       q = q + 0.01*rand(6,1);
+       J = manipulator_jacobian(robot, q);
+    end
+    %qd = inv(J)*Vref;
+    qd = J'*Vref;
+    %tau = J'*fext;
     
+    if norm(qd)~=0
+        qd = qd/norm(qd);
+    else
+        display('Singular point')
+    end
     
-    
-    % CALCULE LA PR�XIMA ITERACI�N DEL ALGORITMO
-    q = q + qd*step_time;
+    K = [2 0 0 0 0 0;
+         0 2 0 0 0 0;
+         0 0 2 0 0 0;
+         0 0 0 1 0 0;
+         0 0 0 0 1 0;
+         0 0 0 0 0 1];
+    k=1;
+    % CALCULE LA PROXIMA ITERACION DEL ALGORITMO
+    q = q + k*K*qd*step_time*norm(Vref);
     %drawrobot3d(robot, q)
     %pause(0.01);
+    error = [error norm(Vref)];
     i=i+1;
 end
 fprintf('INVERSE KINEMATICS FAILED: COULD NOT REACH POSITION/ORIENTATION\n')
 
 q = atan2(sin(q), cos(q));
 
+close all
+figure, plot(error);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %En base a la posici�n y orientaci�n final, calcular cu�les deben ser las

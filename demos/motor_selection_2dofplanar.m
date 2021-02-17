@@ -75,9 +75,9 @@ robot.dynamics.friction = 1
 %             torques at each joint
 q=[0 0]; %rad
 %maximum speeds at for each joint
-maximum_speeds=[-pi pi];%rad/second
+maximum_speeds=[pi pi];%rad/second
 %maximum acceleration/deceleration for each joint
-maximum_accels=[-pi/4 pi/4]; %rad/second^2
+maximum_accels=[pi/4 pi/4]; %rad/second^2
 
 % time of the trapezoidal profile that the joint moves at maximum speed
 time_at_constant_speed=2; %seconds

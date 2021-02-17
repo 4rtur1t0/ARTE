@@ -14,11 +14,25 @@
 % should be a corresponding call to simxFinish at the end!
 
 function irb140_in_coppelia()
-    global simulation
-    n_joints = 6;
-    n_col_objects = 0;
-    simulation = coppelia_init(n_joints, n_col_objects);
+    % init basic data. Robots and number of collision objects.
+    coppelia = [];
+    coppelia.n_collision_objects = 0;
+    coppelia.robots{1}.n_joints = 6;
+    %coppelia.robots{2}.n_joints = 6;
     
-    q = [0.1 0.2 0.3 0.]
+    coppelia = coppelia_init(coppelia);
     
+    q = [0.1 0.2 0.3 0.4 0.5 0.6]';
+    dq = 0.1*[1 1 1 1 1 1]';
+    % Draw robot 1: R1, which possesses joints R1_q1, R1_q2...
+    for i=1:40
+       q = q + dq;
+       drawrobotcoppelia(coppelia, 1, q)
+    end
+    
+    coppelia_end(coppelia);
 end
+
+
+
+

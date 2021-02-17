@@ -92,7 +92,7 @@ global configuration robot
 %base directory for the library
 configuration.libpath = pwd();
 
-configuration.delta_time = 0.5; %minimum time between two consecutive poses of the robot. Adjust this time from 0.01 to 0.2, according to your processor
+configuration.delta_time = 0.05; %minimum time between two consecutive poses of the robot. Adjust this time from 0.01 to 0.2, according to your processor
 configuration.time_delay = 0.1; %delay in seconds between frames when animating a robot. see animate.m for more information
 
 configuration.min_resolution=0.0001;

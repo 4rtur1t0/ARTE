@@ -25,7 +25,6 @@
 function robot = parameters()
 
 robot.name= 'ABB_IRB140_M2000';
-0.262525,0.622008,0.673812,-0.300276
 robot.DH.theta= '[q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)+pi]';
 robot.DH.d='[0.352 0 0 0.380 0 0.065]';
 robot.DH.a='[0.070 0.360 0 0 0 0]';
@@ -59,10 +58,18 @@ robot.velmax = [deg2rad(200); %Axis 1, rad/s
                 deg2rad(360); %Axis 5, rad/s
                 deg2rad(450)];%Axis 6, rad/s
     
+robot.velmax = [deg2rad(200); %Axis 1, rad/s
+                deg2rad(200); %Axis 2, rad/s
+                deg2rad(200); %Axis 3, rad/s
+                deg2rad(200); %Axis 4, rad/s
+                deg2rad(200); %Axis 5, rad/s
+                deg2rad(200)];%Axis 6, rad/s
+            
+            
 robot.accelmax=robot.velmax/0.1; % 0.1 is here an acceleration time
             
 % end effectors maximum velocity
-robot.linear_velmax = 2.5; %m/s
+robot.linear_velmax = 1; %m/s
 
 
 

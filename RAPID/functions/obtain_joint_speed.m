@@ -23,7 +23,7 @@
 function vel=obtain_joint_speed(robot, speeddata)
 
 
-if strncmp(speeddata, 'vmax',4);
+if strncmp(speeddata, 'vmax',4)
     vel=robot.velmax;
 else
     [tag,remain] = strtok(speeddata, 'v');

@@ -55,6 +55,5 @@ T_reach = directkinematic(robot, qinv)
 'diff T-Treach'
 T-T_reach
 
-% Plot manipulatiliby ellipse
-drawrobot3d(robot, qinv)
+%drawrobot3d(robot, qinv)
 

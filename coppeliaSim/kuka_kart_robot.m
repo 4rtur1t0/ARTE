@@ -13,17 +13,23 @@
 % IMPORTANT: for each successful call to simxStart, there
 % should be a corresponding call to simxFinish at the end!
 
-function coppelia_end(simulation)
-    %global simulation
-    if (simulation.clientID>-1)
-        disp('Already connected to remote API server: trying to stop simulation');
-        % stop the simulation:
-        simulation.sim.simxStopSimulation(simulation.clientID,simulation.sim.simx_opmode_blocking);
-
-        % Now close the connection to CoppeliaSim:    
-        simulation.sim.simxFinish(simulation.clientID);
-    else
-        disp('Failed connecting to remote API server to stop simulation');
+function kuka_kart_robot()
+    % init basic data. Robots and number of collision objects.
+    coppelia = [];
+    n_joints = 10;
+    coppelia.n_collision_objects = 0;
+    coppelia.robots{1}.n_joints = n_joints;
+    
+    coppelia = coppelia_init(coppelia);
+    
+    q = 0.1*ones(n_joints, 1);
+    dq = 0.1*q;
+    % Draw robot 1: R1, which possesses joints R1_q1, R1_q2...
+    for i=1:40
+       q = q + dq;
+       drawrobotcoppelia(coppelia, 1, q)
+       pause(0.01)
     end
-    simulation.sim.delete();
+    
+    coppelia_end(coppelia);
 end
