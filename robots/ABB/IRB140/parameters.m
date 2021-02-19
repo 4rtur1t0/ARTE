@@ -58,12 +58,12 @@ robot.velmax = [deg2rad(200); %Axis 1, rad/s
                 deg2rad(360); %Axis 5, rad/s
                 deg2rad(450)];%Axis 6, rad/s
     
-robot.velmax = [deg2rad(200); %Axis 1, rad/s
-                deg2rad(200); %Axis 2, rad/s
-                deg2rad(200); %Axis 3, rad/s
-                deg2rad(200); %Axis 4, rad/s
-                deg2rad(200); %Axis 5, rad/s
-                deg2rad(200)];%Axis 6, rad/s
+% robot.velmax = [deg2rad(200); %Axis 1, rad/s
+%                 deg2rad(200); %Axis 2, rad/s
+%                 deg2rad(200); %Axis 3, rad/s
+%                 deg2rad(400); %Axis 4, rad/s
+%                 deg2rad(400); %Axis 5, rad/s
+%                 deg2rad(400)];%Axis 6, rad/s
             
             
 robot.accelmax=robot.velmax/0.1; % 0.1 is here an acceleration time
