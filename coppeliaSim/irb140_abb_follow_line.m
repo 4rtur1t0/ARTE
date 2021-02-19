@@ -22,10 +22,8 @@ function pick_and_place(coppelia)
     robot_number = 1;
     % initial position
     Q0 = [0 0 0 0 0 0]';
-    Q1 = [pi/4 pi/4 -pi/4 0.1 0.2 0.3];
-    Q2 = [0.3 0.3 0.3 0.3 0.3 0.3];
-    Q3 = [0.15 0.15 0.15 0.15 0.15 0.15];
-    Q4 = [0.1 0.1 0.1 0.1 0.1 0.1]
+    Q1 = [pi/4 pi/4 -pi/4 0.1 0.2 0.3]';
+    Q1 = 0.01*[pi/4 pi/4 -pi/4 0.1 0.2 0.3]';
     % must initialize the current robot joint positions
     robot.q = Q0;
 
@@ -45,7 +43,7 @@ function pick_and_place(coppelia)
            0 0 -1 0.8;
            0 0 0 1];
     open_gripper(coppelia, robot_number);
-    [qt, qdt]=AbsJPath(robot, Q3, [0 0 0 0 0 0], 30);
+    [qt, qdt]=AbsJPath(robot, Q1, [0 0 0 0 0 0]', 30);
     move_robot(coppelia, 1, qt, qdt)
     robot.q = qt(:,end);
     robot.qd=qdt(:,end);
@@ -79,9 +77,6 @@ function pick_and_place(coppelia)
     move_robot(coppelia, 1, qt, qdt)
     robot.q = qt(:,end);
     robot.qd=qdt(:,end);
-
-
-
 end
 
 
