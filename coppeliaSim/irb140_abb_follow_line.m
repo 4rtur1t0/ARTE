@@ -1,5 +1,8 @@
 % This example illustrates how to interface with Coppelia using 
 % use the remote API in synchronous mode. 
+
+% In order
+% Any of the provided Coppelia scenes should 
 function irb140_abb_follow_line()
     % init basic data. Robots and number of collision objects.
     coppelia = [];
@@ -21,12 +24,19 @@ function pick_and_place(coppelia)
     robot = load_robot('ABB', 'IRB140');
     robot_number = 1;
     % initial position
-    Q0 = [0 0 0 0 0 0]';
-    Q1 = [pi/4 pi/4 -pi/4 0.1 0.2 0.3]';
-    Q1 = 0.01*[pi/4 pi/4 -pi/4 0.1 0.2 0.3]';
+    % get current robot position in simulation
+    Q0 = coppelia_get_joint_positions(coppelia, robot_number);
+    
+    Q1 = [-pi-pi/4 pi/4 0.1 0.2 0.3]';
     % must initialize the current robot joint positions
     robot.q = Q0;
 
+        %Initial point
+    T0 = [-1 0 0 0.3;
+           0 1 0  0.3;
+           0 0 -1 0.6;
+           0 0 0 1];
+    
     %Initial point
     T1 = [-1 0 0 0.52;
            0 1 0  0;
@@ -42,41 +52,50 @@ function pick_and_place(coppelia)
            0 1 0 -0.5;
            0 0 -1 0.8;
            0 0 0 1];
-    open_gripper(coppelia, robot_number);
-    [qt, qdt]=AbsJPath(robot, Q1, [0 0 0 0 0 0]', 30);
-    move_robot(coppelia, 1, qt, qdt)
-    robot.q = qt(:,end);
-    robot.qd=qdt(:,end);
-
-    %drawrobot3d(robot, robot.q)
-    [qt, qdt] = MoveLPath(robot, T1, 20);
-    move_robot(coppelia, 1, qt, qdt)
-    robot.q = qt(:,end);
-    robot.qd=qdt(:,end);
-    [qt, qdt] = MoveLPath(robot, T2, 50);
-    move_robot(coppelia, 1, qt, qdt)
-    robot.q = qt(:,end);
-    robot.qd=qdt(:,end);
-
-    % % now close gripper
+       
+    open_gripper(coppelia, robot_number); 
+    coppelia_wait(coppelia, 15)
     close_gripper(coppelia, robot_number);
-    [qt, qdt] = MoveLPath(robot, T1, 20);
-    move_robot(coppelia, 1, qt, qdt)
-    robot.q = qt(:,end);
-    robot.qd=qdt(:,end);
+    coppelia_wait(coppelia, 15)
+    
+    % Synchronous movement on joint space: specify joint values
+    [qt, qdt]=AbsQPath(robot, Q0, [0 0 0 0 0 0]', 50);
+    robot = move_robot(coppelia, robot, 1, qt, qdt);
+    
+    % Synchronous movement on joint space: specify joint values
+    [qt, qdt]=AbsQPath(robot, Q1, [0 0 0 0 0 0]', 50);
+    robot = move_robot(coppelia, robot, 1, qt, qdt);
 
-    [qt, qdt]=MoveLPath(robot, T3, 20);
-    move_robot(coppelia, 1, qt, qdt)
-    robot.q = qt(:,end);
-    robot.qd=qdt(:,end);
+    % Synchronous movement on joint space: specify T matrix
+    [qt, qdt] = QPath(robot, T0, [0 0 0 0 0 0]', 40, Q0);
+    robot = move_robot(coppelia, robot, 1, qt, qdt);
+   
     open_gripper(coppelia, robot_number);
-    robot.q = qt(:,end);
-    robot.qd=qdt(:,end);
+    coppelia_wait(coppelia, 15)
 
-    [qt, qdt]=MoveLPath(robot, T1, 20);
-    move_robot(coppelia, 1, qt, qdt)
-    robot.q = qt(:,end);
-    robot.qd=qdt(:,end);
+%     [qt, qdt] = LPath(robot, T1, 50);
+%     robot = move_robot(coppelia, robot, 1, qt, qdt);
+% 
+%     [qt, qdt] = LPath(robot, T2, 50);
+%     robot = move_robot(coppelia, robot, 1, qt, qdt);
+%     
+%     % now close gripper
+%     close_gripper(coppelia, robot_number);
+%     
+%     [qt, qdt] = LPath(robot, T1, 20);
+%     robot = move_robot(coppelia, robot, 1, qt, qdt);
+% 
+% 
+%     [qt, qdt]=LPath(robot, T3, 20);
+%     robot = move_robot(coppelia, robot, 1, qt, qdt);    
+%     
+%     open_gripper(coppelia, robot_number);
+% 
+%     [qt, qdt]=LPath(robot, T1, 20);
+%     robot = move_robot(coppelia, robot, 1, qt, qdt);
+% 
+%     open_gripper(coppelia, robot_number);
+    
 end
 
 

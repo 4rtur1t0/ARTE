@@ -31,6 +31,7 @@ function [qt, qdt] = MoveLPath(robot, Tf, speed_percent)
     %global robot
     %start joint coordinates, as saved before
     q0 = robot.q;
+    
     T0 = directkinematic(robot, q0);
     p0 = T0(1:3, 4);
     pf = Tf(1:3, 4);
@@ -50,21 +51,26 @@ function [qt, qdt] = MoveLPath(robot, Tf, speed_percent)
     qt = [robot.q];
     qdt = [robot.qd];
     q = q0;
+    delta_end= 0.21;
     while 1
         Ti = directkinematic(robot, q);
         Qi = T2quaternion(Ti);
-        pi = Ti(1:3,4);
+        pi=Ti(1:3, 4);
         vi = compute_speed(pi, pf, time);
         wi = compute_ang_speed(Qi, Qf, time);
         Vref = [vi' wi']';
         J = manipulator_jacobian(robot, q);
         qd = inv(J)*Vref;
         q = q + qd*delta_time;
-
+        
         % find the error of p with respect to the line.
         [delta_end, error_line, error_line_vector] = find_errors(p0, pf, pi);  
-
-        if delta_end < 0.01
+        delta_end=delta_end
+        
+        %function [error_end, error_line, error_line_vector]=find_errors(a, b, p)
+        %error_end = sqrt((p-b)'*(p-b));
+        
+        if delta_end < 0.008
             break
         end
          

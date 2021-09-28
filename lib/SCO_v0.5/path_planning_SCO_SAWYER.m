@@ -120,46 +120,6 @@ pk = SCO_null_space(robot);
 
 
 
-% function T = build_T_4dof(p, phi)
-% T = [cos(phi) -sin(phi) 0 p(1);
-%      sin(phi) cos(phi) 0 p(2);
-%      0            0     1  p(3);
-%      0             0    0   1];
- 
-%  function T = build_T_sawyer(p, phi)
-% % T = [-sin(phi)  cos(phi)     0         p(1);
-% %      cos(phi)   sin(phi)      0         p(2);
-% %      0             0         -1         p(3);
-% %      0             0         0          1];
-%  
-% T = [0     1     0         p(1);
-%      1      0      0         p(2);
-%      0      0       -1         p(3);
-%      0      0      0          1];
- 
-    
-% % Use Quaternion algebra
-% % the angle is dificult to find
-% function T = build_T_from_obstacleQ(p0, n)
-% global robot
-% nx = n(1);
-% ny = n(2);
-% nz = n(3);
-% %convert from normal n to quaternion asuming angle of rotation is zero
-% %surface sign
-% angle = pi/4;
-% qx = nx * sin(angle/2);
-% qy = ny * sin(angle/2);
-% qz = nz * sin(angle/2);
-% qw = cos(angle/2);
-% Q = [qw qx qy qz];
-% 
-% %this
-% T = quaternion2T(Q, p0);
-% %return T in the oposite direction!
-% T=T*inv(robot.Tcoupling);
-
-
 
 
 

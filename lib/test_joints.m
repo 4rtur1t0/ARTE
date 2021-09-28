@@ -2,7 +2,7 @@
 %  Test whether any of the joint angles exceeds the mechanical
 %  limits imposed by manufacturer
 %   
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche
 %   Date: 05/05/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -29,7 +29,7 @@ function error=test_joints(robot, q)
 %0--> no error
 error = 0;
 if ~isempty(robot.maxangle)
-    for i=1:robot.DOF,
+    for i=1:robot.DOF
         
         if q(i) < robot.maxangle(i,1)
             fprintf('\nERROR: joint out of range');

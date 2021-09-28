@@ -1,5 +1,5 @@
 
-function [pk, final_manip] = SCO_null_space(robot)
+function [pk, final_manip] = SCO_null_space(robot, pathT)
 %global robot
 global parameters
 global hfigures
@@ -10,13 +10,10 @@ hfigures.htheta = figure;
 hfigures.hbest_costs = figure;
 hfigures.hdtheta = figure;
 
-%line_work = [p0 pf];
 %N waypoints at each trajectory
-N = parameters.N;
+%N = parameters.N;
 %K particles
 K = parameters.K;
-
-pathT = build_initial_path();
 
 %generate K different paths
 %starting from arbitrary positions.
@@ -26,6 +23,8 @@ for k=1:K
   %generate particle
   G{k}.pathq = pathq;
   G{k}.pathT = pathT;
+  %animate_local(robot, pathq)
+  %figure, plot(pathq')
 end
 %pick arbitrarily one...
 initial_manip = compute_manip(robot, pathq);
@@ -58,7 +57,9 @@ title('best PROB at each iteration (sum of probs-weights along trajectory)')
 %animate best particle
 animate_local(robot, pk.pathq)
 final_manip = compute_manip(robot, pk.pathq);
-figure, plot(final_manip)
+figure, plot(initial_manip), hold
+plot(final_manip)
+legend('initial_manip', 'final_manip')
 title('manip at each time step')
 
 figure, hold
@@ -182,9 +183,6 @@ function [P, cost] = cost_function_manipulability(q)
 global robot parameters
 %compute nil-space!!
 % J = manipulator_jacobian(robot, q);
-% % moving on vx, vy and wz!!!
-% J = [J(1:2,:); J(6,:)];
-%manip = sqrt(det(J*J'));
 manip = compute_manip(robot, q);
 %define cost: cost is lower as manipulability is higher
 cost = 1/(manip+0.01);
@@ -291,7 +289,7 @@ global robot
 global parameters
 %sigma_noise = parameters.noise_sigma_null_space;
 alpha = parameters.alpha;
-time_step = parameters.step_time;
+time_step = parameters.time_step;
 
 q = q1;
 the = 0;

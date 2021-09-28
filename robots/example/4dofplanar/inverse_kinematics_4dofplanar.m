@@ -14,7 +14,7 @@
 %   Tf--> final position/orientation wanted as a homogeneous matrix
 function q = inverse_kinematics_4dofplanar(robot, Tf, q0)
 %global parameters
-% Obtain thea matriz de posición/orientación en Quaternion representation
+% Obtain thea matriz de posiciï¿½n/orientaciï¿½n en Quaternion representation
 Qf = T2quaternion(Tf);
 Pf = Tf(1:3,4);
 q=q0;
@@ -54,7 +54,7 @@ q = atan2(sin(q), cos(q));
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido
@@ -65,7 +65,7 @@ v = (Pf-Pi);
 v = v(:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%En base a la posición y orientación final, calcular cuáles deben ser las
+%En base a la posiciï¿½n y orientaciï¿½n final, calcular cuï¿½les deben ser las
 %velocidades...
 % Esto es diferente a calcular la velocidades cuando ya hay contacto y se
 % trata de un problema de control... pero es parecido

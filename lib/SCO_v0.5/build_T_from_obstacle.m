@@ -5,18 +5,16 @@
 function T = build_T_from_obstacle(obstacle, p0)
 global robot
 n = obstacle.n;
-nx = n(1);
-ny = n(2);
-nz = n(3);
+%nx = n(1);
+%ny = n(2);
+%nz = n(3);
 
 %this is vector z7 of the end effector
-z7 = n;
-x0=[1 0 0]';
+x7 = n;
+z7=[0 0 1]';
 %x7 points in the direction of the first line
-x7 = cross(x0, n);
-
-%y7 to form rotation matrix
-y7 = cross(z7,x7);
+y7 = cross(z7, x7);
+y7 = y7/norm(y7);
 
 T = zeros(4,4);
 R = [x7 y7 z7];
@@ -25,10 +23,11 @@ T(1:3,4)=p0;
 T(4,4)=1;
 
 %constant orientation
-T = eye(4);
 
 %return T in the oposite direction!
 %with robot coupling tranformation
-T=T*inv(robot.Tcoupling);
+%T=T*inv(robot.Tcoupling);
+T=T*robot.Tcoupling;
+
 
 

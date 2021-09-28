@@ -27,16 +27,19 @@ deltaV = pf - p0;
 deltaV = deltaV/norm(deltaV);
 %and total length of the movement
 total_length = norm(pf - p0); %m
+n_steps = total_length/parameters.delta_mov;
+n_steps = round(n_steps);
 %linspace!!
-mov = linspace(0, total_length, parameters.N);
+%mov = linspace(0, total_length, parameters.N);
 %line0 = [p0 pf];
 %plot(line0(1,:),line0(2,:),'k')
 
 partial_path=[];
 Ti = T0;
-for i=1:length(mov)    
-    fprintf('Fast global plan %d out of %d\n', i, length(mov))
+for i=1:n_steps %length(mov)    
+    fprintf('Fast global plan %d out of %d\n', i, n_steps)
     %update to next point in trajectory
-    Ti(1:3,4) = p0 + mov(i)*deltaV;   
+    %Ti(1:3,4) = p0 + mov(i)*deltaV;  
+    Ti(1:3,4) = p0 + i*parameters.delta_mov*deltaV;
     partial_path{i}.T = Ti;
 end

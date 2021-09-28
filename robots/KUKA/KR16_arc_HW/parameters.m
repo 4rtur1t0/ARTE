@@ -45,7 +45,7 @@ robot.kind=['R' 'R' 'R' 'R' 'R' 'R'];
 
 %minimum and maximum rotation angle in rad
 robot.maxangle =[deg2rad(-185) deg2rad(185); %Axis 1, minimum, maximum
-                deg2rad(-155) deg2rad(35); %Axis 2, minimum, maximum
+                deg2rad(-35) deg2rad(155); %Axis 2, minimum, maximum
                 deg2rad(-120) deg2rad(154); %Axis 3
                 deg2rad(-165) deg2rad(165); %Axis 4: Unlimited (400� default)
                 deg2rad(-130) deg2rad(130); %Axis 5

@@ -2,7 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   example 4 DOF planar robot.
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   05/03/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -36,8 +36,10 @@ robot.DH.alpha='[0  0  0  0]';
 robot.DOF = 4;
 
 %Jacobian matrix
+% if not defined, compute it with manipulator_jacobian
 robot.J=[];
-
+%the proper rows of J to compute manipulability
+robot.selJ =[1,2,6];
 robot.kind=['R' 'R' 'R' 'R'];
 
 
@@ -72,11 +74,20 @@ robot.path = pwd;
 
 %this is an ad hoc transformation between the piece and the robot's end
 %effector
-robot.Tcoupling=[-1 0 0  0;
-     0 1 0  0;
-     0 0 -1 0;
-     0 0 0 1];
-
+% robot.Tcoupling=[-1 0 0  0;
+%      0 1 0  0;
+%      0 0 -1 0;
+%      0 0 0 1];
+% Tc1 = [cos(-pi/2) 0 sin(-pi/2) 0;
+%        0 1 0 0;
+%        -sin(-pi/2) 0 cos(-pi/2) 0;
+%        0  0  0  1       ];
+% Tc2 = [1 0 0 0;
+%        0 cos(pi) -sin(pi) 0;
+%        0  sin(pi) cos(pi) 0;
+%        0 0 0 1];
+% robot.Tcoupling =Tc1*Tc2;
+robot.Tcoupling = eye(4);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %GRAPHICS

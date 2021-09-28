@@ -21,19 +21,19 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function [q_t, qd_t, qdd_t, time] = AbsJPath(robot, target_joint_coord, target_joint_speed, speed_percent)
+function [q_t, qd_t, qdd_t, time] = ComputeAbsJPath(robot, target_joint_coord, target_joint_speed, speed_percent)
 
 %global configuration %  robot
 
-fprintf('\nCall to AbsJPath ARTE');
+fprintf('\nCall to AbsJPath ARTE-COPPELIA');
 
 %obtain current joint coordinates
 q_initial=robot.q;
 qd_initial = robot.qd;
 
 %obtain target joint coordinates
-q_final= target_joint_coord'; %joint_coord(1:robot.DOF)';
-qd_final = target_joint_speed';
+q_final= target_joint_coord(:); %joint_coord(1:robot.DOF)';
+qd_final = target_joint_speed(:);
 
 % compute max trapezoidal joint speed
 qdmax = speed_percent*robot.velmax/100;

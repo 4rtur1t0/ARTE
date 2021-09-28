@@ -73,6 +73,16 @@ function coppelia = retrieve_robot_handles(coppelia)
         end
         coppelia.robots{j}.end_effector.j_handles = j_handles;
     end
+    %Start streaming of joints handles
+    for j=1:n_robots
+        q_actual = [];
+        joint_handles = coppelia.robots{j}.j_handles;
+        for i=1:length(joint_handles)
+            [error, value]=coppelia.sim.simxGetJointPosition(coppelia.clientID, joint_handles(i), coppelia.sim.simx_opmode_streaming);
+            q_actual = [q_actual value];
+        end
+    end
+    
 end
 
 % 
