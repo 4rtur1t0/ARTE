@@ -8,6 +8,8 @@
 %   robot = load_robot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [pk, final_manip]=path_planning_SCO_4DOF(K)
+%function [pk, final_manip]=path_planning_SCO_4DOF%(K)%
+%K = 5
 close all;
 global robot
 global parameters
@@ -37,6 +39,7 @@ parameters.stop_iterations=1000;
 %number of waypoints
 %parameters.N = 12;
 parameters.delta_mov=0.1;
+
 %number of particles
 parameters.K = K;
 
@@ -53,13 +56,8 @@ hfigures.hbest_costs = figure;
 hfigures.hdtheta = figure;
 
 % obstacles
-% obstacle1()
-% obstacle1_1()
-% obstacle2()
-% obstacle3()
-
 % build obstacles based on a vector of advance and angle of advance
-program_distances_angles_exp_III();
+program_distances_angles_exp_II();
 
 % build path
 pathT = build_initial_path();

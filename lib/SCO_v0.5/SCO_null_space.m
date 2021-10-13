@@ -23,8 +23,8 @@ for k=1:K
   %generate particle
   G{k}.pathq = pathq;
   G{k}.pathT = pathT;
-  %animate_local(robot, pathq)
-  %figure, plot(pathq')
+  animate_local(robot, pathq)
+  figure, plot(pathq'), legend('q1', 'q2', 'q3', 'q4')
 end
 %pick arbitrarily one...
 initial_manip = compute_manip(robot, pathq);
