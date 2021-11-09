@@ -1,4 +1,4 @@
-% SCRIPT TEST to view a manipulability ellipse
+% SCRIPT TEST FOR THE KUKA LBR ROBOT KINEMATICS
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
 %
@@ -16,18 +16,19 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
+
 close all
-fprintf('\nView manipulability ellipse and forces ellipse at q')
 
-robot = load_robot('UR', 'UR10')
+% test both solutions: based on the transpose an on the Moore-Penrose
+q0 = [0.1 -pi/2 -pi/2 0.1 0.1 0.1 0.1]';
+fprintf('\nSimple test: try to reach T_target')
+T_target = directkinematic(robot, 0*[0.1 0.1 0.1 0.1 0.1 0.1 0.1]);
 
-%q = [pi/2 pi/4 -pi/4 0.4 0.5 -pi/4]';
-q = [0.15 0.15 0.15 0.15 0.15 0.15]';
+qinv = inversekinematic(robot, T_target, q0);
 
-%Plot manipulatiliby ellipse
-drawrobot3d(robot, q)
-hold on
-%draw manipulability ellipse
-plot_manipulability_ellipse(robot, q, 0.5)
-%draw forces ellipse
-%plot_forces_ellipse(robot, q, 0.1)
+T_reached = directkinematic(robot, qinv);
+'diff T-T_target'
+T_reached-T_target
+
+% Plot REACHED SOLUTION
+drawrobot3d(robot, qinv)
