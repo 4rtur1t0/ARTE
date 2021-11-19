@@ -59,7 +59,7 @@ robot = load_robot('ABB', 'IRB140');
     % cerrar pinza
     close_gripper(coppelia);
     % Esperar a que se cierre
-    coppelia_wait(coppelia, 1)
+    coppelia_wait(coppelia, 5)
     % subir
     qinv = inversekinematic(robot, T1);
     set_joint_target_trajectory(coppelia, qinv(:,1))
@@ -72,7 +72,7 @@ robot = load_robot('ABB', 'IRB140');
 
     % Esto abre la pinza
     open_gripper(coppelia); 
-    coppelia_wait(coppelia, 1)
+    coppelia_wait(coppelia, 5)
 
     % VOLVEMOS A la posicion inicial
     set_joint_target_trajectory(coppelia, q)
