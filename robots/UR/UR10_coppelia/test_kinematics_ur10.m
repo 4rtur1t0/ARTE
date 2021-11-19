@@ -19,15 +19,17 @@
 
 close all
 
-%robot = load_robot('UR', 'UR10');
+robot = load_robot('UR', 'UR10');
 % adjust 3D view as desired
-%adjust_view(robot)
+adjust_view(robot)
 
 % test both solutions: based on the transpose an on the Moore-Penrose
 robot.inversekinematic_fn = 'inverse_kinematics_jacobian(robot, T, q)';
-q0 = [0.1 -pi/2 -pi/2 0.1 0.1 0.1]';
+%q0 = [0.1 -pi/2 -pi/2 0.1 0.1 0.1]';
+q0 = [0.2  0.2 0.2 0.2 0.2 0.2]';
 
-T_target = directkinematics(robot, 
+T0 = directkinematic(robot, q0)
+
 
 fprintf('\nSimple test: try to reach T')
 T_target = [-0.3390   -0.3390    0.8776    0.2447;

@@ -16,13 +16,11 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function jacobian_symbolic_w
 L3 = 0.38;
-L6 = 0.065;
 
 syms q1 q2
 
 A01 = dh_sym(q1, L3, 0, pi/2);
-
-A12=dh_sym(q2, 0, 0, -pi/2);
+A12 = dh_sym(q2, 0, 0, -pi/2);
 A02 = A01*A12;
 
 z0 = [0 0 1]';
@@ -31,20 +29,16 @@ z2 = A02(1:3,3);
 
 Jw = [z0 z1 z2];
 
-q1 = pi/4;
-q2 = pi/4;
-
-jw = eval(Jw)
-
 singularities = det(Jw)
+singularities = simplify(singularities)
+q=solve(singularities == 0)
 
 
 
 function A = dh_sym(theta, d, a, alpha)
 syms q1 q2
-
-ca = cos(alpha)
-sa = sin(alpha)
+ca = cos(alpha);
+sa = sin(alpha);
 if abs(ca) < 1e-6
     ca = 0;
 end

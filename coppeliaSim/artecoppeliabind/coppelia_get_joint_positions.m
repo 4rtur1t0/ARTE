@@ -1,5 +1,5 @@
-function q_current = coppelia_get_joint_positions(coppelia, robot_index)
-    joint_handles = coppelia.robots{robot_index}.j_handles;
+function q_current = coppelia_get_joint_positions(coppelia)
+    joint_handles = coppelia.robot.j_handles;
 
     q_current = [];
     for i=1:length(joint_handles)

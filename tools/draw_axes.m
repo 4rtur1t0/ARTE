@@ -50,6 +50,6 @@ vect_arrow(p0, y, 'g', scale*3)
 vect_arrow(p0, z, 'b', scale*3)
 %plot vector names X_i Y_i Z_i
 %standard fontsize is 
-text(x(1)+0.01, x(2)-0.01, x(3)+0.01,X_text, 'FontWeight', 'bold', 'HorizontalAlignment', 'Center', 'FontSize', round(24*scale)); 
+text(x(1)+0.01, x(2)-0.01, x(3)+0.01, X_text, 'FontWeight', 'bold', 'HorizontalAlignment', 'Center', 'FontSize', round(24*scale)); 
 text(y(1)+0.01, y(2)+0.01, y(3)+0.01, Y_text, 'FontWeight', 'bold', 'HorizontalAlignment', 'Center', 'FontSize', round(24*scale));
 text(z(1)+0.01, z(2)+0.01, z(3)+0.01, Z_text, 'FontWeight', 'bold', 'HorizontalAlignment', 'Center', 'FontSize', round(24*scale));

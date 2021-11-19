@@ -51,36 +51,33 @@ end
 
 
 function coppelia = retrieve_robot_handles(coppelia)
-    n_robots = size(coppelia.robots, 2);
-    for j=1:n_robots
-        n_joints = coppelia.robots{j}.n_joints;
-        j_handles = [];
-        for i=1:n_joints
-            robot_name = strcat('R', int2str(j));
-            joint_name = strcat('_q', int2str(i));
-            full_joint_name = strcat(robot_name, joint_name);
-            [r, j_handles(i)]=coppelia.sim.simxGetObjectHandle(coppelia.clientID, full_joint_name, coppelia.sim.simx_opmode_blocking);
-        end
-        coppelia.robots{j}.j_handles = j_handles;
-        
-        n_joints = coppelia.robots{j}.end_effector.n_joints;
-        j_handles=[];
-        for i=1:n_joints
-            robot_name = strcat('R', int2str(j));
-            joint_name = strcat('_gripper_q', int2str(i));
-            full_joint_name = strcat(robot_name, joint_name);
-            [r, j_handles(i)]=coppelia.sim.simxGetObjectHandle(coppelia.clientID, full_joint_name, coppelia.sim.simx_opmode_blocking);
-        end
-        coppelia.robots{j}.end_effector.j_handles = j_handles;
+
+    n_joints = coppelia.robot.n_joints;
+    j_handles = [];
+    for i=1:n_joints
+        robot_name = coppelia.robot.name;
+        joint_name = strcat('_q', int2str(i));
+        full_joint_name = strcat(robot_name, joint_name);
+        [r, j_handles(i)]=coppelia.sim.simxGetObjectHandle(coppelia.clientID, full_joint_name, coppelia.sim.simx_opmode_blocking);
     end
-    %Start streaming of joints handles
-    for j=1:n_robots
-        q_actual = [];
-        joint_handles = coppelia.robots{j}.j_handles;
-        for i=1:length(joint_handles)
-            [error, value]=coppelia.sim.simxGetJointPosition(coppelia.clientID, joint_handles(i), coppelia.sim.simx_opmode_streaming);
-            q_actual = [q_actual value];
-        end
+    coppelia.robot.j_handles = j_handles;
+        
+    n_joints = coppelia.robot.end_effector.n_joints;
+    j_handles=[];
+    for i=1:n_joints
+        robot_name = coppelia.robot.name;
+        joint_name = strcat('_gripper_q', int2str(i));
+        full_joint_name = strcat(robot_name, joint_name);
+        [r, j_handles(i)]=coppelia.sim.simxGetObjectHandle(coppelia.clientID, full_joint_name, coppelia.sim.simx_opmode_blocking);
+    end
+        coppelia.robot.end_effector.j_handles = j_handles;
+    
+
+    q_actual = [];
+    joint_handles = coppelia.robot.j_handles;
+    for i=1:length(joint_handles)
+        [error, value]=coppelia.sim.simxGetJointPosition(coppelia.clientID, joint_handles(i), coppelia.sim.simx_opmode_streaming);
+        q_actual = [q_actual value];        
     end
     
 end
