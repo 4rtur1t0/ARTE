@@ -24,15 +24,25 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
 
-robot.name= 'UR10';
-robot.DH.theta= '[q(1) q(2)+pi/2 q(3) q(4)-pi/2 q(5) q(6)]';
-robot.DH.d='[0.128 0.176 -0.128 0.116 0.116 0.092]';
-robot.DH.a='[0 0.612 0.572 0 0 0]';
-robot.DH.alpha= '[pi/2 0 0 -pi/2 pi/2 0]';
+% robot.name= 'UR10';
+% robot.DH.theta= '[q(1)      q(2)-pi/2   q(3)        q(4)+pi/2   q(5) q(6)]';
+% robot.DH.d=     '[0.128       0.0      0.0           0.164  0.116   0.092]';
+% robot.DH.a=     '[0          0.612       0.572          0       0   0]';
+% robot.DH.alpha= '[-pi/2        0         0             pi/2     -pi/2  0]';
+
+robot.DH.theta= '[q(1)      q(2)-pi/2   q(3)        q(4)+pi/2   q(5) q(6)]';
+robot.DH.d=     '[0.127       0.0      0.0           0.164     0.115   0.092]';
+robot.DH.a=     '[0          0.612       0.572          0       0   0]';
+robot.DH.alpha= '[-pi/2        0         0             pi/2     -pi/2  0]';
+
+
+
+
 robot.J=[];
 
-% robot.inversekinematic_fn = 'inverse_kinematics_ur10(robot, T, q)';
-robot.inversekinematic_fn = 'inverse_kinematics_jacobian_transpose(robot, T, q)';
+
+
+robot.inversekinematic_fn = 'inverse_kinematics_jacobian(robot, T, q)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 
@@ -76,7 +86,7 @@ robot.path = pwd;
 
 
 % GRAPHICS
-robot.graphical.has_graphics=1;
+robot.graphical.has_graphics=0;
 robot.graphical.color = [255 102 51]./255;
 %for transparency
 robot.graphical.draw_transparent=0;

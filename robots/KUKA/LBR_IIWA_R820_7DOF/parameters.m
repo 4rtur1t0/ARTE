@@ -28,7 +28,7 @@ function robot = parameters()
 
 robot.name= 'KUKA_IIWA_14_R820_7DOF_SD';
 robot.DH.theta= '[q(1)   q(2)  q(3)  q(4) q(5)   q(6) q(7)]';
-robot.DH.d=     '[0.360  0     0.420 0    0.400   0   0.126]';
+robot.DH.d=     '[0.360  0     0.420 0    0.400   0   0.126+0.006]';
 robot.DH.a=     '[0      0     0     0     0      0   0]';
 robot.DH.alpha= '[-pi/2  pi/2 -pi/2  pi/2 -pi/2  pi/2  0]';
 robot.J=[];

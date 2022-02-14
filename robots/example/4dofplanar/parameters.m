@@ -2,7 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   example 4 DOF planar robot.
 %
-%   Author: Arturo Gil. Universidad Miguel Hern�ndez de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernandez de Elche. 
 %   email: arturo.gil@umh.es date:   05/03/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -4,16 +4,20 @@
 function q = inverse_kinematics_jacobian(robot, Tf, q0)
 
 % Obtain thea matriz de posici�n/orientaci�n en Quaternion representation
-Qf = T2quaternion(Tf);
+Qf = T2quaternion_shepherd(Tf);
 Pf = Tf(1:3,4);
 q=q0;
 step_time = robot.parameters.step_time;
 i=0;
+step_time = 50/1000;
 
 %this is a gradient descent solution based on moore-penrose inverse
 while i < robot.parameters.stop_iterations
     Ti = directkinematic(robot, q);
-    Qi = T2quaternion(Ti);
+    Qi = T2quaternion_shepherd(Ti);
+    %Qi2 = T2quaternion2(Ti);
+    %errorQ_est = Qi - Qi2
+    %errorQ_est=norm(Qi-Qi2)
     Pi = Ti(1:3,4);
     %compute linear speed and angular speed that are served as a high level
     %based on the current pose
@@ -29,9 +33,9 @@ while i < robot.parameters.stop_iterations
         return;
     end
     qd = inverse_kinematic_moore_penrose(robot, q, Vref);
-    K = 50*max([norm(v0) norm(w0)]);
+    %K = 50*max([norm(v0) norm(w0)]);
     % normalize to unit norm qd and some scaling based on the error
-    qd = K*qd/norm(qd);
+    %qd = K*qd/norm(qd);
     %actually move the robot.
     q = q + qd*step_time;
     drawrobot3d(robot, q)
