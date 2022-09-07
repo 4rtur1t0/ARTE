@@ -25,10 +25,12 @@ parameters.time_step=0.01;
 
 %number of waypoints
 parameters.N = 12;
+parameters.delta_mov=0.1;
 %number of particles
 %parameters.K = 10;
-parameters.n_repeat = 2000;
-parameters.experiment_name = 'experiment2A.mat';
+parameters.n_repeat = 2;
+parameters.experiment_name = 'experiment2A_time.mat';
+parameters.experiment_number = 2;
 
 parameters.obstacles = [];
 
@@ -43,42 +45,11 @@ hfigures.hdtheta = figure;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%4dof
-x1 = -1.5;
-y1 = .5; %m
-x2 = 1.5;
-y2 = 2.5; %m
-
-
-%the orientation needed
-phi = 3*pi/4; 
-p0 = [x1 y1 0]';
-pf = [x2 y2 0]';
-T0 = build_T_4dof(p0, phi);
-parameters.obstacles{1}.line = [p0 pf];
-parameters.obstacles{1}.T0 = T0;
+create_experiment(parameters.experiment_number)
+tic;
 [Gout, random_manips] = initial_solutions_moore_penrose(robot, parameters.experiment_name);
-
+elapsed = toc;
+fprintf('TIC TOC: %g\n', elapsed/parameters.n_repeat);
 figure, plot(random_manips')
-% title('RANDOM MANIPULABILITY AT EACH STEP FOR RANDOM MOORE-PENROSE PLANNING')
-% 
-% for k=1:parameters.K
-%     animate_local(robot, Gout{k}.pathq, [p0 pf])
-% end
-
-function T = build_T_4dof(p, phi)
-T = [cos(phi) -sin(phi) 0 p(1);
-     sin(phi) cos(phi) 0 p(2);
-     0            0     1  p(3);
-     0             0    0   1];
- 
- function T = build_T_sawyer(p, phi)
-T = [1  -sin(phi) 0 p(1);
-     0  cos(phi) 0 p(2);
-     0            0     1  p(3);
-     0             0    0   1];
- 
-
-
 
  

@@ -2,7 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   KUKA KR5 SIXX R850.
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   05/01/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -25,11 +25,18 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
 
-robot.DH.theta= '[q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)]';
-robot.DH.d='[0.335 0 0 -0.295 0 -0.080]';
+%robot.DH.theta= '[q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)]';
+%robot.DH.d='[0.335 0 0 -0.295 0 -0.080]';
+%robot.DH.a='[0.075 0.270 0.090 0 0 0]';
+%robot.DH.alpha= '[-pi/2 0 pi/2 -pi/2 pi/2 pi]';
+robot.DH.theta= '[-q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)]';
+robot.DH.d='[-0.335 0 0 -0.295 0 0.080]';
 robot.DH.a='[0.075 0.270 0.090 0 0 0]';
-robot.DH.alpha= '[-pi/2 0 pi/2 -pi/2 pi/2 pi]';
+robot.DH.alpha= '[pi/2 0 pi/2 -pi/2 -pi/2 pi]';
+
 robot.J=[];
+
+
 robot.name= 'KUKA_KR5_sixx_R650';
 
 robot.inversekinematic_fn = 'inversekinematic_kuka_kr5_sixx_r650(robot, T)';
@@ -44,9 +51,9 @@ robot.kind=['R' 'R' 'R' 'R' 'R' 'R'];
 robot.maxangle =[deg2rad(-170) deg2rad(170); %Axis 1, minimum, maximum
                 deg2rad(-190) deg2rad(45); %Axis 2, minimum, maximum
                 deg2rad(-119) deg2rad(165); %Axis 3
-                deg2rad(-190) deg2rad(190); %Axis 4: Unlimited (400º default)
+                deg2rad(-190) deg2rad(190); %Axis 4: Unlimited (400ï¿½ default)
                 deg2rad(-120) deg2rad(120); %Axis 5
-                deg2rad(-358) deg2rad(358)]; %Axis 6: Unlimited (800º default)
+                deg2rad(-358) deg2rad(358)]; %Axis 6: Unlimited (800ï¿½ default)
 
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = [deg2rad(375); %Axis 1, rad/s

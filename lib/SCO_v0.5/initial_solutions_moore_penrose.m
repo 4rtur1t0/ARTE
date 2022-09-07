@@ -15,21 +15,23 @@ random_manips = [];
 Gout={};
 for k=1:parameters.n_repeat
   q0 = uniform(-pi, pi, 1, robot.DOF)';
-  [pathq, pathT] = plan_path_moore_penrose(robot, q0, parameters.animate);
+  [pathq, pathT] = plan_path_moore_penrose(robot, q0);
   %generate particle
   Gout{k}.pathq = pathq;
   Gout{k}.pathT = pathT;
 
-  manips = compute_manip_4dof(robot, pathq);
+  %manips = compute_manip_4dof(robot, pathq);
+  manips = compute_manip(robot, pathq);
   random_manips = [random_manips; manips];
   save(experiment_name)
 end
 
 
-
-
-
-
+%
+% Uniform value betweenn min_val and max_val
+%
+function delta = uniform(min_val, max_val, n, m)
+delta = (max_val-min_val)*rand(n, m) + min_val;
 
 
 

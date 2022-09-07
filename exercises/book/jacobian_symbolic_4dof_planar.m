@@ -42,7 +42,7 @@ J = [Jv; Jw]
 % transform to valid dimensions
 J = [J(1:2,:); J(6,:)]
 
-
+J = simplify(J)
 %singularities = det(J*J')
 %singularities = simplify(singularities)
 

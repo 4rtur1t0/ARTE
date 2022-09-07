@@ -3,7 +3,9 @@
 %   ADEPT eCobra 600.
 %
 % The authors of this script are:
+%   Arturo Gil Aparicio
 %   Adrian Peidro Vidal
+%
 %		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -29,7 +31,7 @@ function robot = parameters()
 robot.name= 'ADEPT_eCobra_600';
 
 %Path where everything is stored for this robot
-robot.path = 'robots/adept/eCobra_600'
+robot.path = 'robots/adept/eCobra_600';
 
 robot.DH.theta= '[q(1) q(2) 0 q(4)]';
 robot.DH.d='[0.342 0 q(3)+0.165 0]';
@@ -38,8 +40,7 @@ robot.DH.alpha= '[0 pi 0 0]';
 
 robot.J=[];
 
-% robot.inversekinematic_fn = 'inversekinematics_VIPER850(robot, T)';
-robot.inversekinematic_fn = [];
+robot.inversekinematic_fn = 'inversekinematic_ecobra_600(robot, T)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 
