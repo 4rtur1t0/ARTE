@@ -8,28 +8,21 @@ close all;
 %global robot
 robot = load_robot('example', '4dofplanar');
 
-step_time = 0.5;
-n_movements = 50;
+step_time = 0.1;
+n_movements = 300;
 q0 = pi/8*[1 1 1 1]';
-T0 = directkinematic(robot, q0);
 signo = 1;
 a=1;
-%initial pose and manipulability
 qq = [];
-
-%q0 = [0.1 0.1 0.1 0.1]';
 drawrobot3d(robot, q0)
 adjust_view(robot)
 q =  q0; % inverse_kinematics_4dofplanar(robot, T0, q0);
 
 %hold
-for i=1:n_momements
-    fprintf('Move %d out of %d\n', i, M)  
+for i=1:n_movements
+    fprintf('Move %d out of %d\n', i, n_movements)  
     qd = null_space_4dof(robot, q);
     q = q + signo*qd*step_time;
-    drawrobot3d(robot, q)
-    pause(0.1)
-    draw_axes(T0, 'Xpiece', 'Ypiece', 'Zpiece', 1.2);
     qq = [qq q];
     
     mod_qd = norm(qd);
@@ -37,32 +30,8 @@ for i=1:n_momements
         signo = -1;
         a=0;
     end
- %   manips = compute_manip(robot, qq);
- %   figure(2)
- %   plot(manips)    
 end
-
-manips = compute_manip(robot, qq);
-figure,
-plot(manips)
-title('manipulability index at each movement')
-
-%plot correlation between variables
-%using covariance matrix
-A = cov(qq');
-colormap('hot')
-imagesc(A)
-colorbar
-
-qq_sorted = sortrows(qq');
-qq_sorted = qq_sorted';
-
-save(experiment_name)
-
-for i=1:1:size(qq,2)
-     drawrobot3d(robot, qq_sorted(:,i))    
-     %plot(line_work(1,:),line_work(2,:))
-end
+animate(robot, qq)
 
 
 

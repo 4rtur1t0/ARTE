@@ -21,7 +21,7 @@ robot.DOF = 0;
 robot.kind=[];
 
 %minimum and maximum rotation angle in rad
-robot.maxangle =[]; %Axis 6: Unlimited (800º default)
+robot.maxangle =[]; %Axis 6: Unlimited (800ï¿½ default)
 
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = [];%Axis 6, rad/s
@@ -39,10 +39,10 @@ robot.T0 = eye(4);
 %system.
 %for tools, this TCP usually means the transformation from system 
 %(X_tool0,Y_tool0,Z_tool0) to (X_tool1,Y_tool1,Z_tool1)
-robot.TCP = [1 0 0 0;
+robot.TCP = [cos(pi/4) 0 sin(pi/4) 0.032;
              0 1 0 0;
-             0 0 1 0.425;
-             0 0 0 0.1]; 
+             -sin(pi/4) 0 cos(pi/4) 0.23;
+             0 0 0 1]; 
 
 %INITIALIZATION OF VARIABLES REQUIRED FOR THE SIMULATION
 %position, velocity and acceleration
@@ -60,10 +60,10 @@ robot.graphical.color = [100 102 100]./255;
 %for transparency
 robot.graphical.draw_transparent=0;
 %draw DH systems
-robot.graphical.draw_axes=0;
+robot.graphical.draw_axes=1;
 %DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for
 %bigger robots
-robot.graphical.axes_scale=0;
+robot.graphical.axes_scale=1;
 %adjust for a default view of the robot
 robot.axis=[-0.75 0.75 -0.75 0.75 0 1.2];
 %read graphics files

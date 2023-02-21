@@ -79,7 +79,7 @@ q =[beta+gamma beta-gamma;
 %q(3) can be computed as q(3) = phi - q(1) - q(2) 
 %corresponding to each of the previous solutions, a unique q(3) can be
 %computed for each case
-for i=1:2, %iterate through columns 
+for i=1:2 %iterate through columns 
     q(3,i) = phi - q(1,i) - q(2,i); 
 end
 

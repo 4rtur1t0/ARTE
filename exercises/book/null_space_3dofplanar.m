@@ -20,7 +20,7 @@
 function null_space_3dofplanar
 % link lengths
 robot = load_robot('example', '3dofplanar');
-q = [pi/4 pi/4 pi/4]';
+q = [pi/2 pi/2 pi/2]';
 
 qs = [];
 qds = [];
@@ -45,9 +45,9 @@ J = manipulator_jacobian(robot, q);
 % consider only vx, vy
 J = J(1:2, :);
 iJm = moore_penrose(J);
-
-% null space
-ns = (eye(3)-iJm*J)*[1 0 0]';
+P = (eye(3)-iJm*J)
+% project to null space
+ns = P*[1 0 0]';
 manip = det(J*J')
 
 

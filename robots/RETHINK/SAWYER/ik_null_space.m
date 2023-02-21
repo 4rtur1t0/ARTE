@@ -5,11 +5,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [qq, manips]=ik_null_space
 close all;
-global robot
-
+% global robot
+robot = load_robot('RETHINK','SAWYER')
 %particles
 M = 1500;
-step_time = 0.5;
+step_time = 0.01;
 
 height1 = 1.2; %m
 x1 = -1;
@@ -21,20 +21,21 @@ T0 = build_T(p0, phi);
 signo = 1;
 a=1;
 
-q = [pi/4 -pi/4 pi/8 -pi/2 pi/4 pi/4 pi/4];
+q = [pi/4 pi/4 pi/8 -pi/2 pi/4 pi/4 pi/4];
 drawrobot3d(robot, q)
+pause
 T0 = directkinematic(robot, q);
 
 %initial pose and manipulability
 qq = [];
-q0 = [0.2 0.2 0.2 0.2 0.2 0.2 0.2]';
+%q0 = [0.2 0.2 0.2 -0.5 0.2 0.2 0.2]';
 
-q = inversekinematic(robot, T0, q0);
+%q = inversekinematic(robot, T0, q0);
 %hold
 for i=1:M
     fprintf('Move %d out of %d\n', i, M)  
     qd = null_space_7dof(robot, q);
-    qd = qd/sum(abs(qd))
+    qd = qd/norm(qd)
     q = q + signo*qd*step_time;
     drawrobot3d(robot, q)
     %pause(0.1)

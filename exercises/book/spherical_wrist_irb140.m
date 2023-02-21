@@ -1,3 +1,5 @@
+% A SYMBOLIC DERIVATION OF THE JACOBIAN MANIPULATOR OF A KUKA LBR IIWA 14
+%
 % Copyright (C) 2016, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
@@ -14,41 +16,42 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function jacobian_symbolic_2dof
-L = 0.5;
+function spherical_wrist_irb140
+% link lengths
 
-syms q1 q2
+syms q1 q2 q3 q4 q5 q6
+robot = load_robot('ABB', 'IRB140')
+
+d = eval(robot.DH.d);
+a = eval(robot.DH.a);
+alpha = eval(robot.DH.alpha);
+
 % matrices DH
-A01 = dh_sym(q1, 0, L, 0);
-A12 = dh_sym(q2, 0, L, 0);
-A02 = A01*A12;
+A34 = dh_sym(q4, d(4), a(4), alpha(4));
+A45 = dh_sym(q5, d(5), a(5), alpha(5));
+A56 = dh_sym(q6+pi, d(6), a(6), alpha(6));
+
+% spherical wrist
+Q = A34*A45*A56;
+Q = simplify(Q)
+
+q5 = 0
+
+Q = simplify(Q)
 
 
-z0 = [0 0 1]';
-z1 = A01(1:3,3);
-z2 = A02(1:3,3);
+Q(1:3, 1:3)
+ 
 
-p02=A02(1:3,4);
-p12=A02(1:3,4)-A01(1:3,4);
 
-Jv = [cross(z0, p02) cross(z1, p12)];
 
-Jv = simplify(Jv)
-Jw = [0 0;0 0; 1 1];
 
-J = [Jv; Jw]
 
-q1 = pi/2
-q2 = pi/2
-J = eval(J)
-tau = J'*[1 1 1 1 1 1]'
-
-singularities = det(Jv)
 
 
 
 function A = dh_sym(theta, d, a, alpha)
-syms q1 q2 q3
+syms q1 q2 q3 q4 q5 q6 q7
 % avoid almost zero elements in cos(alpha) and sin(alpha)
 ca = cos(alpha);
 sa = sin(alpha);
@@ -62,5 +65,8 @@ end
 
 A=[cos(theta)  -ca*sin(theta)   sa*sin(theta)   a*cos(theta);
    sin(theta)   ca*cos(theta)  -sa*cos(theta)   a*sin(theta);
-            0              sa             ca             d;
-            0         0                     0              1];
+            0         sa             ca             d;
+            0         0               0             1];
+        
+
+        

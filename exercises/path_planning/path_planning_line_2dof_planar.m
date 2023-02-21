@@ -1,19 +1,31 @@
 % Simple Path Planning of a 2DOF planar robot
 function path_planning_line_2dof_planar()
-
+close all
 robot = load_robot('example', '2dofplanar');
 delta_time = 0.01; % s
 abs_linear_speed = 1.5; %m/s
+% % initial point
+% T1=[1 0 0 0.8;
+%     0 1 0 -0.5;
+%     0 0 1 0; 
+%     0 0 0  1];
+% %end point
+% T2=[1 0 0 -0.5;
+%     0 1 0 1.5;
+%     0 0 1 0; 
+%     0 0 0  1];
+
 % initial point
 T1=[1 0 0 0.8;
-    0 1 0 -0.5;
+    0 1 0 -0.2;
     0 0 1 0; 
     0 0 0  1];
 %end point
-T2=[1 0 0 -0.5;
-    0 1 0 1.5;
+T2=[1 0 0 -0.8;
+    0 1 0 0.2;
     0 0 1 0; 
     0 0 0  1];
+
 
 start_point = T1(1:3,4);
 end_point = T2(1:3,4);
@@ -30,13 +42,15 @@ q = qinv(:,2);
 qs = [];
 qds = [];
 ps = [];
-while 1
+% while 1
+for i=1:1000
+    
    T = directkinematic(robot, q);
    J = manipulator_jacobian(robot, q);
    J = J(1:2,:);
    p = T(1:3,4);
    error = norm(end_point - p);
-   if error < 0.05       
+   if error < 0.01     
        break
    end
    qd = inv(J)*v(1:2);

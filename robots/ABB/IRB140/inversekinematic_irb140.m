@@ -83,12 +83,10 @@ q1=atan2(Pm(2), Pm(1));
 
 %solve for q2
 q2_1=solve_for_theta2(robot, [q1 0 0 0 0 0 0], Pm);
-
 q2_2=solve_for_theta2(robot, [q1+pi 0 0 0 0 0 0], Pm);
 
 %solve for q3
 q3_1=solve_for_theta3(robot, [q1 0 0 0 0 0 0], Pm);
-
 q3_2=solve_for_theta3(robot, [q1+pi 0 0 0 0 0 0], Pm);
 
 
@@ -120,11 +118,12 @@ q=real(q);
 
 %normalize q to [-pi, pi]
 q(1,:) = normalize(q(1,:));
-q(2,:) = normalize(q(2,:));
+%q(2,:) = normalize(q(2,:));
+%q(3,:) = normalize(q(3,:));
 
 % solve for the last three joints
 % for any of the possible combinations (theta1, theta2, theta3)
-for i=1:2:size(q,2),
+for i=1:2:size(q,2)
     % use solve_spherical_wrist2 for the particular orientation
     % of the systems in this ABB robot
     % use either the geometric or algebraic method.
@@ -136,11 +135,14 @@ for i=1:2:size(q,2),
     qtemp = solve_spherical_wrist2(robot, q(:,i), T, 1,'algebraic'); %wrist up
     qtemp(4:6)=normalize(qtemp(4:6));
     q(:,i)=qtemp;
-    
     %qtemp = solve_spherical_wrist2(robot, q(:,i), T, -1, 'geometric'); %wrist down
-    qtemp = solve_spherical_wrist2(robot, q(:,i), T, -1, 'algebraic'); %wrist down
+    qtemp = solve_spherical_wrist2(robot, q(:,i), T, -1, 'algebraic'); %wrist downq    
     qtemp(4:6)=normalize(qtemp(4:6));
     q(:,i+1)=qtemp;
+    
+%     qtemp = solve_spherical_wrist_irb140(robot, q(:,i), T); 
+%     q(4:6,i)=qtemp(1:3);
+%     q(4:6,i+1)=qtemp(4:6);    
 end
 
 
@@ -218,6 +220,56 @@ end
 %the order here is important
 q3(1) = pi/2 - eta;
 q3(2) = eta - 3*pi/2;
+
+
+
+function qtemp = solve_spherical_wrist_irb140(robot, q, T)
+
+% [   sin(q4)*sin(q6) - cos(q4)*cos(q5)*cos(q6), cos(q6)*sin(q4) + cos(q4)*cos(q5)*sin(q6), -cos(q4)*sin(q5)]
+% [ - cos(q4)*sin(q6) - cos(q5)*cos(q6)*sin(q4), cos(q5)*sin(q4)*sin(q6) - cos(q4)*cos(q6), -sin(q4)*sin(q5)]
+% [                            -cos(q6)*sin(q5),                           sin(q5)*sin(q6),          cos(q5)]
+
+
+% degenerate
+
+% [ -cos(q4 + q6),  sin(q4 + q6), 0,      0]
+% [ -sin(q4 + q6), -cos(q4 + q6), 0,      0]
+% [             0,             0, 1, 89/200]
+% [             0,             0, 0,      1]
+
+%qtemp = zeros(1,6);
+T01=dh(robot, q, 1);
+T12=dh(robot, q, 2);
+T23=dh(robot, q, 3);
+
+
+Q=inv(T23)*inv(T12)*inv(T01)*T;
+
+thresh = 0.00001;
+% estandar
+if 1 - abs(Q(3,3)) > thresh
+    q5 = acos(Q(3,3));
+    q5_= -q5;
+
+    s5 = sign(q5);
+    s5_ = sign(q5_);
+    q4 = atan2(-s5*Q(2,3), -s5*Q(1,3));
+    q4_ = atan2(-s5_*Q(2,3), -s5_*Q(1,3));
+
+    q6 = atan2(s5*Q(3,2), -s5*Q(3,1));
+    q6_ = atan2(s5_*Q(3,2), -s5_*Q(3,1));
+else    
+    q5 = real(acos(Q(3,3)));
+    q5_= q5;
+
+    q4 = 0;
+    q4_ = pi;
+
+    q6 = atan2(Q(1,2), -Q(2,2));
+    q6_ = q6 - pi;   
+end
+qtemp = [q4, q5, q6, q4_, q5_, q6_];
+
 
 
 

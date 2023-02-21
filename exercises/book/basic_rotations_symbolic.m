@@ -1,6 +1,4 @@
-% SCRIPT TEST FOR THE UR10 ROBOT KINEMATICS
-
-% Copyright (C) 2012, by Arturo Gil Aparicio
+% Copyright (C) 2016, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
 % 
@@ -16,23 +14,47 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-close all
-robot = load_robot('practicals', 'UR10');
-adjust_view(robot)
+function basic_rotations_symbolic
+% euler angles
 
-% DESCOMENTE LA L�NEA SIGUIENTE PARA PROBAR UN PUNTO SINGULAR
-q0 = [0.1 0.1 0.1 0.1 0.1 0.1]';
-q = [0.1 -pi/2 pi/2 pi/4 pi/4 pi/4]';
-
-T = directkinematic(robot, q);
-
-fprintf('\nSimple test: try to reach T')
-% Llame a la cinemática inversa 
-qinv = inversekinematic(robot, T, q0)
-
-T_reach = directkinematic(robot, qinv)
-'diff T-Treach'
-T-T_reach
+syms a b c
 
 
 
+% matrices DH
+Ra = R_sym(a, 'z');
+Rb = R_sym(b, 'x');
+
+R = Ra*Rb
+R = simplify(R)
+
+%degenerate case 1
+a = pi/2;
+b=pi/2;
+R = eval(R)
+R(abs(Rb)<0.001)=0;
+R = simplify(R)
+
+
+function R = R_sym(var, axis)
+syms a b c
+
+if axis == 'x'
+    R = [1 0 0;
+         0 cos(var) -sin(var);
+         0  sin(var) cos(var)];
+elseif axis == 'y'
+    R = [cos(var) 0 sin(var);
+            0     1     0;
+        -sin(var) 0 cos(var)];
+elseif axis == 'z'
+    R = [cos(var) -sin(var) 0;
+         sin(var)  cos(var) 0;
+            0         0     1];
+else
+    'UNKNOWN AXIS'
+end
+
+        
+
+        

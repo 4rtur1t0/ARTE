@@ -19,7 +19,7 @@ function speed_demo_line
 close all
 % velocidad lineal entre puntos consecutivos
 abs_linear_speed = 0.5; % (m/s)
-delta_time = 0.1;
+delta_time = 0.05;
 
 robot = load_robot('ABB', 'IRB52')
 
@@ -49,12 +49,12 @@ qinv = inversekinematic(robot, T1);
 
 %Select arbitrarily the first solution
 q = qinv(:,1);
-
+qt = [q];
 for i=1:1000
    J = manipulator_jacobian(robot, q);
    qd = inv(J)*xd;
    q = q + delta_time*qd;
-   drawrobot3d(robot, q)
-   pause(0.1)
+   qt = [qt q];
 end
+animate(robot, qt)
 

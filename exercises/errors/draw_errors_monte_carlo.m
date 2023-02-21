@@ -26,13 +26,13 @@ M=3000; %number of particles
 %load arm parameters
 robot=load_robot('ABB', 'IRB140');
 %robot=load_robot('example', '2dofplanar');
-robot.graphical.draw_transparent=1;
+robot.graphical.draw_transparent=0;
 
 %standard deviation AT EACH JOINT
-sigmaq=0.17;%rad
+sigmaq=0.05;%rad
 
 %find errors around this pose
-q=[pi/4 pi/2 -pi/2 0 0 0]';
+q=[pi/4 pi/2 -pi/8 0 0 0]';
 %q=[pi/2 -pi/2]';
 
 puntos=[];

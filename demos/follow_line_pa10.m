@@ -18,7 +18,8 @@
 %Compute points in line
 close all
 
-robot =  load_robot('MITSUBISHI','PA-10');
+robot =  load_robot('ABB','IRB140');
+%robot =  load_robot('MITSUBISHI','PA-10');
 % or load any other robot with:
 %robot =  load_robot
 
@@ -41,9 +42,9 @@ punto_inicial = T1(1:3,4);
 punto_final = T2(1:3,4);
 
 v=(punto_final-punto_inicial);
-v=delta*v/norm(v); %vector normalizado en la dirección de la recta
+v=delta*v/norm(v); %vector normalizado en la direcciï¿½n de la recta
 distancia = sqrt((punto_final-punto_inicial)'*(punto_final-punto_inicial));
-%Generación de puntos en la trayectoria
+%Generaciï¿½n de puntos en la trayectoria
 num_points = floor(distancia/delta);
 puntos = punto_inicial;
 for i=1:num_points,

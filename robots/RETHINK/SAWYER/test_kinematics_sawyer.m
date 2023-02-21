@@ -36,8 +36,7 @@ T = [1   0  0  0.5;
 %different seeds do allow to obtain different solutions
 q = [0.2 -0.2 -0.4 -0.4 -0.2 -0.2 -0.2]';
 % q=[-0.5 -0.9 0.8 0.5 0.1 0.1 0.1]';
-
-q=[0.0 0.0 0.0 0.0 0.0 0.0 0.0]';
+%q=[0.0 0.0 0.0 0.0 0.0 0.0 0.0]';
 
 drawrobot3d(robot, q)
 qinv = inversekinematic(robot, T, q)

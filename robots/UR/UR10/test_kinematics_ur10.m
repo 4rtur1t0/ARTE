@@ -25,8 +25,9 @@ adjust_view(robot)
 
 % test both solutions: based on the transpose an on the Moore-Penrose
 robot.inversekinematic_fn = 'inverse_kinematics_jacobian(robot, T, q)';
-%q0 = [0.1 -pi/2 -pi/2 0.1 0.1 0.1]';
-q0 = [0.2  0.2 0.2 0.2 0.2 0.2]';
+q0 = [0.1 -pi/2 -pi/2 0.1 0.1 0.1]';
+%q0 = [0.2  0.2 0.2 0.2 0.2 0.2]';
+%q0 = [0.2  0.2 0.2 0.2 0.2 0.2]';
 
 T0 = directkinematic(robot, q0)
 
@@ -36,6 +37,8 @@ T_target = [-0.3390   -0.3390    0.8776    0.2447;
             0.8469    0.2962    0.4416   -0.4373;
             -0.4096    0.8929    0.1867    1.2568;
               0         0         0    1.0000];
+          
+
 
 qinv = inversekinematic(robot, T_target, q0)
 

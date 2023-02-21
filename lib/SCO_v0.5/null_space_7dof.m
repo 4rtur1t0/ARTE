@@ -8,12 +8,12 @@ Jp=pinv(J);
 %n_space_projector = (I-Jp*J);
 %for an arbitrary vector
 %do not use [1 1 1 1]
-%qd3 = [0 0 1 0 0 0 0]';
-qd3 = q;
+qd3 = [0 0 1 0 0 0 0]';
+%qd3 = q;
 qd_null = project(J, Jp, I, qd3);
 
 function qd_null = project(J, Jp, I, qd)
-%q2 está calculado a través de un proyector (I-Jp*J),
+%q2 estï¿½ calculado a travï¿½s de un proyector (I-Jp*J),
 %, de tal manera que q2 pertenece al null space de J
 qd_null = (I-Jp*J)*qd;
 
