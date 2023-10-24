@@ -35,12 +35,12 @@ A56 = dh_sym(q6+pi, d(6), a(6), alpha(6));
 Q = A34*A45*A56;
 Q = simplify(Q)
 
-q5 = 0
-
-Q = simplify(Q)
-
-
-Q(1:3, 1:3)
+% q5 = 0
+% 
+% Q = simplify(Q)
+% 
+% 
+% Q(1:3, 1:3)
  
 
 

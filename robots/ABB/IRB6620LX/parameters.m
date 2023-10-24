@@ -2,7 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   ABB IRB6620.
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   09/01/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -46,7 +46,7 @@ robot.DOF = 6;
 robot.kind=['T' 'R' 'R' 'R' 'R' 'R'];
 
 %minimum and maximum rotation angle in rad
-robot.maxangle =[0 deg2rad(4); %Axis 1, minimum, maximum metros
+robot.maxangle =[0  4; %Axis 1, minimum, maximum metros
                 deg2rad(-125) deg2rad(125); %Axis 2, minimum, maximum
                 deg2rad(-90) deg2rad(160); %Axis 3
                 deg2rad(-300) deg2rad(300); %Axis 4: 

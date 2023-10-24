@@ -28,7 +28,7 @@
 %
 % See also DRAW_LINK, DRAW_PATCH, STL_READ.
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   05/02/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -67,7 +67,7 @@ if robot.graphical.has_graphics
         return;
     end
     pwd
-    for i=0:n,
+    for i=0:n
         link_name=sprintf('/link%d.stl', i);
         fprintf('\nReading link %d\n %s\n', i, [robot.path link_name]);
         %load link 0, base

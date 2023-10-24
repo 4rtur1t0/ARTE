@@ -57,12 +57,13 @@ end
 %compute geometric solution
 beta = atan2(Py,Px); 
 gamma = real(acos((L1^2+R^2-L2^2)/(2*R*L1)));
-delta = real(acos((L1^2+L2^2-R^2)/(2*L1*L2)));
+delta = real(acos((-L1^2-L2^2+R^2)/(2*L1*L2)));
 
 %arrange possible combinations
 % elbow up     elbow down solutions
+% q =[beta+gamma   beta-gamma;
+%     delta-pi     pi-delta];
 q =[beta+gamma   beta-gamma;
-    delta-pi     pi-delta];
-
+    -delta         delta];
 %normalize the solution to [-pi, pi]
 q=atan2(sin(q), cos(q));
