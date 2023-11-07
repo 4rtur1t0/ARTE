@@ -24,12 +24,18 @@ close all
 fprintf('\nTHE DEMO PRESENTS THE DIRECT AND INVERSE KINEMATIC PROBLEM')
 
 %load robot parameters. You can try different robots%
-robot=load_robot('ABB', 'IRB910'); 
+robot=load_robot('ABB', 'IRB910INV'); 
 %adjust 3D view as desired
 adjust_view(robot)
-q = [0.1 0.1 0.5 0.1];
+% OK
+q = [pi/4 pi/4 0.1 pi/4];
+%q = [-pi/4 pi/2 0.1 pi/4];
+% falla test 2!
+%q = [-pi/2 pi/2 0.1 -pi/4];
 
-T = directkinematic(robot, q);
+
+T = directkinematic(robot, q)
+drawrobot3d(robot, q)
 
 %Call the inversekinematic for this robot. All the possible solutions are
 %stored at qinv. At least, one of the possible solutions should match q
@@ -37,14 +43,14 @@ qinv = inversekinematic(robot, T)
 
 test_joints(robot, qinv)
 
-test_solutions(robot, qinv, T);
+test_solutions(robot, q, qinv, T);
 
 
 
 
 
 
-function test_solutions(robot, qinv, T)
+function test_solutions(robot, q, qinv, T)
 n_solutions = 2;
 
 fprintf('\nNOW WE CAN REPRESENT THE DIFFERENT SOLUTIONS TO ACHIEVE THE SAME POSITION AND ORIENTATION\n')
@@ -62,7 +68,7 @@ for i=1:size(qinv,2)
     %now draw the robot to see the solution
     drawrobot3d(robot, qinv(:,i))
     
-    pause(0.5);
+    pause(1);
     
     k=sum(sum((T-Ti).^2));
     if k < 0.01 % a simple threshold to find differences in the solution
@@ -82,6 +88,17 @@ else
     fprintf('\nTEST 1--> ERROR: One or more of the solutions seem to be uncorrect.');
 end
 
+%Now, test if any of the solutions in qinv matches q
+%find the solution that matches the initial q
+%delta is just a squared sum of errors at each of the columns of the matrix
+%which store the different solutions of qinv
+delta=(repmat(q',[1 n_solutions])-qinv).^2;
+i=find(sum(delta,1) < 0.01);
+if ~isempty(i)
+    fprintf('\nTEST 2--> OK!: Found a matching solution for the initial q.\n');
+else
+    fprintf('\nTEST 2--> ERROR: Did not find a matching solution for the initial q.');
+end
 
 fprintf('\n************** ****** **************\n')
 

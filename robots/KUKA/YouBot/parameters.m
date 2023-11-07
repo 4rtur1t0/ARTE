@@ -31,11 +31,17 @@ function robot = parameters()
 
 robot.name= 'KUKA_YOUBOT';
 
-robot.DH.theta= '[q(1)  q(2)-pi/2   q(3)+pi/2   q(4)-pi/2   q(5)]';
+robot.DH.theta= '[q(1)  q(2)+pi/2   q(3)   q(4)-pi/2  q(5)]';
 robot.DH.d='[0.147   0   0   0   0.2175]';
 robot.DH.a='[0.033   0.155   0.135   0   0]';
-robot.DH.alpha= '[-pi/2   0   0 -pi/2    0]';
+robot.DH.alpha= '[pi/2   0   0 -pi/2    0]';
 robot.J=[];
+
+% robot.DH.theta= '[q(1)  q(2)-pi/2   q(3)+pi/2   q(4)-pi/2   q(5)]';
+% robot.DH.d='[0.147   0   0   0   0.2175]';
+% robot.DH.a='[0.033   0.155   0.135   0   0]';
+% robot.DH.alpha= '[-pi/2   0   0 -pi/2    0]';
+% robot.J=[];
 
 robot.inversekinematic_fn = 'inversekinematic_kuka_youbot(robot, T)';
 
@@ -108,7 +114,7 @@ robot.dynamics.Inertia=[];
 
 
 
-robot.motors=load_motors();
+%robot.motors=load_motors();
 %Speed reductor at each joint
 robot.motors.G=[];
 

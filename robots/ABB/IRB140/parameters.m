@@ -32,7 +32,7 @@ robot.DH.alpha= '[-pi/2 0 -pi/2 pi/2 -pi/2 0]';
 robot.J=[];
 
 
-robot.inversekinematic_fn = 'inversekinematic_irb140_extended(robot, T)';
+robot.inversekinematic_fn = 'inversekinematic_irb140(robot, T)';
 robot.directkinematic_fn = 'directkinematic(robot, q)';
 
 

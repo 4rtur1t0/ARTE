@@ -45,12 +45,13 @@ function varargout = coord_change(varargin)
 
 % Edit the above text to modify the response to help coord_change
 
-% Last Modified by GUIDE v2.5 27-Oct-2016 17:32:06
+% Last Modified by GUIDE v2.5 25-Oct-2023 16:52:51
 global robot 
 global current_link
 global fout_global
 global vout_global
 global cout_global
+global draw_transparent
 %global figure_handle
 
 % Begin initialization code - DO NOT EDIT
@@ -80,7 +81,9 @@ function coord_change_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to coord_change (see VARARGIN)
+global draw_transparent
 
+draw_transparent = 0;
 %global figure_handle
 %figure_handle = figure
 % Choose default command line output for coord_change
@@ -462,6 +465,8 @@ function pushbutton_view_link_Callback(hObject, eventdata, handles)
 global vout_global
 global cout_global
 global fout_global
+global draw_transparent
+
 %global figure_handle
 T = get_T_from_dialog(handles);
 
@@ -474,7 +479,7 @@ grid
 V=vout_global;
 color=[255 102 51]./255
 %set robot.graphical.color to add a desired color to your robot
-draw_patch(fout_global,vout_global,color, 1);
+draw_patch(fout_global,vout_global,color, draw_transparent);
 draw_axes(eye(4), 'X', 'Y','Z', 1);
 
 
@@ -567,3 +572,19 @@ function pushbutton8_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 help coord_change
+
+
+% --- Executes on button press in transparent_checkbox.
+function transparent_checkbox_Callback(hObject, eventdata, handles)
+% hObject    handle to transparent_checkbox (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of transparent_checkbox
+global draw_transparent
+if get(hObject, 'Value')==1	
+	draw_transparent=1;
+else
+	draw_transparent=0;
+end
+

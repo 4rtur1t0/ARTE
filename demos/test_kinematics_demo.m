@@ -31,14 +31,14 @@ n_solutions = 8;
 q=[0.2 -0.2 0.3 0.1 0.2 0.1]
 
 %load robot parameters. You can try different robots%
-% robot=load_robot('ABB', 'IRB140'); n_solutions = 8;
+robot=load_robot('ABB', 'IRB140'); n_solutions = 8;
 %robot=load_robot('KUKA', 'KR60_3'); n_solutions = 8;
 %robot=load_robot('ABB', 'IRB120'); n_solutions = 8;
 %robot=load_robot('MOTOMAN', 'MH12'); n_solutions = 8;
 %robot=load_robot('ABB', 'IRB6620LX'); n_solutions = 4;%
 % error
 % robot=load_robot('EPSON', 'C8'); n_solutions = 8;
-robot=load_robot('ABB', 'IRB760'); n_solutions = 1;
+%robot=load_robot('ABB', 'IRB760'); n_solutions = 1;
 
 
 %adjust 3D view as desired
