@@ -79,11 +79,16 @@ alfa = eval(robot.DH.alpha);
 n=length(theta); %# number of DOFs
 T=eye(4);
 % NOTE 1: 
-% T =[0 -1 0 0;
-%     0 0 1 0;
-%     1 0 0 0;
-%     0 0 0 1];
-for i=0:robot.DOF,
+T =[0 0  -1 0;
+    0 1  0 0;
+    1 0   0 0;
+    0 0   0 1];
+T2 =[-1 0 0 0;
+     0 -1 0 0;
+     0 0  1 0;
+     0 0  0 1];
+ T=T*T2;
+for i=0:robot.DOF
     file_i_base=sprintf('/link%d_base.stl', i);
     file_i=sprintf('/link%d.stl', i);
     %read file in base reference system. Please note that link0 is already

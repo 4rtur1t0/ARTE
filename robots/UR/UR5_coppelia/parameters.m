@@ -3,7 +3,7 @@
 %   UNIVERSAL ROBOTS UR5.
 %
 %   Author: Arturo Gil. Universidad Miguel Hernandez de Elche. 
-%   email: xxxx@umh.es date:   08/12/2017
+%   email: arturo.gil@umh.es date:   08/12/2017
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
@@ -24,12 +24,19 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
 
+% CAUTION: the parameters in this DH table are 
+% slightly different from the real UR5 robot. These
+% parameters try to match the dimensions of the UR5 included
+% in the Coppelia Sim simulator
 robot.name= 'UR5';
-% These DH parameters for the existing UR5 in Coppelia sim
+% DH parameters for the existing UR5 in Coppelia sim
 robot.DH.theta= '[q(1) q(2)+pi/2 q(3)   q(4)-pi/2       q(5)      q(6)-pi/2]';
-robot.DH.d=     '[0.089159   0         0      0.10915       0.09465       0.0823	]';
-robot.DH.a=     '[0         0.425    0.39225     0             0             0]';
+robot.DH.d=     '[0.0892   0         0      0.11       0.09465       0.08295	]';
+robot.DH.a=     '[0         0.4251    0.39215     0             0             0]';
 robot.DH.alpha= '[pi/2       0         0      -pi/2           pi/2         0]';
+
+
+
 
 robot.J=[];
 
@@ -45,11 +52,11 @@ robot.kind=['R' 'R' 'R' 'R' 'R' 'R'];
 
 %minimum and maximum rotation angle in rad
 robot.maxangle =[-pi pi; %Axis 1, minimum, maximum
-                -pi pi; %Axis 2, minimum, maximum
-                -pi pi; %Axis 3
-                -pi pi; %Axis 4: Unlimited (400� default)
-                -pi pi; %Axis 5
-               -pi pi]; %Axis 6: Really Unlimited to (800� default)
+                deg2rad(-100) deg2rad(100); %Axis 2, minimum, maximum
+                deg2rad(-220) deg2rad(60); %Axis 3
+                deg2rad(-200) deg2rad(200); %Axis 4: Unlimited (400� default)
+                deg2rad(-120) deg2rad(120); %Axis 5
+                deg2rad(-400) deg2rad(400)]; %Axis 6: Really Unlimited to (800� default)
 
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = [deg2rad(200); %Axis 1, rad/s

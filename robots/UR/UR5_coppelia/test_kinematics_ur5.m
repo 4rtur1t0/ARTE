@@ -21,13 +21,12 @@ function test_kinematics_ur5()
 %test_q1_valid();
 
 close all
-robot = load_robot('UR', 'UR5');
+robot = load_robot('UR', 'UR5_coppelia');
 %q0 = [pi/4 -pi/2.5 -pi/2.5 -3*pi/2 pi/2 pi/2]';
 %q0 = [pi/8, -pi/3, -pi/3,  3*pi/4, pi / 2, pi / 2]
 %q0 = [0, -pi/2, pi/2,  0, 0.0, 0.1]
 q0 = [0, 0, 0,  pi, 0.0, 0.0]
 drawrobot3d(robot, q0)
-adjust_view(robot)
 T = directkinematic(robot, q0);
 qinv = inversekinematic(robot, T);
 

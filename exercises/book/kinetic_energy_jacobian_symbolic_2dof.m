@@ -1,6 +1,4 @@
-% SCRIPT TEST to view a manipulability ellipse
-
-% Copyright (C) 2012, by Arturo Gil Aparicio
+% Copyright (C) 2016, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
 % 
@@ -16,18 +14,27 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-close all
-fprintf('\nView manipulability ellipse and forces ellipse at q')
+function kinetic_energy_jacobian_symbolic_2dof
 
-robot = load_robot('UR', 'UR10')
+syms L1 L2 real
+syms I1 I2 real
+syms q1 q2 real
+syms qd1 qd2 real
+syms m1 m2 real
+Jvc2 = [-L1*sin(q1)-L2*sin(q1+q2)/2, -L2*sin(q1+q2)/2;
+         L1*cos(q1)+L2*cos(q1+q2)/2,  L2*cos(q1+q2)/2;
+         0, 0    ];
+vc2 = Jvc2*[qd1 qd2]';
+% vc2 = norm(vc2);
+% I1 = (1/3)*m1*L1^2*qd1^2;
+% K2 = m2*L2^2/3*qd2^2;
+K1 = (1/2)*I1*qd1^2;
+K2 = (1/2)*I2*qd2^2;
+K21 = (1/2)*m2*vc2'*vc2;
+K21 = simplify(K21);
+qd2 = 0;
+K21 = eval(K21);
 
-%q = [pi/2 pi/4 -pi/4 0.4 0.5 -pi/4]';
-q = [0.15 0.15 0.15 0.15 0.15 0.15]';
+K = K1 + K2 + K21;
+K = simplify(K)
 
-%Plot manipulatiliby ellipse
-drawrobot3d(robot, q)
-hold on
-%draw manipulability ellipse
-plot_manipulability_ellipse(robot, q, 0.5)
-%draw forces ellipse
-%plot_forces_ellipse(robot, q, 0.1)

@@ -56,6 +56,7 @@ drawrobot3d(robot, q)
 
 %Now compute direct kinematics for this position q
 T = directkinematic(robot, q)
+T = robot.directkinematic(q)
 
 %Set to zero if you want to see the robot transparent
 robot.graphical.draw_transparent=0;

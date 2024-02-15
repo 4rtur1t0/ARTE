@@ -66,11 +66,11 @@ J = manipulator_jacobian(robot, q);
 
 %Finally use the general equation to compute the torques, considering the
 %external forces.
-tau = M*qdd(:) + V + G - J'*fext(:);
+tau = M*qdd(:) + V + G + J'*fext(:);
 
 %Account for friction by substracting in tau.
 if robot.dynamics.friction
-    for j=1:robot.DOF,
+    for j=1:robot.DOF
         tau(j) = tau(j) - friction(robot, qd, j);
     end
 end

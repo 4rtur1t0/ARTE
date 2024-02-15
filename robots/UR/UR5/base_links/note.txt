@@ -1,0 +1,21 @@
+in order to create link0.stl, link1.stl, start with the
+files in this directory (move them to the robot's directory) and then
+use:
+
+transform_to_own('UR', 'UR5', 1000)
+
+Redefine T as:
+T =
+
+     0     0    -1     0
+     0    -1     0     0
+    -1     0     0     0
+     0     0     0     1
+
+the DH parameters are defined as:
+robot.name= 'UR5';
+% These DH parameters for the existing UR5 in Coppelia sim
+robot.DH.theta= '[q(1) q(2)+pi/2 q(3)   q(4)-pi/2       q(5)      q(6)-pi/2]';
+robot.DH.d=     '[0.089159   0         0      0.10915       0.09465       0.0823	]';
+robot.DH.a=     '[0         0.425    0.39225     0             0             0]';
+robot.DH.alpha= '[pi/2       0         0      -pi/2           pi/2         0]';
