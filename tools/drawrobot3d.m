@@ -92,6 +92,9 @@ for i=1:robot.DOF+1
     %draw D-H axes
     if robot.graphical.draw_axes
         draw_axes(T, sprintf('X_%d',i-1), sprintf('Y_%d',i-1), sprintf('Z_%d',i-1), robot.graphical.axes_scale);
+        %if i < 7
+        %draw_z_axes(T, sprintf('Z_%d',i-1), robot.graphical.axes_scale);
+        %end
     end
     %obtain transformation to draw the next link
     if i<= robot.DOF

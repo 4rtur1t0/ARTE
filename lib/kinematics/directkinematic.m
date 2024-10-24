@@ -48,7 +48,7 @@ end
 %load the position/orientation of the robot's base
 T = robot.T0;
 
-for i=1:n,
+for i=1:n
     T=T*dh(theta(i), d(i), a(i), alfa(i));    
 end
 

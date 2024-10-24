@@ -2,7 +2,7 @@
 %   PARAMETERS Returns a data structure containing the parameters of the
 %   Mitsubishi PA10 robot with 6DOF.
 %
-%   Author: Arturo Gil. Universidad Miguel Hernández de Elche. 
+%   Author: Arturo Gil. Universidad Miguel Hernï¿½ndez de Elche. 
 %   email: arturo.gil@umh.es date:   03/01/2012
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -27,10 +27,16 @@ function robot = parameters()
 robot.name='Mitsubishi PA-10 7DOF robotic arm';
 
 %kinematic data
-robot.DH.theta= '[q(1) q(2) q(3) q(4) q(5) q(6) q(7)]';
+%robot.DH.theta= '[q(1) q(2) q(3) q(4) q(5) q(6) q(7)]';
+%robot.DH.d='[0.315  0      0.45    0     0.5   0    0.08]';
+%robot.DH.a='[0      0      0       0      0    0    0]';
+%robot.DH.alpha= '[pi/2  -pi/2  pi/2   -pi/2 pi/2 -pi/2 0]';
+
+robot.DH.theta= '[q(1) q(2)+pi/2 q(3) q(4) q(5) q(6) q(7)]';
 robot.DH.d='[0.315  0      0.45    0     0.5   0    0.08]';
 robot.DH.a='[0      0      0       0      0    0    0]';
-robot.DH.alpha= '[pi/2  -pi/2  pi/2   -pi/2 pi/2 -pi/2 0]';
+robot.DH.alpha= '[pi/2  pi/2  -pi/2   pi/2 -pi/2 pi/2 0]';
+
 
 %number of degrees of freedom
 robot.DOF = 7;
@@ -54,10 +60,10 @@ robot.directkinematic_fn = 'directkinematic(robot, q)';
 robot.maxangle =[deg2rad(-177) deg2rad(177); %Axis 1, minimum, maximum
                 deg2rad(-91) deg2rad(91); %Axis 2, minimum, maximum
                 deg2rad(-137) deg2rad(137); %Axis 3
-                deg2rad(-255) deg2rad(255); %Axis 4: Unlimited (400º default)
+                deg2rad(-255) deg2rad(255); %Axis 4: Unlimited (400ï¿½ default)
                 deg2rad(-165) deg2rad(165); %Axis 5
                 deg2rad(-360) deg2rad(360);
-                deg2rad(-360) deg2rad(360)]; %Axis 6: Unlimited (800º default)
+                deg2rad(-360) deg2rad(360)]; %Axis 6: Unlimited (800ï¿½ default)
 
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = [deg2rad(200); %Axis 1, rad/s

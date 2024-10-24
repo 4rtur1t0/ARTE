@@ -129,7 +129,7 @@ end
 % arrange all solutions together
 q = [qgroup1 qgroup2 qgroup3 qgroup4];
 q_filtered = [];
-% filter all solutions... if any solution is complex
+% filter all solutions... if any solution is complex or NaN
 % remove the whole column
 for i=1:size(q, 2)
     qi = q(:, i);
