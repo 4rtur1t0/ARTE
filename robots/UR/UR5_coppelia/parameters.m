@@ -28,7 +28,7 @@ function robot = parameters()
 % slightly different from the real UR5 robot. These
 % parameters try to match the dimensions of the UR5 included
 % in the Coppelia Sim simulator
-robot.name= 'UR5';
+robot.name= 'UR5_coppelia';
 % DH parameters for the existing UR5 in Coppelia sim
 robot.DH.theta= '[q(1) q(2)+pi/2 q(3)   q(4)-pi/2       q(5)      q(6)-pi/2]';
 robot.DH.d=     '[0.0892   0         0      0.11       0.09465       0.08295	]';

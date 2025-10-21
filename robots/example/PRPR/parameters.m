@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   PARAMETERS Returns a data structure containing the parameters of the
-%   PRRPRP example arm with 6 DOF.
+%   PRRP example arm with 4 DOF.
 %
 %   Author: Arturo Gil. Universidad Miguel Hernandez de Elche. 
 %   email: arturo.gil@umh.es date:   03/01/2023
@@ -24,45 +24,35 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
 
-%a = 0.3;
-%b = 1.0;%
-%c = 0.3;
-
-syms a b c
-
 %Kinematic parameters
-robot.DH.theta= '[pi/2 q(2) q(3) -pi/2 q(5) 0]';
-robot.DH.d='[q(1) 1.0  0.3  q(4) 0  q(6)]';
-robot.DH.a='[0.3  0  0  0  0  0]';
-robot.DH.alpha= '[0 pi/2 -pi/2 -pi/2 pi/2 0]';
+robot.DH.theta= '[0 q(2)+pi/2 0 q(4)-pi/2]';
+robot.DH.d='[q(1) 0  q(3)   0]';
+robot.DH.a='[0  0  0 1]';
+robot.DH.alpha= '[0  pi/2  -pi/2  0]';
 
 %Jacobian matrix. Variation of (X, Y, Z) as a function of (w1, w2, w3)
 robot.J='[];';
-robot.name='PRRPRP';
+robot.name='PRPR';
 
-robot.inversekinematic_fn = 'inversekinematic_PRRPRP(robot, T)';
+robot.inversekinematic_fn = 'inversekinematics_PRPR(robot, T)';
 
 %number of degrees of freedom
-robot.DOF = 6;
+robot.DOF = 4;
 
 %rotational: R, translational: T
-robot.kind=['P' 'R' 'R' 'P' 'R' 'P'];
+robot.kind=['T' 'R' 'T' 'R'];
 
 %minimum and maximum rotation angle in rad
 robot.maxangle =[0 2; %Axis 1, minimum, maximum
-                 -pi pi;
-                -pi pi; %Axis 3, translational
-                0 2;
                 -pi pi;
-                0 2]; %Axis 6
+                0 2; %Axis 3,rotational
+                -pi pi]; %Axis 4
              
 
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = [deg2rad(200); %Axis 1, rad/s
                 deg2rad(200); %Axis 2, m/s
                 2; %Axis 3, m/s
-                deg2rad(360);
-                deg2rad(360);
                 deg2rad(360)]; %Axis 4, rad/s
              
 % end effectors maximum velocity

@@ -122,7 +122,7 @@ q(2,:) = normalize(q(2,:));
 
 % solve for the last three joints
 % for any of the possible combinations (theta1, theta2, theta3)
-for i=1:2:size(q,2),
+for i=1:2:size(q,2)
     % use solve_spherical_wrist2 for the particular orientation
     % of the systems in this ABB robot
     % use either the geometric or algebraic method.
@@ -154,7 +154,10 @@ a = eval(robot.DH.a);
 
 %See geometry
 L2=a(2);
-L3=sqrt(d(4)^2+a(3)^2);
+L3=a(3);
+L4=d(4);
+% the modified L3
+L3_=sqrt(L3^2+L4^2);
 
 %given q1 is known, compute first DH transformation
 T01=dh(robot, q, 1);
@@ -162,13 +165,13 @@ T01=dh(robot, q, 1);
 %Express Pm in the reference system 1, for convenience
 p1 = inv(T01)*[Pm; 1];
 
-r = sqrt(p1(1)^2 + p1(2)^2);
+R = sqrt(p1(1)^2 + p1(2)^2);
 
-beta = atan2(-p1(2), p1(1));
-gamma = (acos((L2^2+r^2-L3^2)/(2*r*L2)));
+alpha = atan2(-p1(2), p1(1));
+beta = (acos((L2^2+R^2-L3_^2)/(2*R*L2)));
 
-if ~isreal(gamma)
-    disp('WARNING:inversekinematic_irb2400: the point is not reachable for this configuration, imaginary solutions'); 
+if ~isreal(beta)
+    disp('WARNING:inversekinematic_irb4600: the point is not reachable for this configuration, imaginary solutions'); 
     %gamma = real(gamma);
 end
 
@@ -176,8 +179,8 @@ end
 %elbow up and elbow down
 %the order here is important and is coordinated with the function
 %solve_for_theta3
-q2(1) = pi/2 - beta - gamma; %elbow up
-q2(2) = pi/2 - beta + gamma; %elbow down
+q2(1) = pi/2 - beta - alpha; %elbow up
+q2(2) = pi/2 + beta - alpha; %elbow down
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % solve for third joint theta3, two different
@@ -187,36 +190,31 @@ q2(2) = pi/2 - beta + gamma; %elbow down
 function q3 = solve_for_theta3(robot, q, Pm)
 
 %Evaluate the parameters
-%theta = eval(robot.DH.theta);
 d = eval(robot.DH.d);
 a = eval(robot.DH.a);
-%alpha = eval(robot.DH.alpha);
 
 %See geometry
 L2=a(2);
-L3=d(4);
-A2=a(3);
+L3=a(3);
+L4=d(4);
+% the modified L3
+L3_=sqrt(L3^2+L4^2);
+%the angle eta is constant
+eta=acos((L3^2+L3_^2-L4^2)/(2*L3*L3_));
 
-%See geometry of the robot
-%compute L4
-L4 = sqrt(A2^2 + L3^2);
-
-%the angle phi is fixed
-phi=acos((A2^2+L4^2-L3^2)/(2*A2*L4));
 
 %given q1 is known, compute first DH transformation
 T01=dh(robot, q, 1);
 
 %Express Pm in the reference system 1, for convenience
 p1 = inv(T01)*[Pm; 1];
+R = sqrt(p1(1)^2 + p1(2)^2);
 
-r = sqrt(p1(1)^2 + p1(2)^2);
-
-eta = real(acos((L2^2 + L4^2 - r^2)/(2*L2*L4)));
+gamma = real(acos((L2^2 + L3_^2 - R^2)/(2*L2*L3_)));
 
 %return two possible solutions
 %elbow up and elbow down solutions
 %the order here is important
-q3(1) = pi - phi- eta; 
-q3(2) = pi - phi + eta; 
+q3(1) = pi - eta - gamma; 
+q3(2) = pi - eta + gamma; 
 

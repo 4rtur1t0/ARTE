@@ -163,17 +163,17 @@ function exercise4()
 % q=[0 2.5];
 % qd = [ 0 0]; % rad/s (CHANGE FROM 0 TO 2.3)
 % qdd = [0 0]
-q=[0 2.5];
+q=[0 pi/2];
 qd = [0 0]; % rad/s (CHANGE FROM 0 TO 2.3)
-qdd = [0 0]
+qdd = [0 0];
 
 %Time vector
-t=[0 12];
+t=[0 5];
 %the minimum difference in seconds between times to compute q(t) functions
-delta_t=0.001;
+delta_t=0.05;
 
 % B)COMPLETE THE FUNCTION second_order DEFINED BELOW
-figure, xlabel('t (s)'), ylabel('q (rad), q_d (rad/s), q_{dd} (rad/s/s)'), title('FIFTH ORDER PLANNER'), hold on
+figure, xlabel('t (s)'), ylabel('q (rad), qd (rad/s), qdd (rad/s/s)'), title('FIFTH ORDER PLANNER'), hold on
 [q_t, qd_t, qdd_t, time, k]=fifth_order([q(1) q(2)], [qd(1) qd(2)], [qdd(1) qdd(2)], [t(1) t(2)], delta_t);
 plot(time, q_t, 'r'), plot(time, qd_t, 'g'), plot(time, qdd_t, 'b')
 legend('Position (rad)','Speed (rad/s)', 'Acceleration (rad/s/s)')

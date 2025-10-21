@@ -1,1 +1,0 @@
-The ABB IRB 1600-120 robot. 

@@ -2,8 +2,8 @@
 %Libreria ARTE
 %Autores: 
 % Amalia Samper, 
-% Carlota Yañez,
-% Yessica Millán,
+% Carlota Yaï¿½ez,
+% Yessica Millï¿½n,
 % Copyright (C) 2012, by Arturo Gil Aparicio
 %
 % This file is part of ARTE (A Robotics Toolbox for Education).
@@ -29,7 +29,7 @@ function robot = parameters()
 robot.name= 'kr60_3';
 
 %Path where everything is stored for this robot
-robot.path = 'robots\kuka\kr60_3'
+robot.path = 'robots\kuka\kr60_3';
 mm2m=1;
 robot.DH.theta= '[-q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)]';
 robot.DH.d='[0.815 0 0 0.820 0 0.170]';
@@ -68,7 +68,7 @@ robot.path = pwd;
 
 % GRAPHICS
 robot.graphical.has_graphics=1;
-robot.graphical.color = [199 185 209]./255;
+robot.graphical.color = [199 120 120]./255;
 %for transparency
 robot.graphical.draw_transparent=0;
 %draw DH systems

@@ -30,8 +30,8 @@ robot.name= 'abb_IRB_4600_40_255';
 robot.path = 'robots/abb/IRB_4600_40_255';
 
 robot.DH.theta= '[q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)+pi]';
-robot.DH.d='[0.495 0 0 1.270 0 0.135]';
-robot.DH.a='[0.175 1.095 0.175 0 0 0]';
+robot.DH.d='[0.495 0 0 0.96 0 0.135]';
+robot.DH.a='[0.175 0.9 0.175 0 0 0]';
 robot.DH.alpha= '[-pi/2 0 -pi/2 pi/2 -pi/2 0]';
 robot.J=[];
 

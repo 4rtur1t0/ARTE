@@ -1,9 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   PARAMETERS Returns a data structure containing the parameters of the
-%   IRB_4600.
+%   Mitsubishi RV-8crl robot with 6DOF.
 %
-%   Author: Arturo Gil. Universidad Miguel Hern�ndez de Elche. 
-%   email: arturo.gil@umh.es date:   09/01/2012
+%   Authors: Arturo Gil
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
@@ -24,47 +23,55 @@
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
 function robot = parameters()
 
-robot.name= 'abb_IRB_4600';
+robot.name='Mitsubishi_rv-8crl';
 
 %Path where everything is stored for this robot
-robot.path = 'robots/abb/IRB_4600';
+robot.path = 'robots/mitsubishi/rv-8crl';
 
+%kinematic data
 robot.DH.theta= '[q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)+pi]';
-robot.DH.d='[0.495 0 0 0.960 0 0.135]';
-robot.DH.a='[0.175 0.9 0.175 0 0 0]';
+robot.DH.d='[0.39 0 0 0.47 0 0.085 ]';
+robot.DH.a='[0 0.450 0.1 0 0 0]';
 robot.DH.alpha= '[-pi/2 0 -pi/2 pi/2 -pi/2 0]';
-robot.J=[];
-
-
-robot.inversekinematic_fn = 'inversekinematic_IRB_4600(robot, T)';
 
 %number of degrees of freedom
 robot.DOF = 6;
 
-%rotational: 0, translational: 1
+%rotational: R, translational: T
 robot.kind=['R' 'R' 'R' 'R' 'R' 'R'];
 
+%Jacobian matrix
+robot.J=[];
+
+
+%Function name to compute inverse kinematic
+% options(1)=1 elbow up solution
+% options(1)=-1 elbow down solution
+% options(2)=1 wrist up solution
+% options(2)=-1 wrist down solution
+robot.inversekinematic_fn = 'inversekinematic_rv_8crl(robot, T)';
+
+
+
 %minimum and maximum rotation angle in rad
-robot.maxangle =[deg2rad(-180) deg2rad(180); %Axis 1, minimum, maximum
-                deg2rad(-90) deg2rad(150); %Axis 2, minimum, maximum
-                deg2rad(-180) deg2rad(75); %Axis 3
-                deg2rad(-400) deg2rad(400); %Axis 4: Unlimited (400� default)
-                deg2rad(-125) deg2rad(120); %Axis 5
-                deg2rad(-400) deg2rad(400)]; %Axis 6: Unlimited (800� default)
+robot.maxangle =[deg2rad(-170) deg2rad(170); %Axis 1, minimum, maximum
+                deg2rad(-92) deg2rad(135); %Axis 2, minimum, maximum
+                deg2rad(-107) deg2rad(166); %Axis 3
+                deg2rad(-160) deg2rad(136); %Axis 4
+                deg2rad(-120) deg2rad(120); %Axis 5
+                deg2rad(-360) deg2rad(360)]; %Axis 6
 
 %maximum absolute speed of each joint rad/s or m/s
-robot.velmax = [deg2rad(200); %Axis 1, rad/s
-                deg2rad(200); %Axis 2, rad/s
-                deg2rad(260); %Axis 3, rad/s
-                deg2rad(360); %Axis 4, rad/s
-                deg2rad(360); %Axis 5, rad/s
-                deg2rad(450)];%Axis 6, rad/s
+robot.velmax = [deg2rad(401); %Axis 1, rad/s
+                deg2rad(321); %Axis 2, rad/s
+                deg2rad(401); %Axis 3, rad/s
+                deg2rad(352); %Axis 4, rad/s
+                deg2rad(450); %Axis 5, rad/s
+                deg2rad(660)];%Axis 6, rad/s
+% end effectors maximum velocity
+robot.linear_velmax = 9.3; %m/s
 
 robot.accelmax=robot.velmax/0.1; % 0.1 is here an acceleration time
-            
-            % end effectors maximum velocity
-robot.linear_velmax = 2.5; %m/s
-
 %base reference system
 robot.T0 = eye(4);
 
@@ -72,18 +79,19 @@ robot.T0 = eye(4);
 %position, velocity and acceleration
 robot=init_sim_variables(robot);
 
+
 % GRAPHICS
 robot.graphical.has_graphics=1;
 robot.graphical.color = [255 20 40]./255;
 %for transparency
 robot.graphical.draw_transparent=0;
 %draw DH systems
-robot.graphical.draw_axes=1;
+robot.graphical.draw_axes=0;
 %DH system length and Font size, standard is 1/10. Select 2/20, 3/30 for
 %bigger robots
 robot.graphical.axes_scale=1;
 %adjust for a default view of the robot
-robot.axis=[-0.75 0.75 -0.75 0.75 0 1.2];
+robot.axis=[-1.5 1.5 -1.5 1.5 0 1.5];
 %read graphics files
 robot = read_graphics(robot);
 

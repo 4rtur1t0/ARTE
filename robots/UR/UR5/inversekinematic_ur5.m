@@ -225,8 +225,17 @@ if R > L2+L3
    q3 = [NaN NaN];
    return
 end
+% the inner, not reachable workspace
+if R < L2-L3
+   q2 = [NaN NaN];
+   q3 = [NaN NaN];
+   return
+end
+
 alpha = atan2(pm1(2), pm1(1));
 % clip to feasible solutions to avoid complex solutions in beta and eta
+%cbeta = (L2^2+R^2-L3^2)/(2*L2*R);
+%ceta = (L2^2+L3^2-R^2)/(2*L2*L3);
 cbeta = clip((L2^2+R^2-L3^2)/(2*L2*R), -1, 1);
 ceta = clip((L2^2+L3^2-R^2)/(2*L2*L3), -1, 1);
 beta = acos(cbeta);
