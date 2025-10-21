@@ -25,14 +25,11 @@ function robot = parameters()
 
 robot.name= 'Serial example';
 % 
-% robot.DH.theta= '[ ]';
-% robot.DH.d='[]';
-% robot.DH.a='[]';
-% robot.DH.alpha= '[]';
-robot.DH.theta= '[q(1) q(2)-pi/2 q(3) q(4) q(5) q(6)+pi]';
-robot.DH.d='[0.290 0 0 0.302 0 0.072]';
-robot.DH.a='[0 0.270 0.070 0 0 0]';
-robot.DH.alpha= '[-pi/2 0 -pi/2 pi/2 -pi/2 0]';
+robot.DH.theta= '[ ]';
+robot.DH.d='[]';
+robot.DH.a='[]';
+robot.DH.alpha= '[]';
+
 robot.J=[];
 
 robot.inversekinematic_fn = 'inversekinematic(robot, T)';
