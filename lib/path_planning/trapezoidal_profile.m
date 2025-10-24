@@ -1,13 +1,5 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  [qt, qdt, qddt, time]=trapezoidal_profile(q0, qf, omega, alpha, ttotal, traj_type, delta_time)
-%  compute a trapezoidal profile function in position, speed and acceleration
-%
-%   Valid for each of the joints in a robot or for Cartesian or Euler
-%   interpolation.
-%
-%   Author: Arturo Gil. Universidad Miguel Hernandez de Elche. 
-%   email: arturo.gil@umh.es date:   08/10/2025
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% SIMPLE ALGORITHM TO FOLLOW A LINE IN SPACE. Error correction based on a P
+% controller on the closest point to the line vector.
 %
 % Copyright (C) 2019, by Arturo Gil Aparicio
 %
@@ -65,10 +57,26 @@ else
     [qtC, qdtC, qddtC]=acceleration([q2, omega, -alpha], timeC);                
 end
 
+% figure, 
+% plot(timeA, qtA, 'ro'), hold on, grid
+% plot(timeB+tacc, qtB, 'go')
+% plot(timeC+tacc+tcte, qtC, 'bo')
+%     
+% figure, 
+% plot(timeA, qdtA, 'ro'), hold on, grid
+% plot(timeB+tacc, qdtB, 'go')
+% plot(timeC+tacc+tcte, qdtC, 'bo')
+%     
+% figure, 
+% plot(timeA, qddtA, 'ro'), hold on, grid
+% plot(timeB+tacc, qddtB, 'go')
+% plot(timeC+tacc+tcte, qddtC, 'bo')
+
 %build the global q(t), qd(t) and qdd(t)
 qt = [qtA, qtB, qtC];
 qdt = [qdtA, qdtB, qdtC];
 qddt = [qddtA, qddtB, qddtC];
+
 
 
 function [q_t, qd_t, qdd_t]=acceleration(b, time)
