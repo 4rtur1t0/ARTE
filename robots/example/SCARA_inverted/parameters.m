@@ -46,12 +46,12 @@ robot.kind=['R' 'R' 'T' 'R'];
 %minimum and maximum rotation angle in rad
 robot.maxangle =[-pi pi; %Axis 1, minimum, maximum
                  -pi pi; %Axis 2, minimum, maximum
-                -1 1; %Axis 3 (m)
-                deg2rad(-400) deg2rad(400)]; %Axis 4: Really Unlimited to (800� default)
+                0 0.124; %Axis 3 (m)
+                -pi pi]; %Axis 4: Really Unlimited to (800� default)
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = [deg2rad(200); %Axis 1, rad/s
                 deg2rad(200); %Axis 2, rad/s
-                1; %Axis 3, m/s
+                1; 	      %Axis 3, m/s
                 deg2rad(360)];%Axis 6, rad/s
     
 robot.accelmax=robot.velmax/0.1; % 0.1 is here an acceleration time
