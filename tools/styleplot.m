@@ -1,4 +1,4 @@
-function stylePlot(ax, lineWidth, fontSize, fontName, fileName)
+function stylePlot(ax, lineWidth, fontSize, fontName, fileName, figSize)
 %STYLEPLOT Applies consistent styling to MATLAB plots and optionally saves to PNG.
 %
 %   stylePlot(ax, lineWidth, fontSize, fontName, fileName)
@@ -26,7 +26,9 @@ function stylePlot(ax, lineWidth, fontSize, fontName, fileName)
     if nargin < 4 || isempty(fontName)
         fontName = 'Times New Roman';
     end
-
+    if nargin < 6 || isempty(figSize)
+        figSize = [6, 4];
+    end
     % --- Apply style to lines ---
     lines = findall(ax, 'Type', 'Line');
     for i = 1:numel(lines)
@@ -52,6 +54,12 @@ function stylePlot(ax, lineWidth, fontSize, fontName, fileName)
                     'FontName', fontName);
     end
 
+    % resize figure equally
+    set(gcf, 'Units', 'inches', 'Position', [1 1 figSize],...
+    'PaperUnits', 'inches', 'PaperPosition', [0 0 figSize],...
+    'PaperSize', figSize);
+    
+    
     % --- Save to PNG if filename is provided ---
     if nargin >= 5 && ~isempty(fileName)
         % Ensure it ends with .png

@@ -27,16 +27,16 @@
 function robot = parameters()
 
 
-robot.name= 'KR180_R2100';
+robot.name= 'RRR';
 
-robot.DH.theta= '[q(1)   q(2)-pi/2   q(3)+pi/2 ]';
-robot.DH.d='[0.57   0   0   ]';
-robot.DH.a='[0.3   0.9   0.5   ]';
-robot.DH.alpha= '[-pi/2   0   0   ]';
+robot.DH.theta= '[q(1)   q(2)   q(3) ]';
+robot.DH.d=     '[0.3     0      0   ]';
+robot.DH.a=     '[0.0    0.5    0.5]';
+robot.DH.alpha= '[pi/2    0      0  ]';
 robot.J=[];
 
 
-robot.inversekinematic_fn = 'inversekinematic_kuka_kr180_r2100(robot, T)';
+robot.inversekinematic_fn = 'inversekinematic_RRR(robot, T)';
 
 %number of degrees of freedom
 robot.DOF = 3;
@@ -45,20 +45,15 @@ robot.DOF = 3;
 robot.kind=['R' 'R' 'R'];
 
 %minimum and maximum rotation angle in rad
-robot.maxangle =[(-165) (165); %Axis 1, minimum, maximum
-                (-135) (45);   %Axis 2, minimum, maximum
-                (-65) (155);  %Axis 3
-                (-350) (350);  %Axis 4:
-                (-125) (125);  %Axis 5
-                (-350) (350)] *pi/180; %Axis 6:
+robot.maxangle =[deg2rad(-180) deg2rad(180); %Axis 1, minimum, maximum
+                 deg2rad(-90) deg2rad(270);   %Axis 2, minimum, maximum
+                 deg2rad(-90) deg2rad(+90)]; %Axis 3:
 
 %maximum absolute speed of each joint rad/s or m/s
 robot.velmax = [deg2rad(136); %Axis 1, rad/s
                 deg2rad(95); %Axis 2, rad/s
-                deg2rad(120); %Axis 3, rad/s
-                deg2rad(179); %Axis 4, rad/s
-                deg2rad(172); %Axis 5, rad/s
-                deg2rad(219)];%Axis 6, rad/s
+                deg2rad(120)];%Axis 6, rad/s
+            
 % end effectors maximum velocity
 robot.linear_velmax = 1.0; %m/s, not specified
 
@@ -96,24 +91,20 @@ robot.has_dynamics=0;
 robot.dynamics.friction=0;
 
 %link masses (kg)
-robot.dynamics.masses=[4 6 3 2.5 1 0.5];
+robot.dynamics.masses=[10 10 10]; % m1, m2, m3
 
 %COM of each link with respect to own reference system [m]
-robot.dynamics.r_com=[  0	      0	       0;    %(rx, ry, rz) link 1
-                     -0.017	    0.005	  0.08;  %(rx, ry, rz) link 2
-                     -0.019	   -0.012	  0.05;  %(rx, ry, rz) link 3
-                        0       0.017      0;    %(rx, ry, rz) link 4
-                        0         0        0;    %(rx, ry, rz) link 5
-                        0         0       0.04]; %(rx, ry, rz) link 6
+robot.dynamics.r_com=[  0	      -0.1	       0;  %(rx, ry, rz) link 1
+                     -0.25	       0	       0;  %(rx, ry, rz) link 2
+                     -0.25	       0	       0]; %(rx, ry, rz) link 3
 
 %Inertia matrices of each link with respect to its D-H reference system.
 % Ixx	Iyy	Izz	Ixy	Iyz	Ixz, for each row [kg*m^2]
-robot.dynamics.Inertia=[0.024     0.018	   0.019   	0	0	0;
-                        0.063	  0.051	   0.022	0	0	0;
-                        0.005	  0.009	   0.009	0	0	0;
-                        0.005	  0.006    0.0082	0	0	0;
-                        .8e-3	  .0012    .0013	0	0	0;
-                        .17e-3    .09e-3   .09e-3	0	0	0];
+% moments of inertia with respect each of the center of 
+% masses
+robot.dynamics.Inertia=[0.21     0.21	   0.0125   	0	0	0;
+                        0.21	 0.21	   0.016        0	0	0;
+                        0.21	 0.21	   0.016        0	0	0];
 
 
 

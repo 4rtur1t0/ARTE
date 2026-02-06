@@ -26,31 +26,47 @@ h3=figure; grid on, hold on
 % initial and end target points (XYZ phi)
 tp0 = [-1.0, 1.5, 0.0, 3*pi/4]; 
 tpf = [1.2, 2.0, 0.0, pi/4];
-dxyz = tpf(1:3) - tp0(1:3);
-dabg = tpf(4) - tp0(4);
+
+% system requirements in absolute value (in linear speed/angular speed)
+v_max = [0.5 0.25]; %(m/s, rad/s)
+a_max = [0.25 0.125]; %(m/s/s, rad/s/s)
+delta_time = 0.05;
+
+% posicio
+p0 = tp0(1:3);
+pf = tpf(1:3);
+%orientacio
+phi0 = tp0(4);
+phif = tpf(4);
+% distancies en pos/orient
+dxyz = p0 - pf;
+dabg = phif - phi0;
 
 % planning in distances
 s0 = [0 0];
 sf = [norm(dxyz) norm(dabg)];
 
-% system requirements in absolute value
-v_max = [0.5 0.25]; %(m/s, rad/s)
-a_max = [0.25 0.125]; %(m/s/s, rad/s/s)
-delta_time = 0.05;
-
 % plan using the trapezoidal coordinated in the given space
 [st, sdt, sddt, time]= trapezoidal_coordinated(s0, sf, v_max, a_max, delta_time);
 plot_distances(st, sdt, sddt, time)
 
+% now normalize each st to 0-->1 and interpolate
+stnxyz = st(1,:)/st(1,end);
+stnphi = st(2,:)/st(2,end);
+% plot the normalized version
+plot_distances([stnxyz;stnphi], sdt, sddt, time)
+
 % now propagate the planning to the needed XYZ coordinates
+pt = p0'.*(1-stnxyz) + pf'.*stnxyz;
+phit = phi0.*(1-stnphi) + phif.*(stnphi);
+
+%generamos la velocidad y aceleracion lineales sobre la recta
 u = dxyz/norm(dxyz);
-pt = u'.*st(1, :) + tp0(1:3)';
 pdt = u'.*sdt(1, :);
 pddt = u'.*sddt(1, :);
-% alternativamente, se pued interpolar entre 
-% diferentes angulos de Euler
+
+% generamos la velocidad y aceleración angular (en el espacio de Euler)
 v = dabg/norm(dabg);
-phit = v*st(2, :)+ tp0(4);
 phidt = v*sdt(2, :);
 phiddt = v*sddt(2, :);
 
@@ -105,7 +121,11 @@ for i=1:length(pt)
     qt = [qt q];
     qdt = [qdt qd];
 end
-
+%drawrobot3d(robot, qt(:,1))
+%drawrobot3d(robot, qt(:,166), 1), hold on
+%plot(pt(1,:), pt(2,:), 'r.')
+%xlabel('X (m)')
+%ylabel('Y (m)')
 
 function plot_distances(st, sdt, sddt, time)
 close all
@@ -150,7 +170,7 @@ ylabel('$x(t), y(t), \phi(t)$ (m, rad)')
 figure(h2)
 plot(time, pdt)
 plot(time, phidt)
-legend('$\dot{x}(t)','$\dot{y}$', '$\dot{z}$' ,'$\dot{\phi}$')
+legend('$\dot{x}(t)$','$\dot{y}(t)$', '$\dot{z}(t)$' ,'$\dot{\phi}(t)$')
 xlabel('tiempo (s)')
 ylabel('$\dot{x}(t), \dot{y}(t), \dot{\phi}(t)$ (m, rad)')
 
@@ -162,7 +182,7 @@ xlabel('tiempo (s)')
 ylabel('$\ddot{x}(t), \ddot{y}(t), \ddot{\phi}(t)$ (m, rad)')
 
 figure(h4)
-plot(pt(1,:), pt(2,:))
+plot(pt(1,:), pt(2,:), 'r.')
 xlabel('X (m)')
 ylabel('Y (m)')
 
@@ -177,6 +197,7 @@ plot(time, qt), hold on, grid on
 legend('$q_1(t)$','$q_2(t)$','$q_3(t)$')
 xlabel('tiempo (s)')
 ylabel('$q(t)$ (rad)')
+%styleplot(gca, 4, 24, 'Arial','/home/arvc/Escritorio/temp/trapezoidal_qt_line.png', 2*[6, 4])
 
 figure(h2)
 plot(time, qdt), hold on, grid on

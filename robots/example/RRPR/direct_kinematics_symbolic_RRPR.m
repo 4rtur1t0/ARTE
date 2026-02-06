@@ -14,30 +14,27 @@
 % 
 % You should have received a copy of the GNU Leser General Public License
 % along with ARTE.  If not, see <http://www.gnu.org/licenses/>.
-function direct_kinematics_symbolic_IRB140
+function direct_kinematics_symbolic_UR5
 % link lengths
 
-syms q1 q2 q3 q4 q5 q6
-robot = load_robot('ABB', 'IRB140');
-q=[0 0 0 0 0 0];
-d = eval(robot.DH.d);
-a = eval(robot.DH.a);
-alpha = eval(robot.DH.alpha);
+syms q1 q2 q3 q4 q5 q6 L1 L2
+robot = load_robot('example', 'RRPR')
+
+%d = eval(robot.DH.d);
+%a = eval(robot.DH.a);
+%alpha = eval(robot.DH.alpha);
 
 % matrices DH
-A01 = dh_sym(q1, d(1), a(1), alpha(1))
-A12 = dh_sym(q2-pi/2, d(2), a(2), alpha(2))
-A23 = dh_sym(q3, d(3), a(3), alpha(3))
-A34 = dh_sym(q4, d(4), a(4), alpha(4))
+A01 = dh_sym(q1, L1, 0, pi/2);
+A12 = dh_sym(q2+pi/2, 0, 0, pi/2);
+A23 = dh_sym(0, q3, 0, -pi/2);
+A34 = dh_sym(q4-pi/2, 0, L2, 0);
 
-A04 = A01*A12*A23*A34;
-p04 = A04(1:3,4)
-p04 = simplify(p04)
+A02 = A01*A12;
+A03 = A02*A23;
+A04 = A03*A34;
 
-A10 = inv(A01)
-A10 = simplify(A10)
-
-
+A04 = simplify(A04)
  
  
 
@@ -45,7 +42,7 @@ A10 = simplify(A10)
 
 
 function A = dh_sym(theta, d, a, alpha)
-syms q1 q2 q3 q4 q5 q6
+syms q1 q2 q3 q4 q5 q6 L1 L2
 % avoid almost zero elements in cos(alpha) and sin(alpha)
 ca = cos(alpha);
 sa = sin(alpha);

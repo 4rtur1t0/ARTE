@@ -118,8 +118,8 @@ q=real(q);
 
 %normalize q to [-pi, pi]
 q(1,:) = normalize(q(1,:));
-%q(2,:) = normalize(q(2,:));
-%q(3,:) = normalize(q(3,:));
+q(2,:) = normalize(q(2,:));
+q(3,:) = normalize(q(3,:));
 
 % solve for the last three joints
 % for any of the possible combinations (theta1, theta2, theta3)
