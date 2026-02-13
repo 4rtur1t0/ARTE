@@ -85,7 +85,7 @@ robot = read_graphics(robot);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DYNAMIC PARAMETERS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-robot.has_dynamics=0;
+robot.has_dynamics=1;
 
 %consider friction in the computations
 robot.dynamics.friction=0;
@@ -94,19 +94,22 @@ robot.dynamics.friction=0;
 robot.dynamics.masses=[10 10 10]; % m1, m2, m3
 
 %COM of each link with respect to own reference system [m]
-robot.dynamics.r_com=[  0	      -0.1	       0;  %(rx, ry, rz) link 1
-                     -0.25	       0	       0;  %(rx, ry, rz) link 2
-                     -0.25	       0	       0]; %(rx, ry, rz) link 3
+robot.dynamics.r_com=[0	      -0.15	       0;  %(rx, ry, rz) link 1
+                     -0.25	     0	       0;  %(rx, ry, rz) link 2
+                     -0.25	     0	       0]; %(rx, ry, rz) link 3
 
 %Inertia matrices of each link with respect to its D-H reference system.
 % Ixx	Iyy	Izz	Ixy	Iyz	Ixz, for each row [kg*m^2]
 % moments of inertia with respect each of the center of 
 % masses
-robot.dynamics.Inertia=[0.21     0.21	   0.0125   	0	0	0;
-                        0.21	 0.21	   0.016        0	0	0;
-                        0.21	 0.21	   0.016        0	0	0];
+%robot.dynamics.Inertia=[0.02146      0.02146    0.00125 0	0	0;
+%                        0.02167	     0.02167    0.00167 0	0	0;
+%                        0.02167	     0.02167    0.00167 0	0	0];
+robot.dynamics.Inertia=[1.0      1.0    1.0  0	0	0;
+                        1.0	     1.0    1.0  0	0	0;
+                        1.0	     1.0    1.0  0	0	0];
 
-
+                   
 
 robot.motors=load_motors([5 5 5 4 4 4]);
 %Speed reductor at each joint
