@@ -23,8 +23,8 @@ h1=figure; grid on, hold on
 h2=figure; grid on, hold on
 h3=figure; grid on, hold on
 % initial and end values
-q0 = [0.5];
-qf = [1.2];
+q0 = [0.0];
+qf = [-1.2];
 % system requirements in absolute value
 omega_max = [0.5];
 alpha_max = [0.5];

@@ -1,19 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXERCISE: WRITE THE LAGRANGE FORMULATION FOR A 6DOF ROBOT
 % ROBOT with RRRRRR joints
-%
-%   Current application: to obtain the dynamic model of a 6 DOF robot
-%                       as simulated by Coppelia Sim
-%   Procedure:
-%   a) Define the DH parameters of the robot.
-%   b) Define the masses of each link.
-%   c) Define the local inertia matrices with respect of each
-%       COM reference system.
-%   d) Obtain the global position and orientation of the
-%       each COM reference system.
-% edit robot.dynamics.r_com and robot.dynamics.euler_com
-%   e) Obtain the relative position/orientation using the
-%       script compute_rel_COM.m
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright (C) 2012, by Arturo Gil Aparicio
@@ -41,7 +28,7 @@ function compute_dynamics_symbolic_lagrange_IRB140
 syms q1 q2 q3 q4 q5 q6 real
 syms qd1 qd2 qd3 qd4 qd5 qd6 real
 syms m1 m2 m3 m4 m5 m6 real
-%syms L1 L2 L3 L4 L5 L6
+syms L1 L2 L3 L4 L5 L6
 syms I1x I1y I1z real
 syms I2x I2y I2z real
 syms I3x I3y I3z real
@@ -53,50 +40,42 @@ q = [q1 q2 q3 q4 q5 q6];
 qd = [qd1 qd2 qd3 qd4 qd5 qd6];
 n=6;
 robot.DOF=6;
-%robot = load_robot('ABB', 'IRB140');
-%robot.DH.d
+
 % L1 = 0.352
 % L2 = 0.07
 % L3 = 0.36
 % L4 = 0.38
 % L5 = 0.065
 robot.DH.theta=eval( '[q1   q2-pi/2   q3   q4   q5   q6+pi]');
-robot.DH.d=     eval('[0.352     0       0    0.38    0    0.065]');
-robot.DH.a=    eval( '[0.07  0.36      0    0     0    0]');
+robot.DH.d=     eval('[L1     0       0    L4    0    L5]');
+robot.DH.a=    eval( '[L2     L3      0    0     0    0]');
 robot.DH.alpha= eval('[-pi/2  0    -pi/2 pi/2 -pi/2  0]');
 
 % Caution, the location of the COM is chosen as to 
 % match the COM of the IRB140 robot in Coppelia Sim, not in the
 % real robot
-% robot.dynamics.r_com=[ -L2	      L1/3    0;  %(rx, ry, rz) link 1
-%                       -L3/2	       0	       0;  %(rx, ry, rz) link 2
-%                         0	       0	       L4/8;
-%                         0         -L5          0;
-%                         0          0           0;
-%                         0          0           0]; %(rx, ry, rz) link 3
-% execute compute_rel_COM to obtain the vector of the COM
-% with respect to the DH of link i
-robot.dynamics.r_com=[ 
-   -0.0524    0.0796    0.0131;
-   -0.1704   -0.0088   -0.0388;
-   -0.0029   -0.0010    0.0520;
-    0.0001   -0.0365   -0.0005;
-    0.0001   0.0000   0.0000;
-   -0.0001    0.0000   -0.0045];
-
+robot.dynamics.r_com=[ -L2	      L1/3    0;  %(rx, ry, rz) link 1
+                      -L3/2	       0	       0;  %(rx, ry, rz) link 2
+                        0	       0	       L4/8;
+                        0         -L5          0;
+                        0          0           0;
+                        0          0           0]; %(rx, ry, rz) link 3
 % Three Euler XYZ angles that relate the
 % 0Ri orientation (DH) with the orientation of the COM.
-% also from compue_rel_COM
 robot.dynamics.euler_com=[ pi/2   0          0;      %(rx, ry, rz) link 1
                             0	   pi/2	    pi/2;  %(rx, ry, rz) link 2
-                            0	   pi/2	 pi;
+                            0	   -pi/2	 pi;
                             0       pi/2    pi/2;
                             pi       0       0;
-                            -pi       0     pi]; %(rx, ry, rz) link 3
-
+                            pi       0     -pi/2]; %(rx, ry, rz) link 3
+                        
 robot.dynamics.masses = [30 30 30 20 10 5];
                         
-% Moments of inertia with respect to the COM of each link
+                        % Moments of inertia with respect to the COM of each link
+%robot.dynamics.I=[  0.02146      0.02146    0.00125;  %(Ixx, Iyy, Izz) link 1
+%                    0.02167	     0.02167    0.00167;  %(Ixx, Iyy, Izz) link 2
+%                    0.02167	     0.02167    0.00167]; %(Ixx, Iyy, Izz) link 3
+                
 robot.dynamics.I=[I1x      I1y    I1z;  %(Ixx, Iyy, Izz) link 1
                   I2x      I2y    I2z;  %(Ixx, Iyy, Izz) link 2
                   I3x      I3y    I3z;
@@ -104,6 +83,7 @@ robot.dynamics.I=[I1x      I1y    I1z;  %(Ixx, Iyy, Izz) link 1
                   I5x      I5y    I5z;
                   I6x      I6y    I6z];
                  
+
 [M, C, G] = compute_inverse_dynamic_model(robot);
 matlabFunction(M, "File", "func_M.m")
 matlabFunction(C, "File", "func_C.m")
@@ -125,7 +105,7 @@ function [M] = compute_M(robot)
 syms q1 q2 q3 q4 q5 q6 real
 syms qd1 qd2 qd3 qd4 qd5 qd6 real
 syms m1 m2 m3 m4 m5 m6 real
-%syms L1 L2 L3 L4 L5 L6 real
+syms L1 L2 L3 L4 L5 L6 real
 syms I1x I1y I1z real
 syms I2x I2y I2z real
 syms I3x I3y I3z real
@@ -142,7 +122,6 @@ syms g real
 [Jvc5, Jw5] = compute_jacobians_linkj(robot, 5);
 [Jvc6, Jw6] = compute_jacobians_linkj(robot, 6);
 
-% global position 
 % global rotation matrices of the COM of link j
 [r, R01_com] = compute_rcom_Rcom_linkj(robot, 1);
 [r, R02_com] = compute_rcom_Rcom_linkj(robot, 2);
@@ -203,7 +182,7 @@ function [G] = compute_G(robot)
 % G2 = \part P/\partial q2 ... etc
 syms q1 q2 q3 q4 q5 q6 real
 syms m1 m2 m3 m4 m5 m6 real
-%syms L1 L2 L3 L4 L5 L6 real
+syms L1 L2 L3 L4 L5 L6 real
 syms g real
 
 q = [q1 q2 q3 q4 q5 q6];
